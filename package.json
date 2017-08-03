@@ -37,9 +37,19 @@
         "webpack-dev-server": "^2.4.1"
     },
     "dependencies": {
+        "cordova-android": "^6.2.3",
+        "cordova-plugin-whitelist": "^1.3.2",
         "framework7": "^1.5.4",
         "framework7-vue": "^0.8.5",
         "vue": "^2.2.4"
     },
-    "displayName": "BrokenStarsAndroid"
+    "displayName": "BrokenStarsAndroid",
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-whitelist": {}
+        },
+        "platforms": [
+            "android"
+        ]
+    }
 }
