@@ -307,6 +307,6 @@ export default {
         break;
       }
     }
-    return name;
+    return name[0].toUpperCase() + name.slice(1);
   }
 }

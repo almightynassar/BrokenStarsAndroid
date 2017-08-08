@@ -308,3 +308,5 @@ captures/
 /plugins
 .eslintrc.json
 /.vscode
+jsconfig.json
+cordova-typings.d.ts

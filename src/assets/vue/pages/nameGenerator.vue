@@ -6,19 +6,25 @@
 			<f7-list-item>
 				<f7-label><strong>Name List</strong></f7-label>
 				<f7-input type="select" v-model="selected">
-					<option v-for="(n,i) in names" :value="i" :key="'names-' + i">{{i}}</option>
+					<option v-for="(n,i) in names" :value="i" :key="'names-' + i">{{i[0].toUpperCase() + i.slice(1).replace("_", " ")}}</option>
 				</f7-input>
 			</f7-list-item>
       <f7-list-item>
-				<p>{{randomName1}}</p>
+				<p>{{randomName()}}</p>
 			</f7-list-item>
       <f7-list-item>
-				<p>{{randomName2}}</p>
+				<p>{{randomName()}}</p>
 			</f7-list-item>
       <f7-list-item>
-				<p>{{randomName3}}</p>
+				<p>{{randomName()}}</p>
+			</f7-list-item>
+      <f7-list-item>
+				<p>{{randomName()}}</p>
 			</f7-list-item>
 		</f7-list>
+    <f7-block>
+			<f7-button big fill color="blue" v-on:click="toggled = !toggled"><i class="material-icons color-white">refresh</i></f7-button>
+		</f7-block>
 	</f7-page>
 </template>
 
@@ -27,27 +33,16 @@
 		data() {
 			return {
         names: this.$bsFactory.getNames(),
-        selected: null
+        selected: null,
+        toggled: false
 			}
     },
-    computed: {
-      randomName1() {
-        if (this.selected !== null) {
-          return this.names[this.selected].name()
-        }
-        return "Please select a name list"
-      },
-      randomName2() {
+    methods: {
+      randomName() {
         if (this.selected !== null) {
           return this.names[this.selected].name();
         }
-        return "Please select a name list";
-      },
-      randomName3() {
-        if (this.selected !== null) {
-          return this.names[this.selected].name();
-        }
-        return "Please select a name list";
+        return "-";
       }
     }
 	}
