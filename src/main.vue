@@ -12,6 +12,7 @@
 				<f7-pages>
 					<f7-page>
 						<f7-list>
+							<f7-list-item link="/nameGenerator/" title="Name Generator" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/shipForm/" title="New Ship" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/form/" title="Form" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>

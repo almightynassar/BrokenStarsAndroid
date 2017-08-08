@@ -304,7 +304,7 @@ captures/
 !/template_src/webpack/configs/
 
 # Cordova
-platforms/
-plugins/
+/platforms
+/plugins
 .eslintrc.json
-.vscode
+/.vscode

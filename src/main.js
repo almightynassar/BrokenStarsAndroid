@@ -23,6 +23,21 @@ import App from './main.vue'
 // Import Custom Plugins
 import BsFactory from './plugins/bsFactory.js'
 
+// Load template data files into our factory
+var templateFiles = require.context("./data/templates", false, /\.js$/);
+var templateData = {};
+templateFiles.keys().forEach(function (file) {
+  templateData[file.split('\\').pop().split('/').pop().split('.').shift()] = (templateFiles(file)).default;
+});
+BsFactory.loadTemplates(templateData);
+// Load name data files into our factory
+var nameFiles = require.context("./data/names", false, /\.js$/);
+var nameData = [];
+nameFiles.keys().forEach(function (file) {
+  nameData.push( (nameFiles(file)).default );
+});
+BsFactory.loadNames(nameData);
+
 // Init Vue Plugins
 Vue.use(Framework7Vue)
 Vue.use(BsFactory)
@@ -34,8 +49,7 @@ new Vue({
   // Init Framework7 by passing parameters here
   framework7: {
     root: '#app',
-    /* Uncomment to enable Material theme: */
-    // material: true,
+    material: true,
     routes: Routes
   },
   // Register App Component

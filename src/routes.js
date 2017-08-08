@@ -12,6 +12,10 @@ export default [
     component: require('./assets/vue/pages/dynamic-route.vue')
   },
   {
+    path: '/nameGenerator/',
+    component: require('./assets/vue/pages/nameGenerator.vue')
+  },
+  {
     path: '/shipForm/',
     component: require('./assets/vue/pages/shipForm.vue')
   }

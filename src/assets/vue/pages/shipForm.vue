@@ -4,12 +4,12 @@
 		<f7-list form>
 			<!-- SHIP NAME -->
 			<f7-list-item>
-				<f7-label>Name</f7-label>
-				<f7-input type="text" placeholder="Name"></f7-input>
+				<f7-label><strong>Name</strong></f7-label>
+				<f7-input type="text" v-model="ship.name"></f7-input>
 			</f7-list-item>
 			<!-- HULL -->
 			<f7-list-item>
-				<f7-label>Hull</f7-label>
+				<f7-label><strong>Hull</strong></f7-label>
 				<f7-input type="select" v-model="ship.hull">
 					<option v-for="(n,i) in ship.categories.hulls" :value="i" :key="'hull-' + i">{{n}}</option>
 				</f7-input>
@@ -17,10 +17,10 @@
 			<f7-list-item>
 				<f7-accordion>
 					<f7-accordion-item>
-						<f7-accordion-toggle class="border-lightblue color-lightblue" style="text-align: center; border-radius: 0.5em; border-width: 0.2em; border-style: solid;">Hull Statistics</f7-accordion-toggle>
+						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Hull Statistics</f7-accordion-toggle>
 						<f7-accordion-content>
-							<f7-list>
-								<f7-list-item>
+							<f7-list class="content-border border-lightblue">
+								<f7-list-item class="color-gray">
 									<p v-show="ship.hull == 0">The <em>Interceptor</em> class are fast craft used to intercept and harras other spacecraft. They are usually deployed from other larger spacecraft, or from Space Stations.</p>
 									<p v-show="ship.hull == 1">The <em>Shuttle</em> class are small versatile spacecraft used for various functions (usually transferring material or personnel from one location to another). The most common spacecraft type.</p>
 									<p v-show="ship.hull == 2">The <em>Yacht</em> class are luxury spacecraft for general civilian use. Commonly used as cruise-liners, or as slightly larger <em>Shuttles</em>.</p>
@@ -55,38 +55,151 @@
 					</f7-accordion-item>
 				</f7-accordion>
 			</f7-list-item>
+			<!-- ATTRIBUTES -->
+			<f7-list-item>
+				<f7-accordion>
+					<f7-accordion-item>
+						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Attributes</f7-accordion-toggle>
+						<f7-accordion-content>
+							<f7-list class="content-border border-lightblue">
+								<f7-list-item class="color-gray">
+									<p>Attributes are the physical and technical characteristics of your particular ship.</p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>AI</strong></f7-label>
+									<f7-input type="select" v-model="ship.attributes.ai">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>The AI attribute determines the quality and capacity of your ship's computer. The higher your AI attribute, the more actions your ship's computer can take (and you will have access to better quality sub-systems).</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Armour</strong></f7-label>
+									<f7-input type="select" v-model="ship.attributes.armour">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>Armour determines your ship's protection against damage and integrity loss.</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Bulk</strong></f7-label>
+									<f7-input type="select" v-model="ship.attributes.bulk">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>Bulk is simply a measure of how much extra space your ship has. Higher values are better for cargo vessels.</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Engine</strong></f7-label>
+									<f7-input type="select" v-model="ship.attributes.engine">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>This attribute determines the quality of your thrusters, engines and FTL drive.</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Power</strong></f7-label>
+									<f7-input type="select" v-model="ship.attributes.power">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>Power is used to turn on extra devices, weapons and other ship fittings.</em></p>
+								</f7-list-item>
+							</f7-list>
+						</f7-accordion-content>
+					</f7-accordion-item>
+				</f7-accordion>
+			</f7-list-item>
+			<!-- SUB-SYSTEMS -->
+			<f7-list-item>
+				<f7-accordion>
+					<f7-accordion-item>
+						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Sub-Systems</f7-accordion-toggle>
+						<f7-accordion-content>
+							<f7-list class="content-border border-lightblue">
+								<f7-list-item class="color-gray">
+									<p></em>Sub-systems are the capabilities of your particular AI. Sub-system values are limited by the AI attribute (this means that it will cost you more creation points to make a sub-system go over your AI attribute score)</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Autopilot</strong></f7-label>
+									<f7-input type="select" v-model="ship.systems.autopilot">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>You AI is better at flying the ship (and evading incoming weapon's fire).</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>ECM</strong></f7-label>
+									<f7-input type="select" v-model="ship.systems.ecm">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>ECM (Electronic Counter-Measures) allows your ship's AI to confuse enemies' sensors and weapon targeting systems.</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Navigation</strong></f7-label>
+									<f7-input type="select" v-model="ship.systems.navigation">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>Navigation allows your ship's AI to plan your route through FTL jumps, planetary gravity wells and other difficult locations.</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Operations</strong></f7-label>
+									<f7-input type="select" v-model="ship.systems.operations">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>Allows your ship's AI to operation various devices and fittings (such as factories, medical labs and other support structures).</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Repair</strong></f7-label>
+									<f7-input type="select" v-model="ship.systems.repair">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>How well your ship's AI can fix your ship's integrity.</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Sensors</strong></f7-label>
+									<f7-input type="select" v-model="ship.systems.sensors">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>How well your ship's AI is at detecting objects (and tracking the trajectory of weapons).</em></p>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Weapons</strong></f7-label>
+									<f7-input type="select" v-model="ship.systems.weapons">
+										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
+									</f7-input>
+								</f7-list-item>
+								<f7-list-item>
+									<p><em>How well your ship's AI can operate machinery.</em></p>
+								</f7-list-item>
+							</f7-list>
+						</f7-accordion-content>
+					</f7-accordion-item>
+				</f7-accordion>
+			</f7-list-item>
 		</f7-list>
 		
-		<f7-block-title>Buttons</f7-block-title>
 		<f7-block inner>
-			<p><f7-button>Button</f7-button></p>
-			<p><f7-button round>Button Round</f7-button></p>
-			<p><f7-button fill>Button Fill</f7-button></p>
-			<p>
-				<f7-buttons>
-					<f7-button round active>Button 1</f7-button>
-					<f7-button round>Button 2</f7-button>
-					<f7-button round>Button 3</f7-button>
-				</f7-buttons>
-			</p>
-			<p>
-				<f7-buttons color="orange">
-					<f7-button round big>Button 1</f7-button>
-					<f7-button round big active>Button 2</f7-button>
-					<f7-button round big>Button 3</f7-button>
-				</f7-buttons>
-			</p>
 			<p>
 				<f7-grid>
-					<f7-col><f7-button big fill color="green">Send</f7-button></f7-col>
-					<f7-col><f7-button big fill color="red">Delete</f7-button></f7-col>
-				</f7-grid>
-			</p>
-			<p>
-				<f7-grid>
-					<f7-col><f7-button fill raised color="green">Raised</f7-button></f7-col>
-					<f7-col><f7-button raised color="red">Raised</f7-button></f7-col>
-					<f7-col><f7-button fill raised color="pink">Raised</f7-button></f7-col>
+					<f7-col><f7-button big fill color="green">Submit</f7-button></f7-col>
+					<f7-col><f7-button big fill color="red">Cancel</f7-button></f7-col>
 				</f7-grid>
 			</p>
 		</f7-block>
@@ -97,7 +210,7 @@
 	export default {
 		data() {
 			return {
-				ship: this.$bsFactory.makeShip()
+				ship: this.$bsFactory.getTemplate("ships")
 			}
 		}
 	}
