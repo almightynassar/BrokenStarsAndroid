@@ -30,15 +30,15 @@ let config = function (env) {
     output: {
       pathinfo: true,
       devtoolLineToLine: true,
-      filename: '[hash].[name].js',
-      sourceMapFilename: "[hash].[name].js.map",
+      filename: '[name].js',
+      sourceMapFilename: "[name].js.map",
       path: path.join(__dirname, 'www')
     },
     
     module: {
       rules: [
-        {test: /\.(png|jpe?g|gif)$/, loader: 'file-loader', options: {name: '[name].[ext]?[hash]'}},
-        {test: /\.(woff2?|eot|ttf|otf|mp3|wav)(\?.*)?$/, loader: 'file-loader', options: {name: '[name].[ext]?[hash]'}},
+        {test: /\.(png|jpe?g|gif)$/, loader: 'file-loader', options: {name: '[name].[ext]'}},
+        {test: /\.(woff2?|eot|ttf|otf|mp3|wav)(\?.*)?$/, loader: 'file-loader', options: {name: '[name].[ext]'}},
         {test: /\.svg$/, loader: 'url-loader'},
         {test: /\.scss$/, loader: [ 'vue-style-loader', 'css-loader', 'sass-loader']},
         {test: /\.sass$/, loader: [ 'vue-style-loader', 'css-loader', 'sass-loader?indentedSyntax']},

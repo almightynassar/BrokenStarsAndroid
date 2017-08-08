@@ -306,3 +306,5 @@ captures/
 # Cordova
 platforms/
 plugins/
+.eslintrc.json
+.vscode
