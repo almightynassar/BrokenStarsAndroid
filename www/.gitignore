@@ -1,0 +1,6 @@
+static/
+*.html
+*.js
+*.css
+MaterialIcons-*
+*.md

@@ -247,6 +247,7 @@ export default {
   // Add a name to our chains
   add(name) {
     if (typeof name === 'string') {
+      name = name.toLowerCase();
       this.word_count += 1;
       this.num_of_chars += name.length;
       this.average_length = Math.round(this.num_of_chars / this.word_count);

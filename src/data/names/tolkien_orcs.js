@@ -1,9 +1,32 @@
 export default {
   name: "tolkien_orcs",
   contrib: [
+    "https://en.wikipedia.org/wiki/Middle-earth_Orc_characters#References",
     "http://www.orcs.ca/orcsmain/resourcename.html#ONL"
   ],
   list: [
+    // wikipedia.org
+    "azog",
+    "balcmeg",
+    "boldog",
+    "bolg",
+    "golfimbul",
+    "gorbag",
+    "gorgol",
+    "grishnakh",
+    "lagduf",
+    "lug",
+    "lugdush",
+    "mauhur",
+    "muzgash",
+    "orcobal",
+    "othrod",
+    "radbug",
+    "shagrat",
+    "snaga",
+    "ufthak",
+    "ugluk",
+    // orcs.ca
     "abghat",
     "adgulg",
     "aghed",
