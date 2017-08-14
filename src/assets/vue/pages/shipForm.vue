@@ -50,6 +50,22 @@
 									<f7-label><strong>Base Storage</strong></f7-label>
 									<f7-label>{{ship.getBaseBulk()}}</f7-label>
 								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Integrity</strong></f7-label>
+									<f7-label>{{ship.getIntegrity()}}</f7-label>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Base Acceleration</strong></f7-label>
+									<f7-label>{{ship.getBaseAcceleration()}}</f7-label>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Base Top Speed</strong></f7-label>
+									<f7-label>{{ship.getBaseTopSpeed()}}</f7-label>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Base Fuel per FTL Jump</strong></f7-label>
+									<f7-label>{{ship.getBaseFTL()}}</f7-label>
+								</f7-list-item>
 							</f7-list>
 						</f7-accordion-content>
 					</f7-accordion-item>
@@ -187,6 +203,38 @@
 								</f7-list-item>
 								<f7-list-item>
 									<p><em>How well your ship's AI can operate machinery.</em></p>
+								</f7-list-item>
+							</f7-list>
+						</f7-accordion-content>
+					</f7-accordion-item>
+				</f7-accordion>
+			</f7-list-item>
+			<!-- Derivative Values -->
+			<f7-list-item>
+				<f7-accordion>
+					<f7-accordion-item>
+						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Derivative Values</f7-accordion-toggle>
+						<f7-accordion-content>
+							<f7-list class="content-border border-lightblue">
+								<f7-list-item>
+									<f7-label><strong>AI Evade</strong></f7-label>
+									<f7-label>{{ship.getEvade()}}</f7-label>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Toughness</strong></f7-label>
+									<f7-label>{{ship.getToughness()}}</f7-label>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Power</strong></f7-label>
+									<f7-label>{{ship.getPower()}}</f7-label>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Acceleration</strong></f7-label>
+									<f7-label>{{ship.getAcceleration()}}</f7-label>
+								</f7-list-item>
+								<f7-list-item>
+									<f7-label><strong>Top Speed</strong></f7-label>
+									<f7-label>{{ship.getTopSpeed()}}</f7-label>
 								</f7-list-item>
 							</f7-list>
 						</f7-accordion-content>

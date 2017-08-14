@@ -44,17 +44,22 @@ export default {
   },
   // Utility Functions
   boundNearestFive(value) {
+    value = parseInt(value);
     return (value > 10) ? Math.round(value / 5) * 5 : value;
   },
   boundNearestTen(value) {
+    value = parseInt(value);
     return (value > 20) ? Math.round(value / 10) * 10 : value;
   },
   boundDiceValue(value) {
+    value = parseInt(value);
     return (value < 0) ? 0 : ((value >= this.categories.dice.length) ? this.categories.dice.length - 1 : value);
   },
   boundHullValue(value) {
     return (value < 0) ? 0 : ((value >= this.categories.hull.length) ? this.categories.hull.length - 1 : value);
   },
+  convertToDieValue(value) { return (4 + (value * 2)); },
+  convertToDieMultiplier(value) { return ((value / 8) + 0.25); },
   // Attributes
   attributes: {
     ai: 1,
@@ -69,27 +74,27 @@ export default {
   getEngine() { return this.getDiceCategory(this.attributes.engine); },
   getPower() { return this.getDiceCategory(this.attributes.power); },
   setAI(value) {
-    var old = this.attributes.ai;
+    var old = parseInt(this.attributes.ai);
     this.attributes.ai = this.boundDiceValue(value);
     return (old !== this.attributes.ai);
   },
   setArmour(value) {
-    var old = this.attributes.armour;
+    var old = parseInt(this.attributes.armour);
     this.attributes.armour = this.boundDiceValue(value);
     return (old !== this.attributes.armour);
   },
   setBulk(value) {
-    var old = this.attributes.bulk;
+    var old = parseInt(this.attributes.bulk);
     this.attributes.bulk = this.boundDiceValue(value);
     return (old !== this.attributes.bulk);
   },
   setEngine(value) {
-    var old = this.attributes.engine;
+    var old = parseInt(this.attributes.engine);
     this.attributes.engine = this.boundDiceValue(value);
     return (old !== this.attributes.engine);
   },
   setPower(value) {
-    var old = this.attributes.power;
+    var old = parseInt(this.attributes.power);
     this.attributes.power = this.boundDiceValue(value);
     return (old !== this.attributes.power);
   },
@@ -111,50 +116,63 @@ export default {
   getSensors() { return this.getDiceCategory(this.systems.sensors); },
   getWeapons() { return this.getDiceCategory(this.systems.weapons); },
   setAutopilot(value) {
-    var old = this.systems.autopilot;
+    var old = parseInt(this.systems.autopilot);
     this.systems.autopilot = this.boundDiceValue(value);
     return (old !== this.systems.autopilot);
   },
   setECM(value) {
-    var old = this.systems.ecm;
+    var old = parseInt(this.systems.ecm);
     this.systems.ecm = this.boundDiceValue(value);
     return (old !== this.systems.ecm);
   },
   setNavigation(value) {
-    var old = this.systems.navigation;
+    var old = parseInt(this.systems.navigation);
     this.systems.navigation = this.boundDiceValue(value);
     return (old !== this.systems.navigation);
   },
   setOperations(value) {
-    var old = this.systems.operations;
+    var old = parseInt(this.systems.operations);
     this.systems.operations = this.boundDiceValue(value);
     return (old !== this.systems.operations);
   },
   setRepair(value) {
-    var old = this.systems.repair;
+    var old = parseInt(this.systems.repair);
     this.systems.repair = this.boundDiceValue(value);
     return (old !== this.systems.repair);
   },
   setSensors(value) {
-    var old = this.systems.sensors;
+    var old = parseInt(this.systems.sensors);
     this.systems.sensors = this.boundDiceValue(value);
     return (old !== this.systems.sensors);
   },
   setWeapons(value) {
-    var old = this.systems.weapons;
+    var old = parseInt(this.systems.weapons);
     this.systems.weapons = this.boundDiceValue(value);
     return (old !== this.systems.weapons);
   },
   // Hull information
   hull: 0,
   getHull() { return this.getHullCategory(this.hull); },
-  getSize() { return this.hull - 1; },
+  getSize() { return parseInt(this.hull) - 1; },
+  getIntegrity() {
+    var hullVal = parseInt(this.hull);
+    return Math.ceil( hullVal - ((hullVal + 2 ) / 4) + 1 );
+  },
   getBaseCrew() { return this.boundNearestFive(Math.floor(Math.pow(this.hull,1.5))+1); },
   getBasePower() { return this.boundNearestFive(Math.floor((this.hull*2.5)+Math.pow(this.hull,1.5))+5); },
   getBaseBulk() { return this.boundNearestTen(Math.floor((this.hull*2.5)+Math.pow(this.hull,2.5))+2); },
+  getBaseAcceleration() { return this.boundNearestFive(Math.ceil((50-(Math.pow(this.hull,0.9)*5)))); },
+  getBaseTopSpeed() { return this.boundNearestTen(Math.ceil((500-(Math.pow(this.hull,0.9)*40)))); },
+  getBaseFTL() { return Math.abs(this.hull) + 1; },
   setHull(value) {
-    var old = this.hull;
+    var old = parseInt(this.hull);
     this.hull = this.boundHullValue(value);
     return (old !== this.hull);
   },
+  // Derivatives
+  getEvade() { return ( this.convertToDieValue(this.systems.autopilot) / 2) + 2; },
+  getToughness() { return ( this.convertToDieValue(this.attributes.armour) / 2) + 2 + this.getSize(); },
+  getPower() { return Math.ceil(this.getBasePower() * this.convertToDieMultiplier(this.attributes.power)); },
+  getAcceleration() { return Math.ceil(this.getBaseAcceleration() * this.convertToDieMultiplier(this.attributes.engine)); },
+  getTopSpeed() { return Math.ceil(this.getBaseTopSpeed() * this.convertToDieMultiplier(this.attributes.engine)); },
 };
