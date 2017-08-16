@@ -2,7 +2,8 @@ export default {
   // Local Data storage
   data: {
     templates: null,
-    names: {}
+    names: {},
+    database: null
   },
   // Load template data files
   loadTemplates(values) {
@@ -31,7 +32,26 @@ export default {
   },
   // Required Vue plugin installation function
   install(Vue, options) {
+    // Reference for callback functions
     var self = this;
+    // Initiliase the Database when the device is ready
+    Vue.cordova.on('deviceready', () => {
+      console.log('Setting up the database')
+      // Test Sqlite is installed and running
+      window.sqlitePlugin.echoTest(() => {
+        console.log("Sqlite is installed")
+      }, () => {
+        console.log("ERROR: Sqlite is not installed")
+      });
+      // Open connection to the database
+      self.database = window.sqlitePlugin.openDatabase({name: 'brokenstars.db', location: 'default'})
+      // Create Table structure
+      self.database.transaction(function(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS ships (id integer primary key, name text, data text)');
+      }, function(tx, e) {
+          console.log("ERROR: " + e.message);
+      });
+    });
     Vue.prototype.$bsFactory = {
       getTemplate(list) {
         if (self.data.templates[list] !== "object" || self.data.templates[list] === null) {

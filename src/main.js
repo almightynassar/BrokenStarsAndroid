@@ -1,6 +1,9 @@
 // Import Vue
 import Vue from 'vue'
 
+// Vue Cordova interface
+import VueCordova from 'vue-cordova'
+
 // Import F7
 import Framework7 from 'framework7'
 
@@ -39,6 +42,7 @@ nameFiles.keys().forEach(function (file) {
 BsFactory.loadNames(nameData);
 
 // Init Vue Plugins
+Vue.use(VueCordova)
 Vue.use(Framework7Vue)
 Vue.use(BsFactory)
 
