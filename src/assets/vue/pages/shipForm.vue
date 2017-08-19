@@ -14,117 +14,88 @@
 					<option v-for="(n,i) in ship.categories.hulls" :value="i" :key="'hull-' + i">{{n}}</option>
 				</f7-input>
 			</f7-list-item>
-			<f7-list-item>
-				<f7-accordion>
-					<f7-accordion-item>
-						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Hull Statistics</f7-accordion-toggle>
-						<f7-accordion-content>
-							<f7-list class="content-border border-lightblue">
-								<f7-list-item class="color-gray">
-									<p v-show="ship.hull == 0">The <em>Interceptor</em> class are fast craft used to intercept and harras other spacecraft. They are usually deployed from other larger spacecraft, or from Space Stations.</p>
-									<p v-show="ship.hull == 1">The <em>Shuttle</em> class are small versatile spacecraft used for various functions (usually transferring material or personnel from one location to another). The most common spacecraft type.</p>
-									<p v-show="ship.hull == 2">The <em>Yacht</em> class are luxury spacecraft for general civilian use. Commonly used as cruise-liners, or as slightly larger <em>Shuttles</em>.</p>
-									<p v-show="ship.hull == 3">The <em>Patrol</em> class is commonly used as non-military law enforcement spacecraft.</p>
-									<p v-show="ship.hull == 4">The <em>Escort</em> class is commonly used to protect other spacecraft from smaller, mobile enemy craft. Other uses include being inter-system Cargo Transports, Troopships and Tankers.</p>
-									<p v-show="ship.hull == 5">The <em>Corvette</em> class is the smallest class of warship, usually used for scouting, raiding or guarding key points. Usually operates as part of a larger group.</p>
-									<p v-show="ship.hull == 6">The <em>Frigate</em> class is designed to be tough enough for mostly independent missions. It is used for raiding, long-range patrol, bombardment, or scouting.</p>
-									<p v-show="ship.hull == 7">The <em>Cruiser</em> class is the "<em>Jack-Of-All-Trades</em>" warship; large enough to handle themselves, but fast enough to run away from bigger threats. Due to their expense, "<em>Frigates</em>" are more commonly used during Peace-time.</p>
-									<p v-show="ship.hull == 8">The <em>Battleship</em> class spacecraft are usually the largest in a fleet. Their expense means that only a few are operational in conventional navies.</p>
-									<p v-show="ship.hull == 9">The <em>Dreadnought</em> class spacecraft are rare, and only used as Flagships.</p>
-									<p v-show="ship.hull == 10">The <em>Carrier</em> class spacecraft are huge, mainly so that they can transport smaller <em>Interceptor</em> spacecraft into battle.</p>
-									<p v-show="ship.hull == 11">The <em>Worldship</em> class are feats of modern engineering. They are so large that they can usually sustain a functional population internally.</p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Hull Size</strong></f7-label>
-									<f7-label>{{ship.getSize()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Base Crew</strong></f7-label>
-									<f7-label>{{ship.getBaseCrew()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Base Power</strong></f7-label>
-									<f7-label>{{ship.getBasePower()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Base Storage</strong></f7-label>
-									<f7-label>{{ship.getBaseBulk()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Integrity</strong></f7-label>
-									<f7-label>{{ship.getIntegrity()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Base Acceleration</strong></f7-label>
-									<f7-label>{{ship.getBaseAcceleration()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Base Top Speed</strong></f7-label>
-									<f7-label>{{ship.getBaseTopSpeed()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Base Fuel per FTL Jump</strong></f7-label>
-									<f7-label>{{ship.getBaseFTL()}}</f7-label>
-								</f7-list-item>
-							</f7-list>
-						</f7-accordion-content>
-					</f7-accordion-item>
-				</f7-accordion>
+			<f7-list-item class="color-gray">
+				<p v-show="ship.hull == 0"><em>Interceptor</em>-class are fast and small craft used to intercept and harrass.</p>
+				<p v-show="ship.hull == 1"><em>Shuttle</em>-class are versatile spacecraft used for various functions.</p>
+				<p v-show="ship.hull == 2"><em>Yacht</em>-class are commonly used as luxury transports.</p>
+				<p v-show="ship.hull == 3"><em>Patrol</em>-class are commonly used as non-military law enforcement spacecraft.</p>
+				<p v-show="ship.hull == 4"><em>Escort</em>-class are commonly used to protect other spacecraft, inter-system transports, troopships and tankers.</p>
+				<p v-show="ship.hull == 5"><em>Corvette</em>-class are the smallest class of warship, usually used to guard key points.</p>
+				<p v-show="ship.hull == 6"><em>Frigate</em>-class are designed for raiding, long-range patrol, and scouting.</p>
+				<p v-show="ship.hull == 7"><em>Cruiser</em>-class are the "<em>Jack-Of-All-Trades</em>" warship; large enough to handle themselves, but fast enough to run away from bigger threats.</p>
+				<p v-show="ship.hull == 8"><em>Battleship</em>-class are usually the largest warship in a fleet. Their expense means that only a few are operational in conventional navies.</p>
+				<p v-show="ship.hull == 9"><em>Dreadnought</em>-class are rare and exceptional, and generally used as Flagships.</p>
+				<p v-show="ship.hull == 10"><em>Carrier</em>-class spacecraft are huge, mainly so that they can transport smaller <em>Interceptor</em> spacecraft into battle.</p>
+				<p v-show="ship.hull == 11"><em>Worldship</em>-class are feats of modern engineering. They are so large that they can usually sustain a functional population internally.</p>
 			</f7-list-item>
 			<!-- ATTRIBUTES -->
 			<f7-list-item>
 				<f7-accordion>
-					<f7-accordion-item>
-						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Attributes</f7-accordion-toggle>
+					<f7-accordion-item class="content-border border-lightblue">
+						<f7-accordion-toggle class="content-center-text color-lightblue">Attributes</f7-accordion-toggle>
 						<f7-accordion-content>
-							<f7-list class="content-border border-lightblue">
+							<f7-list>
 								<f7-list-item class="color-gray">
 									<p>Attributes are the physical and technical characteristics of your particular ship.</p>
 								</f7-list-item>
 								<f7-list-item>
-									<f7-label><strong>AI</strong></f7-label>
-									<f7-input type="select" v-model="ship.attributes.ai">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>The AI attribute determines the quality and capacity of your ship's computer. The higher your AI attribute, the more actions your ship's computer can take (and you will have access to better quality sub-systems).</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Armour</strong></f7-label>
-									<f7-input type="select" v-model="ship.attributes.armour">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>Armour determines your ship's protection against damage and integrity loss.</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Bulk</strong></f7-label>
-									<f7-input type="select" v-model="ship.attributes.bulk">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>Bulk is simply a measure of how much extra space your ship has. Higher values are better for cargo vessels.</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Engine</strong></f7-label>
-									<f7-input type="select" v-model="ship.attributes.engine">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>This attribute determines the quality of your thrusters, engines and FTL drive.</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Power</strong></f7-label>
-									<f7-input type="select" v-model="ship.attributes.power">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>Power is used to turn on extra devices, weapons and other ship fittings.</em></p>
+									<f7-grid>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>AI</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.attributes.ai">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Determines the upper limit of your sub-systems.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Armour</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.attributes.armour">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Determines your ship's protection against damage and integrity loss.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Bulk</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.attributes.bulk">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Represents how much extra space your spacecraft has.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="50" tablet-width="25">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Engine</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.attributes.engine">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Represents your relative ship, and the efficiency of your FTL drive.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Power</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.attributes.power">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>How much extra power you have to power ship systems.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+									</f7-grid>
 								</f7-list-item>
 							</f7-list>
 						</f7-accordion-content>
@@ -134,75 +105,93 @@
 			<!-- SUB-SYSTEMS -->
 			<f7-list-item>
 				<f7-accordion>
-					<f7-accordion-item>
-						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Sub-Systems</f7-accordion-toggle>
+					<f7-accordion-item class="content-border border-lightblue">
+						<f7-accordion-toggle class="content-center-text color-lightblue">Sub-Systems</f7-accordion-toggle>
 						<f7-accordion-content>
-							<f7-list class="content-border border-lightblue">
+							<f7-list>
 								<f7-list-item class="color-gray">
-									<p></em>Sub-systems are the capabilities of your particular AI. Sub-system values are limited by the AI attribute (this means that it will cost you more creation points to make a sub-system go over your AI attribute score)</em></p>
+									<p></em>Your Ship's AI sub-systems are limited by the AI attribute (this means that it will cost you more creation points to make a sub-system go over your AI attribute score)</em></p>
 								</f7-list-item>
 								<f7-list-item>
-									<f7-label><strong>Autopilot</strong></f7-label>
-									<f7-input type="select" v-model="ship.systems.autopilot">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>You AI is better at flying the ship (and evading incoming weapon's fire).</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>ECM</strong></f7-label>
-									<f7-input type="select" v-model="ship.systems.ecm">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>ECM (Electronic Counter-Measures) allows your ship's AI to confuse enemies' sensors and weapon targeting systems.</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Navigation</strong></f7-label>
-									<f7-input type="select" v-model="ship.systems.navigation">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>Navigation allows your ship's AI to plan your route through FTL jumps, planetary gravity wells and other difficult locations.</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Operations</strong></f7-label>
-									<f7-input type="select" v-model="ship.systems.operations">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>Allows your ship's AI to operation various devices and fittings (such as factories, medical labs and other support structures).</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Repair</strong></f7-label>
-									<f7-input type="select" v-model="ship.systems.repair">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>How well your ship's AI can fix your ship's integrity.</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Sensors</strong></f7-label>
-									<f7-input type="select" v-model="ship.systems.sensors">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>How well your ship's AI is at detecting objects (and tracking the trajectory of weapons).</em></p>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Weapons</strong></f7-label>
-									<f7-input type="select" v-model="ship.systems.weapons">
-										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
-									</f7-input>
-								</f7-list-item>
-								<f7-list-item>
-									<p><em>How well your ship's AI can operate machinery.</em></p>
+									<f7-grid>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Autopilot</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.systems.autopilot">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Controls piloting your ship if you do not have a pilot.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>ECM</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.systems.ecm">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Electronic Counter-Measures allows your ship's AI to confuse enemies' sensors and targeting systems.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Navigation</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.systems.navigation">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Planning routes through FTL Jumps or difficult areas (such as asteroid fields or high gravity wells).</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Operations</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.systems.operations">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Generic sub-system for operating various facilites (such as workshop or med-bay).</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Repair</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.systems.repair">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>How well your ship will self-repair from integrity loss.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Sensors</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.systems.sensors">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>How well your ship can detect enemies and other objects in space.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Weapons</strong></f7-col>
+												<f7-col width="50" tablet-width="25">
+													<f7-input type="select" v-model="ship.systems.weapons">
+														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
+													</f7-input>
+												</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Operating your ship's weapons and targeting array.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+									</f7-grid>
 								</f7-list-item>
 							</f7-list>
 						</f7-accordion-content>
@@ -212,34 +201,99 @@
 			<!-- Derivative Values -->
 			<f7-list-item>
 				<f7-accordion>
-					<f7-accordion-item>
-						<f7-accordion-toggle class="content-border content-center-text border-lightblue color-lightblue">Derivative Values</f7-accordion-toggle>
+					<f7-accordion-item class="content-border border-lightblue">
+						<f7-accordion-toggle class="content-center-text color-lightblue">Statistics</f7-accordion-toggle>
 						<f7-accordion-content>
-							<f7-list class="content-border border-lightblue">
+							<f7-list>
 								<f7-list-item>
-									<f7-label><strong>AI Evade</strong></f7-label>
-									<f7-label>{{ship.getEvade()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Toughness</strong></f7-label>
-									<f7-label>{{ship.getToughness()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Power</strong></f7-label>
-									<f7-label>{{ship.getPower()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Acceleration</strong></f7-label>
-									<f7-label>{{ship.getAcceleration()}}</f7-label>
-								</f7-list-item>
-								<f7-list-item>
-									<f7-label><strong>Top Speed</strong></f7-label>
-									<f7-label>{{ship.getTopSpeed()}}</f7-label>
+									<f7-grid>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>AI Evade</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getEvade()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Your AI's evasion if you do not have a dedicated pilot.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Breech</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getToughness()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>The target number that total enemy damage must exceed.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Crew</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getCrew()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Amount of crew this spacecraft can support. Includes bedrooms and amenities</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Fuel</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getBaseFTL()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Represents fuel usage per FTL jump.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Hull Size</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getSize()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Modifier that represents the relative size of spacecraft.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Integrity</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getIntegrity()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Represents how many breeches the spacecraft can take.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Power</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getPower()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Amount of extra power for ship fittings.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Speed</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getAcceleration()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Your spacecrafts acceleration through frictionless space.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Storage</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getBulk()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>The amount of free space. 1 storage space equals a 2.5 m x 2.5 m cube.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
+									</f7-grid>
 								</f7-list-item>
 							</f7-list>
 						</f7-accordion-content>
 					</f7-accordion-item>
 				</f7-accordion>
+			</f7-list-item>
+			<f7-list-item>
+				<f7-grid>
+					<f7-col width="50" tablet-width="25"><strong>Points</strong></f7-col>
+					<f7-col width="50" tablet-width="25">{{ship.getPoints()}}</f7-col>
+				</f7-grid>
+			</f7-list-item>
+			<f7-list-item>
+				<f7-grid>
+					<f7-col width="50" tablet-width="25"><strong>Rank</strong></f7-col>
+					<f7-col width="50" tablet-width="25">{{ship.getRank()}}</f7-col>
+				</f7-grid>
+			</f7-list-item>
+			<f7-list-item>
+				<f7-grid>
+					<f7-col width="50" tablet-width="25"><strong>Cost</strong></f7-col>
+					<f7-col width="50" tablet-width="25">{{formatNumber(ship.getCost())}}</f7-col>
+				</f7-grid>
 			</f7-list-item>
 		</f7-list>
 		
@@ -258,7 +312,13 @@
 	export default {
 		data() {
 			return {
-				ship: this.$bsFactory.getTemplate("ships")
+				ship: this.$bsFactory.getShip(),
+				formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
+			}
+		},
+		methods: {
+			formatNumber(value) {
+				return this.formatter.format(parseInt(value));
 			}
 		}
 	}

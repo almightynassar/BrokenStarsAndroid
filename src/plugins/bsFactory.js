@@ -1,9 +1,10 @@
+var clone = require('clone');
 export default {
   // Local Data storage
   data: {
     templates: null,
     names: {},
-    database: null
+    database: null,
   },
   // Load template data files
   loadTemplates(values) {
@@ -16,13 +17,14 @@ export default {
   },
   // Load name data files
   loadNames(values) {
-    if (this.data.templates.names !== "object" || this.data.templates.names === null) {
-      console.log("Names object template is undefined");
+    if (typeof this.data.templates.names !== "object" || this.data.templates.names === null) {
+      console.log("loadNames(): Names object template is undefined");
+      throw new Error();
     }
     if (Array.isArray(values) && values !== null) {
       var self = this;
       values.forEach(function (v) {
-        self.data.names[v.name] = Object.create(self.data.templates.names);
+        self.data.names[v.name] = clone(self.data.templates.names);
         self.data.names[v.name].construct(v.list);
       });
     } else {
@@ -36,12 +38,13 @@ export default {
     var self = this;
     // Initiliase the Database when the device is ready
     Vue.cordova.on('deviceready', () => {
-      console.log('Setting up the database')
+      console.log('Setting up the database');
       // Test Sqlite is installed and running
       window.sqlitePlugin.echoTest(() => {
-        console.log("Sqlite is installed")
+        console.log("Sqlite is installed");
       }, () => {
-        console.log("ERROR: Sqlite is not installed")
+        console.log("ERROR: Sqlite is not installed");
+        throw new Error();
       });
       // Open connection to the database
       self.database = window.sqlitePlugin.openDatabase({name: 'brokenstars.db', location: 'default'})
@@ -54,20 +57,26 @@ export default {
     });
     Vue.prototype.$bsFactory = {
       getTemplate(list) {
-        if (self.data.templates[list] !== "object" || self.data.templates[list] === null) {
-          console.log(list + " object template is undefined");
+        if (typeof self.data.templates[list] !== "object" || self.data.templates[list] === null) {
+          console.log("getTemplate(): " + list + " object template is undefined");
+          throw new Error();
         }
         return self.data.templates[list];
       },
+      getShip() {
+        return clone(self.data.templates.ships)
+      },
       getNames() {
-        if (self.data.names !== "object" || self.data.names === null) {
-          console.log("Names object template is undefined");
+        if (typeof self.data.names !== "object" || self.data.names === null) {
+          console.log("getNames(): Names object template is undefined");
+          throw new Error();
         }
         return self.data.names;
       },
       getNameGenerator(list) {
-        if (self.data.templates.names !== "object" || self.data.templates.names === null) {
-          console.log("Names object template is undefined");
+        if (typeof self.data.templates.names !== "object" || self.data.templates.names === null) {
+          console.log("getNameGenerator(): Names object template is undefined");
+          throw new Error();
         }
         return self.data.names[list];
       }

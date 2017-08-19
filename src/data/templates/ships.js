@@ -58,8 +58,14 @@ export default {
   boundHullValue(value) {
     return (value < 0) ? 0 : ((value >= this.categories.hull.length) ? this.categories.hull.length - 1 : value);
   },
-  convertToDieValue(value) { return (4 + (value * 2)); },
-  convertToDieMultiplier(value) { return ((value / 8) + 0.25); },
+  convertToDieValue(value) { 
+    value = parseInt(value) - 1;
+    return parseInt(4 + (value * 2));
+  },
+  convertToDieMultiplier(value) {
+    value = parseInt(value);
+    return parseFloat((this.convertToDieValue(value) / 8) + 0.25);
+  },
   // Attributes
   attributes: {
     ai: 1,
@@ -162,7 +168,6 @@ export default {
   getBasePower() { return this.boundNearestFive(Math.floor((this.hull*2.5)+Math.pow(this.hull,1.5))+5); },
   getBaseBulk() { return this.boundNearestTen(Math.floor((this.hull*2.5)+Math.pow(this.hull,2.5))+2); },
   getBaseAcceleration() { return this.boundNearestFive(Math.ceil((50-(Math.pow(this.hull,0.9)*5)))); },
-  getBaseTopSpeed() { return this.boundNearestTen(Math.ceil((500-(Math.pow(this.hull,0.9)*40)))); },
   getBaseFTL() { return Math.abs(this.hull) + 1; },
   setHull(value) {
     var old = parseInt(this.hull);
@@ -170,9 +175,56 @@ export default {
     return (old !== this.hull);
   },
   // Derivatives
+  getBulk() { return this.getBaseBulk(); },
+  getCrew() { return this.getBaseCrew(); },
   getEvade() { return ( this.convertToDieValue(this.systems.autopilot) / 2) + 2; },
   getToughness() { return ( this.convertToDieValue(this.attributes.armour) / 2) + 2 + this.getSize(); },
   getPower() { return Math.ceil(this.getBasePower() * this.convertToDieMultiplier(this.attributes.power)); },
   getAcceleration() { return Math.ceil(this.getBaseAcceleration() * this.convertToDieMultiplier(this.attributes.engine)); },
-  getTopSpeed() { return Math.ceil(this.getBaseTopSpeed() * this.convertToDieMultiplier(this.attributes.engine)); },
+  // Get price and creation points
+  getPoints() {
+    let points = 0
+    for (var key in this.attributes) {
+      if (this.attributes.hasOwnProperty(key)) {
+        points += (parseInt(this.attributes[key]) - 1)
+      }
+    }
+    for (var key in this.systems) {
+      if (this.systems.hasOwnProperty(key)) {
+        let overflow = (this.systems[key] > this.attributes.ai) ? parseInt(this.systems[key]) - parseInt(this.attributes.ai) : 0
+        let limit = (this.systems[key] > this.attributes.ai) ? parseInt(this.attributes.ai) : parseInt(this.systems[key])
+        points += parseInt(limit + (overflow * 2))
+      }
+    }
+    return points
+  },
+  getRank() {
+    let points = this.getPoints()
+    if ( points >= 60 ) {
+      return "Superior"
+    } else if ( points >= 40 ) {
+      return "Advanced"
+    } else if ( points >= 20 ) {
+      return "Basic"
+    }
+    return "Budget"
+  },
+  getCost() {
+    let hullBasePrice = Math.pow(parseInt(this.hull)+1,2) * 10000
+    let price = 0
+    for (var key in this.attributes) {
+      if (this.attributes.hasOwnProperty(key)) {
+        price += (this.convertToDieMultiplier(this.attributes[key]) * hullBasePrice)
+      }
+    }
+    for (var key in this.systems) {
+      if (this.systems.hasOwnProperty(key)) {
+        let temp = (this.convertToDieMultiplier(this.systems[key]) * hullBasePrice)
+        price += (this.systems[key] > this.attributes.ai) ? (temp * 2) : temp
+      }
+    }
+    return this.boundNearestFive(price)
+  },
+  // Data storage and retrieval functions
+
 };
