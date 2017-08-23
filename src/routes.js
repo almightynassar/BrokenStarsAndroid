@@ -9,6 +9,18 @@ export default [
   },
   {
     path: '/shipForm/',
-    component: require('./assets/vue/pages/shipForm.vue')
+    component: require('./assets/vue/ship/new.vue')
+  },
+  {
+    path: '/shipAnalyse/',
+    component: require('./assets/vue/ship/analyse.vue')
+  },
+  {
+    path: '/fittingsList/',
+    component: require('./assets/vue/ship/fittings.vue')
+  },
+  {
+    path: '/weaponsList/',
+    component: require('./assets/vue/ship/weapons.vue')
   }
 ]

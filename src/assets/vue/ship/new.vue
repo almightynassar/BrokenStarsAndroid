@@ -59,7 +59,7 @@
 														<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
 													</f7-input>
 												</f7-col>
-												<f7-col width="100"><p class="color-gray"><em>Determines your ship's protection against damage and integrity loss.</em></p></f7-col>
+												<f7-col width="100"><p class="color-gray"><em>Determines your ship's protection against damage and integrity loss (as well as available weapon hardpoints).</em></p></f7-col>
 											</f7-grid>
 										</f7-col>
 										<f7-col width="100" tablet-width="50">
@@ -73,7 +73,7 @@
 												<f7-col width="100"><p class="color-gray"><em>Represents how much extra space your spacecraft has.</em></p></f7-col>
 											</f7-grid>
 										</f7-col>
-										<f7-col width="50" tablet-width="25">
+										<f7-col width="100" tablet-width="25">
 											<f7-grid>
 												<f7-col width="50" tablet-width="25"><strong>Engine</strong></f7-col>
 												<f7-col width="50" tablet-width="25">
@@ -270,6 +270,13 @@
 												<f7-col width="100"><p class="color-gray"><em>The amount of free space. 1 storage space equals a 2.5 m x 2.5 m cube.</em></p></f7-col>
 											</f7-grid>
 										</f7-col>
+										<f7-col width="100" tablet-width="50">
+											<f7-grid>
+												<f7-col width="50" tablet-width="25"><strong>Hardpoints</strong></f7-col>
+												<f7-col width="50" tablet-width="25">{{ship.getHardpoints()}}</f7-col>
+												<f7-col width="100"><p class="color-gray"><em>The amount of mounts on which to place weapons or other defensive structures.</em></p></f7-col>
+											</f7-grid>
+										</f7-col>
 									</f7-grid>
 								</f7-list-item>
 							</f7-list>
@@ -313,6 +320,7 @@
 		data() {
 			return {
 				ship: this.$bsFactory.getShip(),
+				fittings: this.$bsFactory.getTemplate('fittings'),
 				formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
 		},
