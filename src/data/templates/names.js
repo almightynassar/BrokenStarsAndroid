@@ -277,25 +277,32 @@ export default {
     var startObj = this.start_c.getStart();
     var prior = startObj.key;
     var key = this.start_c.getToken(prior);
+    var loopBreaker = 0;
     var token = '';
+    var endToken = '';
     // Initialise our name value
     var name = prior + key;
     // Loop until our name reaches the minimum length (unless we break the loop early)
-    while (name.length < this.average_length) {
+    while ((name.length < this.average_length) && (loopBreaker <= 10)) {
       // Select a letter from the word chain
       token = this.word_c.getToken(key, prior);
+      endToken = this.end_c.getToken(token, key);
       // Make sure we have a valid letter to continue traversing the chain
-      if (token !== '') {
+      if ((endToken !== '') && (name.length > (parseInt(this.average_length)*0.5))) {
+        name += (token + endToken);
+        return name[0].toUpperCase() + name.slice(1);
+      } else if (token !== '') {
         name += token;
         // Shift our values
         prior = key;
         key = token;
       } else {
-        break;
+        loopBreaker++;
       }
     }
     // Search for our terminal letter
-    while ((token = this.end_c.getToken(key, prior)) === '') {
+    loopBreaker = 0;
+    while (((endToken = this.end_c.getToken(key, prior)) === '') && (loopBreaker <= 10)) {
       // Select a letter from the word chain
       token = this.word_c.getToken(key, prior);
       // Make sure we have a valid letter to continue traversing the chain
@@ -305,9 +312,10 @@ export default {
         prior = key;
         key = token;
       } else {
-        break;
+        loopBreaker++;
       }
     }
+    name += endToken;
     return name[0].toUpperCase() + name.slice(1);
   }
 }

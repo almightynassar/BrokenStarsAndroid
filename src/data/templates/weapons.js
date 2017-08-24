@@ -78,7 +78,7 @@ export default {
       storage: 0,
       power: -1,
       cost: 25000,
-      damage: "3d4",
+      damage: "2d4",
       range: 40,
       rof: 1,
       hardpoints: -1,

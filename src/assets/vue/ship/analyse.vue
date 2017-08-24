@@ -12,8 +12,8 @@
             <th class="numeric-cell">Power</th>
             <th class="numeric-cell">Storage</th>
             <th class="numeric-cell">Speed</th>
-            <th class="numeric-cell">FTL Fuel</th>
-            <th class="numeric-cell">Hardpoints</th>
+            <th class="numeric-cell">FTL Fuel per Jump</th>
+            <th class="numeric-cell">Weapon Hardpoints</th>
             <th class="numeric-cell">Cost</th>
           </tr>
         </thead>
