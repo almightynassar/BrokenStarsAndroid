@@ -306,10 +306,7 @@
 		
 		<f7-block inner>
 			<p>
-				<f7-grid>
-					<f7-col><f7-button big fill color="green">Submit</f7-button></f7-col>
-					<f7-col><f7-button big fill color="red">Cancel</f7-button></f7-col>
-				</f7-grid>
+				<f7-button big fill color="green" v-on:click="onClick">Submit</f7-button>
 			</p>
 		</f7-block>
 	</f7-page>
@@ -327,6 +324,17 @@
 		methods: {
 			formatNumber(value) {
 				return this.formatter.format(parseInt(value));
+			},
+			onClick() {
+				let saved = this.$bsFactory.saveShip(this.ship)
+				console.log(saved)
+				if (saved === 2) {
+					this.$f7.alert(this.ship.name+" has been added")
+				} else if (saved === 1) {
+					this.$f7.alert(this.ship.name+" has been updated")
+				} else {
+					this.$f7.alert("ERROR: "+this.ship.name+" could not be saved")
+				}
 			}
 		}
 	}

@@ -233,6 +233,41 @@ export default {
     }
     return this.boundNearestFive(price) * 100
   },
+  // Stores fittings and weapons information
+  fittings: [],
+  weapons: [],
+  saveFittingsFormat() {
+    var obj = [];
+    for (var index = 0; index < this.fittings.length; index++) {
+      obj.push({
+        id: this.fittings[index].id,
+        quantity: this.fittings[index].quantity,
+        active: this.fittings[index].active
+      });
+    }
+    return obj;
+  },
+  saveWeaponsFormat() {
+    var obj = [];
+    for (var index = 0; index < this.weapons.length; index++) {
+      obj.push({
+        id: this.weapons[index].id,
+        quantity: this.weapons[index].quantity,
+        active: this.weapons[index].active
+      });
+    }
+    return obj;
+  },
   // Data storage and retrieval functions
-
+  saveShipFormat() {
+    var obj = {
+      name: this.name,
+      hull: this.hull,
+      attributes: this.attributes,
+      systems: this.systems,
+      fittings: this.saveFittingsFormat(),
+      weapons: this.saveWeaponsFormat()
+    };
+    return obj;
+  }
 };

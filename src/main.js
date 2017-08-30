@@ -54,7 +54,8 @@ new Vue({
   framework7: {
     root: '#app',
     material: true,
-    routes: Routes
+    routes: Routes,
+    modalTitle: "Broken Stars"
   },
   // Register App Component
   components: {

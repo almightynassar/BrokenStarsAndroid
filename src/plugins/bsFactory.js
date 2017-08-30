@@ -66,6 +66,38 @@ export default {
       getShip() {
         return clone(self.data.templates.ships)
       },
+      saveShip(ship) {
+        if (ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons')) {
+          let name = ship.name
+          let data = JSON.stringify(ship.saveShipFormat())
+          let saved = 0
+          self.database.transaction(function(tx) {
+            // Update if row exists
+            tx.executeSql("UPDATE ships SET name = ?, data = ? WHERE name = ?;", [name, data, name], function(tx, res) {
+              if (res.rowsAffected  > 0) {
+                console.log("Ship Updated: " + name)
+                self.saved = 1
+              }
+            },
+            function(tx, error) {
+                console.log('UPDATE error: ' + error.message)
+            });
+            // Insert if Update failed
+            tx.executeSql("INSERT INTO ships (name, data) SELECT ?, ? WHERE (SELECT Changes() = 0);", [name, data], function(tx, res) {
+              if (res.rowsAffected  > 0) {
+                console.log("Ship Created: " + name)
+                self.saved = 2
+              }
+            },
+            function(tx, error) {
+                console.log('INSERT error: ' + error.message);
+            });
+          }, function(tx, e) {
+              console.log("ERROR: " + e.message);
+          })
+          return saved
+        }
+      },
       getNames() {
         if (typeof self.data.names !== "object" || self.data.names === null) {
           console.log("getNames(): Names object template is undefined");
