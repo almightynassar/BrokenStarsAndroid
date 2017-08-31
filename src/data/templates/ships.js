@@ -27,6 +27,7 @@ export default {
     ],
   },
   getDiceCategory(index) {
+    index = parseInt(index)
     if ( (index < 0) || (typeof index !== "number")) {
       return this.categories.dice[0];
     } else if (index >= this.categories.dice.length) {
@@ -35,6 +36,7 @@ export default {
     return this.categories.dice[index];
   },
   getHullCategory(index) {
+    index = parseInt(index)
     if ( (index < 0) || (typeof index !== "number")) {
       return this.categories.hulls[0];
     } else if (index >= this.categories.hulls.length) {
@@ -56,6 +58,7 @@ export default {
     return (value < 0) ? 0 : ((value >= this.categories.dice.length) ? this.categories.dice.length - 1 : value);
   },
   boundHullValue(value) {
+    value = parseInt(value)
     return (value < 0) ? 0 : ((value >= this.categories.hulls.length) ? this.categories.hulls.length - 1 : value);
   },
   convertToDieValue(value) { 
@@ -236,38 +239,42 @@ export default {
   // Stores fittings and weapons information
   fittings: [],
   weapons: [],
-  saveFittingsFormat() {
-    var obj = [];
-    for (var index = 0; index < this.fittings.length; index++) {
-      obj.push({
-        id: this.fittings[index].id,
-        quantity: this.fittings[index].quantity,
-        active: this.fittings[index].active
-      });
-    }
-    return obj;
-  },
-  saveWeaponsFormat() {
-    var obj = [];
-    for (var index = 0; index < this.weapons.length; index++) {
-      obj.push({
-        id: this.weapons[index].id,
-        quantity: this.weapons[index].quantity,
-        active: this.weapons[index].active
-      });
-    }
-    return obj;
-  },
-  // Data storage and retrieval functions
-  saveShipFormat() {
+  /**
+   * Convert Ship values into a JSON Object string
+   */
+  deflate() {
     var obj = {
-      name: this.name,
       hull: this.hull,
       attributes: this.attributes,
       systems: this.systems,
-      fittings: this.saveFittingsFormat(),
-      weapons: this.saveWeaponsFormat()
+      fittings: this.fittings,
+      weapons: this.weapons
     };
-    return obj;
+    return JSON.stringify(obj);
+  },
+  /**
+   * Load values from a JSON Object string
+   * 
+   * @param String name 
+   * @param String data 
+   */
+  hydrate(name, data) {
+    let obj = JSON.parse(data)
+    this.name = name
+    if (obj.hasOwnProperty('hull')) {
+      this.hull = this.boundHullValue(obj.hull)
+    }
+    if (obj.hasOwnProperty('attributes')) {
+      this.attributes = obj.attributes
+    }
+    if (obj.hasOwnProperty('systems')) {
+      this.systems = obj.systems
+    }
+    if (obj.hasOwnProperty('fittings')) {
+      this.fittings = obj.fittings
+    }
+    if (obj.hasOwnProperty('weapons')) {
+      this.weapons = obj.weapons
+    }
   }
 };

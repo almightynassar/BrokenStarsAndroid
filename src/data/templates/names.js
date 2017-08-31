@@ -92,7 +92,7 @@ var Chain = function () {
         }
       }
     }catch(e){
-      console.log(e); //error in the above string(in this case,yes)!
+      console.error("templates/names.js : " + e);
     }
     return '';
   }
@@ -149,7 +149,7 @@ var Chain = function () {
         }
       }
     }catch(e){
-      console.log(e); //error in the above string(in this case,yes)!
+      console.error("templates/names.js : " + e);
     }
     return startObject;
   }

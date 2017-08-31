@@ -290,7 +290,7 @@
 		},
     mounted() {
       for (var index = 0; index < this.temp.categories.hulls.length; index++) {
-        var s = this.$bsFactory.getShip();
+        var s = this.$bsFactory.cloneShip();
         s.setHull(index);
         this.ships.push(s);
       }

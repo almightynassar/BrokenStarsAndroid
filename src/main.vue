@@ -13,6 +13,7 @@
 					<f7-page>
 						<f7-block-title>Spacecraft</f7-block-title>
 						<f7-list>
+							<f7-list-item link="/shipList/" title="List Ships" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/shipForm/" title="New Ship" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/shipAnalyse/" title="Hull List" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/fittingsList/" title="Fittings" link-view="#main-view" link-close-panel></f7-list-item>

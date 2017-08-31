@@ -316,7 +316,7 @@
 	export default {
 		data() {
 			return {
-				ship: this.$bsFactory.getShip(),
+				ship: this.$bsFactory.cloneShip(),
 				fittings: this.$bsFactory.getTemplate('fittings'),
 				formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
@@ -327,7 +327,6 @@
 			},
 			onClick() {
 				let saved = this.$bsFactory.saveShip(this.ship)
-				console.log(saved)
 				if (saved === 2) {
 					this.$f7.alert(this.ship.name+" has been added")
 				} else if (saved === 1) {

@@ -8,6 +8,10 @@ export default [
     component: require('./assets/vue/pages/nameGenerator.vue')
   },
   {
+    path: '/shipList/',
+    component: require('./assets/vue/ship/list.vue')
+  },
+  {
     path: '/shipForm/',
     component: require('./assets/vue/ship/new.vue')
   },
