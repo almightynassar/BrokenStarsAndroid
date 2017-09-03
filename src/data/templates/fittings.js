@@ -1,6 +1,15 @@
 export default {
   fittings: [
     {
+      id: "ADTRM",
+      name: "Auditorium",
+      storage: -5,
+      power: -1,
+      crew: 0,
+      cost: 12000,
+      description: "Provides a space designed with acoustics and artistic appreciation in mind."
+    },
+    {
       id: "ARMY",
       name: "Armoury",
       storage: -1,
@@ -15,8 +24,8 @@ export default {
       storage: -1,
       power: -2,
       crew: 0,
-      cost: 50000,
-      description: "Attached to a single ship-mounted weapon. Fires that weapon automatically (using Ship's Weapons attribute)"
+      cost: 100000,
+      description: "Attached to a single ship-mounted weapon. Fires that weapon independantly (using Ship's Weapons attribute) and without using one of your Ship's actions"
     },
     {
       id: "AUTOS",
@@ -24,8 +33,8 @@ export default {
       storage: -1,
       power: -2,
       crew: 0,
-      cost: 10000,
-      description: "Attached to a single fitting. Operates that system automatically (using an appropriate Ship attribute)"
+      cost: 25000,
+      description: "Attached to a single fitting. Operates that system independantly (using an appropriate Ship attribute such as Operations) and without using on of your Ship's actions"
     },
     {
       id: "BRCHT",
@@ -44,6 +53,24 @@ export default {
       crew: 0,
       cost: 1500000,
       description: "Need to purchase 1 device per level of Hull Size to effectively cloak (minimum of 1 device). On a successful Operations roll (either Ship AI or Character), your ship is practically hidden. Enemies take a -4 penalty on their Notice or Sensor rolls."
+    },
+    {
+      id: "CMMNR",
+      name: "Common Room",
+      storage: -3,
+      power: 0,
+      crew: 0,
+      cost: 1000,
+      description: "General purpose hall used for entertainment or training purposes."
+    },
+    {
+      id: "DNGHL",
+      name: "Dining Hall",
+      storage: -3,
+      power: 0,
+      crew: 0,
+      cost: 1000,
+      description: "Seating and tables for eating meals."
     },
     {
       id: "DEFDRN",
@@ -100,6 +127,15 @@ export default {
       description: "Holds 5 units of FTL fuel. Can also be used to store other liquids and chemicals (it costs $500 to clean it thoroughly if you change chemicals)"
     },
     {
+      id: "HLDCLL",
+      name: "Holding Cell",
+      storage: -1,
+      power: 0,
+      crew: 0,
+      cost: 1500,
+      description: "Secure room meant to hold a prisoner."
+    },
+    {
       id: "HYDRO",
       name: "Hydroponics",
       storage: -6,
@@ -107,6 +143,24 @@ export default {
       crew: 0,
       cost: 10000,
       description: "Each Hydroponics unit produces enough food and water for 30 people"
+    },
+    {
+      id: "KTCHN",
+      name: "Kitchen",
+      storage: -3,
+      power: -1,
+      crew: 0,
+      cost: 2500,
+      description: "Cooking facilities (use for cooking and preparing meals using fresh ingredients)."
+    },
+    {
+      id: "LIBCOM",
+      name: "Library Computer",
+      storage: -1,
+      power: -1,
+      crew: 0,
+      cost: 2500,
+      description: "Stores digital copies of a certain type of information. Whenever you are docked, you can change the catalogue to a subject of your choice (General information will be an assortment of media sources, entertainment and non-fiction material)."
     },
     {
       id: "MAGGP",
@@ -169,7 +223,7 @@ export default {
       power: -1,
       crew: 0,
       cost: 2500,
-      description: "Provides showering, toilet, entertainment and kitchenette facilities (Suitable for up to 30 people). Your ship will already have one built-in."
+      description: "Provides showers (5), toilets (5), and a laundromat."
     },
     {
       id: "QRTRB",

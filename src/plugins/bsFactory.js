@@ -72,7 +72,6 @@ export default {
           for(var x = 0; x < resultSet.rows.length; x++) {
             let tempShip = clone(self.data.templates.ships)
             tempShip.hydrate(resultSet.rows.item(x).name, resultSet.rows.item(x).data)
-            console.log("LOADING: " + tempShip.name + ", Hull: " + tempShip)
             self.data.ships.push({
               name: resultSet.rows.item(x).name,
               ship: tempShip
@@ -132,6 +131,18 @@ export default {
         return self.data.ships.findIndex(function(ship) { return ship.name === this.name; } , {'name': name});
       },
       /**
+       * Delete a named
+       * 
+       * @param String name 
+       */
+      deleteShip(name) {
+        let index = this.getShipID(name)
+        // Delete from variable
+        self.data.ships.splice(index, 1)
+        // Delete from database
+        this.deleteShipInDB(name)
+      },
+      /**
        * Save a Ship object to the local array (and sync the database)
        * 
        * @param Ship ship 
@@ -148,7 +159,7 @@ export default {
               ship: ship
             })
           }
-          this.syncShips()
+          this.storeShipInDB(ship)
           return (findExistingShip >= 0) ? 1 : 2;
         }
         return -1
@@ -194,6 +205,25 @@ export default {
             console.error("ERROR : DB : " + e.message);
           })
         }
+      },
+      /**
+       * Delete a Ship object from the local database
+       * 
+       * @param String name
+       */
+      deleteShipInDB(name) {
+        self.data.database.transaction(function(tx) {
+          tx.executeSql("DELETE FROM ships WHERE name = ?;", [name], function(tx, res) {
+            if (res.rowsAffected  > 0) {
+              console.log("DB DELETE => ship: " + name)
+            }
+          },
+          function(tx, error) {
+            console.error('ERROR : DB DELETE : ' + error.message)
+          });
+        }, function(tx, e) {
+          console.error("ERROR : DB : " + e.message);
+        })
       },
       /**
        * Grab the object/array of Names
