@@ -179,6 +179,7 @@ export default {
     return (old !== this.hull);
   },
   // Derivatives
+  getActionsAI() { return this.convertToDieValue(this.attributes.ai); },
   getBulk() { return Math.ceil(this.getBaseBulk() * this.convertToDieMultiplier(this.attributes.bulk)); },
   getCrew() { return this.getBaseCrew(); },
   getEvade() { return ( this.convertToDieValue(this.systems.autopilot) / 2) + 2; },
@@ -236,8 +237,11 @@ export default {
     }
     return this.boundNearestFive(price) * 100
   },
-  // Stores fittings and weapons information
+  /**
+   * Stores fittings, notes and weapons information
+   */ 
   fittings: [],
+  notes: [],
   weapons: [],
   /**
    * Convert Ship values into a JSON Object string
@@ -248,7 +252,8 @@ export default {
       attributes: this.attributes,
       systems: this.systems,
       fittings: this.fittings,
-      weapons: this.weapons
+      weapons: this.weapons,
+      notes: this.notes
     };
     return JSON.stringify(obj);
   },
@@ -275,6 +280,9 @@ export default {
     }
     if (obj.hasOwnProperty('weapons')) {
       this.weapons = obj.weapons
+    }
+    if (obj.hasOwnProperty('notes')) {
+      this.notes = obj.notes
     }
   }
 };
