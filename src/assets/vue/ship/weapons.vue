@@ -33,8 +33,11 @@
 				return this.formatter.format(parseInt(value));
       },
       onRowClicked (data, field, event) {
+        let index = this.$refs.weaponstable.visibleDetailRows.indexOf(data.id)
         this.$refs.weaponstable.visibleDetailRows = []
-        this.$refs.weaponstable.showDetailRow(data.id)
+        if (index == -1) {
+          this.$refs.weaponstable.showDetailRow(data.id)
+        }
       }
 		}
   }

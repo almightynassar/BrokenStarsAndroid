@@ -1,38 +1,22 @@
 <template>
 	<f7-page>
     <div class="data-table">
-      <table>
-        <thead>
-          <tr>
-            <th class="label-cell">Type</th>
-            <th class="numeric-cell">Size</th>
-            <th class="numeric-cell">Integrity</th>
-            <th class="numeric-cell">Toughness</th>
-            <th class="numeric-cell">Crew</th>
-            <th class="numeric-cell">Power</th>
-            <th class="numeric-cell">Storage</th>
-            <th class="numeric-cell">Speed</th>
-            <th class="numeric-cell">FTL Fuel per Jump</th>
-            <th class="numeric-cell">Weapon Hardpoints</th>
-            <th class="numeric-cell">Cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="s in ships" :key="s.name">
-            <td class="label-cell">{{ s.getHull() }}</td>
-            <td class="numeric-cell">{{ s.getSize() }}</td>
-            <td class="numeric-cell">{{ s.getIntegrity() }}</td>
-            <td class="numeric-cell">{{ s.getToughness() }}</td>
-            <td class="numeric-cell">{{ s.getCrew() }}</td>
-            <td class="numeric-cell">{{ s.getPower() }}</td>
-            <td class="numeric-cell">{{ s.getBulk() }}</td>
-            <td class="numeric-cell">{{ s.getAcceleration() }}</td>
-            <td class="numeric-cell">{{ s.getFTL() }}</td>
-            <td class="numeric-cell">{{ s.getHardpoints() }}</td>
-            <td class="numeric-cell">{{ formatNumber( s.getCost() ) }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <vuetable
+        ref="hullsummarytable"
+        :api-mode="false"
+        :data="ships"
+        :fields="fields"
+        track-by="hull"
+        detail-row-component="detail-row-ship-summary"
+        @vuetable:row-clicked="onRowClicked"
+      >
+        <template slot="hull" scope="props">
+          {{ props.rowData.getHull() }}
+        </template>
+        <template slot="cost" scope="props">
+          {{ formatNumber( props.rowData.getCost() ) }}
+        </template>
+      </vuetable>
     </div>
     <f7-accordion>
       <f7-accordion-item class="content-border border-lightblue">
@@ -41,55 +25,61 @@
           <f7-list>
             <f7-list-item>
               <f7-grid>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>AI</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="attributes.ai">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>AI</strong> <help-ai></help-ai>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Armour</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="attributes.armour">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="attributes.ai">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+                  </f7-input>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Bulk</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="attributes.bulk">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Armour</strong> <help-armour></help-armour>
                 </f7-col>
-                <f7-col width="100" tablet-width="25">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Engine</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="attributes.engine">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="attributes.armour">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
+                  </f7-input>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Power</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="attributes.power">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Bulk</strong> <help-bulk></help-bulk>
+                </f7-col>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="attributes.bulk">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
+                  </f7-input>
+                </f7-col>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Engine</strong> <help-engine></help-engine>
+                </f7-col>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="attributes.engine">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
+                  </f7-input>
+                </f7-col>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Power</strong> <help-power></help-power>
+                </f7-col>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="attributes.power">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+                  </f7-input>
                 </f7-col>
               </f7-grid>
             </f7-list-item>
@@ -103,75 +93,85 @@
           <f7-list>
             <f7-list-item>
               <f7-grid>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Autopilot</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="systems.autopilot">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Autopilot</strong> <help-autopilot></help-autopilot>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>ECM</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="systems.ecm">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="systems.autopilot">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
+                  </f7-input>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Navigation</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="systems.navigation">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>ECM</strong> <help-ecm></help-ecm>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Operations</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="systems.operations">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="systems.ecm">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
+                  </f7-input>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Repair</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="systems.repair">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Navigation</strong> <help-navigation></help-navigation>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Sensors</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="systems.sensors">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="systems.navigation">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
+                  </f7-input>
                 </f7-col>
-                <f7-col width="100" tablet-width="50">
-                  <f7-grid>
-                    <f7-col width="50" tablet-width="25"><strong>Weapons</strong></f7-col>
-                    <f7-col width="50" tablet-width="25">
-                      <f7-input type="select" v-model="systems.weapons">
-                        <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
-                      </f7-input>
-                    </f7-col>
-                  </f7-grid>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Operations</strong> <help-operations></help-operations>
+                </f7-col>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="systems.operations">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
+                  </f7-input>
+                </f7-col>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Repair</strong> <help-repair></help-repair>
+                </f7-col>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="systems.repair">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
+                  </f7-input>
+                </f7-col>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Sensors</strong> <help-sensors></help-sensors>
+                </f7-col>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="systems.sensors">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
+                  </f7-input>
+                </f7-col>
+              </f7-grid>
+            </f7-list-item>
+            <f7-list-item>>
+              <f7-grid>
+                <f7-col width="50" tablet-width="25">
+                  <strong>Weapons</strong> <help-weapons></help-weapons>
+                </f7-col>
+                <f7-col width="50" tablet-width="25">
+                  <f7-input type="select" v-model="systems.weapons">
+                    <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
+                  </f7-input>
                 </f7-col>
               </f7-grid>
             </f7-list-item>
@@ -204,6 +204,20 @@
           sensors: 0,
           weapons: 0,
         },
+        fields: [
+          {
+            name: '__slot:hull',
+            title: 'Hull',
+            titleClass: 'center aligned',
+            dataClass: 'center aligned'
+          },
+          {
+            name: '__slot:cost',
+            title: 'Cost',
+            titleClass: 'center aligned',
+            dataClass: 'center aligned'
+          },
+        ],
         formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
     },
@@ -286,6 +300,13 @@
 		methods: {
 			formatNumber(value) {
 				return this.formatter.format(parseInt(value));
+      },
+      onRowClicked (data, field, event) {
+        let index = this.$refs.hullsummarytable.visibleDetailRows.indexOf(data.hull)
+        this.$refs.hullsummarytable.visibleDetailRows = []
+        if (index == -1) {
+          this.$refs.hullsummarytable.showDetailRow(data.hull)
+        }
       }
 		},
     mounted() {

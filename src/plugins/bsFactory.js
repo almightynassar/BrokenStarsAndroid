@@ -72,10 +72,7 @@ export default {
           for(var x = 0; x < resultSet.rows.length; x++) {
             let tempShip = clone(self.data.templates.ships)
             tempShip.hydrate(resultSet.rows.item(x).name, resultSet.rows.item(x).data)
-            self.data.ships.push({
-              name: resultSet.rows.item(x).name,
-              ship: tempShip
-            })
+            self.data.ships.push( tempShip )
           }
         }, function (tx, error) {
             console.error('ERROR : DB SELECT => All ships : ' + error.message);
@@ -90,12 +87,6 @@ export default {
      * This is where the rest of the app will interface with this plugin
      */
     Vue.prototype.$bsFactory = {
-      /**
-       * Link to internal data
-       */
-      _data: {
-        ships: self.data.ships
-      },
       /**
        * Return a template object (named the same as the imported source data file)
        * 
@@ -113,6 +104,12 @@ export default {
        */
       cloneShip() {
         return clone(self.data.templates.ships)
+      },
+      /**
+       * Get all ships
+       */
+      getShips() {
+        return self.data.ships
       },
       /**
        * Get a ship by it's name
@@ -151,13 +148,9 @@ export default {
         if (ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons') && ship.hasOwnProperty('deflate')) {
           let findExistingShip = this.getShipID(ship.name)
           if (findExistingShip >= 0) {
-            self.data.ships[findExistingShip].name = ship.name
-            self.data.ships[findExistingShip].ship = ship
+            self.data.ships[findExistingShip] = ship
           } else {
-            self.data.ships.push({
-              name: ship.name,
-              ship: ship
-            })
+            self.data.ships.push( ship )
           }
           this.storeShipInDB(ship)
           return (findExistingShip >= 0) ? 1 : 2;
@@ -170,7 +163,7 @@ export default {
       syncShips() {
         // Loop through array and save to database
         for (var index = 0; index < self.data.ships.length; index++) {
-          this.storeShipInDB(self.data.ships[index].ship)
+          this.storeShipInDB(self.data.ships[index])
         }
       },
       /**
