@@ -167,7 +167,6 @@ export default {
     var hullVal = parseInt(this.hull);
     return Math.ceil( hullVal - ((hullVal + 2 ) / 4) + 1 );
   },
-  getBaseCrew() { return this.boundNearestFive(Math.floor(Math.pow(this.hull,1.5))+(this.hull*2)+1); },
   getBasePower() { return this.boundNearestFive(Math.floor((this.hull*2.5)+Math.pow(this.hull,1.5))+5); },
   getBaseBulk() { return this.boundNearestTen(Math.floor((this.hull*2.5)+Math.pow(this.hull,2.5))+2); },
   getBaseAcceleration() { return this.boundNearestFive(Math.ceil((50-(Math.pow(this.hull,0.9)*5)))); },
@@ -181,7 +180,13 @@ export default {
   // Derivatives
   getActionsAI() { return this.convertToDieValue(this.attributes.ai); },
   getBulk() { return Math.ceil(this.getBaseBulk() * this.convertToDieMultiplier(this.attributes.bulk)); },
-  getCrew() { return this.getBaseCrew(); },
+  getCrew() {
+    let crewNum = 1
+    for (var index = 0; index < this.fittings.length; index++) {
+      crewNum += parseInt(this.fittings[index].crew) * parseInt(this.fittings[index].total);
+    }
+    return crewNum;
+  },
   getEvade() { return ( this.convertToDieValue(this.systems.autopilot) / 2) + 2; },
   getToughness() { return ( this.convertToDieValue(this.attributes.armour) / 2) + 2 + this.getSize(); },
   getPower() { return Math.ceil(this.getBasePower() * this.convertToDieMultiplier(this.attributes.power)); },
@@ -243,6 +248,78 @@ export default {
   fittings: [],
   notes: [],
   weapons: [],
+  sortFittings() {
+    this.fittings.sort(function(a,b) {
+      return (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0);
+    }); 
+  },
+  addFitting(fitting, total) {
+    // Search if the fitting exists
+    let index = this.searchFittingID(fitting.id)
+    if (index >= 0) {
+      // Add to existing fitting entry (deleting and adding it so that it triggers Vue)
+      fitting['active'] = this.fittings[index].active + parseInt(total)
+      fitting['total'] = this.fittings[index].total + parseInt(total)
+      this.fittings.splice(index, 1)
+    } else {
+      // Create new fitting entry
+      fitting['active'] = total
+      fitting['total'] = total
+    }
+    this.fittings.push(fitting)
+    this.sortFittings();
+  },
+  removeFitting(fitting, total) {
+    // Search if the fitting exists
+    let index = this.searchFittingID(fitting.id)
+    if (index >= 0) {
+      // Test if we are removing more than we have
+      if (this.fittings[index].total <= total) {
+        this.fittings.splice(index, 1);
+      } else {
+        this.fittings[index].total -= total
+        // Bound our active number of fittings
+        if (this.fittings[index].active >= this.fittings[index].total) {
+          this.fittings[index].active = this.fittings[index].total
+        }
+      }
+    }
+    this.sortFittings();
+  },
+  activateFitting(fitting, total) {
+    // Search if the fitting exists
+    let index = this.searchFittingID(fitting.id)
+    if (index >= 0) {
+      // Update existing fitting entry (deleting and adding it so that it triggers Vue)
+      let active = this.fittings[index].active + parseInt(total)
+      let fTotal = this.fittings[index].total
+      fitting['active'] = (active >= fTotal) ? fTotal : active
+      fitting['total'] = fTotal
+      this.fittings.splice(index, 1)
+      this.fittings.push(fitting)
+      this.sortFittings()
+    }
+  },
+  deactivateFitting(fitting, total) {
+    // Search if the fitting exists
+    let index = this.searchFittingID(fitting.id)
+    if (index >= 0) {
+      // Update existing fitting entry (deleting and adding it so that it triggers Vue)
+      let active = this.fittings[index].active - parseInt(total)
+      let fTotal = this.fittings[index].total
+      fitting['active'] = (active <= 0) ? 0 : active
+      fitting['total'] = fTotal
+      this.fittings.splice(index, 1)
+      this.fittings.push(fitting)
+      this.sortFittings()
+    }
+  },
+  searchFitting(id) {
+    return this.fittings.filter(function(fitting) { return fitting.id === this.id; } , {'id': id});
+  },
+  searchFittingID(id) {
+    return this.fittings.findIndex(function(fitting) { return fitting.id === this.id; } , {'id': id});
+  },
   /**
    * Convert Ship values into a JSON Object string
    */

@@ -1,5 +1,7 @@
 <template>
   <dl>
+    <dt><strong>Name</strong></dt>
+    <dd>{{ rowData.name }}</dd>
     <dt><strong>Storage</strong></dt>
     <dd>{{ rowData.storage }}</dd>
     <dt><strong>Power</strong></dt>
@@ -14,6 +16,8 @@
     <dd>{{ rowData.hardpoints }}</dd>
     <dt><strong>Cost</strong></dt>
     <dd>{{ formatNumber( rowData.cost ) }}</dd>
+    <dt><strong>Description</strong></dt>
+    <dd>{{ rowData.description }}</dd>
   </dl>
 </template>
 <script>

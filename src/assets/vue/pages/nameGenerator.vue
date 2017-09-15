@@ -26,7 +26,7 @@
 			</f7-list-item>
 		</f7-list>
     <f7-block>
-			<f7-button big fill color="blue" v-on:click="makeNames"><i class="material-icons color-white">refresh</i></f7-button>
+			<f7-button big fill color="blue" v-on:click="makeNames"><f7-icon color="white" material="refresh"></f7-icon></f7-button>
 		</f7-block>
 	</f7-page>
 </template>

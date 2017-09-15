@@ -1,24 +1,26 @@
 <template>
   <dl>
-    <dt><strong>Size</strong></dt>
+    <dt><strong>Hull</strong></dt>
+    <dd>{{ rowData.getHull() }}</dd>
+    <dt><strong>Size</strong> <help-size></help-size></dt>
     <dd>{{ rowData.getSize() }}</dd>
-    <dt><strong>Integrity</strong></dt>
+    <dt><strong>Integrity</strong> <help-integrity></help-integrity></dt>
     <dd>{{ rowData.getIntegrity() }}</dd>
     <dt><strong>Toughness</strong></dt>
     <dd>{{ rowData.getToughness() }}</dd>
-    <dt><strong>Crew</strong></dt>
+    <dt><strong>Crew</strong>  <help-crew></help-crew></dt>
     <dd>{{ rowData.getCrew() }}</dd>
-    <dt><strong>Power</strong></dt>
+    <dt><strong>Power</strong> <help-power-total></help-power-total></dt>
     <dd>{{ rowData.getPower() }}</dd>
-    <dt><strong>Storage</strong></dt>
+    <dt><strong>Storage</strong> <help-storage-total></help-storage-total></dt>
     <dd>{{ rowData.getBulk() }}</dd>
-    <dt><strong>Speed</strong></dt>
+    <dt><strong>Speed</strong> <help-speed></help-speed></dt>
     <dd>{{ rowData.getAcceleration() }}</dd>
-    <dt><strong>FTL per jump</strong></dt>
+    <dt><strong>FTL per jump</strong> <help-fuel></help-fuel></dt>
     <dd>{{ rowData.getFTL() }}</dd>
-    <dt><strong>Hardpoints</strong></dt>
+    <dt><strong>Hardpoints</strong> <help-hardpoints></help-hardpoints></dt>
     <dd>{{ rowData.getHardpoints() }}</dd>
-    <dt><strong>Cost</strong></dt>
+    <dt><strong>Cost</strong> <help-cost></help-cost></dt>
     <dd>{{ formatNumber( rowData.getCost() ) }}</dd>
   </dl>
 </template>

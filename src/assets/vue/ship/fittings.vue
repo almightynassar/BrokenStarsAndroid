@@ -5,10 +5,13 @@
         ref="fittingstable"
         :api-mode="false"
         :data="fittings.fittings"
-        :fields="['name', 'description']"
+        :fields="fields"
         detail-row-component="detail-row-fitting"
-        @vuetable:row-clicked="onRowClicked"
-      ></vuetable>
+      >
+        <template slot="expand" scope="props">
+          <f7-button fill color="blue" v-on:click="onExpandRow(props.rowData.id)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
+        </template>
+      </vuetable>
     </div>
   </f7-page>
 </template>
@@ -16,6 +19,15 @@
   export default {
     data() {
       return {
+        fields: [
+          'name',
+          {
+            name: '__slot:expand',
+            title: 'Expand',
+            titleClass: 'center aligned',
+            dataClass: 'center aligned'
+          }
+        ],
         fittings: this.$bsFactory.getTemplate("fittings"),
         formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
@@ -24,11 +36,11 @@
 			formatNumber(value) {
 				return this.formatter.format(parseInt(value));
       },
-      onRowClicked (data, field, event) {
-        let index = this.$refs.fittingstable.visibleDetailRows.indexOf(data.id)
+      onExpandRow (id) {
+        let index = this.$refs.fittingstable.visibleDetailRows.indexOf(id)
         this.$refs.fittingstable.visibleDetailRows = []
         if (index == -1) {
-          this.$refs.fittingstable.showDetailRow(data.id)
+          this.$refs.fittingstable.showDetailRow(id)
         }
       }
 		}

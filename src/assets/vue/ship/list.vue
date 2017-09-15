@@ -8,13 +8,15 @@
         :fields="fields"
         track-by="name"
         detail-row-component="detail-row-ship-summary"
-        @vuetable:row-clicked="onRowClicked"
       >
         <template slot="hull" scope="props">
           {{ props.rowData.getHull() }}
         </template>
-        <template slot="cost" scope="props">
-          {{ formatNumber( props.rowData.getCost() ) }}
+        <template slot="delete" scope="props">
+          <f7-button big fill color="red" v-on:click="onDeleteClick(props.rowData.name)"><f7-icon color="white" material="delete"></f7-icon></f7-button>
+        </template>
+        <template slot="expand" scope="props">
+          <f7-button fill color="blue" v-on:click="onExpandRow(props.rowData.name)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
         </template>
       </vuetable>
     </div>
@@ -29,14 +31,14 @@
         fields: [
           'name',
           {
-            name: '__slot:hull',
-            title: 'Hull',
+            name: '__slot:delete',
+            title: 'Delete',
             titleClass: 'center aligned',
             dataClass: 'center aligned'
           },
           {
-            name: '__slot:cost',
-            title: 'Cost',
+            name: '__slot:expand',
+            title: 'Expand',
             titleClass: 'center aligned',
             dataClass: 'center aligned'
           }
@@ -44,17 +46,17 @@
       }
     },
     methods: {
-      // onClick(name) {
-      //   this.$bsFactory.deleteShip(name)
-      // },
+      onDeleteClick(name) {
+        this.$bsFactory.deleteShip(name)
+      },
       formatNumber(value) {
 				return this.formatter.format(parseInt(value));
       },
-      onRowClicked (data, field, event) {
-        let index = this.$refs.shipsummarytable.visibleDetailRows.indexOf(data.name)
+      onExpandRow (id) {
+        let index = this.$refs.shipsummarytable.visibleDetailRows.indexOf(id)
         this.$refs.shipsummarytable.visibleDetailRows = []
         if (index == -1) {
-          this.$refs.shipsummarytable.showDetailRow(data.name)
+          this.$refs.shipsummarytable.showDetailRow(id)
         }
       }
     }

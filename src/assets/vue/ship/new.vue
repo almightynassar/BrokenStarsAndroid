@@ -160,6 +160,128 @@
 					</table>
 				</div>
 			</f7-list-item>
+			<!-- Fittings -->
+			<f7-list-item>
+				<f7-block-title class="content-center-text color-lightblue">Fittings</f7-block-title>
+			</f7-list-item>
+			<f7-list-item>
+				<f7-button big fill round color="blue" open-popup="#fittings-popup"><f7-icon color="white" material="add"></f7-icon></f7-button>
+				<f7-popup id="fittings-popup">
+					<f7-block-title>Add fitting</f7-block-title>
+					<f7-button big fill color="blue" close-popup="#fittings-popup"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
+					<div class="data-table">
+						<vuetable
+							ref="fittingstable"
+							:api-mode="false"
+							:data="fittings.fittings"
+							:fields="[
+								'name',
+								{
+									name: '__slot:addFitting',
+									title: 'Add',
+									titleClass: 'center aligned',
+									dataClass: 'center aligned'
+								},
+								{
+									name: '__slot:expand',
+									title: 'Expand',
+									titleClass: 'center aligned',
+									dataClass: 'center aligned'
+								}
+							]"
+							detail-row-component="detail-row-fitting"
+						>
+							<template slot="addFitting" scope="props">
+								<f7-button fill color="green" v-on:click="onFittingAddClick(props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+							</template>
+							<template slot="expand" scope="props">
+								<f7-button fill color="blue" v-on:click="onFittingExpandRow(props.rowData.id)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
+							</template>
+						</vuetable>
+					</div>
+				</f7-popup>
+			</f7-list-item>
+			<f7-list-item>
+				<div class="data-table">
+					<vuetable
+						ref="shipfittingstable"
+						:api-mode="false"
+						:data="ship.fittings"
+						:fields="[
+							'name',
+							{
+								name: '__slot:total',
+								title: 'A / T',
+								titleClass: 'center aligned',
+								dataClass: 'center aligned'
+							},
+							{
+								name: '__slot:actions',
+								title: 'Actions',
+								titleClass: 'center aligned',
+								dataClass: 'center aligned'
+							}
+						]"
+						detail-row-component="detail-row-fitting"
+					>
+						<template slot="total" scope="props">
+							<p><f7-button v-on:click="onFittingDeactivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button></p>
+							<p>{{props.rowData.active}} / {{props.rowData.total}}</p>
+							<p><f7-button v-on:click="onFittingActivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button></p>
+						</template>
+						<template slot="actions" scope="props">
+							<p><f7-button fill color="red" v-on:click="onFittingRemoveClick(props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button></p>
+							<p><f7-button v-on:click="onShipFittingExpandRow(props.rowData.id)"><f7-icon size=16 color="blue" material="expand_more"></f7-icon></f7-button></p>
+						</template>
+					</vuetable>
+				</div>
+			</f7-list-item>
+			<!-- Weapons -->
+			<f7-list-item>
+				<f7-block-title class="content-center-text color-lightblue">Weapons</f7-block-title>
+			</f7-list-item>
+			<f7-list-item>
+				<f7-button big fill color="blue" open-popup="#weapons-popup"><f7-icon color="white" material="add"></f7-icon></f7-button>
+				<f7-popup id="weapons-popup">
+					<f7-block-title>Add fitting</f7-block-title>
+					<f7-button big fill round color="blue" close-popup="#weapons-popup"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
+					<div class="data-table">
+						<table>
+							<thead>
+								<tr>
+									<th class="label-cell">ID</th>
+									<th class="numeric-cell">Name</th>
+									<th class="numeric-cell">Storage</th>
+									<th class="numeric-cell">Power</th>
+									<th class="numeric-cell">Damage</th>
+									<th class="numeric-cell">Range</th>
+									<th class="numeric-cell">Rate Of Fire</th>
+									<th class="numeric-cell">Hardpoints</th>
+									<th class="numeric-cell">Cost</th>
+									<th>Description</th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="f in weapons.weapons" :key="f.id">
+									<td class="label-cell">{{ f.id }}</td>
+									<td class="numeric-cell">{{ f.name }}</td>
+									<td class="numeric-cell">{{ f.storage }}</td>
+									<td class="numeric-cell">{{ f.power }}</td>
+									<td class="numeric-cell">{{ f.damage }}</td>
+									<td class="numeric-cell">{{ f.range }}/{{f.range*2}}/{{(f.range*2)*2}}</td>
+									<td class="numeric-cell">{{ f.rof }}</td>
+									<td class="numeric-cell">{{ f.hardpoints }}</td>
+									<td class="numeric-cell">{{ formatNumber( f.cost ) }}</td>
+									<td colspan="4">{{ f.description }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</f7-popup>
+			</f7-list-item>
 			<!-- Derivative Values -->
 			<f7-list-item>
 				<f7-block-title class="content-center-text color-lightblue">Derived Values</f7-block-title>
@@ -262,6 +384,7 @@
 			return {
 				ship: this.$bsFactory.cloneShip(),
 				fittings: this.$bsFactory.getTemplate('fittings'),
+				weapons: this.$bsFactory.getTemplate("weapons"),
 				formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
 		},
@@ -278,7 +401,45 @@
 				} else {
 					this.$f7.alert("ERROR: "+this.ship.name+" could not be saved")
 				}
-			}
+			},
+			onFittingAddClick(id) {
+        let fitting = this.fittings.search(id)
+        if (fitting.length == 1) {
+          this.ship.addFitting(fitting[0], 1)
+				}
+			},
+			onFittingActivateClick(id) {
+        let fitting = this.fittings.search(id)
+        if (fitting.length == 1) {
+          this.ship.activateFitting(fitting[0], 1)
+				}
+			},
+			onFittingDeactivateClick(id) {
+        let fitting = this.fittings.search(id)
+        if (fitting.length == 1) {
+          this.ship.deactivateFitting(fitting[0], 1)
+				}
+			},
+			onFittingRemoveClick(id) {
+        let fitting = this.fittings.search(id)
+        if (fitting.length == 1) {
+          this.ship.removeFitting(fitting[0], 1)
+				}
+			},
+			onFittingExpandRow(id) {
+        let index = this.$refs.fittingstable.visibleDetailRows.indexOf(id)
+        this.$refs.fittingstable.visibleDetailRows = []
+        if (index == -1) {
+          this.$refs.fittingstable.showDetailRow(id)
+        }
+      },
+			onShipFittingExpandRow(id) {
+        let index = this.$refs.shipfittingstable.visibleDetailRows.indexOf(id)
+        this.$refs.shipfittingstable.visibleDetailRows = []
+        if (index == -1) {
+          this.$refs.shipfittingstable.showDetailRow(id)
+        }
+      }
 		}
 	}
 </script>
