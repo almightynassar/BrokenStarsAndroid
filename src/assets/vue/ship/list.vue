@@ -12,6 +12,9 @@
         <template slot="hull" scope="props">
           {{ props.rowData.getHull() }}
         </template>
+        <template slot="view" scope="props">
+          <f7-link :href="'/shipView/'+props.rowIndex"><f7-icon color="blue" material="open_in_browser"></f7-icon></f7-link>
+        </template>
         <template slot="delete" scope="props">
           <f7-button big fill color="red" v-on:click="onDeleteClick(props.rowData.name)"><f7-icon color="white" material="delete"></f7-icon></f7-button>
         </template>
@@ -23,13 +26,23 @@
   </f7-page>
 </template>
 <script>
+  import VueShipView from './view.vue'
   export default {
+    components: {
+      'vue-ship-view': VueShipView
+    },
     data() {
       return {
         ships: this.$bsFactory.getShips(),
         formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
         fields: [
           'name',
+          {
+            name: '__slot:view',
+            title: 'View',
+            titleClass: 'center aligned',
+            dataClass: 'center aligned'
+          },
           {
             name: '__slot:delete',
             title: 'Delete',

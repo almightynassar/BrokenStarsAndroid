@@ -185,6 +185,14 @@ export default {
         return self.data.ships.findIndex(function(ship) { return ship.name === this.name; } , {'name': name});
       },
       /**
+       * Get a ship using it's relative index in the array
+       * 
+       * @param String name 
+       */
+      getShipByIndex(index) {
+        return self.data.ships[index];
+      },
+      /**
        * Delete a named
        * 
        * @param String name 

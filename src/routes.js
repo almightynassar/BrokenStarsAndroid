@@ -20,6 +20,10 @@ export default [
     component: require('./assets/vue/ship/analyse.vue')
   },
   {
+    path: '/shipView/:index',
+    component: require('./assets/vue/ship/view.vue')
+  },
+  {
     path: '/fittingsList/',
     component: require('./assets/vue/ship/fittings.vue')
   },
