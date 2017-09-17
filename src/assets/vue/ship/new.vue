@@ -246,41 +246,71 @@
 					<f7-block-title>Add fitting</f7-block-title>
 					<f7-button big fill round color="blue" close-popup="#weapons-popup"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
 					<div class="data-table">
-						<table>
-							<thead>
-								<tr>
-									<th class="label-cell">ID</th>
-									<th class="numeric-cell">Name</th>
-									<th class="numeric-cell">Storage</th>
-									<th class="numeric-cell">Power</th>
-									<th class="numeric-cell">Damage</th>
-									<th class="numeric-cell">Range</th>
-									<th class="numeric-cell">Rate Of Fire</th>
-									<th class="numeric-cell">Hardpoints</th>
-									<th class="numeric-cell">Cost</th>
-									<th>Description</th>
-									<th></th>
-									<th></th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="f in weapons.weapons" :key="f.id">
-									<td class="label-cell">{{ f.id }}</td>
-									<td class="numeric-cell">{{ f.name }}</td>
-									<td class="numeric-cell">{{ f.storage }}</td>
-									<td class="numeric-cell">{{ f.power }}</td>
-									<td class="numeric-cell">{{ f.damage }}</td>
-									<td class="numeric-cell">{{ f.range }}/{{f.range*2}}/{{(f.range*2)*2}}</td>
-									<td class="numeric-cell">{{ f.rof }}</td>
-									<td class="numeric-cell">{{ f.hardpoints }}</td>
-									<td class="numeric-cell">{{ formatNumber( f.cost ) }}</td>
-									<td colspan="4">{{ f.description }}</td>
-								</tr>
-							</tbody>
-						</table>
+						<vuetable
+							ref="weaponstable"
+							:api-mode="false"
+							:data="weapons.weapons"
+							:fields="[
+								'name',
+								{
+									name: '__slot:addWeapon',
+									title: 'Add',
+									titleClass: 'center aligned',
+									dataClass: 'center aligned'
+								},
+								{
+									name: '__slot:expand',
+									title: 'Expand',
+									titleClass: 'center aligned',
+									dataClass: 'center aligned'
+								}
+							]"
+							detail-row-component="detail-row-weapon"
+						>
+							<template slot="addWeapon" scope="props">
+								<f7-button fill color="green" v-on:click="onWeaponAddClick(props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+							</template>
+							<template slot="expand" scope="props">
+								<f7-button fill color="blue" v-on:click="onWeaponExpandRow(props.rowData.id)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
+							</template>
+						</vuetable>
 					</div>
 				</f7-popup>
+			</f7-list-item>
+			<f7-list-item>
+				<div class="data-table">
+					<vuetable
+						ref="shipweaponstable"
+						:api-mode="false"
+						:data="ship.weapons"
+						:fields="[
+							'name',
+							{
+								name: '__slot:total',
+								title: 'A / T',
+								titleClass: 'center aligned',
+								dataClass: 'center aligned'
+							},
+							{
+								name: '__slot:actions',
+								title: 'Actions',
+								titleClass: 'center aligned',
+								dataClass: 'center aligned'
+							}
+						]"
+						detail-row-component="detail-row-weapon"
+					>
+						<template slot="total" scope="props">
+							<p><f7-button v-on:click="onWeaponDeactivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button></p>
+							<p>{{props.rowData.active}} / {{props.rowData.total}}</p>
+							<p><f7-button v-on:click="onWeaponActivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button></p>
+						</template>
+						<template slot="actions" scope="props">
+							<p><f7-button fill color="red" v-on:click="onWeaponRemoveClick(props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button></p>
+							<p><f7-button v-on:click="onShipWeaponExpandRow(props.rowData.id)"><f7-icon size=16 color="blue" material="expand_more"></f7-icon></f7-button></p>
+						</template>
+					</vuetable>
+				</div>
 			</f7-list-item>
 			<!-- Derivative Values -->
 			<f7-list-item>
@@ -321,8 +351,8 @@
 								<td>{{ship.getHardpoints()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Hardpoints (Used)</strong> <help-hardpoints-used></help-hardpoints-used></td>
-								<td></td>
+								<td><strong>Hardpoints (Free)</strong> <help-hardpoints-used></help-hardpoints-used></td>
+								<td>{{ship.getHardpoints() + ship.getHardpointsUsed()}}</td>
 							</tr>
 							<tr>
 								<td><strong>Hull Size</strong> <help-size></help-size></td>
@@ -337,8 +367,8 @@
 								<td>{{ship.getPower()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Power (Used)</strong> <help-power-used></help-power-used></td>
-								<td></td>
+								<td><strong>Power (Free)</strong> <help-power-used></help-power-used></td>
+								<td>{{ship.getPower() + ship.getPowerUsed()}}</td>
 							</tr>
 							<tr>
 								<td><strong>Speed</strong> <help-speed></help-speed></td>
@@ -350,7 +380,7 @@
 							</tr>
 							<tr>
 								<td><strong>Storage (Used)</strong> <help-storage-used></help-storage-used></td>
-								<td></td>
+								<td>{{ship.getBulk() + ship.getBulkUsed()}}</td>
 							</tr>
 							<tr>
 								<td><strong>Points</strong> <help-points></help-points></td>
@@ -438,6 +468,44 @@
         this.$refs.shipfittingstable.visibleDetailRows = []
         if (index == -1) {
           this.$refs.shipfittingstable.showDetailRow(id)
+        }
+      },
+			onWeaponAddClick(id) {
+        let weapon = this.weapons.search(id)
+        if (weapon.length == 1) {
+          this.ship.addWeapon(weapon[0], 1)
+				}
+			},
+			onWeaponActivateClick(id) {
+        let weapon = this.weapons.search(id)
+        if (weapon.length == 1) {
+          this.ship.activateWeapon(weapon[0], 1)
+				}
+			},
+			onWeaponDeactivateClick(id) {
+        let weapon = this.weapons.search(id)
+        if (weapon.length == 1) {
+          this.ship.deactivateWeapon(weapon[0], 1)
+				}
+			},
+			onWeaponRemoveClick(id) {
+        let weapon = this.weapons.search(id)
+        if (weapon.length == 1) {
+          this.ship.removeWeapon(weapon[0], 1)
+				}
+			},
+			onWeaponExpandRow(id) {
+        let index = this.$refs.weaponstable.visibleDetailRows.indexOf(id)
+        this.$refs.weaponstable.visibleDetailRows = []
+        if (index == -1) {
+          this.$refs.weaponstable.showDetailRow(id)
+        }
+      },
+			onShipWeaponExpandRow(id) {
+        let index = this.$refs.shipweaponstable.visibleDetailRows.indexOf(id)
+        this.$refs.shipweaponstable.visibleDetailRows = []
+        if (index == -1) {
+          this.$refs.shipweaponstable.showDetailRow(id)
         }
       }
 		}

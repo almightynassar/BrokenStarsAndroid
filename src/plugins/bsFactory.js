@@ -10,7 +10,11 @@ export default {
     templates: null,
     names: {},
     database: null,
-    ships: []
+    ships: [],
+    store: {
+      ship: null
+    },
+    version: 2
   },
   /**
    * TEMPLATES and NAMES
@@ -55,31 +59,75 @@ export default {
     let self = this
     // Initiliase the database when the device is ready
     Vue.cordova.on('deviceready', () => {
-      // Test Sqlite is installed and running
-      window.sqlitePlugin.echoTest(() => {
-        console.log("DB is installed");
-      }, () => {
-        console.error("ERROR: DB :Sqlite is not installed");
-        throw new Error();
-      });
-      // Open connection to the database
-      self.data.database = window.sqlitePlugin.openDatabase({name: 'brokenstars.db', location: 'default'})
-      // Create Table structure and load ships
-      self.data.database.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS ships (id integer primary key, name text, data text)');
-        var query = "SELECT * FROM ships";
-        tx.executeSql(query, [], function (tx, resultSet) {
-          for(var x = 0; x < resultSet.rows.length; x++) {
-            let tempShip = clone(self.data.templates.ships)
-            tempShip.hydrate(resultSet.rows.item(x).name, resultSet.rows.item(x).data)
-            self.data.ships.push( tempShip )
+      // Ensure an implementation of indexedDB exists
+      let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+      try {
+        // Open (or create) a database connection
+        let dbOpenRequest = indexedDB.open("BrokenStars", self.data.version)
+        // Handles database opening success event
+        dbOpenRequest.onsuccess = function(e){
+          // Store the result of opening the database
+          self.data.database = e.target.result
+          // Handles general errors on the database
+          self.data.database.onerror = function(e) {
+            console.error("DB ERROR: " + e.target.errorCode);
           }
-        }, function (tx, error) {
-            console.error('ERROR : DB SELECT => All ships : ' + error.message);
-        });
-      }, function(tx, e) {
-          console.error("ERROR : DB : " + e.message);
-      });
+          self.data.database.onversionchange = function(e){
+            console.warn("Version change triggered")
+            // Creating the Ship object store
+            if(!self.data.database.objectStoreNames.contains("ShipStore")) {
+              console.log("Making Ship Object Store");
+              var objectStore = self.data.database.createObjectStore("ShipStore", { keyPath: "name", autoIncrement:false });
+              objectStore.createIndex("hull", "hull", { unique: false })
+              objectStore.createIndex("attributes", "attributes", { unique: false });
+              objectStore.createIndex("systems", "systems", { unique: false });
+              objectStore.createIndex("fittings", "fittings", { unique: false });
+              objectStore.createIndex("notes", "notes", { unique: false });
+              objectStore.createIndex("weapons", "weapons", { unique: false });
+            }
+          }
+          console.log("Database Opened")
+          let store = self.data.database.transaction('ShipStore').objectStore('ShipStore')
+          let resultSet = store.getAll()
+          resultSet.onsuccess = function() {
+            if (resultSet.result && resultSet.result.constructor === Array) {
+              for(var x = 0; x < resultSet.result.length; x++) {
+                let tempShip = clone(self.data.templates.ships)
+                tempShip.hydrate(resultSet.result[x])
+                self.data.ships.push( tempShip )
+              }
+            }
+          };
+          resultSet.onerror = function() {
+            console.error( 'DB FAILURE: Cannot load existing ships' );
+          };
+        }
+        // This event handles the event whereby a new version of
+        // the database needs to be created
+        dbOpenRequest.onupgradeneeded = function(e){
+          console.warn("Database upgrade needed")
+          let localDatabase = e.target.result
+          // Creating the Ship object store
+          if(!localDatabase.objectStoreNames.contains("ShipStore")) {
+            console.log("Making Ship Object Store");
+            var objectStore = localDatabase.createObjectStore("ShipStore", { keyPath: "name", autoIncrement:false });
+            objectStore.createIndex("hull", "hull", { unique: false });
+            objectStore.createIndex("attributes", "attributes", { unique: false });
+            objectStore.createIndex("systems", "systems", { unique: false });
+            objectStore.createIndex("fittings", "fittings", { unique: false });
+            objectStore.createIndex("notes", "notes", { unique: false });
+            objectStore.createIndex("weapons", "weapons", { unique: false });
+          }
+        }
+        dbOpenRequest.onerror = function(e){
+          console.error("DB Open Request Error: " + e.target.errorCode)
+        }
+        dbOpenRequest.onblocked = function(e){
+          console.error("DB Open Request Blocked: " + e.target.errorCode)
+        }
+      } catch (e) {
+        console.error("DB Open Request Error: " + e.target.errorCode)
+      }
     });
     /**
      * VUE PLUGIN OBJECT
@@ -106,9 +154,18 @@ export default {
         return clone(self.data.templates.ships)
       },
       /**
+       * Sort the ships alphabetically
+       */
+      sortShips() {
+        self.data.ships.sort(function(a,b) {
+          return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
+        }); 
+      },
+      /**
        * Get all ships
        */
       getShips() {
+        this.sortShips()
         return self.data.ships
       },
       /**
@@ -167,36 +224,41 @@ export default {
         }
       },
       /**
+       * Get all Ships from the database
+       */
+      getAllShipsInSB() {
+        let store = self.data.database.transaction('ShipStore').objectStore('ShipStore')
+        let resultSet = store.getAll()
+        self.data.ships = []
+        resultSet.onsuccess = function() {
+          if (typeof resultSet.request instanceof 'Array') {
+            for(var x = 0; x < resultSet.request.length; x++) {
+              let tempShip = clone(self.data.templates.ships)
+              tempShip.hydrate(resultSet.request)
+              self.data.ships.push( tempShip )
+            }
+          }
+        };
+        resultSet.onerror = function() {
+          console.error( 'DB FAILURE: Cannot load existing ships' );
+        };
+      },
+      /**
        * Save a Ship object to the local database
        * 
        * @param Ship ship 
        */
       storeShipInDB(ship) {
         if (ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons') && ship.hasOwnProperty('deflate')) {
-          let name = ship.name
           let data = ship.deflate()
-          self.data.database.transaction(function(tx) {
-            // Update if row exists
-            tx.executeSql("UPDATE ships SET name = ?, data = ? WHERE name = ?;", [name, data, name], function(tx, res) {
-              if (res.rowsAffected  > 0) {
-                console.log("DB UPDATE => ship: " + name)
-              }
-            },
-            function(tx, error) {
-              console.error('ERROR : DB UPDATE : ' + error.message)
-            });
-            // Insert if Update failed
-            tx.executeSql("INSERT INTO ships (name, data) SELECT ?, ? WHERE (SELECT Changes() = 0);", [name, data], function(tx, res) {
-              if (res.rowsAffected  > 0) {
-                console.log("DB INSERT => ship: " + name)
-              }
-            },
-            function(tx, error) {
-              console.error('ERROR : DB INSERT : ' + error.message);
-            });
-          }, function(tx, e) {
-            console.error("ERROR : DB : " + e.message);
-          })
+          let store = self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
+          let resultSet = store.put(data);
+          resultSet.onsuccess = function() {
+            console.log( 'Ship successfully saved in database' );
+          };
+          resultSet.onerror = function() {
+            console.error( 'DB FAILURE: Cannot save ship in database' );
+          };
         }
       },
       /**
@@ -205,18 +267,14 @@ export default {
        * @param String name
        */
       deleteShipInDB(name) {
-        self.data.database.transaction(function(tx) {
-          tx.executeSql("DELETE FROM ships WHERE name = ?;", [name], function(tx, res) {
-            if (res.rowsAffected  > 0) {
-              console.log("DB DELETE => ship: " + name)
-            }
-          },
-          function(tx, error) {
-            console.error('ERROR : DB DELETE : ' + error.message)
-          });
-        }, function(tx, e) {
-          console.error("ERROR : DB : " + e.message);
-        })
+        let store = self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
+        let resultSet = store.delete(name)
+        resultSet.onsuccess = function() {
+          console.log( 'Ship successfully deleted in database' );
+        };
+        resultSet.onerror = function() {
+          console.log( 'FAILURE' );
+        };
       },
       /**
        * Grab the object/array of Names

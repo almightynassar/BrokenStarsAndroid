@@ -180,6 +180,16 @@ export default {
   // Derivatives
   getActionsAI() { return this.convertToDieValue(this.attributes.ai); },
   getBulk() { return Math.ceil(this.getBaseBulk() * this.convertToDieMultiplier(this.attributes.bulk)); },
+  getBulkUsed() {
+    let bulk = 0
+    for (var index = 0; index < this.fittings.length; index++) {
+      bulk += parseInt(this.fittings[index].storage) * parseInt(this.fittings[index].total);
+    }
+    for (var index = 0; index < this.weapons.length; index++) {
+      bulk += parseInt(this.weapons[index].storage) * parseInt(this.weapons[index].total);
+    }
+    return bulk;
+  },
   getCrew() {
     let crewNum = 1
     for (var index = 0; index < this.fittings.length; index++) {
@@ -190,9 +200,26 @@ export default {
   getEvade() { return ( this.convertToDieValue(this.systems.autopilot) / 2) + 2; },
   getToughness() { return ( this.convertToDieValue(this.attributes.armour) / 2) + 2 + this.getSize(); },
   getPower() { return Math.ceil(this.getBasePower() * this.convertToDieMultiplier(this.attributes.power)); },
+  getPowerUsed() {
+    let power = 0
+    for (var index = 0; index < this.fittings.length; index++) {
+      power += parseInt(this.fittings[index].power) * parseInt(this.fittings[index].active);
+    }
+    for (var index = 0; index < this.weapons.length; index++) {
+      power += parseInt(this.weapons[index].power) * parseInt(this.weapons[index].active);
+    }
+    return power;
+  },
   getAcceleration() { return Math.ceil(this.getBaseAcceleration() * this.convertToDieMultiplier(this.attributes.engine)); },
   getFTL() { return Math.ceil(this.getBaseFTL() * (2 - this.convertToDieMultiplier(this.attributes.engine))); },
   getHardpoints() { return Math.ceil(this.getBaseHardpoints() * this.convertToDieMultiplier(this.attributes.armour)); },
+  getHardpointsUsed() {
+    let points = 0
+    for (var index = 0; index < this.weapons.length; index++) {
+      points += parseInt(this.weapons[index].hardpoints) * parseInt(this.weapons[index].total);
+    }
+    return points;
+  },
   // Get price and creation points
   getPoints() {
     let points = 0
@@ -320,11 +347,84 @@ export default {
   searchFittingID(id) {
     return this.fittings.findIndex(function(fitting) { return fitting.id === this.id; } , {'id': id});
   },
+  sortWeapons() {
+    this.weapons.sort(function(a,b) {
+      return (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0);
+    }); 
+  },
+  addWeapon(weapon, total) {
+    // Search if the weapon exists
+    let index = this.searchWeaponID(weapon.id)
+    if (index >= 0) {
+      // Add to existing weapon entry (deleting and adding it so that it triggers Vue)
+      weapon['active'] = this.weapons[index].active + parseInt(total)
+      weapon['total'] = this.weapons[index].total + parseInt(total)
+      this.weapons.splice(index, 1)
+    } else {
+      // Create new weapon entry
+      weapon['active'] = total
+      weapon['total'] = total
+    }
+    this.weapons.push(weapon)
+    this.sortWeapons();
+  },
+  removeWeapon(weapon, total) {
+    // Search if the weapon exists
+    let index = this.searchWeaponID(weapon.id)
+    if (index >= 0) {
+      // Test if we are removing more than we have
+      if (this.weapons[index].total <= total) {
+        this.weapons.splice(index, 1);
+      } else {
+        this.weapons[index].total -= total
+        // Bound our active number of weapons
+        if (this.weapons[index].active >= this.weapons[index].total) {
+          this.weapons[index].active = this.weapons[index].total
+        }
+      }
+    }
+    this.sortWeapons();
+  },
+  activateWeapon(weapon, total) {
+    // Search if the weapon exists
+    let index = this.searchWeaponID(weapon.id)
+    if (index >= 0) {
+      // Update existing weapon entry (deleting and adding it so that it triggers Vue)
+      let active = this.weapons[index].active + parseInt(total)
+      let fTotal = this.weapons[index].total
+      weapon['active'] = (active >= fTotal) ? fTotal : active
+      weapon['total'] = fTotal
+      this.weapons.splice(index, 1)
+      this.weapons.push(weapon)
+      this.sortWeapons()
+    }
+  },
+  deactivateWeapon(weapon, total) {
+    // Search if the weapon exists
+    let index = this.searchWeaponID(weapon.id)
+    if (index >= 0) {
+      // Update existing weapon entry (deleting and adding it so that it triggers Vue)
+      let active = this.weapons[index].active - parseInt(total)
+      let fTotal = this.weapons[index].total
+      weapon['active'] = (active <= 0) ? 0 : active
+      weapon['total'] = fTotal
+      this.weapons.splice(index, 1)
+      this.weapons.push(weapon)
+      this.sortWeapons()
+    }
+  },
+  searchWeapon(id) {
+    return this.weapons.filter(function(weapon) { return weapon.id === this.id; } , {'id': id});
+  },
+  searchWeaponID(id) {
+    return this.weapons.findIndex(function(weapon) { return weapon.id === this.id; } , {'id': id});
+  },
   /**
    * Convert Ship values into a JSON Object string
    */
   deflate() {
     var obj = {
+      name: this.name,
       hull: this.hull,
       attributes: this.attributes,
       systems: this.systems,
@@ -332,7 +432,7 @@ export default {
       weapons: this.weapons,
       notes: this.notes
     };
-    return JSON.stringify(obj);
+    return obj;
   },
   /**
    * Load values from a JSON Object string
@@ -340,26 +440,25 @@ export default {
    * @param String name 
    * @param String data 
    */
-  hydrate(name, data) {
-    let obj = JSON.parse(data)
-    this.name = name
-    if (obj.hasOwnProperty('hull')) {
-      this.hull = this.boundHullValue(obj.hull)
+  hydrate(data) {
+    this.name = data.name
+    if (data.hasOwnProperty('hull')) {
+      this.hull = this.boundHullValue(data.hull)
     }
-    if (obj.hasOwnProperty('attributes')) {
-      this.attributes = obj.attributes
+    if (data.hasOwnProperty('attributes')) {
+      this.attributes = data.attributes
     }
-    if (obj.hasOwnProperty('systems')) {
-      this.systems = obj.systems
+    if (data.hasOwnProperty('systems')) {
+      this.systems = data.systems
     }
-    if (obj.hasOwnProperty('fittings')) {
-      this.fittings = obj.fittings
+    if (data.hasOwnProperty('fittings')) {
+      this.fittings = data.fittings
     }
-    if (obj.hasOwnProperty('weapons')) {
-      this.weapons = obj.weapons
+    if (data.hasOwnProperty('weapons')) {
+      this.weapons = data.weapons
     }
-    if (obj.hasOwnProperty('notes')) {
-      this.notes = obj.notes
+    if (data.hasOwnProperty('notes')) {
+      this.notes = data.notes
     }
   }
 };
