@@ -164,14 +164,26 @@ export default {
   getHull() { return this.getHullCategory(this.hull); },
   getSize() { return parseInt(this.hull) - 1; },
   getIntegrity() {
-    var hullVal = parseInt(this.hull);
-    return Math.ceil( hullVal - ((hullVal + 2 ) / 4) + 1 );
+    var hullInt = parseInt(this.hull);
+    return Math.ceil( hullInt - ((hullInt + 2 ) / 4) + 1 );
   },
-  getBasePower() { return this.boundNearestFive(Math.floor((this.hull*2.5)+Math.pow(this.hull,1.5))+5); },
-  getBaseBulk() { return this.boundNearestTen(Math.floor((this.hull*2.5)+Math.pow(this.hull,2.5))+2); },
-  getBaseAcceleration() { return this.boundNearestFive(Math.ceil((50-(Math.pow(this.hull,0.9)*5)))); },
+  getBasePower() {
+    let hullInt = parseInt(this.hull)
+    return Math.floor((hullInt*2) + Math.pow(hullInt,2)) + 4;
+  },
+  getBaseBulk() {
+    let hullInt = parseInt(this.hull)
+    return Math.floor((hullInt*2) + Math.pow(hullInt,2.5) + 2);
+  },
+  getBaseAcceleration() {
+    let hullInt = parseInt(this.hull)
+    return Math.ceil((50-(Math.pow(hullInt,0.9)*5)));
+  },
   getBaseFTL() { return Math.abs(this.hull) + 1; },
-  getBaseHardpoints() { return this.boundNearestFive(Math.floor(Math.pow(this.hull,1.1))+2); },
+  getBaseHardpoints() {
+    let hullInt = parseInt(this.hull)
+    return Math.ceil(((hullInt*2)+Math.pow(hullInt,2)) / 2);
+  },
   setHull(value) {
     var old = parseInt(this.hull);
     this.hull = this.boundHullValue(value);
@@ -179,7 +191,7 @@ export default {
   },
   // Derivatives
   getActionsAI() { return this.convertToDieValue(this.attributes.ai); },
-  getBulk() { return Math.ceil(this.getBaseBulk() * this.convertToDieMultiplier(this.attributes.bulk)); },
+  getBulk() { return this.boundNearestTen(Math.ceil(this.getBaseBulk() * this.convertToDieMultiplier(this.attributes.bulk))); },
   getBulkUsed() {
     let bulk = 0
     for (var index = 0; index < this.fittings.length; index++) {
@@ -199,7 +211,7 @@ export default {
   },
   getEvade() { return ( this.convertToDieValue(this.systems.autopilot) / 2) + 2; },
   getToughness() { return ( this.convertToDieValue(this.attributes.armour) / 2) + 2 + this.getSize(); },
-  getPower() { return Math.ceil(this.getBasePower() * this.convertToDieMultiplier(this.attributes.power)); },
+  getPower() { return this.boundNearestFive(Math.ceil(this.getBasePower() * this.convertToDieMultiplier(this.attributes.power))); },
   getPowerUsed() {
     let power = 0
     for (var index = 0; index < this.fittings.length; index++) {
@@ -262,7 +274,7 @@ export default {
         price += (this.systems[key] > this.attributes.ai) ? (temp * 2) : temp
       }
     }
-    price += ( (this.getBulk()/2) * hullBasePrice);
+    price += ( ( (this.getBulk() + this.getPower() + this.getHardpoints())/2) * hullBasePrice);
     price += (this.getPoints() * hullBasePrice);
     if (this.getPoints() > 20) {
       price = (price * (this.getPoints()/20))

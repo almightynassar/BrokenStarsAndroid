@@ -14,6 +14,8 @@
     <dd>{{ rowData.getPower() }}</dd>
     <dt><strong>Storage</strong> <help-storage-total></help-storage-total></dt>
     <dd>{{ rowData.getBulk() }}</dd>
+    <dt><strong>Cargo Capacity</strong> <help-storage-total></help-storage-total></dt>
+    <dd>{{ rowData.getBulk() * 100 }} tons</dd>
     <dt><strong>Speed</strong> <help-speed></help-speed></dt>
     <dd>{{ rowData.getAcceleration() }}</dd>
     <dt><strong>FTL per jump</strong> <help-fuel></help-fuel></dt>
