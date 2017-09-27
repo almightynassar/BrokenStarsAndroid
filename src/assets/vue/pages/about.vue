@@ -1,5 +1,6 @@
 <template>
 	<f7-page>
+		<f7-block-title>Inspiration</f7-block-title>
 		<f7-block inner>
 			<p><f7-link back><< Back</f7-link>.</p>
 			<p>A Tabletop RPG reference app for the homebrew "Broken Stars" sci-fi campaign.</p>
@@ -13,6 +14,16 @@
 				<li><f7-link external href="http://www.sjgames.com/gurps/traveller/books.html"><em>GURPS Traveller</em> and various additional sourcebooks</em></f7-link> by Steve Jackson Games</li>
 			</ul>
 			<p>We wholeheartedly endorse these products and recommend that you purchase the core materials from the respective publishers!</p>
+		</f7-block>
+		<f7-block-title>Technologies</f7-block-title>
+		<f7-block inner>
+			<p>This app was built using the following technologies:</p>
+			<ul>
+				<li><f7-link external href="https://cordova.apache.org/"><em>Cordova</em></f7-link> by Apache</li>
+				<li><f7-link external href="https://framework7.io/"><em>Framework7</em></f7-link> by Vladimir Kharlampidi from iDangero.us</li>
+				<li><f7-link external href="http://svgjs.com/"><em>SVG.js</em></f7-link> by Wout Fierens</li>
+				<li><f7-link external href="https://vuejs.org/"><em>Vue.js</em></f7-link> by Evan You</li>
+			</ul>
 		</f7-block>
 	</f7-page>
 </template>
