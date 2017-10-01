@@ -50,6 +50,7 @@
         "svg.js": "^2.6.3",
         "vue": "^2.2.4",
         "vue-cordova": "^0.1.2",
+        "vue2-filters": "^0.2.1",
         "vuetable-2": "^1.6.5"
     },
     "displayName": "BrokenStarsAndroid",

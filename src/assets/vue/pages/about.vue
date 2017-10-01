@@ -2,7 +2,6 @@
 	<f7-page>
 		<f7-block-title>Inspiration</f7-block-title>
 		<f7-block inner>
-			<p><f7-link back><< Back</f7-link>.</p>
 			<p>A Tabletop RPG reference app for the homebrew "Broken Stars" sci-fi campaign.</p>
 			<p>Inspired by the following Tabletop RPG rulesets:</p>
 			<ul>

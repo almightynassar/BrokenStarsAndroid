@@ -45,6 +45,16 @@ export default {
     }
     return this.data.names;
   },
+  loadRegions(values) {
+    if (typeof this.data.templates.regions !== "object" || this.data.templates.regions === null) {
+      console.error("loadRegions(): Regions object template is undefined");
+      throw new Error();
+    }
+    if (Array.isArray(values) && values !== null) {
+      this.data.templates.regions.sectors = values
+    }
+    return this.data.templates.regions.sectors;
+  },
   /**
    * VUE PLUGIN INSTALLATION
    */

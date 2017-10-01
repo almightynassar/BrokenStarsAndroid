@@ -11,11 +11,16 @@ import Framework7Vue from 'framework7-vue'
 import Framework7Theme from 'framework7/dist/css/framework7.material.min.css'
 import Framework7ThemeColors from 'framework7/dist/css/framework7.material.colors.min.css'
 
-// Import App Custom Styles
+// Import CSS
+import MaterialIcons from 'material-design-icons-iconfont'
 import AppStyles from './assets/sass/main.scss'
 
 // Import Routes
 import Routes from './routes.js'
+
+// Import directives and filters
+import Vue2Filters from 'vue2-filters'
+Vue.use(Vue2Filters)
 
 // Import App Component
 import App from './main.vue'
@@ -39,6 +44,16 @@ nameFiles.keys().forEach(function (file) {
   nameData.push( (nameFiles(file)).default );
 });
 BsFactory.loadNames(nameData);
+// Load region data files into our factory
+var regionFiles = require.context("./data/regions", false, /\.js$/);
+var regionData = [];
+regionFiles.keys().forEach(function (file) {
+  regionData.push( (regionFiles(file)).default );
+});
+regionData.sort(function(a,b) {
+  return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
+});
+BsFactory.loadRegions(regionData);
 
 // Init Vue Plugins
 Vue.use(VueCordova)
