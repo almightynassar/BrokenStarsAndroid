@@ -13,7 +13,7 @@
           {{ props.rowData.getHull() }}
         </template>
         <template slot="view" scope="props">
-          <f7-link :href="'/shipView/'+props.rowIndex"><f7-icon color="blue" material="open_in_browser"></f7-icon></f7-link>
+          <f7-link :href="'/ship/view/'+props.rowIndex"><f7-icon color="blue" material="open_in_browser"></f7-icon></f7-link>
         </template>
         <template slot="delete" scope="props">
           <f7-button big fill color="red" v-on:click="onDeleteClick(props.rowData.name)"><f7-icon color="white" material="delete"></f7-icon></f7-button>

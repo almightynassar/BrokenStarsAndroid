@@ -13,11 +13,16 @@
 					<f7-page>
 						<f7-block-title>Spacecraft</f7-block-title>
 						<f7-list>
-							<f7-list-item link="/shipList/" title="List Ships" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/shipForm/" title="New Ship" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/shipAnalyse/" title="Hull List" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/fittingsList/" title="Fittings" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/weaponsList/" title="Weapons" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/ship/list/" title="List Ships" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/ship/form/" title="New Ship" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/ship/analyse/" title="Hull List" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/ship/fittings/" title="Fittings" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/ship/weapons/" title="Weapons" link-view="#main-view" link-close-panel></f7-list-item>
+						</f7-list>
+						<f7-block-title>Sectors</f7-block-title>
+						<f7-list>
+							<f7-list-item link="/regions/list/" title="Sector List" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/regions/map/" title="Sector Map" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
 						<f7-block-title>Misc.</f7-block-title>
 						<f7-list>
@@ -44,7 +49,7 @@
 		
 		<!-- Main Views -->
 		<f7-views>
-			<f7-view id="main-view" navbar-through :dynamic-navbar="true" main>
+			<f7-view id="main-view" navbar-through :dynamic-navbar="true" :reloadPages="true" main>
 				<!-- Navbar -->
 				<f7-navbar>
 					<f7-nav-left>

@@ -1,12 +1,11 @@
 <template>
 	<f7-page>
 		<f7-block-title>{{ship.name}}</f7-block-title>
-		<p><f7-link back><< Back</f7-link>.</p>
-		<f7-grid no-gutter>
+		<p><f7-link href='/ship/list/'><< Back</f7-link>.</p>
+		<f7-grid>
 			<!-- HULL -->
 			<f7-col width="50">Hull</f7-col>
 			<f7-col width="50">{{ship.getHull()}}</f7-col>
-			</f7-list-item>
 			<!-- ATTRIBUTES -->
 			<f7-col width="100">
 				<f7-block-title class="content-center-text color-lightblue">Attributes</f7-block-title>
@@ -244,7 +243,7 @@
 		props: {
 			index: {
 				type: String,
-				required: true
+				default: "0"
 			}
 		},
 		data() {
