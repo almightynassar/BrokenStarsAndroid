@@ -4,6 +4,10 @@ export default [
     path: '/about/',
     component: require('./assets/vue/pages/about.vue')
   },
+  {
+    path: '/setting/',
+    component: require('./assets/vue/pages/setting.vue')
+  },
   // Misc. Generators and pages
   {
     path: '/nameGenerator/',

@@ -219,23 +219,17 @@
 				size: this.hex.size,
 				orientation: HEX_ORIENTATIONS.FLAT
       })
-      // Set the defaults for the map
-      // if (this.$route.query.x) {
-      //   this.hex.x = parseInt(this.$route.query.x) - 2
-      // }
-      // if (this.$route.query.y) {
-      //   this.hex.y = parseInt(this.$route.query.y) - 1
-      // }
-      // if (this.$route.query.pageX) {
-      //   this.page.x = this.$route.query.pageX
-      // }
-      // if (this.$route.query.pageY) {
-      //   this.page.y = this.$route.query.pageY
-      // }
     },
     mounted() {
       // Start up our SVG library
       this.draw = SVG(document.getElementsByClassName("grid")[0])
+      // Set the page defaults for the map
+      if (this.$route.query.x) {
+        this.page.x = Math.ceil((this.$route.query.x - this.hex.x) / 2) - 1
+      }
+      if (this.$route.query.y) {
+        this.page.y = Math.floor((this.$route.query.y - this.hex.y - (this.page.x * -1)) /2)
+      }
       // Draw the initial grid
       this.makeHexGrid()
     }

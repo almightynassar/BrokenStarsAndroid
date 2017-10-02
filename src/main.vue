@@ -36,9 +36,14 @@
 		<!-- Right Panel -->
 		<f7-panel right cover layout="dark">
 			<f7-view id="options-menu-view" navbar-through :dynamic-navbar="true">
-				<f7-navbar title="Options" sliding></f7-navbar>
+				<f7-navbar title="Library" sliding></f7-navbar>
 				<f7-pages>
 					<f7-page>
+						<f7-block-title>Information</f7-block-title>
+						<f7-list>
+							<f7-list-item link="/setting/" title="The Setting" link-view="#main-view" link-close-panel></f7-list-item>
+						</f7-list>
+						<f7-block-title>Credits</f7-block-title>
 						<f7-list>
 							<f7-list-item link="/about/" title="About" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
@@ -65,7 +70,8 @@
 					<f7-page>
 						<f7-block-title>Welcome to <em>Broken Stars</em>!</f7-block-title>
 						<f7-block inner>
-							<p><em>Broken Stars</em> is a homebrew sci-fi campaign setting that is based upon the <em>Savage Worlds</em> and <em>Stars Without Number</em> rulebooks.</p>
+							<p><em>Broken Stars</em> is a homebrew sci-fi campaign setting that is inspired by various tabletop rulebooks (<em>see our <f7-link href="/about/">About</f7-link> for more information</em>).</p>
+							<p>Use the left hand menu to access various features such as Ship creation, Sector map, and Name generation. Use the right hand menu to access various information and details about the setting.</p>
 						</f7-block>
 					</f7-page>
 				</f7-pages>
