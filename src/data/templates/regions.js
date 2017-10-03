@@ -202,15 +202,17 @@ export default {
         abundant: "Abundant amounts of raw materials."
       },
       infrastructure: {
-        none: "No infrastrucutre.",
-        minimal: "Supports small hamlets.",
-        limited: "Supports villages.",
-        low: "Supports towns.",
-        moderate: "Supports large towns.",
-        high: "Supports cities.",
-        considerable: "Supports large cities.",
-        substantial: "Supports urban sprawl.",
-        extensive: "Supports super-dense cities."
+        none: "No infrastrucutre. Supports isolated dwellings with very few people.",
+        minimal: "Supports hamlets with a tiny population and has very few (if any) services.",
+        limited: "Supports villages with a small population and has a few services.",
+        low: "Supports towns with a population of up to 20,000 and has sufficient services.",
+        moderate: "Supports large towns with a population of up to 100,000.",
+        high: "Supports cities with a population of up to 300,000 and has an abundance of services.",
+        considerable: "Supports large cities with a population of up to 1 million.",
+        substantial: "Supports sprawling metropolises that consists of a large city with it's surrounding suburbs. Contains up to 3 million people",
+        extensive: "Supports super-dense metropolises, with space becoming a luxury. Contains up to 10 million people.",
+        extreme: "Supports a megalopolis that can support billions of people.",
+        covered: "The entire planet's surface is covered with urban settlements such that no definitive area seperates the cities. Supports trillions of people."
       },
       spaceport: {
         0: "No spaceport, terrestial or orbital.",
@@ -271,8 +273,24 @@ export default {
         return 7;
       case "extensive":
         return 8;
+      case "extreme":
+        return 9;
+      case "covered":
+        return 10;
       default:
         return 0;
+    }
+  },
+  getZoneNumber(zone) {
+    switch (zone) {
+      case "green":
+        return 1;
+      case "blue":
+        return 0.75;
+      case "amber":
+        return 0.5;
+      default:
+        return 0.25;
     }
   },
   // Determine planetary codes depending on given criteria
@@ -360,27 +378,31 @@ export default {
     }
     return tags.sort()
   },
-  // Determine Trade number of a planet
+  // Determine the Gross Trade Product of a planet
   getPlanetTrade(planet) {
-    // Determine Tech-Level Number
+    // Determine Tech-Level Number (Between 0 and 10)
     let techNum = this.getTechNumber(planet.tech)
-    // Determine Infrastructure Number
+    // Determine Infrastructure Number (Between 0 and 10)
     let infrastructureNum = this.getInfrastructureNumber(planet.infrastructure)
-    // Determine our econonmy number (Max = 10, Min = 0)
-    let economyNum = Math.round( (parseInt(planet.population) + parseInt(infrastructureNum) + parseInt(techNum)) / 3 )
+    // Determine our econonmy potential number (Max = 10, Min = 0)
+    let economyNum = Math.round( (parseInt(infrastructureNum) + parseInt(techNum)) / 2 )
     // Determine our desirability modifier (Max = +5, Min = -5)
     let desirableMod = Math.round( (parseInt( planet.spaceport ) - economyNum) / 2 )
-    return economyNum + desirableMod
+    // Calculate the trade number
+    let tradeNum = parseInt(planet.population) * (economyNum + desirableMod)
+    return (tradeNum > 0) ? tradeNum : 0
   },
   // Determine Trade number of a sector
-  getPlanetsCombinedTrade(planets) {
+  getSectorTrade(sector) {
+    // Some variables to track
     let economyNum = 0
-    if (planets.length > 0) {
-      for (var index = 0; index < planets.length; index++) {
-        economyNum += this.getPlanetTrade(planets[index])
+    // Grab all of our economy values
+    if (sector.planets.length > 0) {
+      for (var index = 0; index < sector.planets.length; index++) {
+        economyNum += parseInt( this.getPlanetTrade(sector.planets[index]) )
       }
     }
-    return economyNum
+    return Math.round(economyNum * this.getZoneNumber(sector.zone))
   },
   // Load our regional Datafiles
   load() {

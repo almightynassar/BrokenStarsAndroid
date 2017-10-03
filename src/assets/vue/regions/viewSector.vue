@@ -10,6 +10,8 @@
 				<!-- STATISTICS -->
 				<dt><strong>Travel Zone</strong> <help-zone></help-zone></dt>
 				<dd>{{ sector.zone | capitalize}}: {{ regions.categories.sector.zone[sector.zone] }}</dd>
+				<dt><strong>Trade Number</strong> <help-zone></help-zone></dt>
+				<dd>{{ regions.getSectorTrade(sector) }}</dd>
 				<dt><strong>Sector Control</strong> <help-sector-control></help-sector-control></dt>
 				<dd>{{ regions.categories.sector.control[sector.control] }}</dd>
 				<dt><strong>Star Class</strong> <help-star></help-star></dt>
@@ -17,6 +19,8 @@
 				<dd>{{starDetails.description}}</dd>
 				<dt><strong>Star Temperature</strong></dt>
 				<dd>{{starDetails.temperature}}K</dd>
+				<dt><strong>Description</strong></dt>
+				<dd>{{sector.description}}</dd>
 				<dt><strong># of solar objects</strong></dt>
 				<dd>{{ sector.planets.length }}</dd>
 				<dt><strong>Solar Objects</strong></dt>

@@ -5,7 +5,7 @@
     <dt><strong>Travel Zone</strong> <help-zone></help-zone></dt>
     <dd>{{ rowData.zone | capitalize}}: {{ regions.categories.sector.zone[rowData.zone] }}</dd>
     <dt><strong>Trade Number</strong></dt>
-    <dd>{{ regions.getPlanetsCombinedTrade(rowData.planets) }}</dd>
+    <dd>{{ regions.getSectorTrade(rowData) }}</dd>
     <dt><strong>Star Class</strong> <help-star></help-star></dt>
     <dd>{{starDetails.type}} ({{ starDetails.class }})</dd>
     <dt><strong>Star Temperature</strong></dt>

@@ -9,33 +9,35 @@
 			<dl>
 				<!-- STATISTICS -->
 				<dt><strong>Type</strong></dt>
-				<dd>{{planet.type[0].toUpperCase() + planet.type.substring(1)}}</dd>
+				<dd>{{planet.type | capitalize}}</dd>
 				<dt><strong>Size</strong></dt>
-				<dd>{{planet.size[0].toUpperCase() + planet.size.substring(1)}}</dd>
+				<dd>{{planet.size | capitalize}}</dd>
 				<dt><strong>Atmosphere</strong></dt>
-				<dd>{{planet.atmosphere[0].toUpperCase() + planet.atmosphere.substring(1)}}</dd>
+				<dd>{{planet.atmosphere | capitalize}}</dd>
 				<dt><strong>Hydrosphere</strong></dt>
-				<dd>{{planet.hydrosphere[0].toUpperCase() + planet.hydrosphere.substring(1)}}</dd>
+				<dd>{{planet.hydrosphere | capitalize}}</dd>
 				<dt><strong>Biosphere</strong></dt>
-				<dd>{{planet.biosphere[0].toUpperCase() + planet.biosphere.substring(1)}}</dd>
+				<dd>{{planet.biosphere | capitalize}}</dd>
 				<dt><strong>Populatiion</strong></dt>
-				<dd>{{planet.population}}</dd>
+				<dd>{{regions.categories.planet.population[planet.population] | capitalize}}</dd>
 				<dt><strong>Government</strong></dt>
-				<dd>{{planet.government[0].toUpperCase() + planet.government.substring(1)}}</dd>
+				<dd>{{planet.government | capitalize}}</dd>
 				<dt><strong>Laws</strong></dt>
-				<dd>{{planet.laws[0].toUpperCase() + planet.laws.substring(1)}}</dd>
+				<dd>{{planet.laws | capitalize}}</dd>
 				<dt><strong>Tech</strong></dt>
-				<dd>{{planet.tech[0].toUpperCase() + planet.tech.substring(1)}}</dd>
+				<dd>{{planet.tech | capitalize}}</dd>
 				<dt><strong>Temperature</strong></dt>
-				<dd>{{planet.temperature[0].toUpperCase() + planet.temperature.substring(1)}}</dd>
+				<dd>{{planet.temperature | capitalize}}</dd>
 				<dt><strong>Resource</strong></dt>
-				<dd>{{planet.resources[0].toUpperCase() + planet.resources.substring(1)}}</dd>
+				<dd>{{planet.resources | capitalize}}</dd>
 				<dt><strong>Infrastructure</strong></dt>
-				<dd>{{planet.infrastructure[0].toUpperCase() + planet.infrastructure.substring(1)}}</dd>
+				<dd>{{planet.infrastructure | capitalize}}</dd>
 				<dt><strong>Spaceport</strong></dt>
-				<dd>{{planet.spaceport}}</dd>
-				<dt><strong>Satellites></strong></dt>
+				<dd>{{regions.categories.planet.spaceport[planet.spaceport]}}</dd>
+				<dt><strong>Satellites</strong></dt>
 				<dd>{{planet.satellites}}</dd>
+				<dt><strong>Trade Number</strong></dt>
+				<dd>{{regions.getPlanetTrade(planet)}}</dd>
 				<dt><strong>Description</strong></dt>
 				<dd>{{planet.description}}</dd>
 				<dt><strong>Tags</strong></dt>
