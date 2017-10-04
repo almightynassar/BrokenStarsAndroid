@@ -16,6 +16,34 @@
       <f7-button v-on:click="updatePage(0,1)"><f7-icon material="arrow_downward"></f7-icon></f7-button>
       <f7-button v-on:click="updatePage(1,1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_downward"></f7-icon></f7-button>
     </f7-buttons>
+    <div class="list-block">
+      <ul>
+        <li>
+          <label class="label-radio item-content">
+            <input type="radio" id="overlay-control" v-model="overlay" value="control" checked="checked">
+            <div class="item-media">
+              <i class="icon icon-form-radio"></i>
+            </div>
+            <div class="item-inner">
+              <div class="item-title">Control</div>
+            </div>
+          </label>
+        </li>
+        <li>Blue = United Systems; Yellow = Independent Control; Red = Sakeena Stellar Republic; Brown = Ghan Queendom</li>
+        <li>
+          <label class="label-radio item-content">
+            <input type="radio" id="overlay-zone" v-model="overlay" value="zone">
+            <div class="item-media">
+              <i class="icon icon-form-radio"></i>
+            </div>
+            <div class="item-inner">
+              <div class="item-title">Zone</div>
+            </div>
+          </label>
+        </li>
+        <li>Green = Safe; Blue = Low risk; Yellow = Medium risk; Red = High risk</li>
+      </ul>
+    </div>
   </f7-page>
 </template>
 <script>
@@ -57,7 +85,8 @@
         // The SVG interface
         draw: null,
         // The region interface
-				regions: this.$bsFactory.getTemplate('regions'),
+        regions: this.$bsFactory.getTemplate('regions'),
+        overlay: "control"
 			}
 		},
 		computed: {
@@ -87,6 +116,44 @@
       }
 		},
 		methods: {
+      colourControl(control) {
+        switch (control) {
+          case 'us':
+            return "#23238E"
+            break;
+          case 'ssr':
+            return "#CC1100"
+            break;
+          case 'gq':
+            return "#5E2605"
+            break;
+          case 'ind':
+            return "#AADD00"
+            break;
+          default:
+            return '#555'
+            break;
+        }
+      },
+      colourZone(zone) {
+        switch (zone) {
+          case 'green':
+            return "#3FFF24"
+            break;
+          case 'amber':
+            return "#AADD00"
+            break;
+          case 'blue':
+            return "#23238E"
+            break;
+          case 'red':
+            return "#CC1100"
+            break;
+          default:
+            return '#555'
+            break;
+        }
+      },
       updatePage(x, y) {
         this.page.x += x
         this.page.y += y
@@ -142,19 +209,10 @@
           // Draw region information
           if (region) {
             let nameText = group.plain(region.name).move(this.hexWidth / 2, (this.hexHeight / 2) + (this.font.size) ).font(this.font)
-            switch (region.control) {
-              case 'us':
-                colour = "#23238E"
-                break;
-              case 'ssr':
-                colour = "#CC1100"
-                break;
-              case 'gq':
-                colour = "#5E2605"
-                break;
-              case 'ind':
-               colour = "#AADD00"
-               break;
+            if (this.overlay == "zone") {
+              colour = this.colourZone(region.zone)
+            } else {
+              colour = this.colourControl(region.control)
             }
             // Default star colour is black (to show that there has been an error)
             let starColour = "#000"
@@ -207,6 +265,12 @@
     },
     watch: {
       page: {
+        handler(value) {
+          this.makeHexGrid()
+        },
+        deep: true
+      },
+      overlay: {
         handler(value) {
           this.makeHexGrid()
         },
