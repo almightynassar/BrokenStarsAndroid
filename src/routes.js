@@ -8,10 +8,14 @@ export default [
     path: '/setting/',
     component: require('./assets/vue/pages/setting.vue')
   },
-  // Misc. Generators and pages
+  // Generators
   {
-    path: '/nameGenerator/',
-    component: require('./assets/vue/pages/nameGenerator.vue')
+    path: '/generator/name/',
+    component: require('./assets/vue/generators/name.vue')
+  },
+  {
+    path: '/generator/quest/',
+    component: require('./assets/vue/generators/quest.vue')
   },
   // Ship Information
   {

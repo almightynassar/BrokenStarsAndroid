@@ -24,10 +24,6 @@
 							<f7-list-item link="/regions/list/" title="Sector List" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/regions/map/" title="Sector Map" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
-						<f7-block-title>Misc.</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/nameGenerator/" title="Name Generator" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
 					</f7-page>
 				</f7-pages>
 			</f7-view>
@@ -42,6 +38,11 @@
 						<f7-block-title>Information</f7-block-title>
 						<f7-list>
 							<f7-list-item link="/setting/" title="The Setting" link-view="#main-view" link-close-panel></f7-list-item>
+						</f7-list>
+						<f7-block-title>Generators</f7-block-title>
+						<f7-list>
+							<f7-list-item link="/generator/name/" title="Name Generator" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/generator/quest/" title="Quest Generator" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
 						<f7-block-title>Credits</f7-block-title>
 						<f7-list>
