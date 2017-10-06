@@ -169,22 +169,8 @@ export default {
     'strip club',
     'warehouse',
   ],
-  getRandomStarter() {
-    return this.starter[Math.round(Math.random() * (this.starter.length - 1))]
-  },
-  getRandomType() {
-    return this.type[Math.round(Math.random() * (this.type.length - 1))]
-  },
-  getRandomModifier() {
-    return this.modifier[Math.round(Math.random() * (this.modifier.length - 1))]
-  },
-  getRandomAlly() {
-    return this.allies[Math.round(Math.random() * (this.allies.length - 1))]
-  },
-  getRandomAntagonist() {
-    return this.antagonists[Math.round(Math.random() * (this.antagonists.length - 1))]
-  },
-  getRandomLocation() {
-    return this.locations[Math.round(Math.random() * (this.locations.length - 1))]
+  getRandom(field) {
+    let valueArray = this[field]
+    return valueArray[Math.round(Math.random() * (valueArray.length - 1))]
   }
 }

@@ -1,44 +1,46 @@
 <template>
 	<f7-page>
-		<f7-block-title>{{sector.name}}</f7-block-title>
 		<f7-block>
-			<f7-buttons>
-				<f7-button href='/regions/list'>Sector List</f7-button>
-				<f7-button :href="'/regions/map/?x='+sector.x+'&y='+sector.y">Show on Map</f7-button>
-			</f7-buttons>
-			<dl>
-				<!-- STATISTICS -->
-				<dt><strong>Travel Zone</strong> <help-zone></help-zone></dt>
-				<dd>{{ sector.zone | capitalize}}: {{ regions.categories.sector.zone[sector.zone] }}</dd>
-				<dt><strong>Trade Number</strong> <help-zone></help-zone></dt>
-				<dd>{{ regions.getSectorTrade(sector) }}</dd>
-				<dt><strong>Sector Control</strong> <help-sector-control></help-sector-control></dt>
-				<dd>{{ regions.categories.sector.control[sector.control] }}</dd>
-				<dt><strong>Star Class</strong> <help-star></help-star></dt>
-				<dd>{{starDetails.type}} ({{ starDetails.class }})</dd>
-				<dd>{{starDetails.description}}</dd>
-				<dt><strong>Star Temperature</strong></dt>
-				<dd>{{starDetails.temperature}}K</dd>
-				<dt><strong>Description</strong></dt>
-				<dd>{{sector.description}}</dd>
-				<dt><strong># of solar objects</strong></dt>
-				<dd>{{ sector.planets.length }}</dd>
-				<dt><strong>Solar Objects</strong></dt>
-				<dd>
-					<table>
-						<tr>
-							<th>Name</th>
-							<th></th>
-						</tr>
-						<tr v-for="(p,i) in sector.planets" :value="i" :key="'planet-' + i">
-							<td>{{p.name}}</td>
-							<td>
-								<f7-link :href="'/regions/planet/view/'+sector_index+'/'+i"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link>
-							</td>
-						</tr>
-					</table>
-				</dd>
-			</dl>
+			<f7-block-title>{{sector.name}}</f7-block-title>
+			<f7-block inset>
+				<f7-buttons>
+					<f7-button href='/regions/list'>Sector List</f7-button>
+					<f7-button :href="'/regions/map/?x='+sector.x+'&y='+sector.y">Show on Map</f7-button>
+				</f7-buttons>
+				<dl>
+					<!-- STATISTICS -->
+					<dt><strong>Travel Zone</strong> <help-zone></help-zone></dt>
+					<dd class="bottom-border">{{ sector.zone | capitalize}}: {{ regions.categories.sector.zone[sector.zone] }}</dd>
+					<dt><strong>Trade Number</strong> <help-zone></help-zone></dt>
+					<dd class="bottom-border">{{ regions.getSectorTrade(sector) }}</dd>
+					<dt><strong>Sector Control</strong> <help-sector-control></help-sector-control></dt>
+					<dd class="bottom-border">{{ regions.categories.sector.control[sector.control] }}</dd>
+					<dt><strong>Star Class</strong> <help-star></help-star></dt>
+					<dd class="bottom-border">{{starDetails.type}} ({{ starDetails.class }})</dd>
+					<dd class="bottom-border">{{starDetails.description}}</dd>
+					<dt><strong>Star Temperature</strong></dt>
+					<dd class="bottom-border">{{starDetails.temperature}}K</dd>
+					<dt><strong>Description</strong></dt>
+					<dd class="bottom-border">{{sector.description}}</dd>
+					<dt><strong># of solar objects</strong></dt>
+					<dd class="bottom-border">{{ sector.planets.length }}</dd>
+					<dt><strong>Solar Objects</strong></dt>
+					<dd class="bottom-border">
+						<table>
+							<tr>
+								<th>Name</th>
+								<th></th>
+							</tr>
+							<tr v-for="(p,i) in sector.planets" :value="i" :key="'planet-' + i">
+								<td>{{p.name}}</td>
+								<td>
+									<f7-link :href="'/regions/planet/view/'+sector_index+'/'+i"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link>
+								</td>
+							</tr>
+						</table>
+					</dd>
+				</dl>
+			</f7-block>
 		</f7-block>
 	</f7-page>
 </template>

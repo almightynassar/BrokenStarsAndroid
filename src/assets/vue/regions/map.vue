@@ -1,49 +1,45 @@
 <template>
   <f7-page>
-    <div class="grid" v-bind:style="{'height': viewHeight + 'px', 'width': viewWidth + 'px','display': 'block', 'margin': 'auto' }"></div>
-    <f7-buttons>
-      <f7-button v-on:click="updatePage(-1,-1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_upward"></f7-icon></f7-button>
-      <f7-button v-on:click="updatePage(0,-1)"><f7-icon material="arrow_upward"></f7-icon></f7-button>
-      <f7-button v-on:click="updatePage(1,-1)"><f7-icon style="transform: rotate(45deg);" material="arrow_upward"></f7-icon></f7-button>
-    </f7-buttons>
-    <f7-buttons>
-      <f7-button v-on:click="updatePage(-1,0)"><f7-icon material="arrow_back"></f7-icon></f7-button>
-      <f7-button v-on:click="resetPage()"><f7-icon material="center_focus_strong"></f7-icon></f7-button>
-      <f7-button v-on:click="updatePage(1,0)"><f7-icon material="arrow_forward"></f7-icon></f7-button>
-    </f7-buttons>
-    <f7-buttons>
-      <f7-button v-on:click="updatePage(-1,1)"><f7-icon style="transform: rotate(45deg);" material="arrow_downward"></f7-icon></f7-button>
-      <f7-button v-on:click="updatePage(0,1)"><f7-icon material="arrow_downward"></f7-icon></f7-button>
-      <f7-button v-on:click="updatePage(1,1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_downward"></f7-icon></f7-button>
-    </f7-buttons>
-    <div class="list-block">
-      <ul>
-        <li>
-          <label class="label-radio item-content">
-            <input type="radio" id="overlay-control" v-model="overlay" value="control" checked="checked">
-            <div class="item-media">
-              <i class="icon icon-form-radio"></i>
-            </div>
-            <div class="item-inner">
-              <div class="item-title">Control</div>
-            </div>
-          </label>
-        </li>
-        <li>Blue = United Systems; Yellow = Independent Control; Red = Sakeena Stellar Republic; Brown = Ghan Queendom</li>
-        <li>
-          <label class="label-radio item-content">
-            <input type="radio" id="overlay-zone" v-model="overlay" value="zone">
-            <div class="item-media">
-              <i class="icon icon-form-radio"></i>
-            </div>
-            <div class="item-inner">
-              <div class="item-title">Zone</div>
-            </div>
-          </label>
-        </li>
-        <li>Green = Safe; Blue = Low risk; Yellow = Medium risk; Red = High risk</li>
-      </ul>
-    </div>
+    <f7-block>
+      <div class="grid" v-bind:style="{'height': viewHeight + 'px', 'width': viewWidth + 'px','display': 'block', 'margin': 'auto' }"></div>
+      <f7-block inset>
+        <f7-buttons>
+          <f7-button v-on:click="updatePage(-1,-1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_upward"></f7-icon></f7-button>
+          <f7-button v-on:click="updatePage(0,-1)"><f7-icon material="arrow_upward"></f7-icon></f7-button>
+          <f7-button v-on:click="updatePage(1,-1)"><f7-icon style="transform: rotate(45deg);" material="arrow_upward"></f7-icon></f7-button>
+        </f7-buttons>
+        <f7-buttons>
+          <f7-button v-on:click="updatePage(-1,0)"><f7-icon material="arrow_back"></f7-icon></f7-button>
+          <f7-button v-on:click="resetPage()"><f7-icon material="center_focus_strong"></f7-icon></f7-button>
+          <f7-button v-on:click="updatePage(1,0)"><f7-icon material="arrow_forward"></f7-icon></f7-button>
+        </f7-buttons>
+        <f7-buttons>
+          <f7-button v-on:click="updatePage(-1,1)"><f7-icon style="transform: rotate(45deg);" material="arrow_downward"></f7-icon></f7-button>
+          <f7-button v-on:click="updatePage(0,1)"><f7-icon material="arrow_downward"></f7-icon></f7-button>
+          <f7-button v-on:click="updatePage(1,1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_downward"></f7-icon></f7-button>
+        </f7-buttons>
+        <f7-grid v-show="overlay !== 'zone'">
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">United Systems</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Sakeena Stellar Republic</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Independent Control</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(94, 38, 5, 0.5);">Ghan Queendom</f7-col>
+        </f7-grid>
+        <f7-grid v-show="overlay === 'zone'">
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(63, 255, 36, 0.5);">Safe</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">Low Risk</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Medium Risk</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Dangerous</f7-col>
+        </f7-grid>
+        <div class="custom-radio">
+          <input id="overlay-control" type="radio" v-model="overlay" value="control" checked="checked">
+          <label for="overlay-control">Control</label>
+        </div>
+        <div class="custom-radio">
+          <input id="overlay-zone" type="radio" v-model="overlay" value="zone" checked="checked">
+          <label for="overlay-zone">Zone</label>
+        </div>
+      </f7-block>
+    </f7-block>
   </f7-page>
 </template>
 <script>

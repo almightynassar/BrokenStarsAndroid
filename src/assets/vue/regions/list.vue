@@ -1,32 +1,40 @@
 <template>
 	<f7-page>
-    <f7-list form>
-      <!-- Text Input -->
-      <f7-list-item>
-        <f7-label>Search</f7-label>
-        <f7-input type="text" v-model="search" v-on:input="updateSectors()" />
-      </f7-list-item>
-    </f7-list>
-    <div class="data-table">
-      <vuetable
-        ref="regionsummarytable"
-        :api-mode="false"
-        :data="sectors"
-        :fields="fields"
-        track-by="name"
-        detail-row-component="detail-row-region-summary"
-      >
-        <template slot="owner" scope="props">
-          {{ regions.categories.sector.control[props.rowData.control] }}
-        </template>
-        <template slot="trade" scope="props">
-          {{ regions.getSectorTrade(props.rowData) }}
-        </template>
-        <template slot="expand" scope="props">
-          <f7-button fill color="blue" v-on:click="onExpandRow(props.rowData.name)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
-        </template>
-      </vuetable>
-    </div>
+    <f7-block>
+      <f7-block-title>Sector List</f7-block-title>
+      <f7-block inset form>
+        <!-- Text Input -->
+        <input type="text" v-model="search" v-on:input="updateSectors()" placeholder="Search" />
+        <div class="custom-radio custom-radio-inline">
+          <input id="option-owner" type="radio" v-model="option" value="owner" checked="checked">
+          <label for="option-owner">Owner</label>
+        </div>
+        <div class="custom-radio custom-radio-inline">
+          <input id="option-trade" type="radio" v-model="option" value="trade">
+          <label for="option-trade">Trade</label>
+        </div>
+      </f7-block>
+      <div class="data-table">
+        <vuetable
+          ref="regionsummarytable"
+          :api-mode="false"
+          :data="sectors"
+          :fields="fields"
+          track-by="name"
+          detail-row-component="detail-row-region-summary"
+        >
+          <template slot="owner" scope="props">
+            {{ regions.categories.sector.control[props.rowData.control] }}
+          </template>
+          <template slot="trade" scope="props">
+            {{ regions.getSectorTrade(props.rowData) }}
+          </template>
+          <template slot="expand" scope="props">
+            <f7-button fill color="blue" v-on:click="onExpandRow(props.rowData.name)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
+          </template>
+        </vuetable>
+      </div>
+    </f7-block>
   </f7-page>
 </template>
 <script>
@@ -46,11 +54,54 @@
             dataClass: 'center aligned'
           },
           {
-            name: '__slot:trade',
+            name: '__slot:expand',
+            title: 'Expand',
+            titleClass: 'center aligned',
+            dataClass: 'center aligned'
+          }
+        ],
+        option: "owner",
+        options: {
+          owner: {
+            name: '__slot:owner',
             title: 'Control',
             titleClass: 'center aligned',
             dataClass: 'center aligned'
           },
+          trade: {
+            name: '__slot:trade',
+            title: 'Trade',
+            titleClass: 'center aligned',
+            dataClass: 'center aligned'
+          }
+        }
+      }
+    },
+    watch: {
+      option() {
+        this.updateTable()
+      },
+      fields: {
+        handler(value) {
+          this.$refs.regionsummarytable.normalizeFields()
+        },
+        deep: true
+      },
+      sectors: {
+        handler(value) {
+          this.updateTable()
+        },
+        deep: true
+      }
+    },
+    methods: {
+      updateTable() {
+        // Reset everything
+        this.$refs.regionsummarytable.resetData()
+        // Get our desired fields
+        this.fields = [
+          'name',
+          this.options[this.option],
           {
             name: '__slot:expand',
             title: 'Expand',
@@ -58,18 +109,16 @@
             dataClass: 'center aligned'
           }
         ]
-      }
-    },
-    watch: {
-      sectors: {
-        handler(value) {
-          this.$refs.regionsummarytable.resetData()
-          this.$refs.regionsummarytable.setData(value)
-        },
-        deep: true
-      }
-    },
-    methods: {
+        // NOTE: We will get warnings about this, but setting the prop of the child
+        // directly is the only way I could get the whole thing to be responsive.
+        // All other methods resulted in a change delay as the prop only updated
+        // one step behind all the other changes
+        this.$refs.regionsummarytable.fields = this.fields
+        // Set our data
+        this.$refs.regionsummarytable.setData(this.sectors)
+        // Force the table to read the new updated fields prop that we forced earlier
+        this.$refs.regionsummarytable.normalizeFields()
+      },
       updateSectors() {
         let tempSectors = []
         for (var index = 0; index < this.regions.sectors.length; index++) {
