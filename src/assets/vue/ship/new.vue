@@ -43,7 +43,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td><strong>AI</strong> <help-ai></help-ai></td>
+								<td><strong>AI</strong> <help-ship-ai></help-ship-ai></td>
 								<td>
 									<f7-input type="select" v-model="ship.attributes.ai">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
@@ -51,7 +51,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Armour</strong> <help-armour></help-armour></td>
+								<td><strong>Armour</strong> <help-ship-armour></help-ship-armour></td>
 								<td>
 									<f7-input type="select" v-model="ship.attributes.armour">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
@@ -59,7 +59,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Bulk</strong> <help-bulk></help-bulk></td>
+								<td><strong>Bulk</strong> <help-ship-bulk></help-ship-bulk></td>
 								<td>
 									<f7-input type="select" v-model="ship.attributes.bulk">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
@@ -67,7 +67,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Engine</strong> <help-engine></help-engine></td>
+								<td><strong>Engine</strong> <help-ship-engine></help-ship-engine></td>
 								<td>
 									<f7-input type="select" v-model="ship.attributes.engine">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
@@ -75,7 +75,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Power</strong> <help-power></help-power></td>
+								<td><strong>Power</strong> <help-ship-power></help-ship-power></td>
 								<td>
 									<f7-input type="select" v-model="ship.attributes.power">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
@@ -101,7 +101,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td><strong>Autopilot</strong> <help-autopilot></help-autopilot></td>
+								<td><strong>Autopilot</strong> <help-ship-autopilot></help-ship-autopilot></td>
 								<td>
 									<f7-input type="select" v-model="ship.systems.autopilot">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
@@ -109,7 +109,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>ECM</strong> <help-ecm></help-ecm></td>
+								<td><strong>ECM</strong> <help-ship-ecm></help-ship-ecm></td>
 								<td>
 									<f7-input type="select" v-model="ship.systems.ecm">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
@@ -117,7 +117,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Navigation</strong> <help-navigation></help-navigation></td>
+								<td><strong>Navigation</strong> <help-ship-navigation></help-ship-navigation></td>
 								<td>
 									<f7-input type="select" v-model="ship.systems.navigation">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
@@ -125,7 +125,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Operations</strong> <help-operations></help-operations></td>
+								<td><strong>Operations</strong> <help-ship-operations></help-ship-operations></td>
 								<td>
 									<f7-input type="select" v-model="ship.systems.operations">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
@@ -133,7 +133,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Repair</strong> <help-repair></help-repair></td>
+								<td><strong>Repair</strong> <help-ship-repair></help-ship-repair></td>
 								<td>
 									<f7-input type="select" v-model="ship.systems.repair">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
@@ -141,7 +141,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Sensors</strong> <help-sensors></help-sensors></td>
+								<td><strong>Sensors</strong> <help-ship-sensors></help-ship-sensors></td>
 								<td>
 									<f7-input type="select" v-model="ship.systems.sensors">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
@@ -149,7 +149,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Weapons</strong> <help-weapons></help-weapons></td>
+								<td><strong>Weapons</strong> <help-ship-weapons></help-ship-weapons></td>
 								<td>
 									<f7-input type="select" v-model="ship.systems.weapons">
 										<option v-for="(n,i) in ship.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
@@ -327,71 +327,71 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td><strong>AI Actions</strong> <help-ai-actions></help-ai-actions></td>
+								<td><strong>AI Actions</strong> <help-ship-ai-actions></help-ship-ai-actions></td>
 								<td>{{ship.getActionsAI()}}</td>
 							</tr>
 							<tr>
-								<td><strong>AI Evade</strong> <help-evade></help-evade></td>
+								<td><strong>AI Evade</strong> <help-ship-evade></help-ship-evade></td>
 								<td>{{ship.getEvade()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Breech</strong> <help-breech></help-breech></td>
+								<td><strong>Breech</strong> <help-ship-breech></help-ship-breech></td>
 								<td>{{ship.getToughness()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Crew</strong> <help-crew></help-crew></td>
+								<td><strong>Crew</strong> <help-ship-crew></help-ship-crew></td>
 								<td>{{ship.getCrew()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Fuel per FTL</strong> <help-fuel></help-fuel></td>
+								<td><strong>Fuel per FTL</strong> <help-ship-fuel></help-ship-fuel></td>
 								<td>{{ship.getFTL()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Hardpoints</strong> <help-hardpoints></help-hardpoints></td>
+								<td><strong>Hardpoints</strong> <help-ship-hardpoints></help-ship-hardpoints></td>
 								<td>{{ship.getHardpoints()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Hardpoints (Free)</strong> <help-hardpoints-used></help-hardpoints-used></td>
+								<td><strong>Hardpoints (Free)</strong> <help-ship-hardpoints-used></help-ship-hardpoints-used></td>
 								<td>{{ship.getHardpoints() + ship.getHardpointsUsed()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Hull Size</strong> <help-size></help-size></td>
+								<td><strong>Hull Size</strong> <help-ship-size></help-ship-size></td>
 								<td>{{ship.getSize()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Integrity</strong> <help-integrity></help-integrity></td>
+								<td><strong>Integrity</strong> <help-ship-integrity></help-ship-integrity></td>
 								<td>{{ship.getIntegrity()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Power (Total)</strong> <help-power-total></help-power-total></td>
+								<td><strong>Power (Total)</strong> <help-ship-power-total></help-ship-power-total></td>
 								<td>{{ship.getPower()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Power (Free)</strong> <help-power-used></help-power-used></td>
+								<td><strong>Power (Free)</strong> <help-ship-power-used></help-ship-power-used></td>
 								<td>{{ship.getPower() + ship.getPowerUsed()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Speed</strong> <help-speed></help-speed></td>
+								<td><strong>Speed</strong> <help-ship-speed></help-ship-speed></td>
 								<td>{{ship.getAcceleration()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Storage (Total)</strong> <help-storage-total></help-storage-total></td>
+								<td><strong>Storage (Total)</strong> <help-ship-storage-total></help-ship-storage-total></td>
 								<td>{{ship.getBulk()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Storage (Used)</strong> <help-storage-used></help-storage-used></td>
+								<td><strong>Storage (Used)</strong> <help-ship-storage-used></help-ship-storage-used></td>
 								<td>{{ship.getBulk() + ship.getBulkUsed()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Points</strong> <help-points></help-points></td>
+								<td><strong>Points</strong> <help-ship-points></help-ship-points></td>
 								<td>{{ship.getPoints()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Rank</strong> <help-rank></help-rank></td>
+								<td><strong>Rank</strong> <help-ship-rank></help-ship-rank></td>
 								<td>{{ship.getRank()}}</td>
 							</tr>
 							<tr>
-								<td><strong>Cost</strong> <help-cost></help-cost></td>
+								<td><strong>Cost</strong> <help-ship-cost></help-ship-cost></td>
 								<td>{{formatNumber(ship.getCost())}}</td>
 							</tr>
 						</tbody>

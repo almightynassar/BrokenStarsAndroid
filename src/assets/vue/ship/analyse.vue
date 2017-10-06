@@ -29,7 +29,7 @@
           <table>
             <tr>
               <td>
-                 <strong>AI</strong> <help-ai></help-ai>
+                 <strong>AI</strong> <help-ship-ai></help-ship-ai>
               </td>
               <td>
                 <f7-input type="select" v-model="attributes.ai">
@@ -39,7 +39,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Armour</strong> <help-armour></help-armour>
+                <strong>Armour</strong> <help-ship-armour></help-ship-armour>
               </td>
               <td>
                 <f7-input type="select" v-model="attributes.armour">
@@ -49,7 +49,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Bulk</strong> <help-bulk></help-bulk>
+                <strong>Bulk</strong> <help-ship-bulk></help-ship-bulk>
               </td>
               <td>
                 <f7-input type="select" v-model="attributes.bulk">
@@ -59,7 +59,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Engine</strong> <help-engine></help-engine>
+                <strong>Engine</strong> <help-ship-engine></help-ship-engine>
               </td>
               <td>
                 <f7-input type="select" v-model="attributes.engine">
@@ -69,7 +69,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Power</strong> <help-power></help-power>
+                <strong>Power</strong> <help-ship-power></help-ship-power>
               </td>
               <td>
                 <f7-input type="select" v-model="attributes.power">
@@ -84,7 +84,7 @@
           <table>
             <tr>
               <td>
-                <strong>Autopilot</strong> <help-autopilot></help-autopilot>
+                <strong>Autopilot</strong> <help-ship-autopilot></help-ship-autopilot>
               </td>
               <td>
                 <f7-input type="select" v-model="systems.autopilot">
@@ -94,7 +94,7 @@
             </tr>
             <tr>
               <td>
-                <strong>ECM</strong> <help-ecm></help-ecm>
+                <strong>ECM</strong> <help-ship-ecm></help-ship-ecm>
               </td>
               <td>
                 <f7-input type="select" v-model="systems.ecm">
@@ -104,7 +104,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Navigation</strong> <help-navigation></help-navigation>
+                <strong>Navigation</strong> <help-ship-navigation></help-ship-navigation>
               </td>
               <td>
                 <f7-input type="select" v-model="systems.navigation">
@@ -114,7 +114,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Operations</strong> <help-operations></help-operations>
+                <strong>Operations</strong> <help-ship-operations></help-ship-operations>
               </td>
               <td>
                 <f7-input type="select" v-model="systems.operations">
@@ -124,7 +124,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Repair</strong> <help-repair></help-repair>
+                <strong>Repair</strong> <help-ship-repair></help-ship-repair>
               </td>
               <td>
                 <f7-input type="select" v-model="systems.repair">
@@ -134,7 +134,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Sensors</strong> <help-sensors></help-sensors>
+                <strong>Sensors</strong> <help-ship-sensors></help-ship-sensors>
               </td>
               <td>
                 <f7-input type="select" v-model="systems.sensors">
@@ -144,7 +144,7 @@
             </tr>
             <tr>
               <td>
-                <strong>Weapons</strong> <help-weapons></help-weapons>
+                <strong>Weapons</strong> <help-ship-weapons></help-ship-weapons>
               </td>
               <td>
                 <f7-input type="select" v-model="systems.weapons">

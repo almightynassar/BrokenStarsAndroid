@@ -9,13 +9,13 @@
 				</f7-buttons>
 				<dl>
 					<!-- STATISTICS -->
-					<dt><strong>Travel Zone</strong> <help-zone></help-zone></dt>
+					<dt><strong>Travel Zone</strong> <help-region-zone></help-region-zone></dt>
 					<dd class="bottom-border">{{ sector.zone | capitalize}}: {{ regions.categories.sector.zone[sector.zone] }}</dd>
-					<dt><strong>Trade Number</strong> <help-zone></help-zone></dt>
+					<dt><strong>Trade Number</strong> <help-region-zone></help-region-zone></dt>
 					<dd class="bottom-border">{{ regions.getSectorTrade(sector) }}</dd>
-					<dt><strong>Sector Control</strong> <help-sector-control></help-sector-control></dt>
+					<dt><strong>Sector Control</strong> <help-region-control></help-region-control></dt>
 					<dd class="bottom-border">{{ regions.categories.sector.control[sector.control] }}</dd>
-					<dt><strong>Star Class</strong> <help-star></help-star></dt>
+					<dt><strong>Star Class</strong> <help-region-star></help-region-star></dt>
 					<dd class="bottom-border">{{starDetails.type}} ({{ starDetails.class }})</dd>
 					<dd class="bottom-border">{{starDetails.description}}</dd>
 					<dt><strong>Star Temperature</strong></dt>

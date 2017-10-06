@@ -2,11 +2,11 @@
   <dl>
     <dt><strong>Name</strong></dt>
     <dd>{{ rowData.name }}</dd>
-    <dt><strong>Travel Zone</strong> <help-zone></help-zone></dt>
+    <dt><strong>Travel Zone</strong> <help-region-zone></help-region-zone></dt>
     <dd>{{ rowData.zone | capitalize}}: {{ regions.categories.sector.zone[rowData.zone] }}</dd>
     <dt><strong>Trade Number</strong></dt>
     <dd>{{ regions.getSectorTrade(rowData) }}</dd>
-    <dt><strong>Star Class</strong> <help-star></help-star></dt>
+    <dt><strong>Star Class</strong> <help-region-star></help-region-star></dt>
     <dd>{{starDetails.type}} ({{ starDetails.class }})</dd>
     <dt><strong>Star Temperature</strong></dt>
     <dd>{{starDetails.temperature}}K</dd>

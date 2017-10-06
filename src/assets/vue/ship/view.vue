@@ -10,33 +10,33 @@
 			<f7-col width="100">
 				<f7-block-title class="content-center-text color-lightblue">Attributes</f7-block-title>
 			</f7-col>
-			<f7-col width="50">AI <help-ai></help-ai></f7-col>
+			<f7-col width="50">AI <help-ship-ai></help-ship-ai></f7-col>
 			<f7-col width="50">{{ship.getDiceCategory(ship.attributes.ai)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Armour <help-armour></help-armour></f7-col>
+			<f7-col class="bg-gray" width="50">Armour <help-ship-armour></help-ship-armour></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.attributes.armour)}}</f7-col>
-			<f7-col width="50">Bulk <help-bulk></help-bulk></f7-col>
+			<f7-col width="50">Bulk <help-ship-bulk></help-ship-bulk></f7-col>
 			<f7-col width="50">{{ship.getDiceCategory(ship.attributes.bulk)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Engine <help-engine></help-engine></f7-col>
+			<f7-col class="bg-gray" width="50">Engine <help-ship-engine></help-ship-engine></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.attributes.engine)}}</f7-col>
-			<f7-col width="50">Power <help-power></help-power></f7-col>
+			<f7-col width="50">Power <help-ship-power></help-ship-power></f7-col>
 			<f7-col width="50">{{ship.getDiceCategory(ship.attributes.power)}}</f7-col>
 			<!-- SUB-SYSTEMS -->
 			<f7-col width="100">
 				<f7-block-title class="content-center-text color-lightblue">Sub-Systems</f7-block-title>
 			</f7-col>
-			<f7-col width="50">Autopilot <help-autopilot></help-autopilot></f7-col>
+			<f7-col width="50">Autopilot <help-ship-autopilot></help-ship-autopilot></f7-col>
 			<f7-col width="50">{{ship.getDiceCategory(ship.systems.autopilot)}}</f7-col>
-			<f7-col class="bg-gray" width="50">ECM <help-ecm></help-ecm></f7-col>
+			<f7-col class="bg-gray" width="50">ECM <help-ship-ecm></help-ship-ecm></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.systems.ecm)}}</f7-col>
-			<f7-col width="50">Navigation <help-navigation></help-navigation></f7-col>
+			<f7-col width="50">Navigation <help-ship-navigation></help-ship-navigation></f7-col>
 			<f7-col width="50">{{ship.getDiceCategory(ship.systems.navigation)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Operations <help-operations></help-operations></f7-col>
+			<f7-col class="bg-gray" width="50">Operations <help-ship-operations></help-ship-operations></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.systems.operations)}}</f7-col>
-			<f7-col width="50">Repair <help-repair></help-repair></f7-col>
+			<f7-col width="50">Repair <help-ship-repair></help-ship-repair></f7-col>
 			<f7-col width="50">{{ship.getDiceCategory(ship.systems.repair)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Sensors <help-sensors></help-sensors></f7-col>
+			<f7-col class="bg-gray" width="50">Sensors <help-ship-sensors></help-ship-sensors></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.systems.sensors)}}</f7-col>
-			<f7-col width="50">Weapons <help-weapons></help-weapons></f7-col>
+			<f7-col width="50">Weapons <help-ship-weapons></help-ship-weapons></f7-col>
 			<f7-col width="50">{{ship.getDiceCategory(ship.systems.weapons)}}</f7-col>
 			<!-- Fittings -->
 			<f7-col width="100">
@@ -194,39 +194,39 @@
 			<f7-col width="100">
 				<f7-block-title class="content-center-text color-lightblue">Derived Values</f7-block-title>
 			</f7-col>
-			<f7-col width="50">AI Actions <help-ai-actions></help-ai-actions></f7-col>
+			<f7-col width="50">AI Actions <help-ship-ai-actions></help-ship-ai-actions></f7-col>
 			<f7-col width="50">{{ship.getActionsAI()}}</f7-col>
-			<f7-col class="bg-gray" width="50">AI Evade <help-evade></help-evade></f7-col>
+			<f7-col class="bg-gray" width="50">AI Evade <help-ship-evade></help-ship-evade></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getEvade()}}</f7-col>
-			<f7-col width="50">Breech <help-breech></help-breech></f7-col>
+			<f7-col width="50">Breech <help-ship-breech></help-ship-breech></f7-col>
 			<f7-col width="50">{{ship.getToughness()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Crew <help-crew></help-crew></f7-col>
+			<f7-col class="bg-gray" width="50">Crew <help-ship-crew></help-ship-crew></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getCrew()}}</f7-col>
-			<f7-col width="50">Fuel per FTL <help-fuel></help-fuel></f7-col>
+			<f7-col width="50">Fuel per FTL <help-ship-fuel></help-ship-fuel></f7-col>
 			<f7-col width="50">{{ship.getFTL()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Hardpoints <help-hardpoints></help-hardpoints></f7-col>
+			<f7-col class="bg-gray" width="50">Hardpoints <help-ship-hardpoints></help-ship-hardpoints></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getHardpoints()}}</f7-col>
-			<f7-col width="50">Hardpoints (Free) <help-hardpoints-used></help-hardpoints-used></f7-col>
+			<f7-col width="50">Hardpoints (Free) <help-ship-hardpoints-used></help-ship-hardpoints-used></f7-col>
 			<f7-col width="50">{{ship.getHardpoints() + ship.getHardpointsUsed()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Hull Size <help-size></help-size></f7-col>
+			<f7-col class="bg-gray" width="50">Hull Size <help-ship-size></help-ship-size></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getSize()}}</f7-col>
-			<f7-col width="50">Integrity <help-integrity></help-integrity></f7-col>
+			<f7-col width="50">Integrity <help-ship-integrity></help-ship-integrity></f7-col>
 			<f7-col width="50">{{ship.getIntegrity()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Power (Total) <help-power-total></help-power-total></f7-col>
+			<f7-col class="bg-gray" width="50">Power (Total) <help-ship-power-total></help-ship-power-total></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getPower()}}</f7-col>
-			<f7-col width="50">Power (Free) <help-power-used></help-power-used></f7-col>
+			<f7-col width="50">Power (Free) <help-ship-power-used></help-ship-power-used></f7-col>
 			<f7-col width="50">{{ship.getPower() + ship.getPowerUsed()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Speed <help-speed></help-speed></f7-col>
+			<f7-col class="bg-gray" width="50">Speed <help-ship-speed></help-ship-speed></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getAcceleration()}}</f7-col>
-			<f7-col width="50">Storage (Total) <help-storage-total></help-storage-total></f7-col>
+			<f7-col width="50">Storage (Total) <help-ship-storage-total></help-ship-storage-total></f7-col>
 			<f7-col width="50">{{ship.getBulk()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Storage (Used) <help-storage-used></help-storage-used></f7-col>
+			<f7-col class="bg-gray" width="50">Storage (Used) <help-ship-storage-used></help-ship-storage-used></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getBulk() + ship.getBulkUsed()}}</f7-col>
-			<f7-col width="50">Points <help-points></help-points></f7-col>
+			<f7-col width="50">Points <help-ship-points></help-ship-points></f7-col>
 			<f7-col width="50">{{ship.getPoints()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Rank <help-rank></help-rank></f7-col>
+			<f7-col class="bg-gray" width="50">Rank <help-ship-rank></help-ship-rank></f7-col>
 			<f7-col class="bg-gray" width="50">{{ship.getRank()}}</f7-col>
-			<f7-col width="50">Cost <help-cost></help-cost></f7-col>
+			<f7-col width="50">Cost <help-ship-cost></help-ship-cost></f7-col>
 			<f7-col width="50">{{formatNumber(ship.getCost())}}</f7-col>
 		</f7-grid>
 		
