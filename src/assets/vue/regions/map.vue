@@ -162,13 +162,7 @@
 				return this.formatter.format(parseInt(value));
       },
       findRegion(x, y) {
-        let matching = this.regions.sectors.filter(function(s) {
-          return (s.x == this.x) && (s.y == this.y)
-        }, {'x': x, 'y': y})
-        if (matching.length == 1) {
-          return matching[0]
-        }
-        return null
+        return this.regions.findSector(x, y)
       },
       makeHexGrid() {
         let self = this
@@ -239,8 +233,8 @@
             let star = group.circle(this.font.size).fill({color: starColour}).stroke({ color: '#000', opacity: 0.5, width: 2 }).move( (this.hexWidth / 2) - (this.font.size / 2), (this.hexHeight / 2) - (this.font.size / 2))
             // Add event handlers to the group
             group.on('click', function() {
-              let sector_index = self.regions.sectors.indexOf(region)
-              self.$router.loadPage('/regions/sector/view/'+sector_index)
+              let localRegion = region
+              self.$router.loadPage('/regions/sector/view/'+region.x+'/'+region.y)
             })
           }
           // Draw the Hex and send it to the back

@@ -1,5 +1,6 @@
 export default {
   // User defined data
+  uuid: "",
   name: "",
   // Categories
   categories: {
@@ -179,7 +180,7 @@ export default {
     let hullInt = parseInt(this.hull)
     return Math.ceil((50-(Math.pow(hullInt,0.9)*5)));
   },
-  getBaseFTL() { return Math.abs(this.hull) + 1; },
+  getBaseFTL() { return Math.ceil((this.hull + 1) / 2); },
   getBaseHardpoints() {
     let hullInt = parseInt(this.hull)
     return Math.ceil(((hullInt*2)+Math.pow(hullInt,2)) / 2);
@@ -222,7 +223,7 @@ export default {
     }
     return power;
   },
-  getAcceleration() { return Math.ceil(this.getBaseAcceleration() * this.convertToDieMultiplier(this.attributes.engine)); },
+  getAcceleration() { return Math.ceil(this.getBaseAcceleration() * this.convertToDieMultiplier(this.attributes.engine)) * 6; },
   getFTL() { return Math.ceil(this.getBaseFTL() * (2 - this.convertToDieMultiplier(this.attributes.engine))); },
   getHardpoints() { return Math.ceil(this.getBaseHardpoints() * this.convertToDieMultiplier(this.attributes.armour)); },
   getHardpointsUsed() {
@@ -432,10 +433,18 @@ export default {
     return this.weapons.findIndex(function(weapon) { return weapon.id === this.id; } , {'id': id});
   },
   /**
+   * Generatse a (hopefully) unique ship identifier
+   */
+  generateShipDesignation() {
+    let length = Math.ceil(Math.random()*5) + 5
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1).toUpperCase();
+  },
+  /**
    * Convert Ship values into a JSON Object string
    */
   deflate() {
     var obj = {
+      uuid: this.uuid,
       name: this.name,
       hull: this.hull,
       attributes: this.attributes,
@@ -471,6 +480,11 @@ export default {
     }
     if (data.hasOwnProperty('notes')) {
       this.notes = data.notes
+    }
+    if (data.hasOwnProperty('uuid')) {
+      this.uuid = data.uuid.toUpperCase()
+    } else {
+      this.uuid = this.generateShipDesignation().toUpperCase()
     }
   }
 };

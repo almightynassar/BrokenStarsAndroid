@@ -1,23 +1,23 @@
 <template>
   <dl>
     <dt><strong>Name</strong></dt>
-    <dd>{{ rowData.name }}</dd>
+    <dd class="bottom-border">{{ rowData.name }}</dd>
     <dt><strong>Storage</strong></dt>
-    <dd>{{ rowData.storage }}</dd>
+    <dd class="bottom-border">{{ rowData.storage }}</dd>
     <dt><strong>Power</strong></dt>
-    <dd>{{ rowData.power }}</dd>
+    <dd class="bottom-border">{{ rowData.power }}</dd>
     <dt><strong>Damage</strong></dt>
-    <dd>{{ rowData.damage }}</dd>
+    <dd class="bottom-border">{{ rowData.damage }}</dd>
     <dt><strong>Range</strong></dt>
-    <dd>{{ rowData.range }}/{{rowData.range*2}}/{{(rowData.range*2)*2}}</dd>
+    <dd class="bottom-border">{{ rowData.range }}/{{rowData.range*2}}/{{(rowData.range*2)*2}}</dd>
     <dt><strong>Rate of Fire</strong></dt>
-    <dd>{{ rowData.rof }}</dd>
+    <dd class="bottom-border">{{ rowData.rof }}</dd>
     <dt><strong>Hardpoints</strong></dt>
-    <dd>{{ rowData.hardpoints }}</dd>
+    <dd class="bottom-border">{{ rowData.hardpoints }}</dd>
     <dt><strong>Cost</strong></dt>
-    <dd>{{ formatNumber( rowData.cost ) }}</dd>
+    <dd class="bottom-border">{{ formatNumber( rowData.cost ) }}</dd>
     <dt><strong>Description</strong></dt>
-    <dd>{{ rowData.description }}</dd>
+    <dd class="bottom-border">{{ rowData.description }}</dd>
   </dl>
 </template>
 <script>

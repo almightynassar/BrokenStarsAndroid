@@ -1,52 +1,53 @@
 <template>
 	<f7-page>
-		<f7-block-title>{{ship.name}}</f7-block-title>
-		<p><f7-link href='/ship/list/'><< Back</f7-link>.</p>
-		<f7-grid>
-			<!-- HULL -->
-			<f7-col width="50">Hull</f7-col>
-			<f7-col width="50">{{ship.getHull()}}</f7-col>
-			<!-- ATTRIBUTES -->
-			<f7-col width="100">
+		<f7-block>
+			<f7-block-title>{{ship.name}}</f7-block-title>
+			<f7-block inset>
+				<f7-buttons>
+					<f7-button href="/ship/list/">Ship List</f7-button>
+					<f7-button href="/ship/form/">New Ship</f7-button>
+				</f7-buttons>
+
+				<!-- ATTRIBUTES -->
 				<f7-block-title class="content-center-text color-lightblue">Attributes</f7-block-title>
-			</f7-col>
-			<f7-col width="50">AI <help-ship-ai></help-ship-ai></f7-col>
-			<f7-col width="50">{{ship.getDiceCategory(ship.attributes.ai)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Armour <help-ship-armour></help-ship-armour></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.attributes.armour)}}</f7-col>
-			<f7-col width="50">Bulk <help-ship-bulk></help-ship-bulk></f7-col>
-			<f7-col width="50">{{ship.getDiceCategory(ship.attributes.bulk)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Engine <help-ship-engine></help-ship-engine></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.attributes.engine)}}</f7-col>
-			<f7-col width="50">Power <help-ship-power></help-ship-power></f7-col>
-			<f7-col width="50">{{ship.getDiceCategory(ship.attributes.power)}}</f7-col>
-			<!-- SUB-SYSTEMS -->
-			<f7-col width="100">
+				<dl>
+					<dt><strong>AI</strong> <help-ship-ai></help-ship-ai></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.attributes.ai)}}</dd>
+					<dt><strong>Armour</strong> <help-ship-armour></help-ship-armour></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.attributes.armour)}}</dd>
+					<dt><strong>Bulk</strong> <help-ship-bulk></help-ship-bulk></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.attributes.bulk)}}</dd>
+					<dt><strong>Engine</strong> <help-ship-engine></help-ship-engine></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.attributes.engine)}}</dd>
+					<dt><strong>Power</strong> <help-ship-power></help-ship-power></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.attributes.power)}}</dd>
+				</dl>
+
+				<!-- SUB-SYSTEMS -->
 				<f7-block-title class="content-center-text color-lightblue">Sub-Systems</f7-block-title>
-			</f7-col>
-			<f7-col width="50">Autopilot <help-ship-autopilot></help-ship-autopilot></f7-col>
-			<f7-col width="50">{{ship.getDiceCategory(ship.systems.autopilot)}}</f7-col>
-			<f7-col class="bg-gray" width="50">ECM <help-ship-ecm></help-ship-ecm></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.systems.ecm)}}</f7-col>
-			<f7-col width="50">Navigation <help-ship-navigation></help-ship-navigation></f7-col>
-			<f7-col width="50">{{ship.getDiceCategory(ship.systems.navigation)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Operations <help-ship-operations></help-ship-operations></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.systems.operations)}}</f7-col>
-			<f7-col width="50">Repair <help-ship-repair></help-ship-repair></f7-col>
-			<f7-col width="50">{{ship.getDiceCategory(ship.systems.repair)}}</f7-col>
-			<f7-col class="bg-gray" width="50">Sensors <help-ship-sensors></help-ship-sensors></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getDiceCategory(ship.systems.sensors)}}</f7-col>
-			<f7-col width="50">Weapons <help-ship-weapons></help-ship-weapons></f7-col>
-			<f7-col width="50">{{ship.getDiceCategory(ship.systems.weapons)}}</f7-col>
-			<!-- Fittings -->
-			<f7-col width="100">
+				<dl>
+					<dt><strong>Autopilot</strong> <help-ship-autopilot></help-ship-autopilot></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.systems.autopilot)}}</dd>
+					<dt><strong>ECM</strong> <help-ship-ecm></help-ship-ecm></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.systems.ecm)}}</dd>
+					<dt><strong>Navigation</strong> <help-ship-navigation></help-ship-navigation></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.systems.navigation)}}</dd>
+					<dt><strong>Operations</strong> <help-ship-operations></help-ship-operations></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.systems.operations)}}</dd>
+					<dt><strong>Repair</strong> <help-ship-repair></help-ship-repair></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.systems.repair)}}</dd>
+					<dt><strong>Sensors</strong> <help-ship-sensors></help-ship-sensors></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.systems.sensors)}}</dd>
+					<dt><strong>Weapons</strong> <help-ship-weapons></help-ship-weapons></dt>
+					<dd class="bottom-border">{{ship.getDiceCategory(ship.systems.weapons)}}</dd>
+				</dl>
+
+				<!-- Fittings -->
 				<f7-block-title class="content-center-text color-lightblue">Fittings</f7-block-title>
-			</f7-col>
-			<f7-col width="100">
-				<f7-button big fill round color="blue" v-on:click="openFittingsPopup(index)"><f7-icon color="white" material="add"></f7-icon></f7-button>
-				<f7-popup :id="'fittings-popup-'+index" :ref="'fittings-popup-'+index">
+				<f7-button big fill round color="blue" v-on:click="openFittingsPopup(uuid)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+				<f7-popup :id="'fittings-popup-'+uuid" :ref="'fittings-popup-'+uuid">
 					<f7-block-title>Add fitting</f7-block-title>
-					<f7-button big fill color="blue" v-on:click="closeFittingsPopup(index)"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
+					<f7-button big fill color="blue" v-on:click="closeFittingsPopup(uuid)"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
 					<div class="data-table">
 						<vuetable
 							ref="fittingstable"
@@ -78,8 +79,6 @@
 						</vuetable>
 					</div>
 				</f7-popup>
-			</f7-col>
-			<f7-col width="100">
 				<div class="data-table">
 					<vuetable
 						ref="shipfittingstable"
@@ -113,16 +112,13 @@
 						</template>
 					</vuetable>
 				</div>
-			</f7-col>
-			<!-- Weapons -->
-			<f7-col width="100">
+
+				<!-- Weapons -->
 				<f7-block-title class="content-center-text color-lightblue">Weapons</f7-block-title>
-			</f7-col>
-			<f7-col width="100">
-				<f7-button big fill color="blue" v-on:click="openWeaponsPopup(index)"><f7-icon color="white" material="add"></f7-icon></f7-button>
-				<f7-popup :id="'weapons-popup-'+index" :ref="'weapons-popup-'+index">
+				<f7-button big fill color="blue" v-on:click="openWeaponsPopup(uuid)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+				<f7-popup :id="'weapons-popup-'+uuid" :ref="'weapons-popup-'+uuid">
 					<f7-block-title>Add fitting</f7-block-title>
-					<f7-button big fill round color="blue" v-on:click="closeWeaponsPopup(index)"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
+					<f7-button big fill round color="blue" v-on:click="closeWeaponsPopup(uuid)"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
 					<div class="data-table">
 						<vuetable
 							ref="weaponstable"
@@ -154,8 +150,6 @@
 						</vuetable>
 					</div>
 				</f7-popup>
-			</f7-col>
-			<f7-col width="100">
 				<div class="data-table">
 					<vuetable
 						ref="shipweaponstable"
@@ -189,51 +183,51 @@
 						</template>
 					</vuetable>
 				</div>
-			</f7-col>
-			<!-- Derivative Values -->
-			<f7-col width="100">
-				<f7-block-title class="content-center-text color-lightblue">Derived Values</f7-block-title>
-			</f7-col>
-			<f7-col width="50">AI Actions <help-ship-ai-actions></help-ship-ai-actions></f7-col>
-			<f7-col width="50">{{ship.getActionsAI()}}</f7-col>
-			<f7-col class="bg-gray" width="50">AI Evade <help-ship-evade></help-ship-evade></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getEvade()}}</f7-col>
-			<f7-col width="50">Breech <help-ship-breech></help-ship-breech></f7-col>
-			<f7-col width="50">{{ship.getToughness()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Crew <help-ship-crew></help-ship-crew></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getCrew()}}</f7-col>
-			<f7-col width="50">Fuel per FTL <help-ship-fuel></help-ship-fuel></f7-col>
-			<f7-col width="50">{{ship.getFTL()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Hardpoints <help-ship-hardpoints></help-ship-hardpoints></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getHardpoints()}}</f7-col>
-			<f7-col width="50">Hardpoints (Free) <help-ship-hardpoints-used></help-ship-hardpoints-used></f7-col>
-			<f7-col width="50">{{ship.getHardpoints() + ship.getHardpointsUsed()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Hull Size <help-ship-size></help-ship-size></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getSize()}}</f7-col>
-			<f7-col width="50">Integrity <help-ship-integrity></help-ship-integrity></f7-col>
-			<f7-col width="50">{{ship.getIntegrity()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Power (Total) <help-ship-power-total></help-ship-power-total></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getPower()}}</f7-col>
-			<f7-col width="50">Power (Free) <help-ship-power-used></help-ship-power-used></f7-col>
-			<f7-col width="50">{{ship.getPower() + ship.getPowerUsed()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Speed <help-ship-speed></help-ship-speed></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getAcceleration()}}</f7-col>
-			<f7-col width="50">Storage (Total) <help-ship-storage-total></help-ship-storage-total></f7-col>
-			<f7-col width="50">{{ship.getBulk()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Storage (Used) <help-ship-storage-used></help-ship-storage-used></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getBulk() + ship.getBulkUsed()}}</f7-col>
-			<f7-col width="50">Points <help-ship-points></help-ship-points></f7-col>
-			<f7-col width="50">{{ship.getPoints()}}</f7-col>
-			<f7-col class="bg-gray" width="50">Rank <help-ship-rank></help-ship-rank></f7-col>
-			<f7-col class="bg-gray" width="50">{{ship.getRank()}}</f7-col>
-			<f7-col width="50">Cost <help-ship-cost></help-ship-cost></f7-col>
-			<f7-col width="50">{{formatNumber(ship.getCost())}}</f7-col>
-		</f7-grid>
-		
-		<f7-block inner>
-			<p>
+
+				<!-- Other Values -->
+				<f7-block-title class="content-center-text color-lightblue">Other Values</f7-block-title>
+				<dl>
+					<dt><strong>Hull</strong></dt>
+					<dd class="bottom-border">{{ship.getHull()}}</dd>
+					<dt><strong>Designation</strong></dt>
+					<dd class="bottom-border">{{ship.uuid}}</dd>
+					<dt><strong>AI Actions</strong> <help-ship-ai-actions></help-ship-ai-actions></dt>
+					<dd class="bottom-border">{{ship.getActionsAI()}}</dd>
+					<dt><strong>AI Evade</strong> <help-ship-evade></help-ship-evade></dt>
+					<dd class="bottom-border">{{ship.getEvade()}}</dd>
+					<dt><strong>Breech</strong> <help-ship-breech></help-ship-breech></dt>
+					<dd class="bottom-border">{{ship.getToughness()}}</dd>
+					<dt><strong>Crew</strong> <help-ship-crew></help-ship-crew></dt>
+					<dd class="bottom-border">{{ship.getCrew()}}</dd>
+					<dt><strong>Fuel per FTL</strong> <help-ship-fuel></help-ship-fuel></dt>
+					<dd class="bottom-border">{{ship.getFTL()}}</dd>
+					<dt><strong>Hardpoints</strong> <help-ship-hardpoints></help-ship-hardpoints></dt>
+					<dd class="bottom-border">{{ship.getHardpoints()}}</dd>
+					<dt><strong>Hardpoints (Free)</strong> <help-ship-hardpoints-used></help-ship-hardpoints-used></dt>
+					<dd class="bottom-border">{{ship.getHardpoints() + ship.getHardpointsUsed()}}</dd>
+					<dt><strong>Hull Size</strong> <help-ship-size></help-ship-size></dt>
+					<dd class="bottom-border">{{ship.getSize()}}</dd>
+					<dt><strong>Integrity</strong> <help-ship-integrity></help-ship-integrity></dt>
+					<dd class="bottom-border">{{ship.getIntegrity()}}</dd>
+					<dt><strong>Power (Total)</strong> <help-ship-power-total></help-ship-power-total></dt>
+					<dd class="bottom-border">{{ship.getPower()}}</dd>
+					<dt><strong>Power (Free)</strong> <help-ship-power-used></help-ship-power-used></dt>
+					<dd class="bottom-border">{{ship.getPower() + ship.getPowerUsed()}}</dd>
+					<dt><strong>Speed</strong> <help-ship-speed></help-ship-speed></dt>
+					<dd class="bottom-border">{{ship.getAcceleration()}}</dd>
+					<dt><strong>Storage (Total)</strong> <help-ship-storage-total></help-ship-storage-total></dt>
+					<dd class="bottom-border">{{ship.getBulk()}}</dd>
+					<dt><strong>Storage (Used)</strong> <help-ship-storage-used></help-ship-storage-used></dt>
+					<dd class="bottom-border">{{ship.getBulk() + ship.getBulkUsed()}}</dd>
+					<dt><strong>Points</strong> <help-ship-points></help-ship-points></dt>
+					<dd class="bottom-border">{{ship.getPoints()}}</dd>
+					<dt><strong>Rank</strong> <help-ship-rank></help-ship-rank></dt>
+					<dd class="bottom-border">{{ship.getRank()}}</dd>
+					<dt><strong>Cost</strong> <help-ship-cost></help-ship-cost></dt>
+					<dd class="bottom-border">{{formatNumber(ship.getCost())}}</dd>
+				</dl>
 				<f7-button big fill color="green" v-on:click="onClick">Update</f7-button>
-			</p>
+			</f7-block>
 		</f7-block>
 	</f7-page>
 </template>
@@ -241,7 +235,7 @@
 <script>
 	export default {
 		props: {
-			index: {
+			uuid: {
 				type: String,
 				default: "0"
 			}
@@ -362,7 +356,7 @@
       }
 		},
 		created() {
-			let tempShip = this.$bsFactory.getShipByIndex(this.index)
+			let tempShip = this.$bsFactory.findShipByDesignation(this.uuid)
 			if (tempShip) {
 				this.ship = tempShip
 			} else {

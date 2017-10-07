@@ -31,7 +31,7 @@ export default [
     component: require('./assets/vue/ship/analyse.vue')
   },
   {
-    path: '/ship/view/:index',
+    path: '/ship/view/:uuid',
     component: require('./assets/vue/ship/view.vue')
   },
   {
@@ -52,11 +52,11 @@ export default [
     component: require('./assets/vue/regions/map.vue')
   },
   {
-    path: '/regions/sector/view/:sector_index',
+    path: '/regions/sector/view/:sector_x/:sector_y',
     component: require('./assets/vue/regions/viewSector.vue')
   },
   {
-    path: '/regions/planet/view/:sector_index/:planet_index',
+    path: '/regions/planet/view/:sector_x/:sector_y/:planet_index',
     component: require('./assets/vue/regions/viewPlanet.vue')
   },
 ]

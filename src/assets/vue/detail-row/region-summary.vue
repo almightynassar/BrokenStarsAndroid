@@ -1,19 +1,19 @@
 <template>
   <dl>
     <dt><strong>Name</strong></dt>
-    <dd>{{ rowData.name }}</dd>
+    <dd class="bottom-border">{{ rowData.name }}</dd>
     <dt><strong>Travel Zone</strong> <help-region-zone></help-region-zone></dt>
-    <dd>{{ rowData.zone | capitalize}}: {{ regions.categories.sector.zone[rowData.zone] }}</dd>
+    <dd class="bottom-border">{{ rowData.zone | capitalize}}: {{ regions.categories.sector.zone[rowData.zone] }}</dd>
     <dt><strong>Trade Number</strong></dt>
-    <dd>{{ regions.getSectorTrade(rowData) }}</dd>
+    <dd class="bottom-border">{{ regions.getSectorTrade(rowData) }}</dd>
     <dt><strong>Star Class</strong> <help-region-star></help-region-star></dt>
-    <dd>{{starDetails.type}} ({{ starDetails.class }})</dd>
+    <dd class="bottom-border">{{starDetails.type}} ({{ starDetails.class }})</dd>
     <dt><strong>Star Temperature</strong></dt>
-    <dd>{{starDetails.temperature}}K</dd>
+    <dd class="bottom-border">{{starDetails.temperature}}K</dd>
     <dt><strong># of solar objects</strong></dt>
-    <dd>{{ rowData.planets.length }}</dd>
+    <dd class="bottom-border">{{ rowData.planets.length }}</dd>
     <dt><strong>View More</strong></dt>
-    <dd><f7-link :href="'/regions/sector/view/'+rowIndex"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link></dd>
+    <dd><f7-link :href="'/regions/sector/view/'+rowData.x+'/'+rowData.y"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link></dd>
   </dl>
 </template>
 <script>

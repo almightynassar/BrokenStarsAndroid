@@ -4,7 +4,7 @@
 			<f7-block-title>{{planet.name}}</f7-block-title>
 			<f7-block inset>
 				<f7-buttons>
-					<f7-button :href="'/regions/sector/view/'+sector_index">View Sector</f7-button>
+					<f7-button :href="'/regions/sector/view/'+sector_x+'/'+sector_y">View Sector</f7-button>
 					<f7-button :href="'/regions/map/?x='+sector.x+'&y='+sector.y">Show on Map</f7-button>
 				</f7-buttons>
 				<dl>
@@ -43,8 +43,8 @@
 					<dd class="bottom-border">{{planet.description}}</dd>
 					<dt><strong>Tags</strong></dt>
 					<dd class="bottom-border">
-						<span v-for="(t,i) in tags" :value="i" :key="'tag-' + i">
-							{{t}}&nbsp;
+						<span class="tag" v-for="(t,i) in tags" :value="i" :key="'tag-' + i">
+							{{t}}
 						</span>
 					</dd>
 				</dl>
@@ -56,7 +56,11 @@
 <script>
 	export default {
 		props: {
-			sector_index: {
+			sector_x: {
+				type: String,
+				default: "0"
+			},
+			sector_y: {
 				type: String,
 				default: "0"
 			},
@@ -84,7 +88,7 @@
 			},
 		},
 		created() {
-			let tempSector = this.regions.sectors[this.sector_index]
+			let tempSector = this.regions.findSector(this.sector_x, this.sector_y)
 			if (tempSector) {
 				this.sector = tempSector
 				let tempPlanet = this.sector.planets[this.planet_index]

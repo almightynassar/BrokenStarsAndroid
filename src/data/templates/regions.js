@@ -376,7 +376,9 @@ export default {
           ['temperate', 'warm'].includes(planet.temperature)) {
       tags.push('Water World')
     }
-    return tags.sort()
+    return tags.sort().filter( function (value, index, self) { 
+      return self.indexOf(value) === index;
+    })
   },
   // Determine the Gross Trade Product of a planet
   getPlanetTrade(planet) {
@@ -412,5 +414,15 @@ export default {
     regionFiles.keys().forEach(function (file) {
       self.data.regions.push( (regionFiles(file)).default );
     })
+  },
+  // Find a sector by it's x and y coordinates
+  findSector(x, y) {
+    let matching = this.sectors.filter(function(s) {
+      return (s.x == this.x) && (s.y == this.y)
+    }, {'x': x, 'y': y})
+    if (matching.length == 1) {
+      return matching[0]
+    }
+    return null
   }
 }

@@ -203,6 +203,13 @@ dd, dt {
 	background-color: darken(#fff, 13.5%);
 }
 
+.custom-table td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 .popover {
 	padding: 0.5em
 }
@@ -313,4 +320,12 @@ input:focus {
             background:#2196f3;
         }
     }
+}
+
+span.tag {
+	border-style: solid;
+	border-width: 1px;
+	margin: 2px;
+	padding: 2px;
+	background-color: lightgray;
 }

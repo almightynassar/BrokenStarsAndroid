@@ -18,6 +18,7 @@ Vue.component('help-ship-weapons', require('./ship/weapons.vue'))
 
 // SHIP: VALUES
 Vue.component('help-ship-ai-actions', require('./ship/ai-actions.vue'))
+Vue.component('help-ship-designation', require('./ship/designation.vue'))
 Vue.component('help-ship-evade', require('./ship/evade.vue'))
 Vue.component('help-ship-breech', require('./ship/breech.vue'))
 Vue.component('help-ship-crew', require('./ship/crew.vue'))

@@ -34,7 +34,7 @@
 							<tr v-for="(p,i) in sector.planets" :value="i" :key="'planet-' + i">
 								<td>{{p.name}}</td>
 								<td>
-									<f7-link :href="'/regions/planet/view/'+sector_index+'/'+i"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link>
+									<f7-link :href="'/regions/planet/view/'+sector_x+'/'+sector_y+'/'+i"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link>
 								</td>
 							</tr>
 						</table>
@@ -48,7 +48,11 @@
 <script>
 	export default {
 		props: {
-			sector_index: {
+			sector_x: {
+				type: String,
+				default: "0"
+			},
+			sector_y: {
 				type: String,
 				default: "0"
 			}
@@ -78,7 +82,7 @@
 			},
 		},
 		created() {
-			let tempSector = this.regions.sectors[this.sector_index]
+			let tempSector = this.regions.findSector(this.sector_x, this.sector_y)
 			if (tempSector) {
 				this.sector = tempSector
 			} else {
