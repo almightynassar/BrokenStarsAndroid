@@ -390,11 +390,10 @@
 				</table>
 			</div>
 			
-			<f7-block inset>
-				<p>
-					<f7-button big fill color="green" v-on:click="onClick">Submit</f7-button>
-				</p>
-			</f7-block>
+			<f7-buttons>
+				<f7-button big fill color="blue" v-on:click="randomShip">Random</f7-button>
+				<f7-button big fill color="green" v-on:click="onClick">Submit</f7-button>
+			</f7-buttons>
 		</f7-block>
 	</f7-page>
 </template>
@@ -403,6 +402,7 @@
 	export default {
 		data() {
 			return {
+				names: this.$bsFactory.getNames(),
 				ship: this.$bsFactory.cloneShip(),
 				fittings: this.$bsFactory.getTemplate('fittings'),
 				weapons: this.$bsFactory.getTemplate("weapons"),
@@ -410,6 +410,30 @@
 			}
 		},
 		methods: {
+			randomShip() {
+				// Random Ship Name
+				let nameKeys = Object.keys(this.names)
+				let nameRandom = (nameKeys.length * Math.random() << 0)
+				this.ship.name = this.names[ nameKeys[nameRandom] ].name()
+				// New Designation
+				this.ship.uuid = this.ship.generateShipDesignation().toUpperCase()
+				// Random Ship hull
+				this.ship.hull = this.ship.categories.hulls.length * Math.random() << 0
+				// Random Attributes
+				this.ship.attributes.ai = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.attributes.armour = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.attributes.bulk = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.attributes.engine = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.attributes.power = this.ship.categories.dice.length * Math.random() << 0
+				// Random Sub-systems
+				this.ship.systems.autopilot = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.systems.ecm = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.systems.navigation = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.systems.operations = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.systems.repair = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.systems.sensors = this.ship.categories.dice.length * Math.random() << 0
+				this.ship.systems.weapons = this.ship.categories.dice.length * Math.random() << 0
+			},
 			formatNumber(value) {
 				return this.formatter.format(parseInt(value));
 			},

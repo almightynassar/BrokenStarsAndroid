@@ -60,6 +60,10 @@
 							</select>
 						</td>
 					</tr>
+					<tr>
+						<td><strong>Trade Number</strong></td>
+						<td>{{sectorTrade}}</td>
+					</tr>
 				</table>
 			</div>
 
@@ -187,6 +191,14 @@
 							<td><strong>Satellites</strong></td>
 							<td><input type="number" v-model="planet.satellites" /></td>
 						</tr>
+						<tr>
+							<td><strong>Tags</strong></td>
+							<td><textarea v-model="tagInput" v-on:input="updateTags()" placeholder="Use ';' as a seperator between tags"></textarea></td>
+						</tr>
+						<tr>
+							<td><strong>Trade Number</strong></td>
+							<td>{{planetTrade}}</td>
+						</tr>
 					</table>
 				</div>
 				<div>
@@ -254,7 +266,10 @@
 		data() {
 			return {
 				tags: [],
+				tagInput: "",
 				regions: this.$bsFactory.getTemplate('regions'),
+				sectorTrade: 0,
+				planetTrade: 0,
         sector: {
 					name: "New Sector",
 					x: 0,
@@ -299,6 +314,7 @@
 			planet: {
 				handler() {
 					this.makeTags()
+					this.makeTrade()
 				},
 				deep: true
 			}
@@ -331,6 +347,7 @@
 			onPlanetAddClick() {
         let planet = clone(this.planet)
 				this.sector.planets.push(planet)
+				this.makeTrade()
 				this.closePlanetsPopup()
 			},
 			onPlanetRemoveClick(id) {
@@ -345,6 +362,14 @@
       },
 			makeTags() {
 				this.tags = this.regions.tags.generateTags(this.planet)
+			},
+			makeTrade() {
+				this.sectorTrade = this.regions.getSectorTrade(this.sector)
+				this.planetTrade = this.regions.getPlanetTrade(this.planet)
+			},
+			updateTags() {
+				let tagArray = this.tagInput.split(/;[ ]?/).filter(n => n)
+				this.planet.tags = tagArray
 			}
 		}
 	}
