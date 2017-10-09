@@ -191,7 +191,7 @@ export default {
     return (old !== this.hull);
   },
   // Derivatives
-  getActionsAI() { return this.convertToDieValue(this.attributes.ai); },
+  getActionsAI() { return (this.convertToDieValue(this.attributes.ai) / 2) -1; },
   getBulk() { return this.boundNearestTen(Math.ceil(this.getBaseBulk() * this.convertToDieMultiplier(this.attributes.bulk))); },
   getBulkUsed() {
     let bulk = 0
