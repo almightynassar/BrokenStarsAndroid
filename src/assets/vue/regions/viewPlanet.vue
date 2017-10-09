@@ -79,7 +79,7 @@
 		},
 		computed: {
 			tags() {
-				return this.regions.getPlanetTags(this.planet)
+				return this.regions.tags.generateTags(this.planet)
 			}
 		},
 		methods: {

@@ -168,7 +168,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><strong>infrastructure</strong></td>
+							<td><strong>Infrastructure</strong></td>
 							<td>
 								<select v-model="planet.infrastructure">
 									<option v-for="(n,i) in regions.categories.planet.infrastructure" :value="i" :key="'planet-infrastructure-' + i">{{i | capitalize}}</option>
@@ -188,6 +188,12 @@
 							<td><input type="number" v-model="planet.satellites" /></td>
 						</tr>
 					</table>
+				</div>
+				<div>
+					<p>Your eligible tags for this planet are:</p>
+					<span class="tag" v-for="(t,i) in tags" :value="i" :key="'tag-' + i">
+						{{t}}
+					</span>
 				</div>
 				<f7-button fill color="green" v-on:click="onPlanetAddClick()"><f7-icon color="white" material="add"></f7-icon></f7-button>
 			</f7-popup>
@@ -247,6 +253,7 @@
 	export default {
 		data() {
 			return {
+				tags: [],
 				regions: this.$bsFactory.getTemplate('regions'),
         sector: {
 					name: "New Sector",
@@ -286,6 +293,14 @@
 		computed: {
 			textual() {
 				return JSON.stringify(this.sector, null, 2)
+			}
+		},
+		watch: {
+			planet: {
+				handler() {
+					this.makeTags()
+				},
+				deep: true
 			}
 		},
 		methods: {
@@ -328,6 +343,9 @@
           this.$refs.planetstable.showDetailRow(id)
         }
       },
+			makeTags() {
+				this.tags = this.regions.tags.generateTags(this.planet)
+			}
 		}
 	}
 </script>

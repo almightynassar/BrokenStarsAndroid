@@ -1,4 +1,6 @@
+import Tags from "./region/tags"
 export default {
+  tags: Tags,
   sectors: [],
   // Categories
   categories: {
@@ -292,93 +294,6 @@ export default {
       default:
         return 0.25;
     }
-  },
-  // Determine planetary codes depending on given criteria
-  getPlanetTags(planet) {
-    let tags = planet.tags
-    // Agricultural Tag
-    if (  ['thin', 'standard', 'thick', 'tainted'].includes(planet.atmosphere) &&
-          ['moderate', 'wet'].includes(planet.hydrosphere) &&
-          [4, 5, 6, 7].includes(planet.population) &&
-          ['compatible', 'hybrid', 'engineered'].includes(planet.biosphere) &&
-          ['minimal', 'limited', 'low', 'moderate'].includes(planet.infrastructure) &&
-          ['cold', 'temperate', 'warm'].includes(planet.temperature)) {
-      tags.push('Agriculture')
-    }
-    // Asteroid Belt Tag
-    if ( ['asteroid'].includes(planet.shape)) {
-      tags.push('Asteroid Belt')
-    }
-    // Desert Tag
-    if (  ['terrestrial'].includes(planet.shape) &&
-          ['corrosive', 'exotic', 'insidious', 'standard', 'tainted', 'thick', 'thin'].includes(planet.atmosphere) &&
-          ['none', 'dry'].includes(planet.hydrosphere)) {
-      tags.push('Desert')
-    }
-    // Gas Giant Tag
-    if (  ['jovian'].includes(planet.shape) &&
-          ['giant', 'colossal'].includes(planet.size)) {
-      tags.push('Gas Giant')
-    }
-    // High Population Tag
-    if ( [10, 11, 12].includes(planet.population)) {
-      tags.push('High Population')
-    }
-    // High Technology Tag
-    if (  ['advanced', 'exotic'].includes(planet.tech) &&
-          ['considerable', 'substantial', 'extensive'].includes(planet.infrastructure)) {
-      tags.push('High Technology')
-    }
-    // Ice Tag
-    if (  ['terrestrial'].includes(planet.shape) &&
-          ['corrosive', 'exotic', 'insidious', 'standard', 'tainted', 'thick', 'thin'].includes(planet.atmosphere) &&
-          ['moderate', 'wet', 'water'].includes(planet.hydrosphere) &&
-          ['frozen', 'cold'].includes(planet.temperature)) {
-      tags.push('Ice')
-    }
-    // Industrial Tag
-    if (  [7, 8, 9, 10, 11, 12].includes(planet.population) &&
-          ['moderate', 'high', 'considerable', 'substantial', 'extensive'].includes(planet.infrastructure) &&
-          ['moderate', 'high', 'abundant'].includes(planet.resources)) {
-      tags.push('Industrial')
-    }
-    // Low Population Tag
-    if ( [0, 1, 2, 3].includes(planet.population)) {
-      tags.push('Low Population')
-    }
-    // Low Technology Tag
-    if (  ['primitive', 'early', 'industrial'].includes(planet.tech) &&
-          ['none', 'minimal', 'limited', 'low'].includes(planet.infrastructure)) {
-      tags.push('Low Technology')
-    }
-    // Mining Tag
-    if (  [4, 5, 6, 7].includes(planet.population) &&
-          ['minimal', 'limited', 'low', 'moderate'].includes(planet.infrastructure) &&
-          ['moderate', 'high', 'abundant'].includes(planet.resources)) {
-      tags.push('Mining')
-    }
-    // Non-water Oceans Tag
-    if (  ['corrosive', 'exotic', 'insidious'].includes(planet.atmosphere) &&
-          ['arid', 'moderate', 'wet', 'water'].includes(planet.hydrosphere) &&
-          ['incompatible'].includes(planet.biosphere)) {
-      tags.push('Non-water Oceans')
-    }
-    // Sterile Tag
-    if (  ['terrestrial'].includes(planet.shape) &&
-          ['vacuum'].includes(planet.atmosphere) &&
-          ['none'].includes(planet.biosphere)) {
-      tags.push('Sterile')
-    }
-    // Water World Tag
-    if (  ['terrestrial'].includes(planet.shape) &&
-          ['corrosive', 'exotic', 'insidious', 'standard', 'tainted', 'thick', 'thin'].includes(planet.atmosphere) &&
-          ['water'].includes(planet.hydrosphere) &&
-          ['temperate', 'warm'].includes(planet.temperature)) {
-      tags.push('Water World')
-    }
-    return tags.sort().filter( function (value, index, self) { 
-      return self.indexOf(value) === index;
-    })
   },
   // Determine the Gross Trade Product of a planet
   getPlanetTrade(planet) {
