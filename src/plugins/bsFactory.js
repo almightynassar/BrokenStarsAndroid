@@ -161,7 +161,9 @@ export default {
        * Return a clone of the templated ship object
        */
       cloneShip() {
-        return clone(self.data.templates.ships)
+        let clonedShip = clone(self.data.templates.ships)
+        clonedShip.uuid = clonedShip.generateShipDesignation()
+        return clonedShip
       },
       /**
        * Sort the ships alphabetically
@@ -186,21 +188,23 @@ export default {
       getShip(name) {
         return self.data.ships.filter(function(ship) { return ship.name === this.name; } , {'name': name});
       },
+      // Find a ship by it's uuid
+      findShipByDesignation(uuid) {
+        let matching = self.data.ships.filter(function(s) {
+          return (s.uuid == this.uuid)
+        }, {'uuid': uuid})
+        if (matching.length == 1) {
+          return matching[0]
+        }
+        return null
+      },
       /**
        * Get a ship's ID by it's name
        * 
        * @param String name 
        */
-      getShipID(name) {
-        return self.data.ships.findIndex(function(ship) { return ship.name === this.name; } , {'name': name});
-      },
-      /**
-       * Get a ship using it's relative index in the array
-       * 
-       * @param String name 
-       */
-      getShipByIndex(index) {
-        return self.data.ships[index];
+      getShipID(uuid) {
+        return self.data.ships.findIndex(function(ship) { return ship.uuid === this.uuid; } , {'uuid': uuid});
       },
       /**
        * Delete a named
@@ -221,7 +225,7 @@ export default {
        */
       saveShip(ship) {
         if (ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons') && ship.hasOwnProperty('deflate')) {
-          let findExistingShip = this.getShipID(ship.name)
+          let findExistingShip = this.getShipID(ship.uuid)
           if (findExistingShip >= 0) {
             self.data.ships[findExistingShip] = ship
           } else {

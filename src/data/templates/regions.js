@@ -86,11 +86,11 @@ export default {
       }
     },
     planet: {
-      type: {
+      shape: {
         asteroid: "An area of debris or small planetoids",
         jovian: "A gas giant",
         station: "An unbound artificial construction made for the purposes of habitation",
-        terrestial: "A rocky, metallic or icy ball",
+        terrestrial: "A rocky, metallic or icy ball",
       },
       size: {
         trivial: "0-199",
@@ -215,11 +215,11 @@ export default {
         covered: "The entire planet's surface is covered with urban settlements such that no definitive area seperates the cities. Supports trillions of people."
       },
       spaceport: {
-        0: "No spaceport, terrestial or orbital.",
-        1: "Primitive terrestial-only spaceport with no repair, refuel, or shipyard capabilities.",
-        2: "Terrestial-only spaceport with limited refuelling options.",
-        3: "Terrestial-only spaceport with limited repair and refuelling options.",
-        4: "Terrestial-only spaceport with repair, refuelling and (limited) shipyard facilities for small spacecraft.",
+        0: "No spaceport, terrestrial or orbital.",
+        1: "Primitive terrestrial-only spaceport with no repair, refuel, or shipyard capabilities.",
+        2: "terrestrial-only spaceport with limited refuelling options.",
+        3: "terrestrial-only spaceport with limited repair and refuelling options.",
+        4: "terrestrial-only spaceport with repair, refuelling and (limited) shipyard facilities for small spacecraft.",
         5: "Basic orbital spaceport (no artificial gravity) with limited repair and refuel options. Supports two spacecraft at a time.",
         6: "Standard orbital spaceport (with artificial gravity) with limited repair and refuel options. Supports several spacecraft at a time.",
         7: "Self-sustaining orbital spaceport with a small population. Decent repair and refuel capabilities.",
@@ -306,17 +306,17 @@ export default {
       tags.push('Agriculture')
     }
     // Asteroid Belt Tag
-    if ( ['asteroid'].includes(planet.type)) {
+    if ( ['asteroid'].includes(planet.shape)) {
       tags.push('Asteroid Belt')
     }
     // Desert Tag
-    if (  ['terrestial'].includes(planet.type) &&
+    if (  ['terrestrial'].includes(planet.shape) &&
           ['corrosive', 'exotic', 'insidious', 'standard', 'tainted', 'thick', 'thin'].includes(planet.atmosphere) &&
           ['none', 'dry'].includes(planet.hydrosphere)) {
       tags.push('Desert')
     }
     // Gas Giant Tag
-    if (  ['jovian'].includes(planet.type) &&
+    if (  ['jovian'].includes(planet.shape) &&
           ['giant', 'colossal'].includes(planet.size)) {
       tags.push('Gas Giant')
     }
@@ -330,7 +330,7 @@ export default {
       tags.push('High Technology')
     }
     // Ice Tag
-    if (  ['terrestial'].includes(planet.type) &&
+    if (  ['terrestrial'].includes(planet.shape) &&
           ['corrosive', 'exotic', 'insidious', 'standard', 'tainted', 'thick', 'thin'].includes(planet.atmosphere) &&
           ['moderate', 'wet', 'water'].includes(planet.hydrosphere) &&
           ['frozen', 'cold'].includes(planet.temperature)) {
@@ -364,13 +364,13 @@ export default {
       tags.push('Non-water Oceans')
     }
     // Sterile Tag
-    if (  ['terrestial'].includes(planet.type) &&
+    if (  ['terrestrial'].includes(planet.shape) &&
           ['vacuum'].includes(planet.atmosphere) &&
           ['none'].includes(planet.biosphere)) {
       tags.push('Sterile')
     }
     // Water World Tag
-    if (  ['terrestial'].includes(planet.type) &&
+    if (  ['terrestrial'].includes(planet.shape) &&
           ['corrosive', 'exotic', 'insidious', 'standard', 'tainted', 'thick', 'thin'].includes(planet.atmosphere) &&
           ['water'].includes(planet.hydrosphere) &&
           ['temperate', 'warm'].includes(planet.temperature)) {

@@ -43,6 +43,7 @@
 						<f7-list>
 							<f7-list-item link="/generator/name/" title="Name Generator" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/generator/quest/" title="Quest Generator" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/generator/region/" title="Region Generator" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
 						<f7-block-title>Credits</f7-block-title>
 						<f7-list>

@@ -12,7 +12,7 @@ export default {
   planets: [
     {
       name: "Marider",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "medium",
       atmosphere: "trace",
       hydrosphere: "dry",
@@ -31,7 +31,7 @@ export default {
     },
     {
       name: "Thurid",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "medium",
       atmosphere: "standard",
       hydrosphere: "moderate",

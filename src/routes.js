@@ -17,6 +17,10 @@ export default [
     path: '/generator/quest/',
     component: require('./assets/vue/generators/quest.vue')
   },
+  {
+    path: '/generator/region/',
+    component: require('./assets/vue/generators/region.vue')
+  },
   // Ship Information
   {
     path: '/ship/list/',

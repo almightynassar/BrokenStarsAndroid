@@ -13,7 +13,7 @@ export default {
   planets: [
     {
       name: "Al-Taleqani asteroid belt",
-      type: "asteroid",
+      shape: "asteroid",
       size: "trivial",
       atmosphere: "vacuum",
       hydrosphere: "none",
@@ -32,7 +32,7 @@ export default {
     },
     {
       name: "Al-sahhah",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "large",
       atmosphere: "standard",
       hydrosphere: "wet",
@@ -52,7 +52,7 @@ export default {
     },
     {
       name: "Khadim",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "medium",
       atmosphere: "thick",
       hydrosphere: "arid",
@@ -64,7 +64,7 @@ export default {
       temperature: "cold",
       resources: "abundant",
       infrastructure: "limited",
-      spaceport: 3,     // Terrestial, Repair, Refuel, No Shipyards
+      spaceport: 3,     // terrestrial, Repair, Refuel, No Shipyards
       satellites: 0,
       description: "A colony of Al-sahhah, provides much of the raw materials for \
       it's bigger brother.",

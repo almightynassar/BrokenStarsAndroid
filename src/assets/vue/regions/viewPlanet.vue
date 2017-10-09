@@ -10,29 +10,29 @@
 				<dl>
 					<!-- STATISTICS -->
 					<dt><strong>Type</strong></dt>
-					<dd class="bottom-border">{{planet.type | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.shape | capitalize}}: {{ regions.categories.planet.shape[planet.shape]}}</dd>
 					<dt><strong>Size</strong></dt>
-					<dd class="bottom-border">{{planet.size | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.size | capitalize}}: {{ regions.categories.planet.size[planet.size]}} km diameter</dd>
 					<dt><strong>Atmosphere</strong></dt>
-					<dd class="bottom-border">{{planet.atmosphere | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.atmosphere | capitalize}}: {{ regions.categories.planet.atmosphere[planet.atmosphere]}}</dd>
 					<dt><strong>Hydrosphere</strong></dt>
-					<dd class="bottom-border">{{planet.hydrosphere | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.hydrosphere | capitalize}}: {{ regions.categories.planet.hydrosphere[planet.hydrosphere]}}</dd>
 					<dt><strong>Biosphere</strong></dt>
-					<dd class="bottom-border">{{planet.biosphere | capitalize}}</dd>
-					<dt><strong>Populatiion</strong></dt>
+					<dd class="bottom-border">{{planet.biosphere | capitalize}}: {{ regions.categories.planet.biosphere[planet.biosphere]}}</dd>
+					<dt><strong>Population</strong></dt>
 					<dd class="bottom-border">{{regions.categories.planet.population[planet.population] | capitalize}}</dd>
 					<dt><strong>Government</strong></dt>
-					<dd class="bottom-border">{{planet.government | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.government | capitalize}}: {{ regions.categories.planet.government[planet.government]}}</dd>
 					<dt><strong>Laws</strong></dt>
-					<dd class="bottom-border">{{planet.laws | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.laws | capitalize}}: {{ regions.categories.planet.laws[planet.laws]}}</dd>
 					<dt><strong>Tech</strong></dt>
-					<dd class="bottom-border">{{planet.tech | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.tech | capitalize}}: {{ regions.categories.planet.tech[planet.tech]}}</dd>
 					<dt><strong>Temperature</strong></dt>
-					<dd class="bottom-border">{{planet.temperature | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.temperature | capitalize}}: {{ regions.categories.planet.temperature[planet.temperature]}}</dd>
 					<dt><strong>Resource</strong></dt>
-					<dd class="bottom-border">{{planet.resources | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.resources | capitalize}}: {{ regions.categories.planet.resources[planet.resources]}}</dd>
 					<dt><strong>Infrastructure</strong></dt>
-					<dd class="bottom-border">{{planet.infrastructure | capitalize}}</dd>
+					<dd class="bottom-border">{{planet.infrastructure | capitalize}}: {{ regions.categories.planet.infrastructure[planet.infrastructure]}}</dd>
 					<dt><strong>Spaceport</strong></dt>
 					<dd class="bottom-border">{{regions.categories.planet.spaceport[planet.spaceport]}}</dd>
 					<dt><strong>Satellites</strong></dt>

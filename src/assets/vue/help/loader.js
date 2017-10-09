@@ -39,4 +39,5 @@ Vue.component('help-ship-cost', require('./ship/cost.vue'))
 // REGION: SECTORS
 Vue.component('help-region-control', require('./region/control.vue'))
 Vue.component('help-region-star', require('./region/star.vue'))
+Vue.component('help-region-star-temperature', require('./region/star-temperature.vue'))
 Vue.component('help-region-zone', require('./region/zone.vue'))

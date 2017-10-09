@@ -12,7 +12,7 @@ export default {
   planets: [
     {
       name: "Theano",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "large",
       atmosphere: "thick",
       hydrosphere: "moderate",
@@ -24,14 +24,14 @@ export default {
       temperature: "warm",
       resources: "high",
       infrastructure: "minimal",
-      spaceport: 3,     // Terrestial, Repair
+      spaceport: 3,     // terrestrial, Repair
       satellites: 0,
       description: "Most of the fighting is conducted here.",
       tags: ["Outpost", "Civil War"]
     },
     {
       name: "Vargos",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "medium",
       atmosphere: "thick",
       hydrosphere: "moderate",
@@ -43,7 +43,7 @@ export default {
       temperature: "temperate",
       resources: "low",
       infrastructure: "extensive",
-      spaceport: 4,     // Terrestial, Shipyards
+      spaceport: 4,     // terrestrial, Shipyards
       satellites: 2,
       description: "Vargos has been spared from most of the fighting due to a 'gentlemans' agreement \
       by the factions. The mood among the populace is, however, extremely tense.",

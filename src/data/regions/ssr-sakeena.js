@@ -12,7 +12,7 @@ export default {
   planets: [
     {
       name: "Georghiou",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "medium",
       atmosphere: "standard",
       hydrosphere: "wet",
@@ -20,18 +20,18 @@ export default {
       population: 4,   // Tens of thousands
       government: "colony",
       laws: "extreme",
-      tech: "foundational",
+      tech: "early",
       temperature: "warm",
       resources: "low",
       infrastructure: "low",
-      spaceport: 3,     // Terrestial, Repair
+      spaceport: 3,     // terrestrial, Repair
       satellites: 0,
       description: "Farming colony for the SSR.",
       tags: ["Colony"]
     },
     {
       name: "Oeneus",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "medium",
       atmosphere: "exotic",
       hydrosphere: "dry",
@@ -39,18 +39,18 @@ export default {
       population: 6,   // Millions
       government: "colony",
       laws: "extreme",
-      tech: "foundational",
+      tech: "mechanical",
       temperature: "cold",
       resources: "abundant",
       infrastructure: "moderate",
-      spaceport: 3,     // Terrestial, Repair
+      spaceport: 3,     // terrestrial, Repair
       satellites: 1,
       description: "Mining colony for the SSR.",
       tags: ["Colony"]
     },
     {
       name: "Sakeena",
-      type: "terrestrial",
+      shape: "terrestrial",
       size: "huge",
       atmosphere: "thick",
       hydrosphere: "wet",
@@ -62,7 +62,7 @@ export default {
       temperature: "temperate",
       resources: "low",
       infrastructure: "considerable",
-      spaceport: 10,     // Terrestial, Shipyards
+      spaceport: 10,     // terrestrial, Shipyards
       satellites: 1,
       description: "Sakeena is a single party state ruled by the 'Patriot's Party'. Their industry is \
       focused on military technologies, and their naval fleet is comparable to the US.",
