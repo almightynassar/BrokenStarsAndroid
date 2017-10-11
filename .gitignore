@@ -310,3 +310,14 @@ captures/
 /.vscode
 jsconfig.json
 cordova-typings.d.ts
+
+# Build files
+www/index.html
+www/*.md
+www/static
+www/*.eot
+www/*.ttf
+www/*.woff
+www/*.woff2
+www/*.css
+www/*.js

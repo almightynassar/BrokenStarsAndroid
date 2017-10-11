@@ -226,7 +226,10 @@
 					<dt><strong>Cost</strong> <help-ship-cost></help-ship-cost></dt>
 					<dd class="bottom-border">{{formatNumber(ship.getCost())}}</dd>
 				</dl>
-				<f7-button big fill color="green" v-on:click="onClick">Update</f7-button>
+				<f7-buttons>
+					<f7-button big fill color="blue" v-on:click="copyTextArea">Copy to clipboard</f7-button>
+					<f7-button big fill color="green" v-on:click="onClick">Update</f7-button>
+				</f7-buttons>
 			</f7-block>
 		</f7-block>
 	</f7-page>
@@ -353,7 +356,24 @@
         if (index == -1) {
           this.$refs.shipweaponstable.showDetailRow(id)
         }
-      }
+			},
+			copyTextArea() {
+				let textArea = document.createElement('textarea')
+				textArea.id ="ThisWillBeDeletedLater"
+				textArea.style.height = 0
+				document.body.appendChild(textArea)
+				textArea.value = JSON.stringify(this.ship.deflate(), null, 2)
+				let selector = document.querySelector('#ThisWillBeDeletedLater')
+				selector.select()
+				try {
+					var successful = document.execCommand('copy');
+					var msg = successful ? 'successful' : 'unsuccessful';
+					console.log('Copying text command was ' + msg);
+				} catch (err) {
+					console.log('Oops, unable to copy');
+				}
+				document.body.removeChild(textArea)
+			}
 		},
 		created() {
 			let tempShip = this.$bsFactory.findShipByDesignation(this.uuid)
