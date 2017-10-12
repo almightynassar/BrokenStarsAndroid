@@ -459,7 +459,7 @@ export default {
    * Load values from a JSON Object string
    * 
    * @param String name 
-   * @param String data 
+   * @param Object data 
    */
   hydrate(data) {
     this.name = data.name

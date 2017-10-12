@@ -46,6 +46,10 @@ export default [
     path: '/ship/weapons/',
     component: require('./assets/vue/ship/weapons.vue')
   },
+  {
+    path: '/ship/import/',
+    component: require('./assets/vue/ship/import.vue')
+  },
   // Region Information
   {
     path: '/regions/list/',
