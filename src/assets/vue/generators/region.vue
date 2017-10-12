@@ -261,7 +261,8 @@
 </template>
 
 <script>
-	var clone = require('clone');
+	var clone = require('clone')
+	var stringifyObject = require('stringify-object')
 	export default {
 		data() {
 			return {
@@ -307,7 +308,7 @@
 		},
 		computed: {
 			textual() {
-				return JSON.stringify(this.sector, null, 2)
+				return "export default " + stringifyObject(this.sector, {indent: '  ', singleQuotes: false})
 			}
 		},
 		watch: {
