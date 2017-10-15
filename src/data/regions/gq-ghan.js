@@ -1,0 +1,93 @@
+export default {
+  name: "Ghan",
+  x: -3,
+  y: -3,
+  control: "gq",
+  zone: "green",
+  star: {
+    spectrum: "G",
+    temperature: "0",
+    size: "IV"
+  },
+  planets: [
+    {
+      name: "Istian Field",
+      shape: "asteroid",
+      size: "medium",
+      atmosphere: "vacuum",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "varied",
+      resources: "abundant",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Local asteroid field.",
+      tags: []
+    },
+    {
+      name: "Ghan",
+      shape: "terrestrial",
+      size: "massive",
+      atmosphere: "standard",
+      hydrosphere: "arid",
+      biosphere: "compatible",
+      population: "10",
+      government: "autocratic",
+      laws: "extreme",
+      tech: "interstellar",
+      temperature: "warm",
+      resources: "low",
+      infrastructure: "extensive",
+      spaceport: "10",
+      satellites: "2",
+      description: "The birth planet of the Ghan species.",
+      tags: ["Capital", "Ghan Queen"]
+    },
+    {
+      name: "Ghatla",
+      shape: "terrestrial",
+      size: "large",
+      atmosphere: "thick",
+      hydrosphere: "wet",
+      biosphere: "hybrid",
+      population: "5",
+      government: "autocratic",
+      laws: "extreme",
+      tech: "industrial",
+      temperature: "temperate",
+      resources: "medium",
+      infrastructure: "low",
+      spaceport: "2",
+      satellites: "1",
+      description: "The first colony of the Queendom, Ghatla has evolved to be \
+      the breadbasket for it's people.",
+      tags: []
+    },
+    {
+      name: "Mauti",
+      shape: "jovian",
+      size: "giant",
+      atmosphere: "exotic",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "varied",
+      resources: "none",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "A gas giant and a source of starship fuel for the Queendom.",
+      tags: []
+    }
+  ],
+  description: "The home star system of the Ghan species and capital of the \
+  Ghan Queendom."
+}

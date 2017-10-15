@@ -5,9 +5,9 @@ export default {
   control: "ssr",
   zone: "green",
   star: {
-    spectrum: "G",      // Yellow
-    temperature: "3",   // 0 is hottest in class, 9 is coolest
-    size: "IV"           // Subgiant
+    spectrum: "G",
+    temperature: "3",
+    size: "IV"
   },
   planets: [
     {
@@ -17,15 +17,15 @@ export default {
       atmosphere: "standard",
       hydrosphere: "wet",
       biosphere: "compatible",
-      population: 4,   // Tens of thousands
+      population: "4",
       government: "colony",
       laws: "extreme",
       tech: "early",
       temperature: "warm",
       resources: "low",
       infrastructure: "low",
-      spaceport: 3,     // terrestrial, Repair
-      satellites: 0,
+      spaceport: "3",
+      satellites: "0",
       description: "Farming colony for the SSR.",
       tags: ["Colony"]
     },
@@ -36,15 +36,15 @@ export default {
       atmosphere: "exotic",
       hydrosphere: "dry",
       biosphere: "incompatible",
-      population: 6,   // Millions
+      population: "6",
       government: "colony",
       laws: "extreme",
       tech: "mechanical",
       temperature: "cold",
       resources: "abundant",
       infrastructure: "moderate",
-      spaceport: 3,     // terrestrial, Repair
-      satellites: 1,
+      spaceport: "3",
+      satellites: "1",
       description: "Mining colony for the SSR.",
       tags: ["Colony"]
     },
@@ -55,18 +55,56 @@ export default {
       atmosphere: "thick",
       hydrosphere: "wet",
       biosphere: "hybrid",
-      population: 9,   // Billions
+      population: "9",
       government: "oligarchy",
       laws: "extreme",
       tech: "advanced",
       temperature: "temperate",
       resources: "low",
       infrastructure: "considerable",
-      spaceport: 10,     // terrestrial, Shipyards
-      satellites: 1,
+      spaceport: "10",
+      satellites: "1",
       description: "Sakeena is a single party state ruled by the 'Patriot's Party'. Their industry is \
       focused on military technologies, and their naval fleet is comparable to the US.",
       tags: ["SSR Capital", "Police State"]
+    },
+    {
+      name: "Omikron",
+      shape: "jovian",
+      size: "colossal",
+      atmosphere: "exotic",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "varied",
+      resources: "none",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Only gas giant in the system and a source of starship fuel.",
+      tags: []
+    },
+    {
+      name: "Althos",
+      shape: "terrestrial",
+      size: "dwarf",
+      atmosphere: "vacuum",
+      hydrosphere: "water",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "frozen",
+      resources: "abundant",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Furthest planetoid from the local star.",
+      tags: ["Iceball"]
     }
   ],
   description: "Sakeena is a largely self-sufficient star system that strictly follows a protectionist foreign policy. \

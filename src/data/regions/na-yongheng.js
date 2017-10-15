@@ -5,9 +5,9 @@ export default {
   control: "na",
   zone: "red",
   star: {
-    spectrum: "F",      // White
-    temperature: "8",   // 0 is hottest in class, 9 is coolest
-    size: "V"           // Dwarf
+    spectrum: "F",
+    temperature: "8",
+    size: "V"
   },
   planets: [
     {
@@ -17,15 +17,15 @@ export default {
       atmosphere: "thick",
       hydrosphere: "moderate",
       biosphere: "hybrid",
-      population: 4,   // Tens of thousands
+      population: "4",
       government: "captive",
       laws: "none",
       tech: "none",
       temperature: "warm",
       resources: "high",
       infrastructure: "minimal",
-      spaceport: 3,     // terrestrial, Repair
-      satellites: 0,
+      spaceport: "3",
+      satellites: "0",
       description: "Most of the fighting is conducted here.",
       tags: ["Outpost", "Civil War"]
     },
@@ -36,15 +36,15 @@ export default {
       atmosphere: "thick",
       hydrosphere: "moderate",
       biosphere: "hybrid",
-      population: 9,   // Billions
+      population: "9",
       government: "balkanized",
       laws: "ultra",
       tech: "intersolar",
       temperature: "temperate",
       resources: "low",
       infrastructure: "extensive",
-      spaceport: 4,     // terrestrial, Shipyards
-      satellites: 2,
+      spaceport: "4",
+      satellites: "2",
       description: "Vargos has been spared from most of the fighting due to a 'gentlemans' agreement \
       by the factions. The mood among the populace is, however, extremely tense.",
       tags: ["Warlords"]

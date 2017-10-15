@@ -1,0 +1,136 @@
+export default {
+  name: "Yafiah",
+  x: -2,
+  y: 0,
+  control: "us",
+  zone: "green",
+  star: {
+    spectrum: "F",
+    temperature: "5",
+    size: "III"
+  },
+  planets: [
+    {
+      name: "Yafiah I",
+      shape: "terrestrial",
+      size: "small",
+      atmosphere: "vacuum",
+      hydrosphere: "arid",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "burning",
+      resources: "low",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Closest planetoid to the local star.",
+      tags: ["Lavaball"]
+    },
+    {
+      name: "Yafiah II",
+      shape: "terrestrial",
+      size: "dwarf",
+      atmosphere: "vacuum",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "varied",
+      resources: "low",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Closest planetoid to the local star.",
+      tags: ["Rockball"]
+    },
+    {
+      name: "Mecisteus",
+      shape: "terrestrial",
+      size: "huge",
+      atmosphere: "thick",
+      hydrosphere: "moderate",
+      biosphere: "compatible",
+      population: 8,
+      government: "oligarchy",
+      laws: "ultra",
+      tech: "intersolar",
+      temperature: "warm",
+      resources: "high",
+      infrastructure: "extensive",
+      spaceport: 9,
+      satellites: 4,
+      description: "Even though Mecisteus is huge, but it's population is concentrated in a few \
+      massive cites. Rural areas are dotted with private holdings, as the rich pay to build \
+      the perfect holiday retreat. The moons have also been colonised, as the rich continue to \
+      out-do each other in lavishness. The poor are stuck in the slums, always to forgotten casualities \
+      of capilist markets.",
+      tags: ["Financial Hub"]
+    },
+    {
+      name: "Lysimache",
+      shape: "jovian",
+      size: "giant",
+      atmosphere: "exotic",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "varied",
+      resources: "none",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "The first gas giant.",
+      tags: []
+    },
+    {
+      name: "Talaus",
+      shape: "jovian",
+      size: "giant",
+      atmosphere: "exotic",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "varied",
+      resources: "none",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "The second gas giant.",
+      tags: []
+    },
+    {
+      name: "Yafiah III",
+      shape: "terrestrial",
+      size: "tiny",
+      atmosphere: "vacuum",
+      hydrosphere: "wet",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "frozen",
+      resources: "medium",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Furthest planetoid from the local star.",
+      tags: ["Iceball"]
+    }
+  ],
+  description: "A common saying across the Black is that 'All Bank accounts lead to \
+  Yafiah'. The system has built it's reputation as a financial and secure powerhouse, \
+  which is mainly due to it's strong privacy and free market larws. Corporations and \
+  individuals know that their credits are safe and secure in a Yafish bank."
+}
