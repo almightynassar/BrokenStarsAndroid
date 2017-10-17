@@ -18,7 +18,7 @@
           <f7-button v-on:click="updatePage(0,1)"><f7-icon material="arrow_downward"></f7-icon></f7-button>
           <f7-button v-on:click="updatePage(1,1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_downward"></f7-icon></f7-button>
         </f7-buttons>
-        <f7-grid v-show="overlay !== 'zone'">
+        <f7-grid v-show="overlay == 'control'">
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">United Systems</f7-col>
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Sakeena Stellar Republic</f7-col>
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Independent Control</f7-col>
@@ -30,6 +30,12 @@
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Medium Risk</f7-col>
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Dangerous</f7-col>
         </f7-grid>
+        <f7-grid v-show="overlay === 'trade'">
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(63, 255, 36, 0.5);">Very High Trade</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">High Trade</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Moderate Trade</f7-col>
+          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Low Trade</f7-col>
+        </f7-grid>
         <div class="custom-radio">
           <input id="overlay-control" type="radio" v-model="overlay" value="control" checked="checked">
           <label for="overlay-control">Control</label>
@@ -37,6 +43,10 @@
         <div class="custom-radio">
           <input id="overlay-zone" type="radio" v-model="overlay" value="zone" checked="checked">
           <label for="overlay-zone">Zone</label>
+        </div>
+        <div class="custom-radio">
+          <input id="overlay-trade" type="radio" v-model="overlay" value="trade" checked="checked">
+          <label for="overlay-trade">Trade</label>
         </div>
       </f7-block>
     </f7-block>
@@ -150,6 +160,33 @@
             break;
         }
       },
+      colourTrade(trade) {
+        if (trade >= 125) {
+          return "#3FFF24"
+        } else if (trade >= 100) {
+          return "#23238E"
+        } else if (trade >= 50) {
+          return "#AADD00"
+        } else if (trade > 0) {
+          return "#CC1100"
+        }
+        return '#555'
+      },
+      calcRouteTrade(hex, sector, start, regions) {
+        let lineArray = []
+        for (var index = start; index < regions.length; index++) {
+          let region = regions[index]
+          if (region) {
+            let distance = this.grid.Hex.distance(hex, this.grid.Hex(region.x, region.y))
+            let bilateralTrade = parseInt(this.regions.getSectorTrade(region)) + parseInt(this.regions.getSectorTrade(sector))
+            let realTrade = bilateralTrade / (distance * 2)
+            if (realTrade > 50) {
+              lineArray.push({target: region, trade: realTrade})
+            }
+          }
+        }
+        return lineArray
+      },
       updatePage(x, y) {
         this.page.x += x
         this.page.y += y
@@ -167,12 +204,17 @@
       makeHexGrid() {
         let self = this
         // Generate the rectangular Hex Grid with flat tops
-        this.gridArray = this.grid.rectangle({
+        let gridArray = this.grid.rectangle({
           width: this.options.width,
           height: this.options.height,
           direction: this.options.direction,
           start: this.startingHex()
         })
+        // Get the list of valid regions
+        let regionArray = []
+        for (var index = 0; index < gridArray.length; index++) {
+          regionArray[index] = this.findRegion(gridArray[index].x, gridArray[index].y)
+        }
         // Reset our SVG image
         this.draw.clear()
         this.draw.size(this.viewWidth, this.viewHeight).style("display: block; margin: auto;")
@@ -181,9 +223,9 @@
         this.draw.plain('COREWARD').move((this.page.margin.x / 2 - this.font.size), this.viewHeight / 2).font(this.font).font({weight: 'bold'}).rotate(90)
         this.draw.plain('RIMWARD').move(this.viewWidth - this.font.size, this.viewHeight / 2).font(this.font).font({weight: 'bold'}).rotate(90)
         // Draw our hexes
-        for (var index = 0; index < this.gridArray.length; index++) {
+        for (var index = 0; index < gridArray.length; index++) {
           // Grab the current Hex
-          let hexItem = this.gridArray[index]
+          let hexItem = gridArray[index]
           // x/y coordinates of top left corner
           let position = hexItem.toPoint().add(hexItem.topLeft()).add(this.midPoint())
           // Polygon points for SVG library
@@ -191,7 +233,7 @@
           // Hex colour
           let colour = '#555'
           // Find the region that is located at this position
-          let region = this.findRegion(hexItem.x, hexItem.y)
+          let region = regionArray[index]
           // Create our Group of elements to represent the region
           let group = this.draw.group().addClass('group-'+index)
           // Draw standard information
@@ -201,6 +243,8 @@
             let nameText = group.plain(region.name).move(this.hexWidth / 2, (this.hexHeight / 2) + (this.font.size) ).font(this.font)
             if (this.overlay == "zone") {
               colour = this.colourZone(region.zone)
+            } else if (this.overlay == "trade") {
+              colour = this.colourTrade( this.regions.getSectorTrade(region) )
             } else {
               colour = this.colourControl(region.control)
             }
@@ -230,12 +274,30 @@
                 break;
             }
             // Show the star
-            let star = group.circle(this.font.size).fill({color: starColour}).stroke({ color: '#000', opacity: 0.5, width: 2 }).move( (this.hexWidth / 2) - (this.font.size / 2), (this.hexHeight / 2) - (this.font.size / 2))
+            let star = group.circle(this.font.size)
+              .fill({color: starColour})
+              .stroke({ color: '#000', opacity: 0.5, width: 2 })
+              .move( (this.hexWidth / 2) - (this.font.size / 2), (this.hexHeight / 2) - (this.font.size / 2))
             // Add event handlers to the group
             group.on('click', function() {
               let localRegion = region
               self.$router.loadPage('/regions/sector/view/'+region.x+'/'+region.y)
             })
+            // Some trade stuff
+            if (this.overlay == "trade") {
+              let lineArray = this.calcRouteTrade(hexItem, region, index + 1, regionArray)
+              for (var i = 0; i < lineArray.length; i++) {
+                console.log( "For :" + region.name)
+                console.log(lineArray[i].target.name + ": " + lineArray[i].trade + "\n")
+                let extraHex = this.grid.Hex(lineArray[i].target.x, lineArray[i].target.y)
+                let extraPosition = extraHex.toPoint().add(extraHex.topLeft()).add(this.midPoint())
+                let hexHalfWidth = this.hexWidth / 2
+                let hexHalfHeight = this.hexHeight /2
+                let localLine = this.draw.line(position.x + hexHalfWidth, position.y + hexHalfHeight, extraPosition.x + hexHalfWidth, extraPosition.y + hexHalfHeight)
+                  .stroke({color: "red", width: (lineArray[i].trade > 75) ? ( (lineArray[i].trade > 100) ? 10: 5) : 3, linecap: 'round', opacity: 1})
+                  .front()
+              }
+            }
           }
           // Draw the Hex and send it to the back
           let polygon = group.polygon(points).fill({ color: colour, opacity: 0.5 }).stroke({ color: '#000', opacity: 0.5, width: 2 }).back()
