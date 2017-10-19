@@ -304,8 +304,11 @@ captures/
 !/template_src/webpack/configs/
 
 # Cordova
+/hooks
+/webpack
 /platforms
 /plugins
+.editorconfig
 .eslintrc.json
 /.vscode
 jsconfig.json
