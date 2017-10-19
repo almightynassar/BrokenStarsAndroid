@@ -178,10 +178,14 @@
           let region = regions[index]
           if (region) {
             let distance = this.grid.Hex.distance(hex, this.grid.Hex(region.x, region.y))
-            let bilateralTrade = parseInt(this.regions.getSectorTrade(region)) + parseInt(this.regions.getSectorTrade(sector))
+            let homeTrade = parseInt(this.regions.getSectorTrade(region))
+            let awayTrade = parseInt(this.regions.getSectorTrade(sector))
+            let bilateralTrade = homeTrade + awayTrade
             let realTrade = bilateralTrade / (distance * 2)
             if (realTrade > 50) {
-              lineArray.push({target: region, trade: realTrade})
+              if (homeTrade > 0 && awayTrade > 0) {
+                lineArray.push({target: region, trade: realTrade})
+              }
             }
           }
         }
@@ -287,14 +291,17 @@
             if (this.overlay == "trade") {
               let lineArray = this.calcRouteTrade(hexItem, region, index + 1, regionArray)
               for (var i = 0; i < lineArray.length; i++) {
-                console.log( "For :" + region.name)
-                console.log(lineArray[i].target.name + ": " + lineArray[i].trade + "\n")
                 let extraHex = this.grid.Hex(lineArray[i].target.x, lineArray[i].target.y)
                 let extraPosition = extraHex.toPoint().add(extraHex.topLeft()).add(this.midPoint())
                 let hexHalfWidth = this.hexWidth / 2
                 let hexHalfHeight = this.hexHeight /2
                 let localLine = this.draw.line(position.x + hexHalfWidth, position.y + hexHalfHeight, extraPosition.x + hexHalfWidth, extraPosition.y + hexHalfHeight)
-                  .stroke({color: "red", width: (lineArray[i].trade > 75) ? ( (lineArray[i].trade > 100) ? 10: 5) : 3, linecap: 'round', opacity: 1})
+                  .stroke({
+                    color: (lineArray[i].trade > 100) ? ( (lineArray[i].trade > 125) ? "green" : "blue") : ( (lineArray[i].trade > 75) ? "yellow" : "red"),
+                    width: Math.round(lineArray[i].trade / 10),
+                    linecap: 'round',
+                    opacity: 1
+                  })
                   .front()
               }
             }
@@ -302,7 +309,7 @@
           // Draw the Hex and send it to the back
           let polygon = group.polygon(points).fill({ color: colour, opacity: 0.5 }).stroke({ color: '#000', opacity: 0.5, width: 2 }).back()
           // Move the group to it's relative position
-          group.move(position.x, position.y)
+          group.move(position.x, position.y).back()
         }
       },
       startingHex() {

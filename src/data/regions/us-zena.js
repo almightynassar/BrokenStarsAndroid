@@ -70,7 +70,7 @@ export default {
     {
       name: "Central Command",
       shape: "station",
-      size: "tiny",
+      size: "micro",
       atmosphere: "standard",
       hydrosphere: "none",
       biosphere: "engineered",

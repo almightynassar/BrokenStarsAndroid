@@ -32,11 +32,11 @@ export default {
     {
       name: "Sanctuary Station",
       shape: "station",
-      size: "micro",
+      size: "tiny",
       atmosphere: "standard",
       hydrosphere: "none",
       biosphere: "engineered",
-      population: "6",
+      population: "9",
       government: "participatory",
       laws: "minimal",
       tech: "foundational",
