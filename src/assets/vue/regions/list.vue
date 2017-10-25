@@ -6,11 +6,11 @@
         <!-- Text Input -->
         <input type="text" v-model="search" v-on:input="updateSectors()" placeholder="Search" />
         <div class="custom-radio custom-radio-inline">
-          <input id="option-owner" type="radio" v-model="option" value="owner" checked="checked">
+          <input id="option-owner" type="radio" @change="changeOption('owner')" @click="changeOption('owner')" :checked="option == 'owner'">
           <label for="option-owner">Owner</label>
         </div>
         <div class="custom-radio custom-radio-inline">
-          <input id="option-trade" type="radio" v-model="option" value="trade">
+          <input id="option-trade" type="radio" @change="changeOption('trade')" @click="changeOption('trade')" :checked="option == 'trade'">
           <label for="option-trade">Trade</label>
         </div>
       </f7-block>
@@ -138,6 +138,9 @@
         if (index == -1) {
           this.$refs.regionsummarytable.showDetailRow(id)
         }
+      },
+      changeOption(value) {
+        this.option = value
       }
     },
     created() {

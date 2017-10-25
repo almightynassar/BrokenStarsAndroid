@@ -37,15 +37,15 @@
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Low Trade</f7-col>
         </f7-grid>
         <div class="custom-radio">
-          <input id="overlay-control" type="radio" v-model="overlay" value="control" checked="checked">
+          <input id="overlay-control" type="radio" @change="changeOverlay('control')" @click="changeOverlay('control')" :checked="overlay == 'control'">
           <label for="overlay-control">Control</label>
         </div>
         <div class="custom-radio">
-          <input id="overlay-zone" type="radio" v-model="overlay" value="zone" checked="checked">
+          <input id="overlay-zone" type="radio" @change="changeOverlay('zone')" @click="changeOverlay('zone')" :checked="overlay == 'zone'">
           <label for="overlay-zone">Zone</label>
         </div>
         <div class="custom-radio">
-          <input id="overlay-trade" type="radio" v-model="overlay" value="trade" checked="checked">
+          <input id="overlay-trade" type="radio" @change="changeOverlay('trade')" @click="changeOverlay('trade')" :checked="overlay == 'trade'">
           <label for="overlay-trade">Trade</label>
         </div>
       </f7-block>
@@ -320,6 +320,9 @@
           x: (this.viewWidth/2) - ((this.hexWidth + this.hex.size) * this.page.x),
           y: (this.partialViewHeight/2) - (this.hexHeight * 2 * this.page.y)
         })
+      },
+      changeOverlay(value) {
+        this.overlay = value
       }
     },
     watch: {
