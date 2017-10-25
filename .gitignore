@@ -307,6 +307,8 @@ captures/
 /hooks
 /webpack
 /platforms
+/platform
+/run
 /plugins
 .editorconfig
 .eslintrc.json
