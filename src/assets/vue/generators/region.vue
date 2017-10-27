@@ -242,7 +242,7 @@
 			</div>
 
 			<!-- COPY TO CLIPBOARD -->
-			<div>
+			<f7-block>
 				<p>The generated Sector is shown in object format below. This sector is not automatically added to the map; to do that, you need to:</p>
 				<ol>
 					<li>Create a new project using source code from the GitHub repository (installing all the requisites such as cordova and npm)</li>
@@ -251,10 +251,8 @@
 					<li>Rebuild the application (if possible)</li>
 					<li>If your new region doesn't overwrite an existing sector, consider merging it with the parent repository!</li>
 				</ol>
-				<pre id="sector-textarea-to-copy">{{textual}}</pre>
-			</div>
-			<f7-block>
 				<f7-button big fill color="blue" v-on:click="copyTextArea">Copy to clipboard</f7-button>
+				<pre id="sector-textarea-to-copy">{{textual}}</pre>
 			</f7-block>
 		</f7-block>
 	</f7-page>

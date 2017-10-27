@@ -11,6 +11,25 @@ export default {
   },
   planets: [
     {
+      name: "Fawada",
+      shape: "terrestrial",
+      size: "large",
+      atmosphere: "vacuum",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "burning",
+      resources: "low",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Second planetoid to the local star.",
+      tags: ["Rockball"]
+    },
+    {
       name: "Theano",
       shape: "terrestrial",
       size: "large",
@@ -28,6 +47,25 @@ export default {
       satellites: "0",
       description: "Most of the fighting is conducted here.",
       tags: ["Outpost", "Civil War"]
+    },
+    {
+      name: "Nayame",
+      shape: "jovian",
+      size: "colossal",
+      atmosphere: "exotic",
+      hydrosphere: "none",
+      biosphere: "none",
+      population: "0",
+      government: "none",
+      laws: "none",
+      tech: "none",
+      temperature: "varied",
+      resources: "none",
+      infrastructure: "none",
+      spaceport: "0",
+      satellites: "0",
+      description: "Only gas giant in the system and a source of starship fuel.",
+      tags: []
     },
     {
       name: "Vargos",
