@@ -25,6 +25,11 @@
 					<li><f7-link external href="https://vuejs.org/"><em>Vue.js</em></f7-link> by Evan You</li>
 				</ul>
 			</f7-block>
+			<f7-block-title>License</f7-block-title>
+			<f7-block inset>
+				<p>This app is licensed under the Apache License Version 2.0.</p>
+				<p>The short version is that you can download and modify the source, and redistribute your modifications (even with another license). All original code of your modification will retain the Apache License. To learn more, please visit <f7-link external href="https://www.apache.org/licenses/LICENSE-2.0">the Apache License page</f7-link></p>
+			</f7-block>
 		</f7-block>
 	</f7-page>
 </template>
