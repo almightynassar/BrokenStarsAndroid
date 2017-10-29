@@ -74,7 +74,7 @@
 								<f7-button fill color="green" v-on:click="onFittingAddClick(props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
 							</template>
 							<template slot="expand" scope="props">
-								<f7-button fill color="blue" v-on:click="onFittingExpandRow(props.rowData.id)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
+								<f7-button v-on:click="onFittingExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
 							</template>
 						</vuetable>
 					</div>
@@ -145,7 +145,7 @@
 								<f7-button fill color="green" v-on:click="onWeaponAddClick(props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
 							</template>
 							<template slot="expand" scope="props">
-								<f7-button fill color="blue" v-on:click="onWeaponExpandRow(props.rowData.id)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
+								<f7-button v-on:click="onWeaponExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
 							</template>
 						</vuetable>
 					</div>

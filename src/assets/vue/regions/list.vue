@@ -30,7 +30,7 @@
             {{ regions.getSectorTrade(props.rowData) }}
           </template>
           <template slot="expand" scope="props">
-            <f7-button fill color="blue" v-on:click="onExpandRow(props.rowData.name)"><f7-icon color="white" material="expand_more"></f7-icon></f7-button>
+            <f7-button v-on:click="onExpandRow(props.rowData.name)"><f7-icon material="expand_more"></f7-icon></f7-button>
           </template>
         </vuetable>
       </div>

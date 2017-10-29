@@ -26,10 +26,6 @@
       <dt><strong>Cost</strong> <help-ship-cost></help-ship-cost></dt>
       <dd class="bottom-border">{{ formatNumber( rowData.getCost() ) }}</dd>
     </dl>
-    <f7-buttons>
-      <f7-button v-on:click="onDelete()"><f7-icon color="red" material="delete"></f7-icon></f7-button>
-      <f7-button :href="'/ship/view/'+rowData.uuid"><f7-icon material="open_in_browser"></f7-icon></f7-button>
-    </f7-buttons>
   </div>
 </template>
 <script>
@@ -41,7 +37,7 @@
       },
       rowIndex: {
         type: Number
-      },
+      }
     },
     data() {
       return {
@@ -49,9 +45,6 @@
 			}
     },
 		methods: {
-      onDelete() {
-        this.$bsFactory.deleteShip(this.rowData.uuid)
-      },
 			formatNumber(value) {
 				return this.formatter.format(parseInt(value));
       }

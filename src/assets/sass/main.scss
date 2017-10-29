@@ -346,3 +346,12 @@ span.tag {
 	padding: 2px;
 	background-color: lightgray;
 }
+
+// Remove super annoying padding
+td .buttons-row .button,
+td .button {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    min-width: 0 !important;
+}
