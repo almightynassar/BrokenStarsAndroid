@@ -3,6 +3,7 @@
 		<f7-block>
 			<f7-block-title>Name Generator</f7-block-title>
 			<f7-block inset form>
+				<p><em>The name list allows the generator to create <strong>nonsense</strong> names that follow a similar structure as the input name list. The output names are not representative of the culture of the input list.</em></p>
 				<!-- Select with values inside -->
 				<select v-model="selected" v-on:change="makeNames">
 					<option v-for="(n,i) in names" :value="i" :key="'names-' + i">{{i[0].toUpperCase() + i.slice(1).replace(/_/g, " ")}}</option>

@@ -1,5 +1,5 @@
 export default {
-  name: "elder_scrolls_khajiit_female",
+  name: "khajiit_female",
   contrib: [
     "http://en.uesp.net/wiki/Lore:Khajiit_Names#Female_Khajiit_Names"
   ],

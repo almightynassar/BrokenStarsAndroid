@@ -1,5 +1,5 @@
 export default {
-  name: "elder_scrolls_nord_male",
+  name: "nord_male",
   contrib: [
     "http://en.uesp.net/wiki/Lore:Nord_Names#Male_Nord_Names"
   ],

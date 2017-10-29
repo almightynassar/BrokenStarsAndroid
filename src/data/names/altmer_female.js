@@ -1,5 +1,5 @@
 export default {
-  name: "elder_scrolls_altmer_female",
+  name: "altmer_female",
   contrib: [
     "http://en.uesp.net/wiki/Lore:Altmer_Names#Female_Altmer_Names"
   ],

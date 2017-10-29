@@ -1,5 +1,5 @@
 export default {
-  name: "elder_scrolls_redguard_male",
+  name: "redguard_male",
   contrib: [
     "http://en.uesp.net/wiki/Lore:Redguard_Names#Male_Redguard_Names"
   ],
