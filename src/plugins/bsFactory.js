@@ -14,7 +14,7 @@ export default {
     store: {
       ship: null
     },
-    version: 2
+    version: 3
   },
   /**
    * TEMPLATES and NAMES
@@ -87,7 +87,8 @@ export default {
             // Creating the Ship object store
             if(!self.data.database.objectStoreNames.contains("ShipStore")) {
               console.log("Making Ship Object Store");
-              var objectStore = self.data.database.createObjectStore("ShipStore", { keyPath: "name", autoIncrement:false });
+              var objectStore = self.data.database.createObjectStore("ShipStore", { keyPath: "uuid", autoIncrement:false });
+              objectStore.createIndex("name", "name", { unique: false })
               objectStore.createIndex("hull", "hull", { unique: false })
               objectStore.createIndex("attributes", "attributes", { unique: false });
               objectStore.createIndex("systems", "systems", { unique: false });
@@ -120,7 +121,8 @@ export default {
           // Creating the Ship object store
           if(!localDatabase.objectStoreNames.contains("ShipStore")) {
             console.log("Making Ship Object Store");
-            var objectStore = localDatabase.createObjectStore("ShipStore", { keyPath: "name", autoIncrement:false });
+            var objectStore = localDatabase.createObjectStore("ShipStore", { keyPath: "uuid", autoIncrement:false });
+            objectStore.createIndex("name", "name", { unique: false })
             objectStore.createIndex("hull", "hull", { unique: false });
             objectStore.createIndex("attributes", "attributes", { unique: false });
             objectStore.createIndex("systems", "systems", { unique: false });
@@ -207,16 +209,19 @@ export default {
         return self.data.ships.findIndex(function(ship) { return ship.uuid === this.uuid; } , {'uuid': uuid});
       },
       /**
-       * Delete a named
+       * Delete a given ship
        * 
-       * @param String name 
+       * @param String uuid
        */
-      deleteShip(name) {
-        let index = this.getShipID(name)
-        // Delete from variable
-        self.data.ships.splice(index, 1)
-        // Delete from database
-        this.deleteShipInDB(name)
+      deleteShip(uuid) {
+        let index = this.getShipID(uuid)
+        if (index >= 0) {
+          // Delete from variable
+          self.data.ships.splice(index, 1)
+          // Delete from database
+          this.deleteShipInDB(uuid)
+        }
+        return index
       },
       /**
        * Save a Ship object to the local array (and sync the database)
@@ -224,12 +229,14 @@ export default {
        * @param Ship ship 
        */
       saveShip(ship) {
-        if (ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons') && ship.hasOwnProperty('deflate')) {
-          let findExistingShip = this.getShipID(ship.uuid)
+        if (ship.hasOwnProperty('uuid') && ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons') && ship.hasOwnProperty('deflate')) {
+          let localClone = this.cloneShip()
+          localClone.hydrate( ship.deflate() )
+          let findExistingShip = this.getShipID(localClone.uuid)
           if (findExistingShip >= 0) {
-            self.data.ships[findExistingShip] = ship
+            self.data.ships[findExistingShip] = localClone
           } else {
-            self.data.ships.push( ship )
+            self.data.ships.push( localClone)
           }
           this.storeShipInDB(ship)
           return (findExistingShip >= 0) ? 1 : 2;
@@ -248,7 +255,7 @@ export default {
       /**
        * Get all Ships from the database
        */
-      getAllShipsInSB() {
+      getAllShipsInDB() {
         let store = self.data.database.transaction('ShipStore').objectStore('ShipStore')
         let resultSet = store.getAll()
         self.data.ships = []
@@ -286,11 +293,11 @@ export default {
       /**
        * Delete a Ship object from the local database
        * 
-       * @param String name
+       * @param String uuid
        */
-      deleteShipInDB(name) {
+      deleteShipInDB(uuid) {
         let store = self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
-        let resultSet = store.delete(name)
+        let resultSet = store.delete(uuid)
         resultSet.onsuccess = function() {
           console.log( 'Ship successfully deleted in database' );
         };

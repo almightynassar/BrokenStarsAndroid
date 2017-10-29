@@ -50,7 +50,7 @@
     },
 		methods: {
       onDelete() {
-        this.$bsFactory.deleteShip(this.rowData.name)
+        this.$bsFactory.deleteShip(this.rowData.uuid)
       },
 			formatNumber(value) {
 				return this.formatter.format(parseInt(value));

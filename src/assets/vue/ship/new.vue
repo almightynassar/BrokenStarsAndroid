@@ -440,11 +440,11 @@
 			onClick() {
 				let saved = this.$bsFactory.saveShip(this.ship)
 				if (saved === 2) {
-					this.$f7.alert(this.ship.name+" has been added")
+					this.$f7.alert(this.ship.name+" (" + this.ship.uuid + ") has been added")
 				} else if (saved === 1) {
-					this.$f7.alert(this.ship.name+" has been updated")
+					this.$f7.alert(this.ship.name+" (" + this.ship.uuid + ")  has been updated")
 				} else {
-					this.$f7.alert("ERROR: "+this.ship.name+" could not be saved")
+					this.$f7.alert("ERROR: "+this.ship.name+" (" + this.ship.uuid + ")  could not be saved")
 				}
 			},
 			onFittingAddClick(id) {
