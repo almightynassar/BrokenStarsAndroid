@@ -74,7 +74,7 @@ These instructions were done with an Ubuntu based distro. You may need to make c
     sudo apt-get install oracle-java8-set-default
     ```
 1. Download the [official Android SDK](https://developer.android.com/studio/index.html) (I only installed the tools since I use another editor)
-1. Install cordova, the latest npm and n
+1. Install cordova (the weak link; expect LOT'S of issues getting this to work consistently), the latest npm and n
     ```
     sudo npm install -g cordova npm n
     ```

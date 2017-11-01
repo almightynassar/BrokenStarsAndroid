@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Broken Stars",
+  "short_name": "Broken Stars",
+  "version": "com.almightynassar.BrokenStarsAndroid",
+  "description": "A Tabletop RPG reference app for the homebrew \"Broken Stars\" campaign. Based on the \"Savage Worlds\" and \"Stars Without Number\" rule sets.",
+  "author": "Almighty Nassar",
+  "icons": [],
+  "start_url": "index.html"
+}
