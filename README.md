@@ -120,4 +120,5 @@ These instructions were done with an Ubuntu based distro. You may need to make c
     git pull origin
     cordova platform add android
     cordova platform add browser
+    mkdir www
     ```
