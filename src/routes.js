@@ -8,6 +8,11 @@ export default [
     path: '/setting/',
     component: require('./assets/vue/pages/setting.vue')
   },
+  // Cards
+  {
+    path: '/cards/list/',
+    component: require('./assets/vue/cards/list.vue')
+  },
   // Generators
   {
     path: '/generator/name/',
