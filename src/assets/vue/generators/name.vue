@@ -6,7 +6,7 @@
 				<p><em>The name list allows the generator to create <strong>nonsense</strong> names that follow a similar structure as the input name list. The output names are not representative of the culture of the input list.</em></p>
 				<!-- Select with values inside -->
 				<select v-model="selected" v-on:change="makeNames">
-					<option v-for="(n,i) in names" :value="i" :key="'names-' + i">{{i[0].toUpperCase() + i.slice(1).replace(/_/g, " ")}}</option>
+					<option v-for="(n,i) in names" :value="i" :key="'names-' + i">{{ i.replace(/_/g, " ") | capitalize }}</option>
 				</select>
 				<p v-show="this.selected !== null">
 					<p><em>Based on {{total}} names, with an average length of {{length}} letters.</em></p>
@@ -32,40 +32,40 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-        names: this.$bsFactory.getNames(),
-        selected: null,
-				gName0: "-",
-				gName1: "-",
-				gName2: "-",
-				gName3: "-"
+export default {
+	data() {
+		return {
+        	names: this.$bsFactory.getNames(),
+        	selected: null,
+			gName0: "-",
+			gName1: "-",
+			gName2: "-",
+			gName3: "-"
+		}
+	},
+	computed: {
+		total() {
+			if (this.selected !== null) {
+				return this.names[this.selected].word_count;
 			}
+			return 0;
 		},
-		computed: {
-			total() {
-				if (this.selected !== null) {
-					return this.names[this.selected].word_count;
-				}
-				return 0;
-			},
-			length() {
-				if (this.selected !== null) {
-					return this.names[this.selected].average_length;
-				}
-				return 0;
+		length() {
+			if (this.selected !== null) {
+				return this.names[this.selected].average_length;
 			}
-		},
+			return 0;
+		}
+	},
     methods: {
-			makeNames() {
-        if (this.selected !== null) {
-					this.gName0 = this.names[this.selected].name();
-					this.gName1 = this.names[this.selected].name();
-					this.gName2 = this.names[this.selected].name();
-					this.gName3 = this.names[this.selected].name();
-				}
-      }
+		makeNames() {
+        	if (this.selected !== null) {
+				this.gName0 = this.names[this.selected].name();
+				this.gName1 = this.names[this.selected].name();
+				this.gName2 = this.names[this.selected].name();
+				this.gName3 = this.names[this.selected].name();
+			}
+      	}
     }
-	}
+}
 </script>
