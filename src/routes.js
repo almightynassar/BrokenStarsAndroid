@@ -29,11 +29,7 @@ export default [
   // Ship Information
   {
     path: '/ship/list/',
-    component: require('./assets/vue/ship/list.vue')
-  },
-  {
-    path: '/ship/form/',
-    component: require('./assets/vue/ship/new.vue')
+    component: require('./assets/vue/ship/layout.vue')
   },
   {
     path: '/ship/analyse/',
@@ -50,10 +46,6 @@ export default [
   {
     path: '/ship/weapons/',
     component: require('./assets/vue/ship/weapons.vue')
-  },
-  {
-    path: '/ship/import/',
-    component: require('./assets/vue/ship/import.vue')
   },
   // Region Information
   {

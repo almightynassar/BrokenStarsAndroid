@@ -13,12 +13,10 @@
 					<f7-page>
 						<f7-block-title>Spacecraft</f7-block-title>
 						<f7-list>
-							<f7-list-item link="/ship/list/" title="List Ships" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/ship/form/" title="New Ship" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/ship/list/" title="Ships" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/ship/analyse/" title="Hull List" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/ship/fittings/" title="Fittings" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/ship/weapons/" title="Weapons" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/ship/import/" title="Import" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
 						<f7-block-title>Sectors</f7-block-title>
 						<f7-list>

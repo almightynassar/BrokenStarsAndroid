@@ -4,8 +4,7 @@
 			<f7-block-title>{{ship.name}}</f7-block-title>
 			<f7-block inset>
 				<f7-buttons>
-					<f7-button href="/ship/list/">Ship List</f7-button>
-					<f7-button href="/ship/form/">New Ship</f7-button>
+					<f7-button href="/ship/list/">Back</f7-button>
 				</f7-buttons>
 
 				<!-- ATTRIBUTES -->
