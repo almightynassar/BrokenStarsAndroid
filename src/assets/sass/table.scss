@@ -1,0 +1,19 @@
+// Remove super annoying padding
+td .buttons-row .button,
+td .button {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    min-width: 0 !important;
+}
+
+.custom-table td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.data-table tr:nth-child(even) {
+	background-color: darken(#fff, 13.5%);
+}

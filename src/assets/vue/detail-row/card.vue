@@ -1,12 +1,25 @@
 <template>
-  <dl>
-    <dt><strong>Name</strong></dt>
-    <dd class="bottom-border">{{ rowData.name }}</dd>
-    <dt><strong>Rarity</strong></dt>
-    <dd class="bottom-border">{{ rowData.rarity | capitalize }}</dd>
-    <dt><strong>Effect</strong></dt>
-    <dd class="bottom-border">{{ rowData.effect }}</dd>
-  </dl>
+  <div class="power-card">
+    <div :class="['card-main', rowData.rarity]">
+      <div class="card-content">
+        <div class="header">
+          <h1 class="title">{{ rowData.name }}</h1>
+          <h2 class="rarity">{{ rowData.rarity | capitalize }}</h2>
+        </div>
+
+        <div class="art">
+          <img :src="'static/'+rowData.art" :data-src="'static/'+rowData.art" :alt="'Card Art for: '+rowData.name"/>
+        </div>
+
+        <div class="textBox">
+          <p>{{ rowData.effect }}</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>™ &amp; © {{ rowData.credit | capitalize }}</p>
+    </footer>
+  </div>
 </template>
 <script>
   export default {
