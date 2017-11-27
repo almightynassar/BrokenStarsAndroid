@@ -151,8 +151,8 @@ export default {
         id: "BLZOFGLRY",
         name: "In a Blaze of Glory",
         rarity: "gold",
-        art: "",
-        credit: "",
+        art: "rage_by_pjacubinas.jpg",
+        credit: "Peter Jacubinas",
         effect: "Until the end of the combat encounter (within reason), your \
         character cannot be incapacitated or die. They gain immunity to all status \
         effects. They gain a +2 bonus to all rolls. At the end of the 5 rounds or the \
@@ -163,8 +163,8 @@ export default {
         id: "DRMTCXT",
         name: "Dramatic Exit",
         rarity: "gold",
-        art: "",
-        credit: "",
+        art: "rim_runner_s_end_by_unusualsuspex-dbkll2t.jpg",
+        credit: "Nige",
         effect: "Use this card when your character dies. Instead of dying, you leave \
         the scene in some fashion, only to return later (bruised and injured, but \
         otherwise alive)."
@@ -173,8 +173,8 @@ export default {
         id: "FACEOFF",
         name: "Face Off",
         rarity: "gold",
-        art: "",
-        credit: "",
+        art: "duel_by_syarul.jpg",
+        credit: "Shahrul Nizam Selamat",
         effect: "Use before a combat encounter starts. Select one opponent; you \
         and that opponent will agree to an one-on-one duel. You and the opponent \
         may negotiate the terms of this duel. If anyone intefers during the duel, \
@@ -183,10 +183,10 @@ export default {
       },
       {
         id: "PRTG",
-        name: "Protege",
+        name: "Protégé",
         rarity: "gold",
-        art: "",
-        credit: "",
+        art: "shadow_of_tomorrow____jacker_by_ianllanas-d7gcbh0.jpg",
+        credit: "Ian Llanas",
         effect: "Use this card on an existing NPC, or an NPC you have not met \
         before (GM's discretion). That NPC expresses an interest in becoming your \
         apprentice and learn from you."
@@ -195,8 +195,8 @@ export default {
         id: "3SCRWD",
         name: "Three's a Crowd",
         rarity: "gold",
-        art: "",
-        credit: "",
+        art: "battle_by_mariasemelevich-d83yal8.jpg",
+        credit: "MariaSemelevich",
         effect: "Use this card during a combat encounter. A third force that is \
         hostile to both you and your enemies arrive to join the fight."
       },
@@ -204,26 +204,26 @@ export default {
         id: "WHTHVWDN",
         name: "What Have We Done?!",
         rarity: "gold",
-        art: "",
-        credit: "",
-        effect: "You draw 3 new cards. The GM also draws 3 cards and uses them as \
-        they see fit."
+        art: "wine_solo_by_barontieri-d3covks.jpg",
+        credit: "Thierry Doizon",
+        effect: "Use at the start of a game session. You draw 3 new cards. The GM \
+        also draws 3 cards and uses them as they see fit."
       },
       // Platinum cards
       {
         id: "AWESOME",
         name: "Who's Awesome?",
         rarity: "platinum",
-        art: "",
-        credit: "",
+        art: "old_ass_version_by_sharpwriter-d33u385.jpg",
+        credit: "Jason ODIN Heuser",
         effect: "You're awesome. Automatically succeed on your last roll or dice test."
       },
       {
         id: "BGNNRSLCK",
         name: "Beginner's Luck",
         rarity: "platinum",
-        art: "",
-        credit: "",
+        art: "celsius_13___farmer_by_jan_wes-d92e7zk.jpg",
+        credit: "Jan Weßbecher",
         effect: "Play this card before performing a skill test. Instead of your normal \
         skill dice, use a d12 instead."
       },
@@ -240,8 +240,8 @@ export default {
         id: "MYSTRYSTRNGR",
         name: "Mysterious Stranger",
         rarity: "platinum",
-        art: "",
-        credit: "",
+        art: "mom_said_he_always_was_a_mysterious_fella____by_peixeserra-d9g2wpt.jpg",
+        credit: "Pei the Pupper",
         effect: "A mysterious individual comes to your aide, only to leave as abruptly \
         as they came."
       },
@@ -249,16 +249,16 @@ export default {
         id: "RNFRCMNTS",
         name: "Reinforcements!",
         rarity: "platinum",
-        art: "",
-        credit: "",
+        art: "reinforcements_by_intelman-d6cnrku.jpg",
+        credit: "Indra Setiawan",
         effect: "An external force that is allied to you arrives to assist."
       },
       {
         id: "WNDFLL",
         name: "Windfall",
         rarity: "platinum",
-        art: "",
-        credit: "",
+        art: "3d_workshop___luxurious_spaceship_interior_by_stormxf3-d8laysr.jpg",
+        credit: "StormXF3",
         effect: "You inherit, find, or an opportunity otherwise presents itself that \
         will increase your wealth substantially (note that you do not recieve the new \
         wealth immediately)."
