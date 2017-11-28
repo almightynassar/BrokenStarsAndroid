@@ -1,22 +1,20 @@
 <template>
-  <f7-page>
-    <f7-block>
-      <f7-block-title>Weapon's List</f7-block-title>
-      <div class="data-table">
-        <vuetable
-          ref="weaponstable"
-          :api-mode="false"
-          :data="weapons.weapons"
-          :fields="fields"
-          detail-row-component="detail-row-weapon"
-        >
-          <template slot="expand" scope="props">
-            <f7-button v-on:click="onExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
-          </template>
-        </vuetable>
-      </div>
-    </f7-block>
-  </f7-page>
+  <f7-block>
+    <f7-block-title>Weapon's List</f7-block-title>
+    <div class="data-table">
+      <vuetable
+        ref="weaponstable"
+        :api-mode="false"
+        :data="weapons.weapons"
+        :fields="fields"
+        detail-row-component="detail-row-weapon"
+      >
+        <template slot="expand" scope="props">
+          <f7-button v-on:click="onExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
+        </template>
+      </vuetable>
+    </div>
+  </f7-block>
 </template>
 <script>
   export default {

@@ -12,7 +12,7 @@
 					<td>{{ship.uuid}}</td>
 				</tr>
 				<tr>
-					<td><strong>Hull Class</strong></td>
+					<td><strong>Hull Class</strong> <help-ship-hull></help-ship-hull></td>
 					<td>
 						<select v-model="ship.hull">
 							<option v-for="(n,i) in ship.categories.hulls" :value="i" :key="'hull-' + i">{{n}}</option>

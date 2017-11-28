@@ -32,20 +32,12 @@ export default [
     component: require('./assets/vue/ship/layout.vue')
   },
   {
-    path: '/ship/analyse/',
-    component: require('./assets/vue/ship/analyse.vue')
+    path: '/ship/details/',
+    component: require('./assets/vue/ship/details.vue')
   },
   {
     path: '/ship/view/:uuid',
     component: require('./assets/vue/ship/view.vue')
-  },
-  {
-    path: '/ship/fittings/',
-    component: require('./assets/vue/ship/fittings.vue')
-  },
-  {
-    path: '/ship/weapons/',
-    component: require('./assets/vue/ship/weapons.vue')
   },
   // Region Information
   {
@@ -64,4 +56,9 @@ export default [
     path: '/regions/planet/view/:sector_x/:sector_y/:planet_index',
     component: require('./assets/vue/regions/viewPlanet.vue')
   },
+  // Rules
+  {
+    path: '/rules/ship',
+    component: require('./assets/vue/rules/ship.vue')
+  }
 ]

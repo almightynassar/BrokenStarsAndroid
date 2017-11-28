@@ -1,166 +1,164 @@
 <template>
-	<f7-page>
-    <f7-block>
-      <f7-block-title>Hull analyse</f7-block-title>
-      <f7-block inset>
-        <p>This page allows you to play with different attributes and sub-systems and observe how they affect different hull types. This is useful to compare the different hulls against one another.</p>
-      </f7-block>
-      <div class="data-table">
-        <vuetable
-          ref="hullsummarytable"
-          :api-mode="false"
-          :data="ships"
-          :fields="fields"
-          track-by="hull"
-          detail-row-component="detail-row-ship-summary"
-        >
-          <template slot="hull" scope="props">
-            {{ props.rowData.getHull() }}
-          </template>
-          <template slot="cost" scope="props">
-            {{ formatNumber( props.rowData.getCost() ) }}
-          </template>
-          <template slot="expand" scope="props">
-            <f7-button v-on:click="onExpandRow(props.rowData.hull)"><f7-icon material="expand_more"></f7-icon></f7-button>
-          </template>
-        </vuetable>
-      </div>
-
-      <!-- ATTRIBUTES -->
-      <f7-block-title class="content-center-text color-lightblue">Attributes</f7-block-title>
-      <div class="data-table custom-table">
-        <table>
-          <tr>
-            <td>
-                <strong>AI</strong> <help-ship-ai></help-ship-ai>
-            </td>
-            <td>
-              <select v-model="attributes.ai">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Armour</strong> <help-ship-armour></help-ship-armour>
-            </td>
-            <td>
-              <select v-model="attributes.armour">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Bulk</strong> <help-ship-bulk></help-ship-bulk>
-            </td>
-            <td>
-              <select v-model="attributes.bulk">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Engine</strong> <help-ship-engine></help-ship-engine>
-            </td>
-            <td>
-              <select v-model="attributes.engine">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Power</strong> <help-ship-power></help-ship-power>
-            </td>
-            <td>
-              <select v-model="attributes.power">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-        </table>
-      </div>
-
-      <!-- SUB-SYSTEMS -->
-      <f7-block-title class="content-center-text color-lightblue">Sub-Systems</f7-block-title>
-      <div class="data-table custom-table">
-        <table>
-          <tr>
-            <td>
-              <strong>Autopilot</strong> <help-ship-autopilot></help-ship-autopilot>
-            </td>
-            <td>
-              <select v-model="systems.autopilot">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>ECM</strong> <help-ship-ecm></help-ship-ecm>
-            </td>
-            <td>
-              <select v-model="systems.ecm">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Navigation</strong> <help-ship-navigation></help-ship-navigation>
-            </td>
-            <td>
-              <select v-model="systems.navigation">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Operations</strong> <help-ship-operations></help-ship-operations>
-            </td>
-            <td>
-              <select v-model="systems.operations">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Repair</strong> <help-ship-repair></help-ship-repair>
-            </td>
-            <td>
-              <select v-model="systems.repair">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Sensors</strong> <help-ship-sensors></help-ship-sensors>
-            </td>
-            <td>
-              <select v-model="systems.sensors">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Weapons</strong> <help-ship-weapons></help-ship-weapons>
-            </td>
-            <td>
-              <select v-model="systems.weapons">
-                <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
-              </select>
-            </td>
-          </tr>
-        </table>
-      </div>
+  <f7-block>
+    <f7-block-title>Hull analysis</f7-block-title>
+    <f7-block inset>
+      <p>This page allows you to play with different attributes and sub-systems and observe how they affect different hull types. This is useful to compare the different hulls against one another.</p>
     </f7-block>
-  </f7-page>
+    <div class="data-table">
+      <vuetable
+        ref="hullsummarytable"
+        :api-mode="false"
+        :data="ships"
+        :fields="fields"
+        track-by="hull"
+        detail-row-component="detail-row-ship-summary"
+      >
+        <template slot="hull" scope="props">
+          {{ props.rowData.getHull() }}
+        </template>
+        <template slot="cost" scope="props">
+          {{ formatNumber( props.rowData.getCost() ) }}
+        </template>
+        <template slot="expand" scope="props">
+          <f7-button v-on:click="onExpandRow(props.rowData.hull)"><f7-icon material="expand_more"></f7-icon></f7-button>
+        </template>
+      </vuetable>
+    </div>
+
+    <!-- ATTRIBUTES -->
+    <f7-block-title class="content-center-text color-lightblue">Attributes</f7-block-title>
+    <div class="data-table custom-table">
+      <table>
+        <tr>
+          <td>
+              <strong>AI</strong> <help-ship-ai></help-ship-ai>
+          </td>
+          <td>
+            <select v-model="attributes.ai">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Armour</strong> <help-ship-armour></help-ship-armour>
+          </td>
+          <td>
+            <select v-model="attributes.armour">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Bulk</strong> <help-ship-bulk></help-ship-bulk>
+          </td>
+          <td>
+            <select v-model="attributes.bulk">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Engine</strong> <help-ship-engine></help-ship-engine>
+          </td>
+          <td>
+            <select v-model="attributes.engine">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Power</strong> <help-ship-power></help-ship-power>
+          </td>
+          <td>
+            <select v-model="attributes.power">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- SUB-SYSTEMS -->
+    <f7-block-title class="content-center-text color-lightblue">Sub-Systems</f7-block-title>
+    <div class="data-table custom-table">
+      <table>
+        <tr>
+          <td>
+            <strong>Autopilot</strong> <help-ship-autopilot></help-ship-autopilot>
+          </td>
+          <td>
+            <select v-model="systems.autopilot">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>ECM</strong> <help-ship-ecm></help-ship-ecm>
+          </td>
+          <td>
+            <select v-model="systems.ecm">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Navigation</strong> <help-ship-navigation></help-ship-navigation>
+          </td>
+          <td>
+            <select v-model="systems.navigation">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Operations</strong> <help-ship-operations></help-ship-operations>
+          </td>
+          <td>
+            <select v-model="systems.operations">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Repair</strong> <help-ship-repair></help-ship-repair>
+          </td>
+          <td>
+            <select v-model="systems.repair">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Sensors</strong> <help-ship-sensors></help-ship-sensors>
+          </td>
+          <td>
+            <select v-model="systems.sensors">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Weapons</strong> <help-ship-weapons></help-ship-weapons>
+          </td>
+          <td>
+            <select v-model="systems.weapons">
+              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </f7-block>
 </template>
 <script>
   export default {

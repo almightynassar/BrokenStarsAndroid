@@ -14,9 +14,7 @@
 						<f7-block-title>Spacecraft</f7-block-title>
 						<f7-list>
 							<f7-list-item link="/ship/list/" title="Ships" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/ship/analyse/" title="Hull List" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/ship/fittings/" title="Fittings" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/ship/weapons/" title="Weapons" link-view="#main-view" link-close-panel></f7-list-item>
+							<f7-list-item link="/ship/details/" title="Extra" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
 						<f7-block-title>Sectors</f7-block-title>
 						<f7-list>
@@ -41,6 +39,10 @@
 						<f7-block-title>Information</f7-block-title>
 						<f7-list>
 							<f7-list-item link="/setting/" title="The Setting" link-view="#main-view" link-close-panel></f7-list-item>
+						</f7-list>
+						<f7-block-title>Rules</f7-block-title>
+						<f7-list>
+							<f7-list-item link="/rules/ship" title="Ship" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
 						<f7-block-title>Generators</f7-block-title>
 						<f7-list>
