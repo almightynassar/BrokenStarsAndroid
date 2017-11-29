@@ -12,8 +12,6 @@
     <dd class="bottom-border">{{starDetails.temperature}}K</dd>
     <dt><strong># of solar objects</strong></dt>
     <dd class="bottom-border">{{ rowData.planets.length }}</dd>
-    <dt><strong>View More</strong></dt>
-    <dd><f7-link :href="'/regions/sector/view/'+rowData.x+'/'+rowData.y"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link></dd>
   </dl>
 </template>
 <script>

@@ -1,9 +1,9 @@
 <template>
-  <f7-block>
-    <f7-block-title>Hull analysis</f7-block-title>
-    <f7-block inset>
-      <p>This page allows you to play with different attributes and sub-systems and observe how they affect different hull types. This is useful to compare the different hulls against one another.</p>
-    </f7-block>
+  <f7-block inset>
+    <f7-block-title  class="content-center-text bottom-border small-caps">Hull analysis</f7-block-title>
+    <p>This page allows you to compare different hull types and play with different attributes and sub-systems. This is useful to compare the different hulls against one another.</p>
+    
+    <!-- TABLE -->
     <div class="data-table">
       <vuetable
         ref="hullsummarytable"
@@ -11,22 +11,50 @@
         :data="ships"
         :fields="fields"
         track-by="hull"
-        detail-row-component="detail-row-ship-summary"
       >
         <template slot="hull" scope="props">
           {{ props.rowData.getHull() }}
         </template>
         <template slot="cost" scope="props">
-          {{ formatNumber( props.rowData.getCost() ) }}
-        </template>
-        <template slot="expand" scope="props">
-          <f7-button v-on:click="onExpandRow(props.rowData.hull)"><f7-icon material="expand_more"></f7-icon></f7-button>
+          <span v-if="showData == 'cost'">{{ formatNumber( props.rowData.getCost() ) }}</span>
+          <span v-else-if="showData == 'aiActions'">{{ props.rowData.getActionsAI() }}</span>
+          <span v-else-if="showData == 'aiEvade'">{{ props.rowData.getEvade() }}</span>
+          <span v-else-if="showData == 'cargoCap'">{{ props.rowData.getBulk() * 100 }} tons</span>
+          <span v-else-if="showData == 'ftlFuel'">{{ props.rowData.getFTL() }} units</span>
+          <span v-else-if="showData == 'hardpoints'">{{ props.rowData.getHardpoints() }}</span>
+          <span v-else-if="showData == 'integrity'">{{ props.rowData.getIntegrity() }}</span>
+          <span v-else-if="showData == 'power'">{{ props.rowData.getPower() }}</span>
+          <span v-else-if="showData == 'sizeMod'">{{ props.rowData.getSize() }}</span>
+          <span v-else-if="showData == 'speedSpace'">{{ props.rowData.getAcceleration() }} spaces</span>
+          <span v-else-if="showData == 'speedReal'">{{ props.rowData.getAccelerationConverted() }} m/s</span>
+          <span v-else-if="showData == 'speedKmh'">{{ (props.rowData.getAccelerationConverted() * 18 ) /5}} km/h</span>
+          <span v-else-if="showData == 'storage'">{{ props.rowData.getBulk() }}</span>
+          <span v-else-if="showData == 'toughness'">{{ props.rowData.getToughness() }}</span>
         </template>
       </vuetable>
     </div>
 
+    <!-- DATAPOINT -->
+    <f7-block-title class="content-center-text color-lightblue bottom-border">Datapoint</f7-block-title>
+    <select v-model="showData">
+      <option value='aiActions' key='aiActions'>AI Actions</option>
+      <option value='aiEvade' key='aiEvade'>AI Evade</option>
+      <option value='cargoCap' key='cargoCap'>Cargo Capacity</option>
+      <option value='cost' key='cost'>Cost</option>
+      <option value='ftlFuel' key='ftlFuel'>Fuel per FTL jump</option>
+      <option value='hardpoints' key='hardpoints'>Hardpoints</option>
+      <option value='integrity' key='integrity'>Integrity</option>
+      <option value='power' key='power'>Power</option>
+      <option value='sizeMod' key='sizeMod'>Size Modifier</option>
+      <option value='speedSpace' key='speedSpace'>Speed (Spaces)</option>
+      <option value='speedReal' key='speedReal'>Speed (m/s)</option>
+      <option value='speedKmh' key='speedKmh'>Speed (km/h)</option>
+      <option value='storage' key='storage'>Storage</option>
+      <option value='toughness' key='toughness'>Toughness</option>
+    </select>
+
     <!-- ATTRIBUTES -->
-    <f7-block-title class="content-center-text color-lightblue">Attributes</f7-block-title>
+    <f7-block-title class="content-center-text color-lightblue bottom-border">Attributes</f7-block-title>
     <div class="data-table custom-table">
       <table>
         <tr>
@@ -83,7 +111,7 @@
     </div>
 
     <!-- SUB-SYSTEMS -->
-    <f7-block-title class="content-center-text color-lightblue">Sub-Systems</f7-block-title>
+    <f7-block-title class="content-center-text color-lightblue bottom-border">Sub-Systems</f7-block-title>
     <div class="data-table custom-table">
       <table>
         <tr>
@@ -164,6 +192,7 @@
   export default {
     data() {
       return {
+        showData: 'cost',
         temp: this.$bsFactory.getTemplate("ships"),
         ships: [],
         attributes: {
@@ -191,13 +220,7 @@
           },
           {
             name: '__slot:cost',
-            title: 'Cost',
-            titleClass: 'center aligned',
-            dataClass: 'center aligned'
-          },
-          {
-            name: '__slot:expand',
-            title: 'Expand',
+            title: 'Datapoint',
             titleClass: 'center aligned',
             dataClass: 'center aligned'
           }
@@ -284,13 +307,6 @@
 		methods: {
 			formatNumber(value) {
 				return this.formatter.format(parseInt(value));
-      },
-      onExpandRow (id) {
-        let index = this.$refs.hullsummarytable.visibleDetailRows.indexOf(id)
-        this.$refs.hullsummarytable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.hullsummarytable.showDetailRow(id)
-        }
       }
 		},
     mounted() {

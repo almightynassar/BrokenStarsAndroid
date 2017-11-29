@@ -226,6 +226,7 @@ export default {
     return power;
   },
   getAcceleration() { return Math.ceil(this.getBaseAcceleration() * this.convertToDieMultiplier(this.attributes.engine)) * 6; },
+  getAccelerationConverted() { return ((this.getAcceleration() * 5) * 1.5) / 6; },
   getFTL() { return Math.ceil(this.getBaseFTL() * (2 - this.convertToDieMultiplier(this.attributes.engine))); },
   getHardpoints() { return Math.ceil(this.getBaseHardpoints() * this.convertToDieMultiplier(this.attributes.armour)); },
   getHardpointsUsed() {

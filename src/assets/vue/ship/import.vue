@@ -1,7 +1,7 @@
 <template>
-	<f7-block>
-		<f7-block-title>Import Ship</f7-block-title>
-		<textarea v-model="textual"></textarea>
+	<f7-block inset>
+		<f7-block-title class="content-center-text bottom-border small-caps">Import Ship</f7-block-title>
+		<textarea style="height: 50vh;" v-model="textual"></textarea>
 		<f7-buttons>
 			<f7-button big fill color="blue" v-on:click="importShip">Import</f7-button>
 		</f7-buttons>

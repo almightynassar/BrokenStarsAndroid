@@ -42,3 +42,10 @@ Vue.component('help-region-control', require('./region/control.vue'))
 Vue.component('help-region-star', require('./region/star.vue'))
 Vue.component('help-region-star-temperature', require('./region/star-temperature.vue'))
 Vue.component('help-region-zone', require('./region/zone.vue'))
+
+// QUESTS
+Vue.component('help-quest-starter', require('./quest/starter.vue'))
+Vue.component('help-quest-type', require('./quest/type.vue'))
+Vue.component('help-quest-neutral', require('./quest/neutral.vue'))
+Vue.component('help-quest-antagonist', require('./quest/antagonist.vue'))
+Vue.component('help-quest-location', require('./quest/location.vue'))

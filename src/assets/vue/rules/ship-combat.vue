@@ -1,17 +1,17 @@
 <template>
     <f7-block>
-        <f7-block-title>Ship Combat</f7-block-title>
+        <f7-block-title class="content-center-text color-lightblue bottom-border small-caps">Ship Combat</f7-block-title>
         <f7-block inset>
             <p>Combat is similar to standard Savage Worlds combat, except some terms have been replaced to make them relevant to ship-to-ship space combat. For those who know Savage Worlds combat, please not the following:</p>
             <ul>
                 <li><em>Parry</em> and other defenses have now been replaced by <em>Evade</em>, which is calculated from your Ships Auto-Pilot sub-system score. If you have a pilot, they can make a Piloting roll to change the Evade target number.</li>
                 <li><em>Shaken</em> has been kept but with changes. Instead of making a <em>Vigor</em> roll, your crew (or Ship AI) must make a Repair roll to recover from Shaken status. Damage taken during Shaken incurs Integrity loss as normal.</li>
-                <li><em>Toughness</em> has been replaced by <em>Breech</em>, which represents the target value for damage rolls before a loss of Integrity occurs.</li>
+                <li><em>Toughness</em> represents the target value for damage rolls before a loss of Integrity occurs.</li>
                 <li><em>Rounds</em> has been split into two phases to ensure all spacecraft has a chance to contribute. The two phases are the <strong>Manoeuvre</strong> phase and the <strong>Fire</strong> phase.</li>
                 <li><em>Wounds</em> has been replaced by <em>Intregity</em>. Integrity is calculated based on Hull type, so your spacecraft may have more or less than 3 Integrity. Instead of Wound penalties, the loss of Intregity requires a roll on the <strong>Ship Damage Table</strong> (see below).</li>
             </ul>
         </f7-block>
-        <f7-block-title>Turn Order</f7-block-title>
+        <f7-block-title class="content-center-text color-lightblue bottom-border">Turn Order</f7-block-title>
         <f7-block inset>
             <p>When entering Ship-to-Ship combat, follow these steps:</p>
             <ol>
@@ -45,17 +45,59 @@
                 <li><strong>ROUND END</strong>. Once the Fire Phase has been completed, we redraw initiative and begin the Manoeuvre phase again. Repeat until the end of Combat</li>
             </ol>
         </f7-block>
-         <f7-block-title>Ship Damage Table</f7-block-title>
+         <f7-block-title class="content-center-text color-lightblue bottom-border">Ship Damage Table</f7-block-title>
         <f7-block inset>
+            <p><strong>Ship Damage</strong> are semi-permanent effects that occur when your ship loses Integrity. Unlike Intregity loss, this damage can be immediately repaired.</p>
+            <p>Some damage forces you to reduce an Attribute or Sub-system by a die type. If the die type is reduced past a d4-2, then that attribute or sub-system is completely disabled. Making a successfull repair role will restore 1 die type to the targeted attribute or sub-system.</p>
             <p>Roll 2d6 and consult the following table:</p>
-            <table>
+            <table class="data-table custom-table">
                 <tr>
                     <th>ROLL</th>
                     <th>DAMAGE</th>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Your power has been reduced a die type. If you are reduce to below d4-2, your ship has lost all power and is effectively dead (include Ship AI) until power is restored. A Repair skill roll is restore 1 die type to your Power.</td>
+                    <td>You have suffered extreme damage. Roll twice on this table to get two Damage effects.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Your <strong>Power</strong> has been reduced a die type. Loss of power will turn off ALL systems, including AI and Engines.</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Your <strong>Engines</strong> has been reduced a die type. Loss of engines will mean you lose all control of momentum.</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Your impulse engines are playing up. Halve your Speed.</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Your Ship's <strong>Sensors</strong> have been reduced a die type. In addition, take an accumalative -2 penalty to all rolls when characters use the Sensors.</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Your Ship's <strong>AI</strong> has been reduced a die type.</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Your Ship's <strong>Weapons</strong> have been reduced a die type. In addition, take an accumalative -2 penalty to all rolls when characters use the ship weapons.</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>One of your weapons has been hit. Randomly select a weapon; that weapon is now disabled and require 2 successful Repair rolls.</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Your Life-Support has malfunctioned. Roll a d4 for each unit of Integrity your ship has left. The result is amount of rounds you have left before life-support completely fails.</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>Your hull has been significantly breeched. Roll a d6 to determine a quadrant (Top, Bottom, Fore, Aft, Port, Starboard). Rooms and fixtures placed near the hull in that quadrant are now open to space.</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>The Damage was largely superficial. You do not suffer any negative effects.</td>
                 </tr>
             </table>
         </f7-block>

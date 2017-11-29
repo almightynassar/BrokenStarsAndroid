@@ -1,7 +1,7 @@
 <template>
 	<f7-page>
     <f7-block>
-      <f7-block-title>Card List</f7-block-title>
+      <f7-block-title class="content-center-text bottom-border small-caps">Card List</f7-block-title>
       <div class="data-table">
         <vuetable
           ref="cardstable"

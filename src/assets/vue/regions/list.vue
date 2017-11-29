@@ -1,8 +1,8 @@
 <template>
 	<f7-page>
-    <f7-block>
-      <f7-block-title>Sector List</f7-block-title>
-      <f7-block inset form>
+    <f7-block inset>
+      <f7-block-title class="content-center-text bottom-border small-caps">Sector List</f7-block-title>
+      <f7-block form>
         <!-- Text Input -->
         <input type="text" v-model="search" v-on:input="updateSectors()" placeholder="Search" />
         <div class="custom-radio custom-radio-inline">
@@ -22,6 +22,7 @@
           :fields="fields"
           track-by="name"
           detail-row-component="detail-row-region-summary"
+          @vuetable:row-clicked="onExpandRow"
         >
           <template slot="owner" scope="props">
             {{ regions.categories.sector.control[props.rowData.control] }}
@@ -30,7 +31,7 @@
             {{ regions.getSectorTrade(props.rowData) }}
           </template>
           <template slot="expand" scope="props">
-            <f7-button v-on:click="onExpandRow(props.rowData.name)"><f7-icon material="expand_more"></f7-icon></f7-button>
+            <f7-button :href="'/regions/sector/view/'+props.rowData.x+'/'+props.rowData.y"><f7-icon material="chevron_right"></f7-icon></f7-button>
           </template>
         </vuetable>
       </div>
@@ -55,7 +56,7 @@
           },
           {
             name: '__slot:expand',
-            title: 'Expand',
+            title: 'View',
             titleClass: 'center aligned',
             dataClass: 'center aligned'
           }
@@ -132,7 +133,8 @@
       formatNumber(value) {
 				return this.formatter.format(parseInt(value));
       },
-      onExpandRow (id) {
+      onExpandRow (data, field, event) {
+        let id = data.name
         let index = this.$refs.regionsummarytable.visibleDetailRows.indexOf(id)
         this.$refs.regionsummarytable.visibleDetailRows = []
         if (index == -1) {

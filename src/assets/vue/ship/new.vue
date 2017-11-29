@@ -1,6 +1,6 @@
 <template>
 	<f7-block form>
-		<f7-block-title>Ship Creator</f7-block-title>
+		<f7-block-title class="content-center-text bottom-border small-caps">Ship Creator</f7-block-title>
 		<div class="data-table custom-table">
 			<table>
 				<tr>
@@ -326,7 +326,7 @@
 						<td>{{ship.getEvade()}}</td>
 					</tr>
 					<tr>
-						<td><strong>Breech</strong> <help-ship-breech></help-ship-breech></td>
+						<td><strong>Toughness</strong> <help-ship-breech></help-ship-breech></td>
 						<td>{{ship.getToughness()}}</td>
 					</tr>
 					<tr>

@@ -76,7 +76,7 @@
 				<f7-pages>
 					<f7-page>
 						<f7-block>
-							<f7-block-title>Welcome to <em>Broken Stars</em>!</f7-block-title>
+							<f7-block-title class="content-center-text color-lightblue bottom-border small-caps">Welcome to <em>Broken Stars</em>!</f7-block-title>
 							<f7-block inset>
 								<p><em>Broken Stars</em> is a homebrew sci-fi campaign setting that is inspired by various tabletop rulebooks (<em>see our <f7-link href="/about/">About</f7-link> for more information</em>).</p>
 								<p>Use the left hand menu to access various features such as Ship creation, Sector map, and Name generation. Use the right hand menu to access various information and details about the setting.</p>
