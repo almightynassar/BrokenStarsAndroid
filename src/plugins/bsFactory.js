@@ -10,10 +10,6 @@ export default {
     templates: null,
     names: {},
     database: null,
-    ships: [],
-    store: {
-      ship: null
-    },
     version: 3
   },
   /**
@@ -98,20 +94,6 @@ export default {
             }
           }
           console.log("Database Opened")
-          let store = self.data.database.transaction('ShipStore').objectStore('ShipStore')
-          let resultSet = store.getAll()
-          resultSet.onsuccess = function() {
-            if (resultSet.result && resultSet.result.constructor === Array) {
-              for(var x = 0; x < resultSet.result.length; x++) {
-                let tempShip = clone(self.data.templates.ships)
-                tempShip.hydrate(resultSet.result[x])
-                self.data.ships.push( tempShip )
-              }
-            }
-          };
-          resultSet.onerror = function() {
-            console.error( 'DB FAILURE: Cannot load existing ships' );
-          };
         }
         // This event handles the event whereby a new version of
         // the database needs to be created
@@ -168,142 +150,10 @@ export default {
         return clonedShip
       },
       /**
-       * Sort the ships alphabetically
+       * Get Ship Store
        */
-      sortShips() {
-        self.data.ships.sort(function(a,b) {
-          return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
-        }); 
-      },
-      /**
-       * Get all ships
-       */
-      getShips() {
-        this.sortShips()
-        return self.data.ships
-      },
-      /**
-       * Get a ship by it's name
-       * 
-       * @param String name 
-       */
-      getShip(name) {
-        return self.data.ships.filter(function(ship) { return ship.name === this.name; } , {'name': name});
-      },
-      // Find a ship by it's uuid
-      findShipByDesignation(uuid) {
-        let matching = self.data.ships.filter(function(s) {
-          return (s.uuid == this.uuid)
-        }, {'uuid': uuid})
-        if (matching.length == 1) {
-          return matching[0]
-        }
-        return null
-      },
-      /**
-       * Get a ship's ID by it's name
-       * 
-       * @param String name 
-       */
-      getShipID(uuid) {
-        return self.data.ships.findIndex(function(ship) { return ship.uuid === this.uuid; } , {'uuid': uuid});
-      },
-      /**
-       * Delete a given ship
-       * 
-       * @param String uuid
-       */
-      deleteShip(uuid) {
-        let index = this.getShipID(uuid)
-        if (index >= 0) {
-          // Delete from variable
-          self.data.ships.splice(index, 1)
-          // Delete from database
-          this.deleteShipInDB(uuid)
-        }
-        return index
-      },
-      /**
-       * Save a Ship object to the local array (and sync the database)
-       * 
-       * @param Ship ship 
-       */
-      saveShip(ship) {
-        if (ship.hasOwnProperty('uuid') && ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons') && ship.hasOwnProperty('deflate')) {
-          let localClone = this.cloneShip()
-          localClone.hydrate( ship.deflate() )
-          let findExistingShip = this.getShipID(localClone.uuid)
-          if (findExistingShip >= 0) {
-            self.data.ships[findExistingShip] = localClone
-          } else {
-            self.data.ships.push( localClone)
-          }
-          this.storeShipInDB(ship)
-          return (findExistingShip >= 0) ? 1 : 2;
-        }
-        return -1
-      },
-      /**
-       * Synchronises database with internal storage
-       */
-      syncShips() {
-        // Loop through array and save to database
-        for (var index = 0; index < self.data.ships.length; index++) {
-          this.storeShipInDB(self.data.ships[index])
-        }
-      },
-      /**
-       * Get all Ships from the database
-       */
-      getAllShipsInDB() {
-        let store = self.data.database.transaction('ShipStore').objectStore('ShipStore')
-        let resultSet = store.getAll()
-        self.data.ships = []
-        resultSet.onsuccess = function() {
-          if (typeof resultSet.request instanceof 'Array') {
-            for(var x = 0; x < resultSet.request.length; x++) {
-              let tempShip = clone(self.data.templates.ships)
-              tempShip.hydrate(resultSet.request)
-              self.data.ships.push( tempShip )
-            }
-          }
-        };
-        resultSet.onerror = function() {
-          console.error( 'DB FAILURE: Cannot load existing ships' );
-        };
-      },
-      /**
-       * Save a Ship object to the local database
-       * 
-       * @param Ship ship 
-       */
-      storeShipInDB(ship) {
-        if (ship.hasOwnProperty('name') && ship.hasOwnProperty('hull') && ship.hasOwnProperty('attributes') && ship.hasOwnProperty('systems') && ship.hasOwnProperty('fittings') && ship.hasOwnProperty('weapons') && ship.hasOwnProperty('deflate')) {
-          let data = ship.deflate()
-          let store = self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
-          let resultSet = store.put(data);
-          resultSet.onsuccess = function() {
-            console.log( 'Ship successfully saved in database' );
-          };
-          resultSet.onerror = function() {
-            console.error( 'DB FAILURE: Cannot save ship in database' );
-          };
-        }
-      },
-      /**
-       * Delete a Ship object from the local database
-       * 
-       * @param String uuid
-       */
-      deleteShipInDB(uuid) {
-        let store = self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
-        let resultSet = store.delete(uuid)
-        resultSet.onsuccess = function() {
-          console.log( 'Ship successfully deleted in database' );
-        };
-        resultSet.onerror = function() {
-          console.log( 'FAILURE' );
-        };
+      getShipStore() {
+        return self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
       },
       /**
        * Grab the object/array of Names

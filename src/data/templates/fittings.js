@@ -344,6 +344,6 @@ export default {
     }
   ],
   search(id) {
-    return this.fittings.filter(function(fitting) { return fitting.id === this.id; } , {'id': id});
+    return this.fittings.find(function(fitting) { return fitting.id === this.id; } , {'id': id});
   }
 }

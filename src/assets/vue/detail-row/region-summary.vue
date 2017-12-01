@@ -1,20 +1,30 @@
 <template>
-  <dl>
-    <dt><strong>Name</strong></dt>
-    <dd class="bottom-border">{{ rowData.name }}</dd>
-    <dt><strong>Travel Zone</strong> <help-region-zone></help-region-zone></dt>
-    <dd class="bottom-border">{{ rowData.zone | capitalize}}: {{ regions.categories.sector.zone[rowData.zone] }}</dd>
-    <dt><strong>Trade Number</strong></dt>
-    <dd class="bottom-border">{{ regions.getSectorTrade(rowData) }}</dd>
-    <dt><strong>Star Class</strong> <help-region-star></help-region-star></dt>
-    <dd class="bottom-border">{{starDetails.type}} ({{ starDetails.class }})</dd>
-    <dt><strong>Star Temperature</strong></dt>
-    <dd class="bottom-border">{{starDetails.temperature}}K</dd>
-    <dt><strong># of solar objects</strong></dt>
-    <dd class="bottom-border">{{ rowData.planets.length }}</dd>
-    <dt><strong>View More</strong></dt>
-    <dd><f7-link :href="'/regions/sector/view/'+rowData.x+'/'+rowData.y"><f7-icon color="blue" material="arrow_forward"></f7-icon></f7-link></dd>
-  </dl>
+  <div>
+    <div class="bottom-border">
+      <div><strong>Name</strong></div>
+      <div class="pull-right">{{ rowData.name }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Travel Zone</strong> <help-region-zone></help-region-zone></div>
+      <div class="pull-right">{{ rowData.zone | capitalize}}: {{ regions.categories.sector.zone[rowData.zone] }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Trade Number</strong></div>
+      <div class="pull-right">{{ regions.getSectorTrade(rowData) }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Star Class</strong> <help-region-star></help-region-star></div>
+      <div class="pull-right">{{starDetails.type}} ({{ starDetails.class }})</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Star Temperature</strong></div>
+      <div class="pull-right">{{starDetails.temperature}}K</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong># of solar objects</strong></div>
+      <div class="pull-right">{{ rowData.planets.length }}</div>
+    </div>
+  </div>
 </template>
 <script>
   export default {
@@ -30,7 +40,6 @@
     data() {
       return {
         regions: this.$bsFactory.getTemplate('regions'),
-        formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
     },
     computed: {
@@ -44,11 +53,6 @@
         }
         return star
       }
-    },
-		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-      }
-		}
+    }
   }
 </script>

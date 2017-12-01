@@ -1,7 +1,7 @@
 <template>
 	<f7-page>
 		<f7-block>
-			<f7-block-title>Region Generator</f7-block-title>
+			<f7-block-title class="content-center-text bottom-border small-caps">Region Generator</f7-block-title>
 			<div class="data-table custom-table">
 				<table>
 					<tr>

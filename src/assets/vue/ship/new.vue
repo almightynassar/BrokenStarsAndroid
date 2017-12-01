@@ -1,6 +1,6 @@
 <template>
 	<f7-block form>
-		<f7-block-title>Ship Creator</f7-block-title>
+		<f7-block-title class="content-center-text bottom-border small-caps">Ship Creator</f7-block-title>
 		<div class="data-table custom-table">
 			<table>
 				<tr>
@@ -12,7 +12,7 @@
 					<td>{{ship.uuid}}</td>
 				</tr>
 				<tr>
-					<td><strong>Hull Class</strong></td>
+					<td><strong>Hull Class</strong> <help-ship-hull></help-ship-hull></td>
 					<td>
 						<select v-model="ship.hull">
 							<option v-for="(n,i) in ship.categories.hulls" :value="i" :key="'hull-' + i">{{n}}</option>
@@ -193,10 +193,10 @@
 					detail-row-component="detail-row-fitting"
 				>
 					<template slot="addFitting" scope="props">
-						<f7-button fill color="green" v-on:click="onFittingAddClick(props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+						<f7-button fill color="green" v-on:click="onAddClick('fittings', props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
 					</template>
 					<template slot="expand" scope="props">
-						<f7-button v-on:click="onFittingExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
+						<f7-button v-on:click="onExpandRow('fittings', props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
 					</template>
 				</vuetable>
 			</div>
@@ -224,13 +224,14 @@
 				detail-row-component="detail-row-fitting"
 			>
 				<template slot="total" scope="props">
-					<p><f7-button v-on:click="onFittingDeactivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button></p>
-					<p>{{props.rowData.active}} / {{props.rowData.total}}</p>
-					<p><f7-button v-on:click="onFittingActivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button></p>
+					<p><f7-button v-on:click="onToggleClick('fittings', props.rowData.id, -1)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button></p>
+					<p>Active: {{props.rowData.active}}</p>
+					<p>Total: {{props.rowData.total}}</p>
+					<p><f7-button v-on:click="onToggleClick('fittings', props.rowData.id, 1)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button></p>
 				</template>
 				<template slot="actions" scope="props">
-					<p><f7-button fill color="red" v-on:click="onFittingRemoveClick(props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button></p>
-					<p><f7-button v-on:click="onShipFittingExpandRow(props.rowData.id)"><f7-icon size=16 color="blue" material="expand_more"></f7-icon></f7-button></p>
+					<p><f7-button fill color="red" v-on:click="onRemoveClick('fittings', props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button></p>
+					<p><f7-button v-on:click="onExpandRow('shipfittings', props.rowData.id)"><f7-icon size=16 color="blue" material="expand_more"></f7-icon></f7-button></p>
 				</template>
 			</vuetable>
 		</div>
@@ -264,10 +265,10 @@
 					detail-row-component="detail-row-weapon"
 				>
 					<template slot="addWeapon" scope="props">
-						<f7-button fill color="green" v-on:click="onWeaponAddClick(props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+						<f7-button fill color="green" v-on:click="onAddClick('weapons', props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
 					</template>
 					<template slot="expand" scope="props">
-						<f7-button v-on:click="onWeaponExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
+						<f7-button v-on:click="onExpandRow('weapons', props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
 					</template>
 				</vuetable>
 			</div>
@@ -281,7 +282,7 @@
 					'name',
 					{
 						name: '__slot:total',
-						title: 'A / T',
+						title: 'Active',
 						titleClass: 'center aligned',
 						dataClass: 'center aligned'
 					},
@@ -295,13 +296,14 @@
 				detail-row-component="detail-row-weapon"
 			>
 				<template slot="total" scope="props">
-					<p><f7-button v-on:click="onWeaponDeactivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button></p>
-					<p>{{props.rowData.active}} / {{props.rowData.total}}</p>
-					<p><f7-button v-on:click="onWeaponActivateClick(props.rowData.id)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button></p>
+					<p><f7-button v-on:click="onToggleClick('weapons', props.rowData.id, -1)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button></p>
+					<p>Active: {{props.rowData.active}}</p>
+					<p>Total: {{props.rowData.total}}</p>
+					<p><f7-button v-on:click="onToggleClick('weapons', props.rowData.id, -1)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button></p>
 				</template>
 				<template slot="actions" scope="props">
-					<p><f7-button fill color="red" v-on:click="onWeaponRemoveClick(props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button></p>
-					<p><f7-button v-on:click="onShipWeaponExpandRow(props.rowData.id)"><f7-icon size=16 color="blue" material="expand_more"></f7-icon></f7-button></p>
+					<p><f7-button fill color="red" v-on:click="onRemoveClick('wespons', props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button></p>
+					<p><f7-button v-on:click="onExpandRow('shipweapons', props.rowData.id)"><f7-icon size=16 color="blue" material="expand_more"></f7-icon></f7-button></p>
 				</template>
 			</vuetable>
 		</div>
@@ -326,7 +328,7 @@
 						<td>{{ship.getEvade()}}</td>
 					</tr>
 					<tr>
-						<td><strong>Breech</strong> <help-ship-breech></help-ship-breech></td>
+						<td><strong>Toughness</strong> <help-ship-breech></help-ship-breech></td>
 						<td>{{ship.getToughness()}}</td>
 					</tr>
 					<tr>
@@ -383,7 +385,7 @@
 					</tr>
 					<tr>
 						<td><strong>Cost</strong> <help-ship-cost></help-ship-cost></td>
-						<td>{{formatNumber(ship.getCost())}}</td>
+						<td>{{ship.getCost() | currency }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -404,10 +406,16 @@
 				ship: this.$bsFactory.cloneShip(),
 				fittings: this.$bsFactory.getTemplate('fittings'),
 				weapons: this.$bsFactory.getTemplate("weapons"),
-				formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
 		},
+		mounted() {
+			this.updateTable('fittings')
+			this.updateTable('weapons')
+		},
 		methods: {
+			/**
+			 * Randomises all of the fields of the ship
+			 */
 			randomShip() {
 				// Random Ship Name
 				let nameKeys = Object.keys(this.names)
@@ -432,95 +440,90 @@
 				this.ship.systems.sensors = this.ship.categories.dice.length * Math.random() << 0
 				this.ship.systems.weapons = this.ship.categories.dice.length * Math.random() << 0
 			},
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-			},
+			/**
+			 * Save the ship
+			 */
 			onClick() {
-				let saved = this.$bsFactory.saveShip(this.ship)
-				if (saved === 2) {
-					this.$f7.alert(this.ship.name+" (" + this.ship.uuid + ") has been added")
-				} else if (saved === 1) {
-					this.$f7.alert(this.ship.name+" (" + this.ship.uuid + ")  has been updated")
-				} else {
-					this.$f7.alert("ERROR: "+this.ship.name+" (" + this.ship.uuid + ")  could not be saved")
-				}
+				console.log( 'Saving ship: ' + this.ship.uuid )
+				let store = this.$bsFactory.getShipStore()
+          		let data = this.ship.deflate()
+				let resultSet = store.put(data);
+				let self = this;
+				resultSet.onsuccess = function() {
+					self.$f7.alert(self.ship.name+" has been saved")
+				};
+				resultSet.onerror = function() {
+					self.$f7.alert("ERROR: "+self.ship.name+" could not be saved")
+				};
 			},
-			onFittingAddClick(id) {
-        let fitting = this.fittings.search(id)
-        if (fitting.length == 1) {
-          this.ship.addFitting(fitting[0], 1)
-				}
+			/**
+			 * Reset the table and inject the new information
+			 */
+			updateTable(type) {
+				this.$refs["ship"+type+"table"].resetData()
+				this.$refs["ship"+type+"table"].setData(this.ship[type])
 			},
-			onFittingActivateClick(id) {
-        let fitting = this.fittings.search(id)
-        if (fitting.length == 1) {
-          this.ship.activateFitting(fitting[0], 1)
+			/**
+			 * Add Fitting or Weapon to the Ship
+			 */
+			onAddClick(type, id) {
+				if ( type == "fittings") {
+					let fitting = this.fittings.search(id)
+					if (fitting) {
+						this.ship.addFitting(fitting, 1)
+					}
+				} else if ( type === "weapons" ) {
+					let weapon = this.weapons.search(id)
+					if (weapon) {
+						this.ship.addWeapon(weapon, 1)
+					}
 				}
+				this.updateTable(type)
 			},
-			onFittingDeactivateClick(id) {
-        let fitting = this.fittings.search(id)
-        if (fitting.length == 1) {
-          this.ship.deactivateFitting(fitting[0], 1)
+			/**
+			 * Toggles on / off status for fittings / weapons
+			 */
+			onToggleClick(type, id, num) {
+				if ( type == "fittings") {
+					let fitting = this.fittings.search(id)
+					if (fitting) {
+						this.ship.activateFitting(fitting, num)
+					}
+				} else if ( type === "weapons" ) {
+					let weapon = this.weapons.search(id)
+					if (weapon.length == 1) {
+						this.ship.activateWeapon(weapon, num)
+					}
 				}
+				this.updateTable(type)
 			},
-			onFittingRemoveClick(id) {
-        let fitting = this.fittings.search(id)
-        if (fitting.length == 1) {
-          this.ship.removeFitting(fitting[0], 1)
+			/**
+			 * Remove a fitting / weapon
+			 */
+			onRemoveClick(type, id) {
+				if ( type == "fittings") {
+					let fitting = this.fittings.search(id)
+					if (fitting) {
+						this.ship.removeFitting(fitting, 1)
+					}
+				} else if ( type === "weapons" ) {
+					let weapon = this.weapons.search(id)
+					if (weapon) {
+						this.ship.removeWeapon(weapon, 1)
+					}
 				}
+				this.updateTable(type)
 			},
-			onFittingExpandRow(id) {
-        let index = this.$refs.fittingstable.visibleDetailRows.indexOf(id)
-        this.$refs.fittingstable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.fittingstable.showDetailRow(id)
-        }
-      },
-			onShipFittingExpandRow(id) {
-        let index = this.$refs.shipfittingstable.visibleDetailRows.indexOf(id)
-        this.$refs.shipfittingstable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.shipfittingstable.showDetailRow(id)
-        }
-      },
-			onWeaponAddClick(id) {
-        let weapon = this.weapons.search(id)
-        if (weapon.length == 1) {
-          this.ship.addWeapon(weapon[0], 1)
+			/**
+			 * Expand Detail Row
+			 */
+			onExpandRow(type, id) {
+				let index = this.$refs[type+"table"].visibleDetailRows.indexOf(id)
+				this.$refs[type+"table"].visibleDetailRows = []
+				if (index == -1) {
+					this.$refs[type+"table"].showDetailRow(id)
 				}
-			},
-			onWeaponActivateClick(id) {
-        let weapon = this.weapons.search(id)
-        if (weapon.length == 1) {
-          this.ship.activateWeapon(weapon[0], 1)
-				}
-			},
-			onWeaponDeactivateClick(id) {
-        let weapon = this.weapons.search(id)
-        if (weapon.length == 1) {
-          this.ship.deactivateWeapon(weapon[0], 1)
-				}
-			},
-			onWeaponRemoveClick(id) {
-        let weapon = this.weapons.search(id)
-        if (weapon.length == 1) {
-          this.ship.removeWeapon(weapon[0], 1)
-				}
-			},
-			onWeaponExpandRow(id) {
-        let index = this.$refs.weaponstable.visibleDetailRows.indexOf(id)
-        this.$refs.weaponstable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.weaponstable.showDetailRow(id)
-        }
-      },
-			onShipWeaponExpandRow(id) {
-        let index = this.$refs.shipweaponstable.visibleDetailRows.indexOf(id)
-        this.$refs.shipweaponstable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.shipweaponstable.showDetailRow(id)
-        }
-      }
+			}
 		}
 	}
 </script>

@@ -212,6 +212,7 @@ dd, dt {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: rgba(0,0,0,.24);
+	padding-bottom: 0.5vh;
 }
 
 span.tag {
@@ -220,4 +221,12 @@ span.tag {
 	margin: 2px;
 	padding: 2px;
 	background-color: lightgray;
+}
+
+.small-caps {
+	font-variant-caps: small-caps;
+}
+
+.pull-right {
+	text-align: right;
 }

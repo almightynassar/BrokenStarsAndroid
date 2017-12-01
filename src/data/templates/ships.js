@@ -226,6 +226,7 @@ export default {
     return power;
   },
   getAcceleration() { return Math.ceil(this.getBaseAcceleration() * this.convertToDieMultiplier(this.attributes.engine)) * 6; },
+  getAccelerationConverted() { return ((this.getAcceleration() * 5) * 1.5) / 6; },
   getFTL() { return Math.ceil(this.getBaseFTL() * (2 - this.convertToDieMultiplier(this.attributes.engine))); },
   getHardpoints() { return Math.ceil(this.getBaseHardpoints() * this.convertToDieMultiplier(this.attributes.armour)); },
   getHardpointsUsed() {
@@ -332,25 +333,11 @@ export default {
     // Search if the fitting exists
     let index = this.searchFittingID(fitting.id)
     if (index >= 0) {
-      // Update existing fitting entry (deleting and adding it so that it triggers Vue)
       let active = this.fittings[index].active + parseInt(total)
-      let fTotal = this.fittings[index].total
-      fitting['active'] = (active >= fTotal) ? fTotal : active
+      let fTotal = this.fittings[index].total 
+      fitting['active'] = (active >= fTotal) ? fTotal : ( (active <= 0) ? 0 : active )
       fitting['total'] = fTotal
-      this.fittings.splice(index, 1)
-      this.fittings.push(fitting)
-      this.sortFittings()
-    }
-  },
-  deactivateFitting(fitting, total) {
-    // Search if the fitting exists
-    let index = this.searchFittingID(fitting.id)
-    if (index >= 0) {
       // Update existing fitting entry (deleting and adding it so that it triggers Vue)
-      let active = this.fittings[index].active - parseInt(total)
-      let fTotal = this.fittings[index].total
-      fitting['active'] = (active <= 0) ? 0 : active
-      fitting['total'] = fTotal
       this.fittings.splice(index, 1)
       this.fittings.push(fitting)
       this.sortFittings()
@@ -404,25 +391,11 @@ export default {
     // Search if the weapon exists
     let index = this.searchWeaponID(weapon.id)
     if (index >= 0) {
-      // Update existing weapon entry (deleting and adding it so that it triggers Vue)
       let active = this.weapons[index].active + parseInt(total)
       let fTotal = this.weapons[index].total
-      weapon['active'] = (active >= fTotal) ? fTotal : active
+      weapon['active'] = (active >= fTotal) ? fTotal : ( (active <= 0) ? 0 : active )
       weapon['total'] = fTotal
-      this.weapons.splice(index, 1)
-      this.weapons.push(weapon)
-      this.sortWeapons()
-    }
-  },
-  deactivateWeapon(weapon, total) {
-    // Search if the weapon exists
-    let index = this.searchWeaponID(weapon.id)
-    if (index >= 0) {
       // Update existing weapon entry (deleting and adding it so that it triggers Vue)
-      let active = this.weapons[index].active - parseInt(total)
-      let fTotal = this.weapons[index].total
-      weapon['active'] = (active <= 0) ? 0 : active
-      weapon['total'] = fTotal
       this.weapons.splice(index, 1)
       this.weapons.push(weapon)
       this.sortWeapons()

@@ -1,45 +1,52 @@
 <template>
-	<f7-page>
-    <f7-block>
-      <f7-block-title>Fitting's List</f7-block-title>
-      <div class="data-table">
-        <vuetable
-          ref="fittingstable"
-          :api-mode="false"
-          :data="fittings.fittings"
-          :fields="fields"
-          detail-row-component="detail-row-fitting"
-        >
-          <template slot="expand" scope="props">
-            <f7-button v-on:click="onExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
-          </template>
-        </vuetable>
-      </div>
-    </f7-block>
-  </f7-page>
+  <f7-block inset>
+    <f7-block-title class="content-center-text bottom-border small-caps">Fitting's List</f7-block-title>
+    <div class="data-table">
+      <vuetable
+        ref="fittingstable"
+        :api-mode="false"
+        :data="fittings.fittings"
+        :fields="fields"
+        detail-row-component="detail-row-fitting"
+        @vuetable:row-clicked="onExpandRow"
+      >
+        <template slot="expand" scope="props">
+          <span v-if="showData == 'cost'">{{ props.rowData.cost | currency }}</span>
+          <span v-else-if="showData == 'crew'">{{ props.rowData.crew}} crew</span>
+          <span v-else-if="showData == 'power'">{{ props.rowData.power }} power</span>
+          <span v-else-if="showData == 'storage'">{{ props.rowData.storage }} storage</span>
+        </template>
+      </vuetable>
+    </div>
+    <f7-block-title class="content-center-text color-lightblue bottom-border">Datapoint</f7-block-title>
+    <select v-model="showData">
+      <option value='cost' key='cost'>Cost</option>
+      <option value='crew' key='crew'>Crew</option>
+      <option value='power' key='power'>Power</option>
+      <option value='storage' key='storage'>Storage</option>
+    </select>
+  </f7-block>
 </template>
 <script>
   export default {
     data() {
       return {
+        showData: 'cost',
         fields: [
           'name',
           {
             name: '__slot:expand',
-            title: 'Expand',
+            title: 'Datapoint',
             titleClass: 'center aligned',
             dataClass: 'center aligned'
           }
         ],
         fittings: this.$bsFactory.getTemplate("fittings"),
-        formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
     },
 		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-      },
-      onExpandRow (id) {
+      onExpandRow (data, field, event) {
+        let id = data.id
         let index = this.$refs.fittingstable.visibleDetailRows.indexOf(id)
         this.$refs.fittingstable.visibleDetailRows = []
         if (index == -1) {

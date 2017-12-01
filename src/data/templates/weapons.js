@@ -110,6 +110,6 @@ export default {
     },
   ],
   search(id) {
-    return this.weapons.filter(function(weapon) { return weapon.id === this.id; } , {'id': id});
+    return this.weapons.find(function(weapon) { return weapon.id === this.id; } , {'id': id});
   }
 }

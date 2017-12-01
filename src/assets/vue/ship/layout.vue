@@ -1,18 +1,18 @@
 <template>
 	<f7-page>
         <f7-buttons>
-            <f7-button tab-link="#tab1" active>List All</f7-button>
-            <f7-button tab-link="#tab2">New</f7-button>
-            <f7-button tab-link="#tab3">Import</f7-button>
+            <f7-button tab-link="#list" active>List All</f7-button>
+            <f7-button tab-link="#new">New</f7-button>
+            <f7-button tab-link="#import">Import</f7-button>
         </f7-buttons>
         <f7-tabs>
-            <f7-tab id="tab1" active>
+            <f7-tab id="list" active>
                 <list></list>
             </f7-tab>
-            <f7-tab id="tab2">
+            <f7-tab id="new">
                 <new-ship></new-ship>
             </f7-tab>
-            <f7-tab id="tab3">
+            <f7-tab id="import">
                 <import-ship></import-ship>
             </f7-tab>
         </f7-tabs>
