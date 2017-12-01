@@ -13,6 +13,11 @@ export default [
     path: '/cards/list/',
     component: require('./assets/vue/cards/list.vue')
   },
+  // Powers
+  {
+    path: '/powers/list/',
+    component: require('./assets/vue/powers/layout.vue')
+  },
   // Generators
   {
     path: '/generator/name/',

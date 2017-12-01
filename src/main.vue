@@ -25,6 +25,10 @@
 						<f7-list>
 							<f7-list-item link="/cards/list/" title="Card List" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
+						<f7-block-title>Powers</f7-block-title>
+						<f7-list>
+							<f7-list-item link="/powers/list/" title="Powers" link-view="#main-view" link-close-panel></f7-list-item>
+						</f7-list>
 					</f7-page>
 				</f7-pages>
 			</f7-view>

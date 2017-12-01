@@ -49,3 +49,9 @@ Vue.component('help-quest-type', require('./quest/type.vue'))
 Vue.component('help-quest-neutral', require('./quest/neutral.vue'))
 Vue.component('help-quest-antagonist', require('./quest/antagonist.vue'))
 Vue.component('help-quest-location', require('./quest/location.vue'))
+
+// POWERS
+Vue.component('help-power-art', require('./power/art.vue'))
+Vue.component('help-power-art-special', require('./power/art-special.vue'))
+Vue.component('help-power-form', require('./power/form.vue'))
+Vue.component('help-power-form-special', require('./power/form-special.vue'))

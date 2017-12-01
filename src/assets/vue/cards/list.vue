@@ -9,10 +9,8 @@
           :data="sortedCards"
           :fields="fields"
           detail-row-component="detail-row-card"
+          @vuetable:row-clicked="onExpandRow"
         >
-          <template slot="expand" scope="props">
-            <f7-button v-on:click="onExpandRow(props.rowData.id)"><f7-icon material="expand_more"></f7-icon></f7-button>
-          </template>
         </vuetable>
       </div>
     </f7-block>
@@ -24,12 +22,7 @@
       return {
         fields: [
           'name',
-          {
-            name: '__slot:expand',
-            title: 'Expand',
-            titleClass: 'center aligned',
-            dataClass: 'center aligned'
-          }
+          'rarity'
         ],
         cards: this.$bsFactory.getTemplate("cards"),
 			}
@@ -40,11 +33,11 @@
       }
     },
 		methods: {
-      onExpandRow (id) {
-        let index = this.$refs.cardstable.visibleDetailRows.indexOf(id)
+      onExpandRow (data, event) {
+        let index = this.$refs.cardstable.visibleDetailRows.indexOf(data.id)
         this.$refs.cardstable.visibleDetailRows = []
         if (index == -1) {
-          this.$refs.cardstable.showDetailRow(id)
+          this.$refs.cardstable.showDetailRow(data.id)
         }
       }
 		}
