@@ -1,9 +1,5 @@
 <template>
   <f7-block>
-    <f7-block inset form>
-      <!-- Text Input -->
-      <input type="text" v-model="search" v-on:input="updateShips()" placeholder="Search" />
-    </f7-block>
     <div class="data-table">
       <vuetable
         ref="shipsummarytable"
@@ -14,8 +10,9 @@
         detail-row-component="detail-row-ship-summary"
         @vuetable:row-clicked="onExpandRow"
       >
-        <template slot="hull" scope="props">
-          {{ props.rowData.getHull() }}
+        <template slot="details" scope="props">
+          <p><strong>{{ props.rowData.name }}</strong></p>
+          <p><em>{{ props.rowData.getRank() }} {{ props.rowData.getHull() }}</em></p>
         </template>
         <template slot="expand" scope="props">
           <f7-buttons>
@@ -37,15 +34,15 @@
       return {
         search: "",
         ships: [],
-        fullShipList: this.$bsFactory.getShips(),
-        formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
+        fullShipList: [],
         fields: [
-          'name',
+          {
+            name: '__slot:details',
+            title: 'Details'
+          },
           {
             name: '__slot:expand',
-            title: 'Expand',
-            titleClass: 'center aligned',
-            dataClass: 'center aligned'
+            title: 'Actions'
           }
         ]
       }
@@ -59,26 +56,42 @@
       }
     },
     methods: {
+      /**
+       * Load ships from the database
+       */
+      loadShips() {
+        this.fullShipList = []
+        let store = this.$bsFactory.getShipStore()
+        let resultSet = store.getAll()
+        let self = this
+        resultSet.onsuccess = function() {
+          if (resultSet.result && resultSet.result.constructor === Array) {
+            for(var x = 0; x < resultSet.result.length; x++) {
+              let tempShip = self.$bsFactory.cloneShip()
+              tempShip.hydrate(resultSet.result[x])
+              self.fullShipList.push( tempShip )
+            }
+          }
+          self.fullShipList.sort(function(a,b) {
+            return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);
+          })
+          self.ships = self.fullShipList
+        }
+        resultSet.onerror = function() {
+          console.error( 'Cannot load existing ships from the database' );
+        }
+      },
+      /**
+       * Reset the table and inject the new ship information
+       */
       updateTable() {
-        // Reset everything
         this.$refs.shipsummarytable.resetData()
-        // Set our data
         this.$refs.shipsummarytable.setData(this.ships)
       },
-      updateShips() {
-        let tempShips = []
-        for (var index = 0; index < this.fullShipList.length; index++) {
-          let name = this.fullShipList[index].name.toLowerCase()
-          if ( name.includes(this.search.toLowerCase()) || (this.search == "")) {
-            tempShips.push(this.fullShipList[index])
-          }
-        }
-        this.ships = tempShips
-      },
-      formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-      },
-      onExpandRow (data, field, event) {
+      /**
+       * Expands our Detail Row
+       */
+      onExpandRow (data, event) {
         let uuid = data.uuid
         let index = this.$refs.shipsummarytable.visibleDetailRows.indexOf(uuid)
         this.$refs.shipsummarytable.visibleDetailRows = []
@@ -86,12 +99,26 @@
           this.$refs.shipsummarytable.showDetailRow(uuid)
         }
       },
+      /**
+       * Triggers the deletion process
+       */
       onDeleteRow(uuid) {
-        this.$bsFactory.deleteShip(uuid)
+        let store = this.$bsFactory.getShipStore()
+        let resultSet = store.delete(uuid)
+        resultSet.onsuccess = function() {
+          console.log( 'Ship successfully deleted in database' );
+        };
+        resultSet.onerror = function() {
+          console.log( 'FAILURE' );
+        };
+        this.loadShips()
       }
     },
     created() {
-      this.ships = this.fullShipList
+      this.loadShips()
+    },
+    beforeUpdate() {
+      this.loadShips()
     }
   }
 </script>

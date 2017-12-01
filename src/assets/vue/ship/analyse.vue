@@ -16,7 +16,7 @@
           {{ props.rowData.getHull() }}
         </template>
         <template slot="cost" scope="props">
-          <span v-if="showData == 'cost'">{{ formatNumber( props.rowData.getCost() ) }}</span>
+          <span v-if="showData == 'cost'">{{ props.rowData.getCost() | currency }}</span>
           <span v-else-if="showData == 'aiActions'">{{ props.rowData.getActionsAI() }}</span>
           <span v-else-if="showData == 'aiEvade'">{{ props.rowData.getEvade() }}</span>
           <span v-else-if="showData == 'cargoCap'">{{ props.rowData.getBulk() * 100 }} tons</span>
@@ -225,7 +225,6 @@
             dataClass: 'center aligned'
           }
         ],
-        formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
     },
     computed: {
@@ -304,11 +303,6 @@
         }
       }
     },
-		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-      }
-		},
     mounted() {
       for (var index = 0; index < this.temp.categories.hulls.length; index++) {
         var s = this.$bsFactory.cloneShip();

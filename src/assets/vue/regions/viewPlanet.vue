@@ -1,7 +1,7 @@
 <template>
 	<f7-page>
 		<f7-block>
-			<f7-block-title>{{planet.name}}</f7-block-title>
+			<f7-block-title class="content-center-text bottom-border small-caps">{{planet.name}}</f7-block-title>
 			<f7-block inset>
 				<f7-buttons>
 					<f7-button :href="'/regions/sector/view/'+sector_x+'/'+sector_y">View Sector</f7-button>
@@ -74,18 +74,12 @@
 				planet: {},
 				sector: {},
 				regions: this.$bsFactory.getTemplate('regions'),
-				formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
 		},
 		computed: {
 			tags() {
 				return this.regions.tags.generateTags(this.planet)
 			}
-		},
-		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-			},
 		},
 		created() {
 			let tempSector = this.regions.findSector(this.sector_x, this.sector_y)

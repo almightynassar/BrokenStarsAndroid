@@ -1,18 +1,30 @@
 <template>
-  <dl>
-    <dt><strong>Name</strong></dt>
-    <dd class="bottom-border">{{ rowData.name }}</dd>
-    <dt><strong>Storage</strong></dt>
-    <dd class="bottom-border">{{ rowData.storage }}</dd>
-    <dt><strong>Power</strong></dt>
-    <dd class="bottom-border">{{ rowData.power }}</dd>
-    <dt><strong>Crew</strong></dt>
-    <dd class="bottom-border">{{ rowData.crew }}</dd>
-    <dt><strong>Cost</strong></dt>
-    <dd class="bottom-border">{{ formatNumber( rowData.cost ) }}</dd>
-    <dt><strong>Description</strong></dt>
-    <dd class="bottom-border">{{ rowData.description }}</dd>
-  </dl>
+  <div>
+    <div class="bottom-border">
+      <div><strong>Name</strong></div>
+      <div class="pull-right">{{ rowData.name }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Storage</strong></div>
+      <div class="pull-right">{{ rowData.storage }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Power</strong></div>
+      <div class="pull-right">{{ rowData.power }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Crew</strong></div>
+      <div class="pull-right">{{ rowData.crew }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Cost</strong></div>
+      <div class="pull-right">{{ rowData.cost | currency }}</div>
+    </div>
+    <div class="bottom-border">
+      <div><strong>Description</strong></div>
+      <div class="pull-right">{{ rowData.description }}</div>
+    </div>
+  </div>
 </template>
 <script>
   export default {
@@ -24,16 +36,6 @@
       rowIndex: {
         type: Number
       },
-    },
-    data() {
-      return {
-        formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
-			}
-    },
-		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-      }
-		}
+    }
   }
 </script>

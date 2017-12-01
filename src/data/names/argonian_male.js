@@ -1,5 +1,5 @@
 export default {
-    name: "argonian_female",
+    name: "argonian_male",
     contrib: [
     ],
     list: [

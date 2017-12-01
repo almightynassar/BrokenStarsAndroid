@@ -24,14 +24,17 @@
 		methods: {
 			importShip() {
 				this.ship.hydrate(this.hydratedText)
-				let saved = this.$bsFactory.saveShip(this.ship)
-				if (saved === 2) {
-					this.$f7.alert(this.ship.name+" has been added")
-				} else if (saved === 1) {
-					this.$f7.alert(this.ship.name+" has been updated")
-				} else {
-					this.$f7.alert("ERROR: "+this.ship.name+" could not be saved")
-				}
+				console.log( 'Importing ship: ' + this.ship.uuid )
+				let store = this.$bsFactory.getShipStore()
+          		let data = this.ship.deflate()
+				let resultSet = store.put(data);
+				let self = this;
+				resultSet.onsuccess = function() {
+					self.$f7.alert(self.ship.name+" has been imported")
+				};
+				resultSet.onerror = function() {
+					self.$f7.alert("ERROR: "+self.ship.name+" could not be imported")
+				};
 			}
 		}
 	}

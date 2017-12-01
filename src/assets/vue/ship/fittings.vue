@@ -11,7 +11,7 @@
         @vuetable:row-clicked="onExpandRow"
       >
         <template slot="expand" scope="props">
-          <span v-if="showData == 'cost'">{{ formatNumber( props.rowData.cost ) }}</span>
+          <span v-if="showData == 'cost'">{{ props.rowData.cost | currency }}</span>
           <span v-else-if="showData == 'crew'">{{ props.rowData.crew}} crew</span>
           <span v-else-if="showData == 'power'">{{ props.rowData.power }} power</span>
           <span v-else-if="showData == 'storage'">{{ props.rowData.storage }} storage</span>
@@ -42,13 +42,9 @@
           }
         ],
         fittings: this.$bsFactory.getTemplate("fittings"),
-        formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
     },
 		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-      },
       onExpandRow (data, field, event) {
         let id = data.id
         let index = this.$refs.fittingstable.visibleDetailRows.indexOf(id)

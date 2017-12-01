@@ -1,7 +1,7 @@
 <template>
 	<f7-page>
 		<f7-block>
-			<f7-block-title>{{sector.name}}</f7-block-title>
+			<f7-block-title class="content-center-text bottom-border small-caps">{{sector.name}}</f7-block-title>
 			<f7-block inset>
 				<f7-buttons>
 					<f7-button href='/regions/list'>Sector List</f7-button>
@@ -61,7 +61,6 @@
 			return {
 				sector: {},
 				regions: this.$bsFactory.getTemplate('regions'),
-				formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0}),
 			}
 		},
 		computed: {
@@ -76,11 +75,6 @@
         return star
       }
     },
-		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-			},
-		},
 		created() {
 			let tempSector = this.regions.findSector(this.sector_x, this.sector_y)
 			if (tempSector) {

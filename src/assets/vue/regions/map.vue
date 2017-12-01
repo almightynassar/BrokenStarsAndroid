@@ -1,6 +1,7 @@
 <template>
   <f7-page>
     <f7-block>
+      <f7-block-title class="content-center-text bottom-border small-caps">Sector Map</f7-block-title>
       <div class="grid" v-bind:style="{'height': viewHeight + 'px', 'width': viewWidth + 'px','display': 'block', 'margin': 'auto' }"></div>
       <f7-block inset>
         <f7-buttons>
@@ -198,9 +199,6 @@
       resetPage() {
         this.page.x = 0
         this.page.y = 0
-      },
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
       },
       findRegion(x, y) {
         return this.regions.findSector(x, y)

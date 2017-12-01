@@ -11,7 +11,7 @@
         @vuetable:row-clicked="onExpandRow"
       >
         <template slot="expand" scope="props">
-          <span v-if="showData == 'cost'">{{ formatNumber( props.rowData.cost ) }}</span>
+          <span v-if="showData == 'cost'">{{ props.rowData.cost | currency }}</span>
           <span v-else-if="showData == 'damage'">{{ props.rowData.damage}}</span>
           <span v-else-if="showData == 'hardpoints'">{{ props.rowData.hardpoints}}</span>
           <span v-else-if="showData == 'range'">{{ props.rowData.range}}</span>
@@ -48,13 +48,9 @@
           }
         ],
         weapons: this.$bsFactory.getTemplate("weapons"),
-        formatter: new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 0})
 			}
     },
 		methods: {
-			formatNumber(value) {
-				return this.formatter.format(parseInt(value));
-      },
       onExpandRow (data, field, event) {
         let id = data.id
         let index = this.$refs.weaponstable.visibleDetailRows.indexOf(id)
