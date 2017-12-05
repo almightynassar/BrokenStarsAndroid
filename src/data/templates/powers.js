@@ -303,14 +303,14 @@ export default {
             },
         ]
     },
-    calculate(power, tn) {
+    calculate(power, tn, spntns) {
         let art = this.art[power.art][power.art_specialisation]
         let form = this.form[power.form][power.form_specialisation]
         let range = this.attributes.range[power.range]
         let duration = this.attributes.duration[power.duration]
         let target = this.attributes.target[power.target]
         let difficulty = this.attributes.difficulty[power.difficulty]
-        let spontaneous = (power.spontaneous) ? 2 : 0
+        let spontaneous = (spntns) ? 2 : 0
         return ((parseInt(tn) / 2) + 2 )  + art.base + form.base + range.base + duration.base + target.base + difficulty.base + spontaneous;
     }
   }

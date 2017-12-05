@@ -96,7 +96,7 @@
 				<tr>
 					<td><strong>Prepared / Spontaneous</strong></td>
 					<td>
-						<select v-model="power.spontaneous">
+						<select v-model="spontaneous">
 							<option :value="true" key="spontaneous">Spontaneous (2)</option>
 							<option :value="false" key="prepared">Prepared (0)</option>
 						</select>
@@ -104,7 +104,10 @@
 				</tr>
 			</table>
 		</div>
-		<p>{{ powers.calculate(power, defence) }}</p>
+		<p><strong>Target Number: </strong>{{ powers.calculate(power, defence, spontaneous) }}</p>
+		<f7-buttons>
+			<f7-button big fill color="green" v-on:click="onClick">Submit</f7-button>
+		</f7-buttons>
 	</f7-block>
 </template>
 
@@ -113,6 +116,7 @@
 		data() {
 			return {
 				defence: 4,
+				spontaneous: false,
 				power: {
                     name: "Test Power",
                     art: "control",
@@ -122,8 +126,7 @@
                     range: 0,
                     duration: 0,
                     target: 0,
-					difficulty: 0,
-					spontaneous: false
+					difficulty: 0
                 },
 				powers: this.$bsFactory.getTemplate('powers'),
 			}
@@ -138,7 +141,23 @@
 				} else if (type === 'form') {
 					this.power.form_specialisation = 0
 				}
-			}
+			},
+			/**
+			 * Save the power
+			 */
+			onClick() {
+				console.log( 'Saving power: ' + this.power.name )
+				let store = this.$bsFactory.getPowerStore()
+          		let data = Object.assign({}, this.power)
+				let resultSet = store.put(data);
+				let self = this;
+				resultSet.onsuccess = function() {
+					self.$f7.alert(self.power.name+" has been saved")
+				};
+				resultSet.onerror = function() {
+					self.$f7.alert("ERROR: "+self.power.name+" could not be saved")
+				};
+			},
 		}
 	}
 </script>

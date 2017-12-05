@@ -10,7 +10,7 @@ export default {
     templates: null,
     names: {},
     database: null,
-    version: 3
+    version: 4
   },
   /**
    * TEMPLATES and NAMES
@@ -78,25 +78,9 @@ export default {
           self.data.database.onerror = function(e) {
             console.error("DB ERROR: " + e.target.errorCode);
           }
-          self.data.database.onversionchange = function(e){
-            console.warn("Version change triggered")
-            // Creating the Ship object store
-            if(!self.data.database.objectStoreNames.contains("ShipStore")) {
-              console.log("Making Ship Object Store");
-              var objectStore = self.data.database.createObjectStore("ShipStore", { keyPath: "uuid", autoIncrement:false });
-              objectStore.createIndex("name", "name", { unique: false })
-              objectStore.createIndex("hull", "hull", { unique: false })
-              objectStore.createIndex("attributes", "attributes", { unique: false });
-              objectStore.createIndex("systems", "systems", { unique: false });
-              objectStore.createIndex("fittings", "fittings", { unique: false });
-              objectStore.createIndex("notes", "notes", { unique: false });
-              objectStore.createIndex("weapons", "weapons", { unique: false });
-            }
-          }
           console.log("Database Opened")
         }
-        // This event handles the event whereby a new version of
-        // the database needs to be created
+        // This event handles the event whereby a new version of the database needs to be created
         dbOpenRequest.onupgradeneeded = function(e){
           console.warn("Database upgrade needed")
           let localDatabase = e.target.result
@@ -105,12 +89,29 @@ export default {
             console.log("Making Ship Object Store");
             var objectStore = localDatabase.createObjectStore("ShipStore", { keyPath: "uuid", autoIncrement:false });
             objectStore.createIndex("name", "name", { unique: false })
-            objectStore.createIndex("hull", "hull", { unique: false });
-            objectStore.createIndex("attributes", "attributes", { unique: false });
-            objectStore.createIndex("systems", "systems", { unique: false });
-            objectStore.createIndex("fittings", "fittings", { unique: false });
-            objectStore.createIndex("notes", "notes", { unique: false });
-            objectStore.createIndex("weapons", "weapons", { unique: false });
+          }
+          // Creating the Marker object store
+          if(!localDatabase.objectStoreNames.contains("MarkerStore")) {
+            console.log("Making Marker Object Store");
+            var objectStore = localDatabase.createObjectStore("MarkerStore", { keyPath: "name", autoIncrement:false });
+            objectStore.createIndex("icon", "icon", { unique: false })
+            objectStore.createIndex("x", "x", { unique: false })
+            objectStore.createIndex("y", "y", { unique: false })
+          }
+          // Creating the Quest object store
+          if(!localDatabase.objectStoreNames.contains("QuestStore")) {
+            console.log("Making Quest Object Store");
+            var objectStore = localDatabase.createObjectStore("QuestStore", { keyPath: "name", autoIncrement:false });
+          }
+          // Creating the Power object store
+          if(!localDatabase.objectStoreNames.contains("PowerStore")) {
+            console.log("Making Power Object Store");
+            var objectStore = localDatabase.createObjectStore("PowerStore", { keyPath: "name", autoIncrement:false });
+          }
+          // Creating the Setting object store
+          if(!localDatabase.objectStoreNames.contains("SettingStore")) {
+            console.log("Making Setting Object Store");
+            var objectStore = localDatabase.createObjectStore("SettingStore", { keyPath: "key", autoIncrement:false });
           }
         }
         dbOpenRequest.onerror = function(e){
@@ -150,10 +151,22 @@ export default {
         return clonedShip
       },
       /**
-       * Get Ship Store
+       * Get various Database Object Store
        */
+      getMarkerStore() {
+        return self.data.database.transaction('MarkerStore', 'readwrite').objectStore('MarkerStore')
+      },
+      getPowerStore() {
+        return self.data.database.transaction('PowerStore', 'readwrite').objectStore('PowerStore')
+      },
+      getQuestStore() {
+        return self.data.database.transaction('QuestStore', 'readwrite').objectStore('QuestStore')
+      },
       getShipStore() {
         return self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
+      },
+      getSettingStore() {
+        return self.data.database.transaction('SettingStore', 'readwrite').objectStore('SettingStore')
       },
       /**
        * Grab the object/array of Names
