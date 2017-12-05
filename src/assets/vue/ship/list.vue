@@ -16,7 +16,7 @@
         </template>
         <template slot="expand" scope="props">
           <f7-buttons>
-            <f7-button fill color="red" v-on:click="onDeleteRow(props.rowData.uuid)"><f7-icon color="white" material="delete"></f7-icon></f7-button>
+            <f7-button fill color="red" v-on:click="onDeleteConfirm(props.rowData.uuid)"><f7-icon color="white" material="delete"></f7-icon></f7-button>
             <f7-button :href="'/ship/view/'+props.rowData.uuid"><f7-icon material="chevron_right"></f7-icon></f7-button>
           </f7-buttons>
         </template>
@@ -102,14 +102,22 @@
       /**
        * Triggers the deletion process
        */
+      onDeleteConfirm(uuid) {
+        let self = this
+        this.$f7.confirm(
+            'Are you sure you want to delete?',
+            function() { self.onDeleteRow(uuid) }
+        )
+      },
       onDeleteRow(uuid) {
+        let self = this
         let store = this.$bsFactory.getShipStore()
         let resultSet = store.delete(uuid)
         resultSet.onsuccess = function() {
-          console.log( 'Ship successfully deleted in database' );
+          self.$f7.alert("Ship: "+uuid+" has been deleted" )
         };
         resultSet.onerror = function() {
-          console.log( 'FAILURE' );
+          self.$f7.alert("ERROR: "+uuid+" could not be deleted" )
         };
         this.loadShips()
       }
