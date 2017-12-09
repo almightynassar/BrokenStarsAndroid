@@ -8,9 +8,8 @@
         :fields="fields"
         track-by="uuid"
         detail-row-component="detail-row-ship-summary"
-        @vuetable:row-clicked="onExpandRow"
       >
-        <template slot="details" scope="props">
+        <template slot="details" scope="props" @click="onExpandRow(props.rowData.uuid)">
           <p><strong>{{ props.rowData.name }}</strong></p>
           <p><em>{{ props.rowData.getRank() }} {{ props.rowData.getHull() }}</em></p>
         </template>
@@ -91,8 +90,7 @@
       /**
        * Expands our Detail Row
        */
-      onExpandRow (data, event) {
-        let uuid = data.uuid
+      onExpandRow (uuid) {
         let index = this.$refs.shipsummarytable.visibleDetailRows.indexOf(uuid)
         this.$refs.shipsummarytable.visibleDetailRows = []
         if (index == -1) {

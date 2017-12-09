@@ -111,9 +111,8 @@
 						}
 					]"
 					detail-row-component="detail-row-fitting"
-					@vuetable:cell-clicked="wrapExpandShipFittings"
 				>
-					<template slot="name" scope="props">
+					<template slot="name" scope="props" @click="onShipViewExpandRow('shipfittings', props.rowData.id)" >
 						<p>{{ props.rowData.name }}</p>
 						<p><em>Active: {{props.rowData.active}}, Total: {{props.rowData.total}}</em></p>
 					</template>
@@ -172,9 +171,8 @@
 						}
 					]"
 					detail-row-component="detail-row-weapon"
-					@vuetable:cell-clicked="wrapExpandShipWeapons"
 				>
-					<template slot="name" scope="props">
+					<template slot="name" scope="props" @click="onShipViewExpandRow('shipweapons', props.rowData.id)" >
 						<p>{{ props.rowData.name }}</p>
 						<p><em>Active: {{props.rowData.active}}, Total: {{props.rowData.total}}</em></p>
 					</template>
@@ -373,8 +371,6 @@
 			},
 			wrapExpandFittings (data, field, event) {  if (field.name === "name" ) { this.onShipViewExpandRow('fittings', data.id) } },
 			wrapExpandWeapons (data, field, event) { if (field.name === "name" ) { this.onShipViewExpandRow('weapons', data.id) } },
-			wrapExpandShipFittings (data, field, event) { console.log(field.name); if (field.name === "__slot:name" ) { this.onShipViewExpandRow('shipfittings', data.id) } },
-			wrapExpandShipWeapons (data, field, event) { if (field.name === "__slot:name" ) { this.onShipViewExpandRow('shipweapons', data.id) } },
 			/**
 			 * Copy the Ship object to the user's clipboard
 			 */
