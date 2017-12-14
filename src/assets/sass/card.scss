@@ -1,21 +1,26 @@
 // Set up the main card settings
 .power-card {
     @media (max-width: 400px) {
-        width: 100vw;
-        height: 140vw;
+        width: 90vw;
+        height: 125vw;
     }
-    @media (min-width: 400px) and (max-width: 800px) {
+    @media (min-width: 400px) and (max-width: 600px) {
         width: 75vw;
         height: 105vw;
     }
-    @media (min-width: 800px) and (max-width: 1024px) {
+    @media (min-width: 600px) and (max-width: 800px) {
         width: 50vw;
         height: 70vw;
     }
-    @media (min-width: 1024px) {
+    @media (min-width: 800px) and (max-width: 1024px) {
         width: 35vw;
         height: 50vw;
     }
+    @media (min-width: 1024px) {
+        width: 25vw;
+        height: 35vw;
+    }
+    margin: auto;
     padding: 1vw;
     box-sizing: border-box;
     background: #000;
@@ -23,7 +28,6 @@
 
 .power-card * {
     font-size: 1em;
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
@@ -40,7 +44,7 @@
         repeating-linear-gradient(75deg, transparent, transparent 11.5%, rgba(255, 255, 255, 0.5), transparent 12%),
         repeating-radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) 1%, transparent 1%, transparent 5%);
     border-radius: 5px;
-    height: 95%;
+    height: calc( 100% - 2.5em );
 }
 
 // Card colours
@@ -59,18 +63,17 @@
 
 // Where all the main content sits
 .power-card .card-content {
-    padding: 0.5vh;
+    padding: 1%;
     height: 99%;
 }
 
 .card-content > div {
-    left: 1vw;
-    right: 1vw;
+    left: 1%;
+    right: 1%;
 }
 
 // The header / title
 .power-card .header {
-    padding: 0.5vw;
     background: #ddd;
     border-color: black;
     border-style: solid;
@@ -79,18 +82,18 @@
 }
 .power-card .header .title {
     display: inline-block;
-    margin-left: 0.5vw;
+    margin-left: 1vw;
 }
 .power-card .header .rarity {
     float: right;
-    margin-right: 0.5vw;
+    margin-right: 5px;
 }
 
 // Card art
 .card-content .art {
-    margin: 1vw; 
+    margin: 1%; 
     background: #ddd;
-    height: 44.3%;
+    height: 45%;
     border: 2px solid #333;
 }
 .card-content .art img {
@@ -100,9 +103,9 @@
 
 // Card text
 .power-card .textBox {
-    margin: 1vw;
-    padding: 1vw;
-    height: calc( 100% - 44.5% - 6vw);
+    margin: 1%;
+    padding: 1%;
+    height: calc( 100% - 45% - 3.84em );
     border: 2px solid #999;
     border-bottom: 0 none;
     border-left: 0 none;
@@ -114,10 +117,7 @@
     color: #ccc;
     font-family: sans-serif;
     font-size: 0.8em; 
-    position: absolute;
-    width: 100%;
     overflow: auto; 
-    bottom: 15px;
 }
 .power-card footer p {
     margin-bottom: 0.2em;
@@ -126,6 +126,7 @@
 
 // Card misc
 .power-card h1 {
+    margin-left: 5px;
     font-size: 1.5em;
     line-height: 1em;
 }

@@ -10,8 +10,8 @@ export default [
   },
   // Cards
   {
-    path: '/cards/list/',
-    component: require('./assets/vue/cards/list.vue')
+    path: '/cards/',
+    component: require('./assets/vue/cards/layout.vue')
   },
   // Powers
   {

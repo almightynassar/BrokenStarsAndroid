@@ -21,12 +21,9 @@
 							<f7-list-item link="/regions/list/" title="Sector List" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/regions/map/" title="Sector Map" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
-						<f7-block-title>Cards</f7-block-title>
+						<f7-block-title>Other</f7-block-title>
 						<f7-list>
-							<f7-list-item link="/cards/list/" title="Card List" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-						<f7-block-title>Powers</f7-block-title>
-						<f7-list>
+							<f7-list-item link="/cards/" title="Card List" link-view="#main-view" link-close-panel></f7-list-item>
 							<f7-list-item link="/powers/list/" title="Powers" link-view="#main-view" link-close-panel></f7-list-item>
 						</f7-list>
 					</f7-page>
