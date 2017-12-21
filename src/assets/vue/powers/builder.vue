@@ -106,6 +106,7 @@
 		</div>
 		<p><strong>Target Number: </strong>{{ powers.calculate(power, defence, spontaneous) }}</p>
 		<f7-buttons>
+			<f7-button big fill color="blue" v-on:click="randomPower">Random</f7-button>
 			<f7-button big fill color="green" v-on:click="onClick">Submit</f7-button>
 		</f7-buttons>
 	</f7-block>
@@ -115,6 +116,7 @@
 	export default {
 		data() {
 			return {
+				names: this.$bsFactory.getNames(),
 				defence: 4,
 				spontaneous: false,
 				power: {
@@ -132,6 +134,28 @@
 			}
 		},
 		methods: {
+			/**
+			 * Randomises all of the fields of the power
+			 */
+			randomPower() {
+				// Random Ship Name
+				let nameKeys = Object.keys(this.names)
+				let nameRandom = (nameKeys.length * Math.random() << 0)
+				this.power.name = this.names[ nameKeys[nameRandom] ].name()
+				// Random Art and Specialisation
+				let artList = _.keys(this.powers.art)
+				this.power.art = artList[ artList.length * Math.random() << 0]
+				this.power.art_specialisation = this.powers.art[this.power.art].length * Math.random() << 0
+				// Random Form and Specialisation
+				let formList = _.keys(this.powers.form)
+				this.power.form = formList[ formList.length * Math.random() << 0]
+				this.power.form_specialisation = this.powers.form[this.power.form].length * Math.random() << 0
+				// Random attributes
+				this.power.range = this.powers.attributes.range.length * Math.random() << 0
+				this.power.duration = this.powers.attributes.duration.length * Math.random() << 0
+				this.power.target = this.powers.attributes.target.length * Math.random() << 0
+				this.power.difficulty = this.powers.attributes.difficulty.length * Math.random() << 0
+			},
 			/**
 			 * Resets the specialisation
 			 */
