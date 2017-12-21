@@ -1,5 +1,3 @@
-// NPM clone library
-var clone = require('clone');
 export default {
   /**
    * Local Data variables
@@ -33,7 +31,7 @@ export default {
     if (Array.isArray(values) && values !== null) {
       var self = this;
       values.forEach(function (v) {
-        self.data.names[v.name] = clone(self.data.templates.names);
+        self.data.names[v.name] = _.cloneDeep(self.data.templates.names);
         self.data.names[v.name].construct(v.list);
       });
     } else {
@@ -146,7 +144,7 @@ export default {
        * Return a clone of the templated ship object
        */
       cloneShip() {
-        let clonedShip = clone(self.data.templates.ships)
+        let clonedShip = _.cloneDeep(self.data.templates.ships)
         clonedShip.uuid = clonedShip.generateShipDesignation()
         return clonedShip
       },

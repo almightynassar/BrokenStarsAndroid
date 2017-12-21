@@ -1,4 +1,3 @@
-var clone = require('clone')
 /**
  * A card is defined as follows:
  *  - id: Unique identifier
@@ -556,10 +555,7 @@ export default {
         let rarity = (this.rarityMatrix[chance]) ? this.rarityMatrix[chance] : 'copper'
         let plucked = this.getRarity(rarity)
         let selected = Math.abs(Math.ceil(Math.random()*(plucked.length - 1)))
-        console.log('RARITY: '+rarity)
-        console.log(selected)
-        console.log(plucked.length)
-        hand.push( clone(plucked[selected]) )
+        hand.push( _.cloneDeep(plucked[selected]) )
       }
       return hand
     },

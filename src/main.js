@@ -1,5 +1,6 @@
 // Import Vue
 import Vue from 'vue'
+import _ from 'lodash'
 
 // Vue Plugins (Cordova, vuetable-2)
 import VueCordova from 'vue-cordova'

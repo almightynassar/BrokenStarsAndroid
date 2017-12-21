@@ -259,7 +259,6 @@
 </template>
 
 <script>
-	var clone = require('clone')
 	var stringifyObject = require('stringify-object')
 	export default {
 		data() {
@@ -344,7 +343,7 @@
 				this.$refs['planets-popup'].close()
 			},
 			onPlanetAddClick() {
-        let planet = clone(this.planet)
+        let planet = _.cloneDeep(this.planet)
 				this.sector.planets.push(planet)
 				this.makeTrade()
 				this.closePlanetsPopup()

@@ -1,5 +1,3 @@
-// NPM clone library
-var clone = require('clone');
 export default {
   // User defined data
   uuid: "",
@@ -418,7 +416,7 @@ export default {
    * Convert Ship values into a JSON Object string
    */
   deflate() {
-    return clone( {
+    return _.cloneDeep( {
       uuid: this.uuid,
       name: this.name,
       hull: this.hull,

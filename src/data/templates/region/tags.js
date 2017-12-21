@@ -1,4 +1,3 @@
-import clone from "clone"
 export default {
   /**
    * The tags array list all the tags
@@ -158,7 +157,7 @@ export default {
   ],
   // Generate a tag
   generateTags(planet) {
-    let t = clone(planet.tags)
+    let t = _.cloneDeep(planet.tags)
     for (var tIndex = 0; tIndex < this.tags.length; tIndex++) {
       let tag = this.tags[tIndex]
       let mPartial = true

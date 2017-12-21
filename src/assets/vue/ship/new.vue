@@ -447,7 +447,7 @@
 				console.log( 'Saving ship: ' + this.ship.uuid )
 				let store = this.$bsFactory.getShipStore()
           		let data = this.ship.deflate()
-				let resultSet = store.put(data);
+				let resultSet = store.put(data)
 				let self = this;
 				resultSet.onsuccess = function() {
 					self.$f7.alert(self.ship.name+" has been saved")

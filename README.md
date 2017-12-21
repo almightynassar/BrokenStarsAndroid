@@ -1,25 +1,26 @@
-# Broken Stars Android Application
+# Broken Stars
 
-A simple cordova-based android application I use to help define my sci-fi game world.
+An android application built using cordova, Framework7 and vue. This app is intended to help run tabletop role-playing games based on my homebrewed sci-fi game universe (using Savage Worlds mechanics).
 
-Released using the Apache License 2.0.
+Released using the [Apache License 2.0](http://www.apache.org/licenses/).
+
+**NOTE: Chrome currently (December 22nd, 2017) has an issue with storing information to indexedDB. I suggest using chrome for now until either find a work-around or Chrome is fixed.**
 
 ## Contributing
-___
 
 You can contribute to the project in the following ways:
 
 ### New Regions / Sectors
 
-The easiest way to add a new region is to use the in-built Region generator tool. Once you have completed the region, use the '**Copy to Clipboard**' button to copy a text version of the region.
+The easiest way to add a new region is to use the in-built **Region Generator** tool. This is because the categories that sectors and planets use are already defined (in the `/src/data/templates/regions.js` file), and putting in invalid values may break the system.
+
+Once you have completed the region using the tool, use the '**Copy to Clipboard**' button to copy a text version of the region.
 
 You must then create a new '**.js**' file in `/src/data/regions/` folder of the project and then paste the contents into that file (making sure you do not overwrite an existing sector at the x-y coordinates). Otherwise, create an enhancement issue for this project and copy-paste your sector there.
 
-### New Sector / Planet categories and tags
+## New Planet Tags
 
-All of the categories for sectors and planets are defined in the `/src/data/templates/regions.js` file, specifically under the **categories** property. Categories are stored as a key => value pair (or as key => description). Feel free to extend these and make a pull request to expand the project! ___Please note that the corresponding .vue files may need to be updated as well.___
-
-Tag definitions are stored in the `/src/data/templates/region/tags.js` file. To create a new tag definition, add a new object to the **tag** property array with the following:
+All of the tags for planets (and the rules for generating them) are defined in the `/src/data/templates/region/tags.js` file. To create a new tag definition, add a new object to the **tags** array with the following:
 
  - **tag**: The tag name that will be added to the planet if it qualifies.
  - **mandatory**: The list of criteria that the planet must meet if the tag is to be applied. Each criteria key must be a planetary property that is tested, and the criteria value array is a list of acceptable values that the planet can have.
