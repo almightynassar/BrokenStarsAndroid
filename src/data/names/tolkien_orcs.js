@@ -4,6 +4,7 @@ export default {
     "https://en.wikipedia.org/wiki/Middle-earth_Orc_characters#References",
     "http://www.orcs.ca/orcsmain/resourcename.html#ONL"
   ],
+  description: "These Orcs are based on the genderless version found in Tolkien's works.",
   list: [
     "abghat",
     "adgulg",

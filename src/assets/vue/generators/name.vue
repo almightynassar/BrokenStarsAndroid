@@ -9,20 +9,9 @@
 					<option v-for="(n,i) in names" :value="i" :key="'names-' + i">{{ i.replace(/_/g, " ") | capitalize }}</option>
 				</select>
 				<p v-show="this.selected !== null">
-					<p><em>Based on {{total}} names, with an average length of {{length}} letters.</em></p>
+					<em>{{description}} Uses a total of {{total}} names, with an average length of {{length}} letters.</em>
 				</p>
-				<p>
-					<p>{{gName0}}</p>
-				</p>
-				<p>
-					<p>{{gName1}}</p>
-				</p>
-				<p>
-					<p>{{gName2}}</p>
-				</p>
-				<p>
-					<p>{{gName3}}</p>
-				</p>
+				<p v-for="g in gNames" :key="g">{{g}}</p>
 				<f7-block>
 					<f7-button big fill color="blue" v-on:click="makeNames"><f7-icon color="white" material="refresh"></f7-icon></f7-button>
 				</f7-block>
@@ -37,13 +26,21 @@ export default {
 		return {
         	names: this.$bsFactory.getNames(),
         	selected: null,
-			gName0: "-",
-			gName1: "-",
-			gName2: "-",
-			gName3: "-"
+			gNames: [
+				"-",
+				"-",
+				"-",
+				"-"
+			]
 		}
 	},
 	computed: {
+		description() {
+			if (this.selected !== null) {
+				return this.names[this.selected].description;
+			}
+			return '';
+		},
 		total() {
 			if (this.selected !== null) {
 				return this.names[this.selected].word_count;
@@ -60,11 +57,12 @@ export default {
     methods: {
 		makeNames() {
         	if (this.selected !== null) {
-				this.gName0 = this.names[this.selected].name();
-				this.gName1 = this.names[this.selected].name();
-				this.gName2 = this.names[this.selected].name();
-				this.gName3 = this.names[this.selected].name();
+				this.gNames[0] = this.names[this.selected].name();
+				this.gNames[1] = this.names[this.selected].name();
+				this.gNames[2] = this.names[this.selected].name();
+				this.gNames[3] = this.names[this.selected].name();
 			}
+			this.gNames.sort()
       	}
     }
 }

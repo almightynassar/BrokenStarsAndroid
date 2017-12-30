@@ -6,6 +6,7 @@ export default {
     "http://forums.cubicle7.co.uk/viewtopic.php?f=7&t=3467",
     "https://dwarrowscholar.wordpress.com/general-documents/male-dwarf-outer-names/"
   ],
+  description: "Standard fantasy dwarves, from various sources.",
   list: [
     "adrech",
     "adrek",

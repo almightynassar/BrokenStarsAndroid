@@ -4,7 +4,7 @@ An android application built using cordova, Framework7 and vue. This app is inte
 
 Released using the [Apache License 2.0](http://www.apache.org/licenses/).
 
-**NOTE: Chrome currently (December 22nd, 2017) has an issue with storing information to indexedDB. I suggest using chrome for now until either find a work-around or Chrome is fixed.**
+**NOTE: This system uses some technology that should be supported by modern browsers. However, you may experience some difficulties. If you come across an issue, try using another browser (also report the error here so I can try to fix it)**
 
 ## Contributing
 

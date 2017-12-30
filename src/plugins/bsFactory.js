@@ -33,6 +33,7 @@ export default {
       values.forEach(function (v) {
         self.data.names[v.name] = _.cloneDeep(self.data.templates.names);
         self.data.names[v.name].construct(v.list);
+        self.data.names[v.name].description = v.description;
       });
     } else {
       this.data.names = {};

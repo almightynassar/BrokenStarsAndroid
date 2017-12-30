@@ -5,6 +5,7 @@ export default {
     "https://dwarrowscholar.wordpress.com/general-documents/female-dwarf-outer-names/",
     "http://forums.cubicle7.co.uk/viewtopic.php?f=7&t=3467"
   ],
+  description: "Standard fantasy dwarves, from various sources.",
   list: [
     "abria",
     "agda",

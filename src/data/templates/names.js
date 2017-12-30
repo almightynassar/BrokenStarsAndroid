@@ -235,6 +235,8 @@ export default {
   num_of_chars: 0,
   word_count: 0,
   average_length: 0,
+  // Description
+  description: "Default description",
   // Reset the chains
   reset () {
     this.num_of_chars = 0;

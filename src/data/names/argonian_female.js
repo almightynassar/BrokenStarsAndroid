@@ -1,7 +1,9 @@
 export default {
     name: "argonian_female",
     contrib: [
+        "http://en.uesp.net/wiki/Lore:Argonian_Names#Female_Argonian_Names"
     ],
+    description: "The Argonian are an aquatic lizard race from the Elder Scrolls game series.",
     list: [
         "adzi-mota",
         "ah-kajul",
