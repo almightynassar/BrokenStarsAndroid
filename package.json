@@ -53,6 +53,7 @@
     "lodash": "^4.17.4",
     "material-design-icons-iconfont": "^3.0.3",
     "stringify-object": "^3.2.1",
+    "svg.filter.js": "^2.0.2",
     "svg.js": "^2.6.3",
     "vue": "2.2.4",
     "vue-cordova": "0.1.2",

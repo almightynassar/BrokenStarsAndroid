@@ -1,77 +1,12 @@
+import Stars from "./region/stars"
 import Tags from "./region/tags"
 export default {
   tags: Tags,
   sectors: [],
+  // Star information
+  stars: Stars,
   // Categories
   categories: {
-    star: {
-      spectrum: {
-        O: {
-          colour: "Blue",
-          temp: {
-            min: 30000,
-            max: 50000
-          },
-          description: "Very hot and very luminous, being bluish in color; in fact, most of their output is in the ultraviolet range.",
-        },
-        B: {
-          colour: "Blue-White",
-          temp: {
-            min: 10000,
-            max: 30000
-          },
-          description: "Extremely luminous and blue. As O and B stars are so powerful, they only live for a very short time, and thus they do not stray far from the area in which they were formed.",
-        },
-        A: {
-          colour: "White",
-          temp: {
-            min: 7500,
-            max: 10000
-          },
-          description: "Amongst the more common naked eye stars, and are white or bluish-white.",
-        },
-        F: {
-          colour: "Yellow-White",
-          temp: {
-            min: 6000,
-            max: 7500
-          },
-          description: "These stars' color is white with a slight tinge of yellow.",
-        },
-        G: {
-          colour: "Yellow",
-          temp: {
-            min: 5200,
-            max: 6000
-          },
-          description: "The best known Star type, if only for the reason that Sol is of this class.",
-        },
-        K: {
-          colour: "Orange",
-          temp: {
-            min: 3700,
-            max: 5200
-          },
-          description: "Orangish stars which are slightly cooler than Sol.",
-        },
-        M: {
-          colour: "Red",
-          temp: {
-            min: 2400,
-            max: 3700
-          },
-          description: "Class M stars are by far the most common. However, these stars have such low luminosities that none are bright enough to be seen with the unaided eye, unless under exceptional conditions."
-        }
-      },
-      size: {
-        "0": "Hypergiant",
-        "I": "Supergiant",
-        "II": "Bright Giant",
-        "III": "Giant",
-        "IV": "Subgiant",
-        "V": "Dwarf"
-      },
-    },
     sector: {
       control: {
         "na": "No central control of the sector",

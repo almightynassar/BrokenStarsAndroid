@@ -40,7 +40,7 @@
 						<td><strong>Star class</strong> <help-region-star></help-region-star></td>
 						<td>
 							<select v-model="sector.star.spectrum">
-								<option v-for="(n,i) in regions.categories.star.spectrum" :value="i" :key="'star-class-' + i">{{n.colour}}</option>
+								<option v-for="(n,i) in regions.stars.class" :value="i" :key="'star-class-' + i">{{n.colour}}</option>
 							</select>
 						</td>
 					</tr>
@@ -56,7 +56,7 @@
 						<td><strong>Star Size</strong></td>
 						<td>
 							<select v-model="sector.star.size">
-								<option v-for="(n,i) in regions.categories.star.size" :value="i" :key="'star-size-' + i">{{n}}</option>
+								<option v-for="(n,i) in regions.stars.size" :value="i" :key="'star-size-' + i">{{n.name}}</option>
 							</select>
 						</td>
 					</tr>

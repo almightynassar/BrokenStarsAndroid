@@ -3,6 +3,7 @@
     <f7-block>
       <f7-block-title class="content-center-text bottom-border small-caps">Sector Map</f7-block-title>
       <div class="grid" v-bind:style="{'height': viewHeight + 'px', 'width': viewWidth + 'px','display': 'block', 'margin': 'auto' }"></div>
+      <!-- Directional buttons -->
       <f7-block inset>
         <f7-buttons>
           <f7-button v-on:click="updatePage(-1,-1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_upward"></f7-icon></f7-button>
@@ -19,6 +20,7 @@
           <f7-button v-on:click="updatePage(0,1)"><f7-icon material="arrow_downward"></f7-icon></f7-button>
           <f7-button v-on:click="updatePage(1,1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_downward"></f7-icon></f7-button>
         </f7-buttons>
+        <!-- Information for the map overlay -->
         <f7-grid v-show="overlay == 'control'">
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">United Systems</f7-col>
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Sakeena Stellar Republic</f7-col>
@@ -37,6 +39,7 @@
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Moderate Trade</f7-col>
           <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Low Trade</f7-col>
         </f7-grid>
+        <!-- Controls for the map overlay -->
         <div class="custom-radio">
           <input id="overlay-control" type="radio" @change="changeOverlay('control')" @click="changeOverlay('control')" :checked="overlay == 'control'">
           <label for="overlay-control">Control</label>
@@ -55,7 +58,8 @@
 </template>
 <script>
   import SVG from 'svg.js'
-	import { Grid, Point, HEX_ORIENTATIONS } from 'honeycomb-grid'
+  import 'svg.filter.js'
+  import { Grid, Point, HEX_ORIENTATIONS } from 'honeycomb-grid'
 	export default {
 		data() {
 			return {
@@ -123,6 +127,9 @@
       }
 		},
 		methods: {
+      /**
+       * Calculates the appropriate control colour for the hex
+       */
       colourControl(control) {
         switch (control) {
           case 'us':
@@ -142,6 +149,9 @@
             break;
         }
       },
+      /**
+       * Calculates the appropriate zone colour for the hex
+       */
       colourZone(zone) {
         switch (zone) {
           case 'green':
@@ -161,6 +171,9 @@
             break;
         }
       },
+      /**
+       * Calculates the appropriate trade colour for the hex
+       */
       colourTrade(trade) {
         if (trade >= 125) {
           return "#3FFF24"
@@ -173,6 +186,9 @@
         }
         return '#555'
       },
+      /**
+       * Generates a list of trade lines to display
+       */
       calcRouteTrade(hex, sector, start, regions) {
         let lineArray = []
         for (var index = start; index < regions.length; index++) {
@@ -183,7 +199,7 @@
             let awayTrade = parseInt(this.regions.getSectorTrade(sector))
             let bilateralTrade = homeTrade + awayTrade
             let realTrade = bilateralTrade / (distance * 2)
-            if (realTrade > 50) {
+            if (realTrade > 50 && isFinite(realTrade)) {
               if (homeTrade > 0 && awayTrade > 0) {
                 lineArray.push({target: region, trade: realTrade})
               }
@@ -250,36 +266,12 @@
             } else {
               colour = this.colourControl(region.control)
             }
-            // Default star colour is black (to show that there has been an error)
-            let starColour = "#000"
-            switch (region.star.spectrum) {
-              case 'O':
-                starColour = "#4F94CD" // Blue
-                break;
-              case 'B':
-                starColour = "#B0E2FF" // Blue-White
-                break;
-              case 'A':
-                starColour = "#FFF" // White
-                break;
-              case 'F':
-                starColour = "#FFFF7E" // Yellow-White
-                break;
-              case 'G':
-                starColour = "#EEEE00" // Yellow
-                break;
-              case 'K':
-                starColour = "#FF9912" // Light Orange
-                break;
-              case 'M':
-                starColour = "#FF4500" // Orange Red
-                break;
-            }
             // Show the star
-            let star = group.circle(this.font.size)
-              .fill({color: starColour})
-              .stroke({ color: '#000', opacity: 0.5, width: 2 })
-              .move( (this.hexWidth / 2) - (this.font.size / 2), (this.hexHeight / 2) - (this.font.size / 2))
+            let star = group.image('/static/40px-Star-Overlay.png')
+              .move( (this.hexWidth / 2) - 20, (this.hexHeight / 2) - 20)
+              .filter(function(add) {
+                add.colorMatrix('matrix', self.regions.stars.class[region.star.spectrum].matrix)
+              })
             // Add event handlers to the group
             group.on('click', function() {
               let localRegion = region

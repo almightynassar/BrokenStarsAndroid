@@ -20,9 +20,8 @@
           :data="sectors"
           :fields="fields"
           track-by="name"
-          detail-row-component="detail-row-region-summary"
         >
-          <template slot="name" scope="props" @click="onExpandRow(props.rowData.name)">
+          <template slot="name" scope="props">
             <p>{{ props.rowData.name }}</p>
             <p v-if="option === 'owner'"><em>{{ regions.categories.sector.control[props.rowData.control] }}</em></p>
             <p v-if="option === 'trade'"><em>{{ regions.getSectorTrade(props.rowData) }}</em></p>
@@ -59,13 +58,6 @@
       }
     },
     methods: {
-      onExpandRow (name) {
-        let index = this.$refs.regionsummarytable.visibleDetailRows.indexOf(name)
-        this.$refs.regionsummarytable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.regionsummarytable.showDetailRow(name)
-        }
-      },
       changeOption(value) {
         this.option = value
       }

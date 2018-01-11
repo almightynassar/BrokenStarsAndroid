@@ -16,10 +16,13 @@
 					<dt><strong>Sector Control</strong> <help-region-control></help-region-control></dt>
 					<dd class="bottom-border">{{ regions.categories.sector.control[sector.control] }}</dd>
 					<dt><strong>Star Class</strong> <help-region-star></help-region-star></dt>
-					<dd class="bottom-border">{{starDetails.type}} ({{ starDetails.class }})</dd>
-					<dd class="bottom-border">{{starDetails.description}}</dd>
+					<dd class="bottom-border">{{starDetails.type}} ({{ starDetails.class }}) <help-generic :popover="'star-details'">{{starDetails.description}}</help-generic></dd>
 					<dt><strong>Star Temperature</strong></dt>
 					<dd class="bottom-border">{{starDetails.temperature}}K</dd>
+					<dt><strong>Star Luminosity</strong></dt>
+					<dd class="bottom-border">{{starDetails.luminosity}}</dd>
+					<dt><strong>Star Radius</strong></dt>
+					<dd class="bottom-border">{{starDetails.radius}}</dd>
 					<dt><strong>Description</strong></dt>
 					<dd class="bottom-border">{{sector.description}}</dd>
 					<dt><strong># of solar objects</strong></dt>
@@ -64,17 +67,10 @@
 			}
 		},
 		computed: {
-      starDetails() {
-        let temp = this.regions.categories.star.spectrum[this.sector.star.spectrum].temp
-        let star = {
-          class: this.sector.star.spectrum + this.sector.star.temperature + this.sector.star.size,
-          type: this.regions.categories.star.spectrum[this.sector.star.spectrum].colour + " " + this.regions.categories.star.size[this.sector.star.size],
-          description: this.regions.categories.star.spectrum[this.sector.star.spectrum].description,
-          temperature: (Math.round( (temp.max - temp.min) / 10 ) * (9 - this.sector.star.temperature)) + temp.min
-        }
-        return star
-      }
-    },
+			starDetails() {
+				return this.regions.stars.starDetails(this.sector.star.spectrum, this.sector.star.temperature, this.sector.star.size)
+			}
+    	},
 		created() {
 			let tempSector = this.regions.findSector(this.sector_x, this.sector_y)
 			if (tempSector) {
