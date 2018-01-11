@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+Vue.component('help-generic', require('./generic.vue'))
+
 // SHIP: ATTRIBUTES
 Vue.component('help-ship-hull', require('./ship/hull.vue'))
 Vue.component('help-ship-ai', require('./ship/ai.vue'))
