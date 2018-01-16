@@ -5,7 +5,7 @@
       <div class="pull-right">{{ rowData.name }}</div>
     </div>
     <div class="bottom-border">
-      <div><strong>Art</strong> <help-region-zone></help-region-zone></div>
+      <div><strong>Art</strong></div>
       <div class="pull-right">{{ rowData.art | capitalize}} ({{ powers.art[rowData.art][rowData.art_specialisation].name | capitalize }})</div>
     </div>
     <div class="bottom-border">
@@ -13,7 +13,7 @@
       <div class="pull-right">{{ rowData.form | capitalize}} ({{ powers.form[rowData.form][rowData.form_specialisation].name | capitalize }})</div>
     </div>
     <div class="bottom-border">
-      <div><strong>Range</strong> <help-region-star></help-region-star></div>
+      <div><strong>Range</strong></div>
       <div class="pull-right">{{ powers.attributes.range[rowData.range].name | capitalize }}</div>
     </div>
     <div class="bottom-border">

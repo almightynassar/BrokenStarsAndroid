@@ -57,8 +57,6 @@
   </f7-page>
 </template>
 <script>
-  import SVG from 'svg.js'
-  import 'svg.filter.js'
   import { Grid, Point, HEX_ORIENTATIONS } from 'honeycomb-grid'
 	export default {
 		data() {

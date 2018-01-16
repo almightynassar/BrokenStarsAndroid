@@ -1,6 +1,8 @@
-// Import Vue
+// Import Vue, lodash and our SVG libraries
 import Vue from 'vue'
 import _ from 'lodash'
+import SVG from 'svg.js'
+import 'svg.filter.js'
 
 // Vue Plugins (Cordova, vuetable-2)
 import VueCordova from 'vue-cordova'

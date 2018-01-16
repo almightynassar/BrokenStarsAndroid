@@ -221,14 +221,22 @@ export default {
         let temp = this.temperature(s, t)
         return Math.pow(5800 / temp, 2) * Math.pow(lumRel, 0.5)
     },
+    /**
+     * Calculates the radius in meters (m)
+     */
+    radius: function(s, t, y) {
+        return this.radiusRelative(s, t, y) * 695700000
+    },
     starDetails: function(s, t, y) {
         return {
             class: s+t+y,
             type: this.class[s].colour + " " + this.size[y].name,
             description: this.class[s].description,
             temperature: this.temperature(s, t),
-            luminosity: this.luminosityRelative(s, t, y).toPrecision(3),
-            radius: this.radiusRelative(s, t, y).toPrecision(3)
+            luminosity: this.luminosity(s, t, y).toPrecision(3),
+            luminosityRelative: this.luminosityRelative(s, t, y).toPrecision(3),
+            radius: this.radius(s, t, y).toPrecision(3),
+            radiusRelative: this.radiusRelative(s, t, y).toPrecision(3),
         }
     }
 }
