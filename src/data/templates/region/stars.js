@@ -107,6 +107,7 @@ export default {
      *  - Star 'size' is linked to luminosity, and is relative for each harvard spectrum class
      *  - Based on Yerkes luminosity classes
      *  - Bolometric Magnitude is a measure of luminosity on a logarithmic magnitude scale
+     *  - Mass is relative to our Sun/Sol (1.989E+30 kg)
      *  - Max-Min values are relative to the star's temperature
      */
     size: {
@@ -118,9 +119,18 @@ export default {
                 A: { min: -8.9, max: -7.8 },
                 F: { min: -8, max: -8.9 },
                 G: { min: -10.4, max: -8 },
-                K: { min: -10.9, max:  -8.6},
+                K: { min: -10.9, max: -8.6 },
                 M: { min: -17.4, max: -8.9 },
-            }
+            },
+            mass: {
+                O: { min: 63.1, max: 160 },
+                B: { min: 15.3, max: 50.1 },
+                A: { min: 10.8, max: 15.8 },
+                F: { min: 8.5, max: 12.6 },
+                G: { min: 8.1, max: 6.3 },
+                K: { min: 11.1, max: 8.2 },
+                M: { min: 10, max: 13.3 },
+            },
         },
         "I": {
             name: "Supergiant",
@@ -132,7 +142,16 @@ export default {
                 G: { min: -5.7, max: -4.9 },
                 K: { min: -7, max: -5.8 },
                 M: { min: -13.4, max: -7.2 },
-            }
+            },
+            mass: {
+                O: { min: 54.5, max: 140 },
+                B: { min: 12.9, max: 39.2 },
+                A: { min: 9, max: 11.5 },
+                F: { min: 7, max: 12.6 },
+                G: { min: 3.8, max: 2.5 },
+                K: { min: 6.3, max: 3.9 },
+                M: { min: 8, max: 10.7 },
+            },
         },
         "II": {
             name: "Bright Giant",
@@ -144,7 +163,16 @@ export default {
                 G: { min: -3.5, max: -2.5 },
                 K: { min: -4.2, max: -3.6 },
                 M: { min: -11.4, max: -4.3 },
-            }
+            },
+            mass: {
+                O: { min: 45.9, max: 130 },
+                B: { min: 10.5, max: 33.8 },
+                A: { min: 7.1, max: 9.4 },
+                F: { min: 5.6, max: 8.9 },
+                G: { min: 3, max: 2.1 },
+                K: { min: 4.9, max: 3.1 },
+                M: { min: 6, max: 8.2 },
+            },
         },
         "III": {
             name: "Giant",
@@ -156,7 +184,16 @@ export default {
                 G: { min: -2.2, max: -0.6 },
                 K: { min: -0.6, max: -2.2 },
                 M: { min: -8.4, max: -2.4 },
-            }
+            },
+            mass: {
+                O: { min: 37.3, max: 120 },
+                B: { min: 8.1, max: 28.4 },
+                A: { min: 5.3, max: 7.2 },
+                F: { min: 4.1, max: 5.3 },
+                G: { min: 2.3, max: 1.8 },
+                K: { min: 3.4, max: 2.3 },
+                M: { min: 4.1, max: 5.6 },
+            },
         },
         "IV": {
             name: "Subgiant",
@@ -168,7 +205,16 @@ export default {
                 G: { min: 2.6, max: 2.8 },
                 K: { min: 1.5, max: 2.6 },
                 M: { min: -5, max: 1.2 },
-            }
+            },
+            mass: {
+                O: { min: 28.6, max: 110 },
+                B: { min: 5.7, max: 22.9 },
+                A: { min: 3.5, max: 5.1 },
+                F: { min: 2.6, max: 3.4 },
+                G: { min: 1.6, max: 1.4 },
+                K: { min: 2, max: 1.6 },
+                M: { min: 2.1, max: 3.1 },
+            },
         },
         "V": {
             name: "Dwarf",
@@ -177,10 +223,19 @@ export default {
                 B: { min: -0.4, max: -6.7 },
                 A: { min: 2.4, max: 0.2 },
                 F: { min: 4, max: 2.5 },
-                G: { min: 5.4, max: 4.2 },
+                G: { min: 5.4, max: 4.5 },
                 K: { min: 6.9, max: 5.4 },
                 M: { min: 10.7, max: 7 },
-            }
+            },
+            mass: {
+                O: { min: 20, max: 100 },
+                B: { min: 3.4, max: 17.5 },
+                A: { min: 1.7, max: 2.9 },
+                F: { min: 1.1, max: 1.6 },
+                G: { min: 0.8, max: 1.1 },
+                K: { min: 0.5, max: 0.8 },
+                M: { min: 0.1, max: 0.5 },
+            },
         }
     },
     /**
@@ -197,7 +252,7 @@ export default {
         let dir = (magnitude.min > magnitude.max) ? -1 : 1;
         let step = ((magnitude.min > magnitude.max) ? (magnitude.min - magnitude.max) : (magnitude.max - magnitude.min)) / 9
         let mBolometric = magnitude.min + ((step * (9 - t)) * dir)
-        return Math.pow(10, (4.75 - mBolometric)/2.5 )
+        return Math.pow(10, (4.75 - mBolometric)/2.5 ).toPrecision(2)
     },
     /**
      * Calculates the luminosity in Watts (W)
@@ -219,13 +274,34 @@ export default {
     radiusRelative: function(s, t, y) {
         let lumRel = this.luminosityRelative(s, t, y)
         let temp = this.temperature(s, t)
-        return Math.pow(5800 / temp, 2) * Math.pow(lumRel, 0.5)
+        return (Math.pow(5800 / temp, 2) * Math.pow(lumRel, 0.5)).toPrecision(2)
     },
     /**
      * Calculates the radius in meters (m)
      */
     radius: function(s, t, y) {
-        return this.radiusRelative(s, t, y) * 695700000
+        return this.radiusRelative(s, t, y) * (6.957 * Math.pow(10,8))
+    },
+    /**
+     * Calculates the mass of a star relative to Sol/Sun
+     * 
+     * The inputs refer to the classification of the star, not their exact values.
+     * 
+     * i.e. To calculate relative mass for our Sun (a G2V star), we would call:
+     * 
+     * massRelative('G', 2, 'V')
+     */
+    massRelative: function(s, t, y) {
+        let mass = this.size[y].mass[s];
+        let dir = (mass.min > mass.max) ? -1 : 1;
+        let step = ((mass.min > mass.max) ? (mass.min - mass.max) : (mass.max - mass.min)) / 9
+        return (mass.min + ((step * (9 - t)) * dir)).toPrecision(2)
+    },
+    /**
+     * Calculates the mass in kilograms (kg)
+     */
+    mass: function(s, t, y) {
+        return this.massRelative(s, t, y) * (1.989 * Math.pow(10,30))
     },
     starDetails: function(s, t, y) {
         return {
@@ -233,10 +309,12 @@ export default {
             type: this.class[s].colour + " " + this.size[y].name,
             description: this.class[s].description,
             temperature: this.temperature(s, t),
-            luminosity: this.luminosity(s, t, y).toPrecision(3),
-            luminosityRelative: this.luminosityRelative(s, t, y).toPrecision(3),
-            radius: this.radius(s, t, y).toPrecision(3),
-            radiusRelative: this.radiusRelative(s, t, y).toPrecision(3),
+            luminosity: this.luminosity(s, t, y).toPrecision(4),
+            luminosityRelative: this.luminosityRelative(s, t, y),
+            radius: this.radius(s, t, y).toPrecision(4),
+            radiusRelative: this.radiusRelative(s, t, y),
+            mass: this.mass(s, t, y).toPrecision(4),
+            massRelative: this.massRelative(s, t, y)
         }
     }
 }
