@@ -1,18 +1,23 @@
 <template>
-	<f7-page>
-        <f7-buttons>
-            <f7-button tab-link="#builder" active>Builder</f7-button>
-            <f7-button tab-link="#list">List</f7-button>
-        </f7-buttons>
-        <f7-tabs>
-            <f7-tab id="builder" active>
-                <builder></builder>
-            </f7-tab>
-            <f7-tab id="list">
-                <list></list>
-            </f7-tab>
-        </f7-tabs>
-    </f7-page>
+    <v-container fluid>
+        <v-tabs dark grow>
+            <v-toolbar color="blue" dark>
+                <v-tabs-bar class="blue">
+                    <v-tabs-slider color="yellow"></v-tabs-slider>
+                    <v-tabs-item href="#list"><strong>List</strong></v-tabs-item>
+                    <v-tabs-item href="#builder"><strong>Builder</strong></v-tabs-item>
+                </v-tabs-bar>
+            </v-toolbar>
+            <v-tabs-items>
+                <v-tabs-content id="list" >
+                    <list></list>
+                </v-tabs-content>
+                <v-tabs-content id="builder" >
+                    <builder></builder>
+                </v-tabs-content>
+            </v-tabs-items>
+        </v-tabs>
+	</v-container>
 </template>
 <script>
     import Builder from "./builder.vue"

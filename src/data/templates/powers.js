@@ -1,307 +1,257 @@
 export default {
     art: {
-        control: [
-            {
-                name: "Neglible",
+        Control: {
+            Neglible: {
                 base: 0.5,
                 description: "A gentle command that enhances or reduces the target/s existing \
                 dispositon, or a slight nudge of movement."
             },
-            {
-                name: "Limited",
+            Limited: {
                 base: 1,
                 description: "The target/s are compelled to follow a single, one-word command, \
                 or are moved up to 10 spaces."
             },
-            {
-                name: "Minor",
+            Minor: {
                 base: 2,
                 description: "The target/s are compelled to follow commands in the form of a 15 word \
                 sentence, or are moved up to 50 spaces."
             },
-            {
-                name: "Major",
+            Major: {
                 base: 3,
                 description: "The target/s are compelled to follow commands in the form of a 30 word \
                 sentence, or are moved up to 100 spaces."
             },
-            {
-                name: "Virtual",
+            Virtual: {
                 base: 4,
                 description: "The target/s can take orders in the form of multiple sentences, with \
                 conditional statements (if - then - else), or are moved as far as the eye can see."
             },
-            {
-                name: "Complete",
+            Complete: {
                 base: 5,
                 description: "You have complete control over the target/s, and can move them as far \
                 as you desire."
             },
-        ],
-        perceive: [
-            {
-                name: "Imprecise",
+        },
+        Perceive: {
+            Imprecise: {
                 base: 0.5,
                 description: "Learn rough details about a visible property or suface thought, \
                 or superficially alter one sense."
             },
-            {
-                name: "Accurate",
+            Accurate: {
                 base: 1,
                 description: "Learn accurate details about a visible property or surface thought, \
                 or enhance / reduce a sense."
             },
-            {
-                name: "Deep",
+            Deep: {
                 base: 2,
                 description: "Learn details about any property or deep thought, or add / remove \
                 a sense."
             },
-            {
-                name: "Complete",
+            Complete: {
                 base: 3,
                 description: "Gain complete information on what you desire, or gain complete \
                 control of the senses (including using senses at a distance)."
             }
-        ],
-        transform: [
-            {
-                name: "Superficial",
+        },
+        Mutate: {
+            Superficial: {
                 base: 0.5,
                 description: "Make a superficial, cosmetic change such as changing skin colour, \
                 colour surface thoughts, or a small minor illusion."
             },
-            {
-                name: "Enhance / Reduce Attribute",
+            Enhance: {
                 base: 1,
                 description: "Improve or degrade something that already exists in / about the \
                 target/s"
             },
-            {
-                name: "Transform / Mutate",
+            Transform: {
                 base: 3,
                 description: "Convert something that exists in / about the target into something \
                 different."
             },
-            {
-                name: "Add / Remove Attributes",
+            Complete: {
                 base: 4,
                 description: "Add something new to the target/s, or remove something completely."
             }
-        ]
+        }
     },
     form: {
-        biological: [
-            {
-                name: "Basic",
+        Biological: {
+            Basic: {
                 base: 0.5,
                 description: "Microscopic and tiny organisms such as Bacteria, Cells, and Fungii."
             },
-            {
-                name: "Simple",
+            Simple: {
                 base: 1,
                 description: "Small and simple organics such as Plants, Insects, and Body Parts \
                 (Muscles, Bone, Skin)."
             },
-            {
-                name: "Moderate",
+            Moderate: {
                 base: 2,
                 description: "Moderately complex organics such as Rodents, Birds, Cats, Dogs, \
                 Trees and Organs (Eyes, Brain, Lungs)."
             },
-            {
-                name: "Complex",
+            Complex: {
                 base: 3,
                 description: "Large and extremely interconnected organic systems such as Humans, \
                 Elephants, Sharks and Ecosystems."
             },
-        ],
-        digital: [
-            {
-                name: "Basic",
+        },
+        Digital: {
+            Basic: {
                 base: 0.5,
                 description: "Simple electronic properties such as Current, Voltage and Power."
             },
-            {
-                name: "Simple",
+            Simple: {
                 base: 1,
                 description: "Small simple circuits such as batteries, speakers, microchips, \
                 and harddrives."
             },
-            {
-                name: "Moderate",
+            Moderate: {
                 base: 2,
                 description: "Moderately complex software and applications."
             },
-            {
-                name: "Complex",
+            Complex: {
                 base: 3,
                 description: "Extremely complex systems such as Operating Systems and AI."
             },
-        ],
-        material : [
-            {
-                name: "Basic",
+        },
+        Material : {
+            Basic: {
                 base: 0.5,
                 description: "Raw non-organic materials such as Metal, Dirt, and Water."
             },
-            {
-                name: "Simple",
+            Simple: {
                 base: 1,
                 description: "Processed materials such as Plastics, Steel, and Oil."
             },
-            {
-                name: "Moderate",
+            Moderate: {
                 base: 2,
                 description: "Constructed, non-moving goods such as Furniture, Paper, \
                 Clothing, and Fixtures."
             },
-            {
-                name: "Complex",
+            Complex: {
                 base: 3,
                 description: "Machinery such as Motors, Guns, Televisions and Devices."
             },
-        ],
-        mental: [
-            {
-                name: "Basic",
+        },
+        Mental: {
+            Basic: {
                 base: 0.5,
                 description: "Passing surface thought (Did I leave the iron on?)."
             },
-            {
-                name: "Simple",
+            Simple: {
                 base: 1,
                 description: "Familiarity (I’m sure I remember you)."
             },
-            {
-                name: "Moderate",
+            Moderate: {
                 base: 2,
                 description: "Brief Memory (That one night)."
             },
-            {
-                name: "Complex",
+            Complex: {
                 base: 3,
                 description: "Inter-related Memories (What I remember of my mother)."
             },
-        ]
+        }
     },
     attributes: {
-        range: [
-            {
-                name: "Personal",
+        range: {
+            Personal: {
                 base: 0,
                 description: "Perform it on yourself."
             },
-            {
-                name: "Touch",
+            Touch: {
                 base: 0.5,
                 description: "Perform it on a target you are touching."
             },
-            {
-                name: "Smarts",
+            Smarts: {
                 base: 1,
                 description: "Perform it on a target within range (distance in units is \
                 your Smarts)."
             },
-            {
-                name: "Sense",
+            Sense: {
                 base: 2,
                 description: "Perform it on a target you can see, hear, smell, or otherwise sense."
             },
-            {
-                name: "Connected",
+            Connected: {
                 base: 1,
                 description: "Perform it on a target you have a psionic connection to."
             },
-        ],
-        duration: [
-            {
-                name: "Instant",
+        },
+        duration: {
+            Instant: {
                 base: 0,
                 description: "Effects happen instantly."
             },
-            {
-                name: "Round",
+            Round: {
                 base: 0.5,
                 description: "Effects last until end of the round (and required Concentration \
                 to maintain)."
             },
-            {
-                name: "Minute",
+            Minute: {
                 base: 1,
                 description: "Effects last up to one minute (and required Concentration \
                 to maintain)."
             },
-            {
-                name: "Hour",
+            Hour: {
                 base: 1.5,
                 description: "Effects last up to one hour (and required Concentration \
                 to maintain)."
             },
-            {
-                name: "Day",
+            Day: {
                 base: 2,
                 description: "Effects last up to one day (and required Concentration \
                 to maintain)."
             },
-        ],   
-        target: [
-            {
-                name: "Single",
+        },   
+        target: {
+            Single: {
                 base: 0,
                 description: "One singular target."
             },
-            {
-                name: "Pair",
+            Pair: {
                 base: 0.5,
                 description: "Up to two selected targets, or an area with a radius of \
                 half your Smarts in units (rounded down)."
             },
-            {
-                name: "Space",
+            Space: {
                 base: 1,
                 description: "Up to three selected targets, or an area with a radius of \
                 your Smarts in units."
             },
-            {
-                name: "Area",
+            Area: {
                 base: 2,
                 description: "Up to five selected targets, or an area with a radius of \
                 double your Smarts in units."
             },
-        ],
-        difficulty: [
-            {
-                name: "Trivial",
+        },
+        difficulty: {
+            Trivial: {
                 base: -1,
                 description: "The task is relatively trivial to perform."
             },
-            {
-                name: "Standard",
+            Standard: {
                 base: 0,
                 description: "The task is of average difficulty."
             },
-            {
-                name: "Moderate",
+            Moderate: {
                 base: 1,
                 description: "The task is moderately complex."
             },
-            {
-                name: "Hard",
+            Hard: {
                 base: 1.5,
                 description: "The task is comparatively difficult to perform."
             },
-            {
-                name: "Difficult",
+            Difficult: {
                 base: 2,
                 description: "The task is really hard to perform."
             },
-            {
-                name: "Impossible",
+            Impossible: {
                 base: 4,
                 description: "The GM hates you, or doesn't understand fun."
             },
-        ]
+        }
     },
     calculate(power, tn, spntns) {
         let art = this.art[power.art][power.art_specialisation]

@@ -1,53 +1,98 @@
 <template>
-  <f7-block>
-    <div class="data-table">
-      <vuetable
-        ref="powersummarytable"
-        :api-mode="false"
-        :data="powers"
-        :fields="fields"
-        track-by="name"
-        detail-row-component="detail-row-power-summary"
+  <v-card flat>
+    <v-card-text>
+      <v-text-field
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+        v-model="search"
+      ></v-text-field>
+      <v-data-table
+        :headers="fields"
+        :items="powers"
+        :search="search"
+        hide-actions
+        item-key="name"
       >
-        <template slot="details" scope="props">
-            <div @click="onExpandRow(props.rowData, {name: '__slot:details'}, $event)">
-                <p><strong>{{ props.rowData.name }}</strong></p>
-                <p><em>{{ props.rowData.art | capitalize }} - {{ props.rowData.form | capitalize }}</em></p>
-            </div>
+        <template slot="items" slot-scope="props">
+          <tr @click="props.expanded = !props.expanded">
+            <td>{{ props.item.name | capitalize }}</td>
+            <td>{{ props.item.art | capitalize }}</td>
+            <td>{{ props.item.form | capitalize }}</td>
+          </tr>
         </template>
-        <template slot="expand" scope="props">
-          <f7-buttons>
-            <f7-button fill color="red" v-on:click="onDeleteConfirm(props.rowData.name)"><f7-icon color="white" material="delete"></f7-icon></f7-button>
-          </f7-buttons>
+        <template slot="expand" slot-scope="props">
+          <div>
+            <detail-row-power-summary :power="props.item"></detail-row-power-summary>
+            <v-dialog v-model="dialog" persistent>
+              <v-btn dark d-block color="red" slot="activator"><v-icon color="white">delete</v-icon> Delete</v-btn>
+              <v-card>
+                <v-card-title class="headline">Are you sure you want to delete?</v-card-title>
+                <v-card-text>This will permanently delete the power from the system.</v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="red darken-1" flat @click.native="dialog = false">No</v-btn>
+                  <v-btn color="green darken-1" flat @click.native="onDeleteRow(props.item.name)">Yes</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
         </template>
-      </vuetable>
-    </div>
-  </f7-block>
+      </v-data-table>
+    </v-card-text>
+    <v-snackbar
+      :timeout="3000"
+      color="error"
+      :vertical="true"
+      v-model="snackbar.error"
+    >
+      ERROR: Power was not deleted
+      <v-btn flat @click.native="snackbar.error = false">Close</v-btn>
+    </v-snackbar>
+    <v-snackbar
+      :timeout="3000"
+      color="success"
+      :vertical="true"
+      v-model="snackbar.success"
+    >
+      Power was deleted
+      <v-btn flat @click.native="snackbar.success = false">Close</v-btn>
+    </v-snackbar>
+  </v-card>
 </template>
 <script>
   export default {
     data() {
       return {
+        search: "",
         powers: [],
         fullPowerList: [],
         fields: [
           {
-            name: '__slot:details',
-            title: 'Details'
+            text: 'Name',
+            align: 'left',
+            sortable: true,
+            value: 'name'
           },
           {
-            name: '__slot:expand',
-            title: 'Actions'
+            text: 'Art',
+            align: 'left',
+            sortable: true,
+            value: 'art'
+          },
+          {
+            text: 'Form',
+            align: 'left',
+            sortable: true,
+            value: 'form'
           }
-        ]
-      }
-    },
-    watch: {
-      powers: {
-        handler(value) {
-          this.updateTable()
+        ],
+        snackbar: {
+          error: false,
+          success: false
         },
-        deep: true
+        dialog: false
       }
     },
     methods: {
@@ -76,44 +121,20 @@
         }
       },
       /**
-       * Reset the table and inject the new powerinformation
-       */
-      updateTable() {
-        this.$refs.powersummarytable.resetData()
-        this.$refs.powersummarytable.setData(this.powers)
-      },
-      /**
-       * Expands our Detail Row
-       */
-      onExpandRow (data, field, event) {
-        let uuid = data.name
-        let index = this.$refs.powersummarytable.visibleDetailRows.indexOf(uuid)
-        this.$refs.powersummarytable.visibleDetailRows = []
-        if (index == -1) {
-            this.$refs.powersummarytable.showDetailRow(uuid)
-        }
-      },
-      /**
        * Triggers the deletion process
        */
-      onDeleteConfirm(name) {
-        let self = this
-        this.$f7.confirm(
-            'Are you sure you want to delete?',
-            function() { self.onDeleteRow(name) }
-        )
-      },
       onDeleteRow(name) {
         let self = this
         let store = this.$bsFactory.getPowerStore()
         let resultSet = store.delete(name)
         resultSet.onsuccess = function() {
-            self.$f7.alert(name+" has been deleted" )
+            self.snackbar.success = true
         };
         resultSet.onerror = function() {
-            self.$f7.alert( "ERROR: "+name+" was not deleted" )
+            self.snackbar.error = true
         };
         this.loadPowers()
+        this.dialog = false
       }
     },
     created() {
