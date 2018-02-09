@@ -1,18 +1,23 @@
 <template>
-	<f7-page>
-        <f7-buttons>
-            <f7-button tab-link="#list" active>List All</f7-button>
-            <f7-button tab-link="#loot">Loot</f7-button>
-        </f7-buttons>
-        <f7-tabs>
-            <f7-tab id="list" active>
-                <card-list></card-list>
-            </f7-tab>
-            <f7-tab id="loot">
-                <card-loot></card-loot>
-            </f7-tab>
-        </f7-tabs>
-    </f7-page>
+    <v-container fluid>
+        <v-tabs dark grow>
+            <v-toolbar color="blue" dark>
+                <v-tabs-bar class="blue">
+                <v-tabs-slider color="yellow"></v-tabs-slider>
+                <v-tabs-item href="#list"><strong>List</strong></v-tabs-item>
+                <v-tabs-item href="#loot"><strong>Loot</strong></v-tabs-item>
+                </v-tabs-bar>
+            </v-toolbar>
+            <v-tabs-items>
+                <v-tabs-content id="list" >
+                    <card-list></card-list>
+                </v-tabs-content>
+                <v-tabs-content id="loot" >
+                    <card-loot></card-loot>
+                </v-tabs-content>
+            </v-tabs-items>
+        </v-tabs>
+	</v-container>
 </template>
 <script>
     import CardList from "./list.vue"

@@ -1,18 +1,24 @@
 <template>
-    <f7-block inset>
-        <f7-block-title class="content-center-text bottom-border small-caps">Loot Manager</f7-block-title>
-        <p><input type="number" v-model="generate" /></p>
-        <!-- LOOT -->
-        <div v-if="lootIndex > 0">
-            <card :card="loot[lootIndex - 1]"></card>
-            <p style="text-align: center; display: grid;">
-                <f7-button style="grid-column-start: 1; grid-column-end: 2;" :disabled="lootIndex <= 1" v-on:click="prevCrate"><f7-icon color="blue" material="keyboard_arrow_left"></f7-icon></f7-button>
-                <span style="grid-column-start: 3; grid-column-end: 4;">{{lootIndex}} / {{loot.length}}</span>
-                <f7-button style="grid-column-start: 5; grid-column-end: 6;" :disabled="lootIndex >= loot.length" v-on:click="nextCrate"><f7-icon color="blue" material="keyboard_arrow_right"></f7-icon></f7-button>
-            </p>
-        </div>
-        <f7-button big fill color="blue" v-on:click="lootCrate"><f7-icon color="white" material="refresh"></f7-icon></f7-button>
-    </f7-block>
+    <v-card flat>
+        <v-card-text>
+            <v-text-field
+                label="Cards to Generate"
+                v-model="generate"
+                hint="Number of cards in the Loot pack"
+                type="number"
+            ></v-text-field>
+            <!-- LOOT -->
+            <div v-if="lootIndex > 0">
+                <card :card="loot[lootIndex - 1]"></card>
+                <p style="text-align: center; display: grid;">
+                    <v-btn style="grid-column-start: 1; grid-column-end: 2;" :disabled="lootIndex <= 1" v-on:click="prevCrate"><v-icon>keyboard_arrow_left</v-icon></v-btn>
+                    <span style="grid-column-start: 3; grid-column-end: 4;">{{lootIndex}} / {{loot.length}}</span>
+                    <v-btn style="grid-column-start: 5; grid-column-end: 6;" :disabled="lootIndex >= loot.length" v-on:click="nextCrate"><v-icon>keyboard_arrow_right</v-icon></v-btn>
+                </p>
+            </div>
+            <v-btn dark color="blue" v-on:click="lootCrate"><v-icon>refresh</v-icon> Roll Pack</v-btn>
+        </v-card-text>
+    </v-card>
 </template>
 <script>
 import Card from '../cards/card.vue'
@@ -24,7 +30,7 @@ export default {
 		return {
         	cards: this.$bsFactory.getTemplate("cards"),
             loot: [],
-            generate: 1,
+            generate: 3,
             lootIndex: 0,
 		}
 	},
