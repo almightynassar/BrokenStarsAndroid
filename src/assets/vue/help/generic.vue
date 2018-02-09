@@ -1,10 +1,12 @@
 <template>
-  <span>
-    <f7-link no-link-class icon-material="help" icon-only icon-size=18 :open-popover="'#'+popover+'-popover'"></f7-link>
-    <f7-popover :id="popover+'-popover'">
+  <v-tooltip v-model="show" right>
+    <v-btn icon slot="activator">
+      <v-icon color="blue">help</v-icon>
+    </v-btn>
+    <span>
       <slot></slot>
-    </f7-popover>
-  </span>
+    </span>
+  </v-tooltip>
 </template>
 <script>
 export default {
@@ -13,6 +15,11 @@ export default {
         type: String,
         required: true
       },
+  },
+  data() {
+    return {
+      show: false
+    }
   }
 }
 </script>
