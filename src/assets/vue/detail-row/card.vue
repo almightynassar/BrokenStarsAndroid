@@ -1,5 +1,5 @@
 <template>
-  <card :card="rowData"></card>
+  <card :card="card"></card>
 </template>
 <script>
   import Card from '../cards/card.vue'
@@ -8,13 +8,10 @@
       Card
     },
     props: {
-      rowData: {
+      card: {
         type: Object,
         required: true
-      },
-      rowIndex: {
-        type: Number
-      },
+      }
     }
   }
 </script>

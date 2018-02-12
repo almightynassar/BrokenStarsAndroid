@@ -1,62 +1,55 @@
 <template>
-  <div>
-    <div class="bottom-border">
-      <div><strong>Name</strong></div>
-      <div class="pull-right">{{ rowData.name }}</div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Art</strong></div>
-      <div class="pull-right">{{ rowData.art | capitalize}} ({{ powers.art[rowData.art][rowData.art_specialisation].name | capitalize }})</div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Form</strong></div>
-      <div class="pull-right">{{ rowData.form | capitalize}} ({{ powers.form[rowData.form][rowData.form_specialisation].name | capitalize }})</div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Range</strong></div>
-      <div class="pull-right">{{ powers.attributes.range[rowData.range].name | capitalize }}</div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Target</strong></div>
-      <div class="pull-right">{{ powers.attributes.target[rowData.target].name | capitalize }}</div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Duration</strong></div>
-      <div class="pull-right">{{ powers.attributes.duration[rowData.duration].name | capitalize }}</div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Difficulty</strong></div>
-      <div class="pull-right">{{ powers.attributes.difficulty[rowData.difficulty].name | capitalize }}</div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Defence</strong></div>
-      <div class="pull-right"><input type="number" v-model="defence" /></div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Spotaneous?</strong></div>
-      <div class="pull-right">
-            <select v-model="spontaneous">
-                <option :value="true" key="spontaneous">Spontaneous (2)</option>
-                <option :value="false" key="prepared">Prepared (0)</option>
-            </select>
+  <v-card tile color="grey lighten-1">
+    <v-card-text>
+      <div>
+        <div><strong>Name</strong></div>
+        <div class="pull-right">{{ power.name }}</div>
       </div>
-    </div>
-    <div class="bottom-border">
-      <div><strong>Target Number</strong></div>
-      <div class="pull-right">{{ powers.calculate(rowData, defence, spontaneous) }}</div>
-    </div>
-  </div>
+      <div>
+        <div><strong>Art</strong></div>
+        <div class="pull-right">{{ power.art | capitalize}} ({{ power.art_specialisation | capitalize }})</div>
+      </div>
+      <div>
+        <div><strong>Form</strong></div>
+        <div class="pull-right">{{ power.form | capitalize}} ({{ power.form_specialisation | capitalize }})</div>
+      </div>
+      <div>
+        <div><strong>Range</strong></div>
+        <div class="pull-right">{{ power.range | capitalize }}</div>
+      </div>
+      <div>
+        <div><strong>Target</strong></div>
+        <div class="pull-right">{{ power.target | capitalize }}</div>
+      </div>
+      <div>
+        <div><strong>Duration</strong></div>
+        <div class="pull-right">{{ power.duration | capitalize }}</div>
+      </div>
+      <div>
+        <div><strong>Difficulty</strong></div>
+        <div class="pull-right">{{ power.difficulty | capitalize }}</div>
+      </div>
+      <v-text-field
+        label="Target Defence"
+        v-model="defence"
+        hint="Defence die result of the Target"
+        type="number"
+      ></v-text-field>
+      <v-switch label="Spontaneous" v-model="spontaneous"></v-switch>
+      <div>
+        <span><strong>Target Number:</strong></span>
+        <span class="pull-right">{{ powers.calculate(power, defence, spontaneous) }}</span>
+      </div>
+    </v-card-text>
+  </v-card>
 </template>
 <script>
   export default {
     props: {
-      rowData: {
+      power: {
         type: Object,
         required: true
-      },
-      rowIndex: {
-        type: Number
-      },
+      }
     },
     data() {
         return {
