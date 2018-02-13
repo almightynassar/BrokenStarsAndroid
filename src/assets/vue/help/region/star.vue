@@ -17,6 +17,11 @@ export default {
       type: String,
       default: "star"
     }
+  },
+  data() {
+    return {
+      show: false
+    }
   }
 }
 </script>
