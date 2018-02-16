@@ -16,7 +16,7 @@
 									<li><a href="http://www.drivethrurpg.com/product/86467/Stars-Without-Number-Free-Edition"><em>Stars Without Number</em></a> by Kevin Crawford</li>
 									<li><a href="http://www.drivethrurpg.com/product/114950/Suns-of-Gold-Merchant-Campaigns-for-Stars-Without-Number"><em>Stars Without Number - Suns of Gold</em></a> by Kevin Crawford</li>
 									<li><a href="https://chaosmeister.wordpress.com/savage-worlds-character-sheet-savage-space-downloads/"><em>Savage Space</em></a> by Marcus Burggraf</li>
-									<li><a href="http://www.sjgames.com/gurps/traveller/books.html"><em>GURPS Traveller</em> and various additional source books</em></a> by Steve Jackson Games</li>
+									<li><a href="http://www.sjgames.com/gurps/traveller/books.html"><em>GURPS Traveller</em> and various additional source books</a> by Steve Jackson Games</li>
 								</ul>
 							</p>
 							<p>We wholeheartedly endorse these products and recommend that you purchase the core materials from the respective publishers!</p>
