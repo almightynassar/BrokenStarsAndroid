@@ -1,5 +1,8 @@
 export default {
-  fittings: [
+  /**
+   * List of available fittings
+   */
+  list: [
     {
       id: "ADTRM",
       name: "Auditorium",
@@ -343,7 +346,103 @@ export default {
       description: "Workshop used for maintenance and repair. Stocked with tools and resources for Repair actions."
     }
   ],
-  search(id) {
-    return this.fittings.find(function(fitting) { return fitting.id === this.id; } , {'id': id});
+  /**
+   * The selected fittings
+   */
+  selected: [],
+  /**
+   * Sort the selected fittings list
+   */
+  sort() {
+    this.selected.sort(function(a,b) {
+      return (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0)
+    });
+  },
+  /**
+   * Search for a specific fitting element in available list
+   */
+  searchList(id) {
+    return this.list.find(function(fitting) { return fitting.id === this.id; } , {'id': id});
+  },
+  /**
+   * Search for the specific fitting id in available list
+   */
+  searchListForIndex(id) {
+    return this.list.findIndex(function(fitting) { return fitting.id === this.id; } , {'id': id});
+  },
+  /**
+   * Search for a specific fitting element in selected list
+   */
+  searchSelected(id) {
+    return this.selected.find(function(fitting) { return fitting.id === this.id; } , {'id': id});
+  },
+  /**
+   * Search for the specific fitting id in selected list
+   */
+  searchSelectedForIndex(id) {
+    return this.selected.findIndex(function(fitting) { return fitting.id === this.id; } , {'id': id});
+  },
+  /**
+   * Update the selected list
+   */
+  update(id, total) {
+    // Search if the fitting exists
+    let index = this.searchSelectedForIndex(id)
+    let fitting = this.searchSelected(id)
+    // Make sure the total is an integer
+    total = parseInt(total)
+    if ( (typeof fitting !== "undefined") && index >= 0) {
+      // Add to existing fitting entry (deleting and adding it so that it triggers Vue)
+      fitting.active = this.selected[index].active + total
+      fitting.total = this.selected[index].total + total
+      this.selected.splice(index, 1)
+    } else {
+      // Create new fitting entry if it exists in the list
+      fitting = this.searchList(id)
+      if (typeof fitting !== "undefined") {
+        fitting.active = total
+        fitting.total = total
+      } else { 
+        fitting = {
+          total: -1
+        }
+      }
+    }
+    // Make sure we have a postive non-zero total
+    if (fitting.total > 0) {
+      // Bound our active number of fittings
+      if (fitting.active >= fitting.total) {
+        fitting.active = fitting.total
+      } else if (fitting.active < 0) {
+        fitting.active = 0
+      }
+      this.selected.push(fitting)
+    }
+    this.sort()
+    return fitting
+  },
+  /**
+   * Activate a fitting
+   */
+  activate(id, total) {
+    // Search if the fitting exists
+    let index = this.searchSelectedForIndex(id)
+    let fitting = this.searchSelected(id)
+    // Make sure the total is an integer
+    total = parseInt(total)
+    if ( (typeof fitting !== "undefined") && index >= 0) {
+      let active = fitting.active + total
+      fitting.active = (active >= fitting.total) ? fitting.total : ( (active <= 0) ? 0 : active )
+      // Update existing fitting entry (deleting and adding it so that it triggers Vue)
+      this.selected.splice(index, 1)
+      this.selected.push(fitting)
+      this.sort()
+    }
+  },
+  /**
+   * Clears the selected list
+   */
+  clear() {
+    this.selected = []
   }
 }

@@ -3,37 +3,21 @@ import Vue from 'vue'
 import _ from 'lodash'
 import SVG from 'svg.js'
 import 'svg.filter.js'
+import RollParser from 'roll-parser'
 
-// Vue Plugins (Cordova, vuetable-2)
+// Vue Plugins (Cordova,  vuetify, filters)
+import Vue2Filters from 'vue2-filters'
 import VueCordova from 'vue-cordova'
-import VueTable2 from 'vuetable-2'
-
-// Import F7, Theme and Vue Plugin
-import Framework7 from 'framework7'
-import Framework7Vue from 'framework7-vue'
-import Framework7Theme from 'framework7/dist/css/framework7.material.min.css'
-import Framework7ThemeColors from 'framework7/dist/css/framework7.material.colors.min.css'
+import VueRouter from 'vue-router'
+import Vuetify from 'vuetify'
 
 // Import CSS
-import MaterialIcons from 'material-design-icons-iconfont'
-import AppStyles from './assets/sass/main.scss'
-
-// Import Routes
-import Routes from './routes.js'
-
-// Import directives and filters
-import Vue2Filters from 'vue2-filters'
-Vue.use(Vue2Filters)
-
-// Import App Component
-import App from './main.vue'
-
-// Import Custom Plugins and Components
-import BsFactory from './plugins/bsFactory.js'
-require('./assets/vue/help/loader.js')
-require('./assets/vue/detail-row/loader.js')
+import '../node_modules/material-design-icons-iconfont/dist/material-design-icons.scss'
+import '../node_modules/vuetify/dist/vuetify.min.css'
+import './assets/sass/main.scss'
 
 // Load template data files into our factory
+import BsFactory from './plugins/bsFactory.js'
 var templateFiles = require.context("./data/templates", false, /\.js$/);
 var templateData = {};
 templateFiles.keys().forEach(function (file) {
@@ -60,24 +44,29 @@ BsFactory.loadRegions(regionData);
 
 // Init Vue Plugins
 Vue.use(VueCordova)
-Vue.use(Framework7Vue)
+Vue.use(VueRouter)
 Vue.use(BsFactory)
-Vue.use(VueTable2)
-Vue.component("vuetable", VueTable2)
+Vue.use(Vuetify)
+Vue.use(Vue2Filters)
+
+// Import Custom Plugins and Components
+require('./assets/vue/help/loader.js')
+require('./assets/vue/detail-row/loader.js')
+import Timeline from './assets/vue/components/timeline.vue'
+Vue.component("timeline", Timeline)
+
+// Import Routes and Main App
+import Routes from './routes.js'
+import App from './main.vue'
 
 // Init App
 new Vue({
   el: '#app',
   template: '<app/>',
-  // Init Framework7 by passing parameters here
-  framework7: {
-    root: '#app',
-    material: true,
-    routes: Routes,
-    modalTitle: "Broken Stars"
-  },
   // Register App Component
   components: {
     app: App
-  }
+  },
+  // Our Routes
+  router: Routes
 })

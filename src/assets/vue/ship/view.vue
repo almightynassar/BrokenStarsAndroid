@@ -1,77 +1,89 @@
 <template>
-	<f7-page>
-		<f7-block inset>
-			<f7-block-title class="small-caps content-center-text bottom-border">{{ship.name}}</f7-block-title>
-			<f7-buttons>
-				<f7-button big href="/ship/list/"><f7-icon material="chevron_left"></f7-icon> Back</f7-button>
-				<f7-button big fill color="blue" v-on:click="copyTextArea">Copy</f7-button>
-				<f7-button big fill color="green" v-on:click="onClick">Update</f7-button>
-			</f7-buttons>
+	<v-container grid-list-md>
+		<v-layout row wrap>
+			<!-- NAME & ATTRIBUTES -->
+			<v-flex sm12 md6 lg4>
+				<v-card>
+					<v-card-title class="small-caps">{{ship.name}}</v-card-title>
+					<v-card-text>
+						<div>
+							<div>
+								<div><strong>AI</strong> <help-ship help="ai"></help-ship></div>
+								<div class="pull-right">{{ship.attributes.ai}}</div>
+							</div>
+							<div>
+								<div><strong>Armour</strong> <help-ship help="armour"></help-ship></div>
+								<div class="pull-right">{{ship.attributes.armour}}</div>
+							</div>
+							<div>
+								<div><strong>Bulk</strong> <help-ship help="bulk"></help-ship></div>
+								<div class="pull-right">{{ship.attributes.bulk}}</div>
+							</div>
+							<div>
+								<div><strong>Engine</strong> <help-ship help="engine"></help-ship></div>
+								<div class="pull-right">{{ship.attributes.engine}}</div>
+							</div>
+							<div>
+								<div><strong>Power</strong> <help-ship help="power"></help-ship></div>
+								<div class="pull-right">{{ship.attributes.power}}</div>
+							</div>
+						</div>
+					</v-card-text>
+					<v-card-actions>
+						<v-btn to="/ship/"><v-icon class="white">chevron_left</v-icon> Back</v-btn>
+						<v-btn color="blue" @click="copyTextArea">Copy</v-btn>
+						<v-btn color="green" @click="onClick">Update</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-flex>
+				
 
-			<!-- ATTRIBUTES -->
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Attributes</f7-block-title>
-			<div>
-				<div class="bottom-border">
-					<div><strong>AI</strong> <help-ship-ai></help-ship-ai></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.attributes.ai)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Armour</strong> <help-ship-armour></help-ship-armour></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.attributes.armour)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Bulk</strong> <help-ship-bulk></help-ship-bulk></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.attributes.bulk)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Engine</strong> <help-ship-engine></help-ship-engine></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.attributes.engine)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Power</strong> <help-ship-power></help-ship-power></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.attributes.power)}}</div>
-				</div>
-			</div>
 
 			<!-- SUB-SYSTEMS -->
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Sub-Systems</f7-block-title>
-			<div>
-				<div class="bottom-border">
-					<div><strong>Autopilot</strong> <help-ship-autopilot></help-ship-autopilot></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.systems.autopilot)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>ECM</strong> <help-ship-ecm></help-ship-ecm></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.systems.ecm)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Navigation</strong> <help-ship-navigation></help-ship-navigation></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.systems.navigation)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Operations</strong> <help-ship-operations></help-ship-operations></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.systems.operations)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Repair</strong> <help-ship-repair></help-ship-repair></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.systems.repair)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Sensors</strong> <help-ship-sensors></help-ship-sensors></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.systems.sensors)}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Weapons</strong> <help-ship-weapons></help-ship-weapons></div>
-					<div class="pull-right">{{ship.getDiceCategory(ship.systems.weapons)}}</div>
-				</div>
-			</div>
+			<v-flex sm12 md6 lg4>
+				<v-card>
+					<v-card-title class="small-caps">Sub-Systems</v-card-title>
+					<v-card-text>
+						<div>
+							<div>
+								<div><strong>Autopilot</strong> <help-ship help="autopilot"></help-ship></div>
+								<div class="pull-right">{{ship.systems.autopilot}}</div>
+							</div>
+							<div>
+								<div><strong>ECM</strong> <help-ship help="ecm"></help-ship></div>
+								<div class="pull-right">{{ship.systems.ecm}}</div>
+							</div>
+							<div>
+								<div><strong>Navigation</strong> <help-ship help="navigation"></help-ship></div>
+								<div class="pull-right">{{ship.systems.navigation}}</div>
+							</div>
+							<div>
+								<div><strong>Operations</strong> <help-ship help="operations"></help-ship></div>
+								<div class="pull-right">{{ship.systems.operations}}</div>
+							</div>
+							<div>
+								<div><strong>Repair</strong> <help-ship help="repair"></help-ship></div>
+								<div class="pull-right">{{ship.systems.repair}}</div>
+							</div>
+							<div>
+								<div><strong>Sensors</strong> <help-ship help="sensors"></help-ship></div>
+								<div class="pull-right">{{ship.systems.sensors}}</div>
+							</div>
+							<div>
+								<div><strong>Weapons</strong> <help-ship help="weapons"></help-ship></div>
+								<div class="pull-right">{{ship.systems.weapons}}</div>
+							</div>
+						</div>
+					</v-card-text>
+				</v-card>
+			</v-flex>
 
 			<!-- Fittings -->
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Fittings</f7-block-title>
-			<f7-button big fill round color="blue" v-on:click="openPopup('fittings', uuid)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+			<!-- <f7-block-title>Fittings</f7-block-title>
+			<v-btn round color="blue" @click="openPopup('fittings', uuid)"><f7-icon color="white" material="add"></f7-icon></v-btn>
 			<f7-popup :id="'fittings-popup-'+uuid" :ref="'fittings-popup-'+uuid">
 				<f7-block-title>Add fitting</f7-block-title>
-				<f7-button big fill color="blue" v-on:click="closePopup('fittings', uuid)"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
+				<v-btn color="blue" @click="closePopup('fittings', uuid)"><f7-icon color="white" material="arrow_back"></f7-icon></v-btn>
 				<div class="data-table">
 					<vuetable
 						ref="fittingstable"
@@ -90,7 +102,7 @@
 						@vuetable:cell-clicked="wrapExpandFittings"
 					>
 						<template slot="addFitting" scope="props">
-							<f7-button fill color="green" v-on:click="onPopupAddClick('fittings', props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+							<v-btn color="green" @click="onPopupAddClick('fittings', props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></v-btn>
 						</template>
 					</vuetable>
 				</div>
@@ -117,21 +129,21 @@
 						<p><em>Active: {{props.rowData.active}}, Total: {{props.rowData.total}}</em></p>
 					</template>
 					<template slot="actions" scope="props">
-						<f7-buttons>
-							<f7-button big fill color="red" v-on:click="onRemoveClick('fittings', props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button>
-							<f7-button big v-on:click="onToggleClick('fittings', props.rowData.id, -1)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button>
-							<f7-button big v-on:click="onToggleClick('fittings', props.rowData.id, 1)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button>
-						</f7-buttons>
+						<v-btns>
+							<v-btn color="red" @click="onRemoveClick('fittings', props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></v-btn>
+							<v-btn @click="onToggleClick('fittings', props.rowData.id, -1)"><f7-icon size=16 color="blue" material="remove"></f7-icon></v-btn>
+							<v-btn @click="onToggleClick('fittings', props.rowData.id, 1)"><f7-icon size=16 color="blue" material="add"></f7-icon></v-btn>
+						</v-btns>
 					</template>
 				</vuetable>
-			</div>
+			</div> -->
 
 			<!-- Weapons -->
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Weapons</f7-block-title>
-			<f7-button big fill color="blue" v-on:click="openPopup('weapons', uuid)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+			<!-- <f7-block-title>Weapons</f7-block-title>
+			<v-btn color="blue" @click="openPopup('weapons', uuid)"><f7-icon color="white" material="add"></f7-icon></v-btn>
 			<f7-popup :id="'weapons-popup-'+uuid" :ref="'weapons-popup-'+uuid">
 				<f7-block-title>Add fitting</f7-block-title>
-				<f7-button big fill round color="blue" v-on:click="closePopup('weapons', uuid)"><f7-icon color="white" material="arrow_back"></f7-icon></f7-button>
+				<v-btn round color="blue" @click="closePopup('weapons', uuid)"><f7-icon color="white" material="arrow_back"></f7-icon></v-btn>
 				<div class="data-table">
 					<vuetable
 						ref="weaponstable"
@@ -150,7 +162,7 @@
 						@vuetable:cell-clicked="wrapExpandWeapons"
 					>
 						<template slot="addWeapon" scope="props">
-							<f7-button fill color="green" v-on:click="onPopupAddClick('weapons', props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></f7-button>
+							<v-btn color="green" @click="onPopupAddClick('weapons', props.rowData.id)"><f7-icon color="white" material="add"></f7-icon></v-btn>
 						</template>
 					</vuetable>
 				</div>
@@ -177,88 +189,87 @@
 						<p><em>Active: {{props.rowData.active}}, Total: {{props.rowData.total}}</em></p>
 					</template>
 					<template slot="actions" scope="props">
-						<f7-buttons>
-							<f7-button big fill color="red" v-on:click="onRemoveClick('weapons', props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></f7-button>
-							<f7-button big v-on:click="onToggleClick('weapons', props.rowData.id, -1)"><f7-icon size=16 color="blue" material="remove"></f7-icon></f7-button>
-							<f7-button big v-on:click="onToggleClick('weapons', props.rowData.id, 1)"><f7-icon size=16 color="blue" material="add"></f7-icon></f7-button>
-						</f7-buttons>
+						<v-btns>
+							<v-btn color="red" @click="onRemoveClick('weapons', props.rowData.id)"><f7-icon size=16 color="white" material="delete"></f7-icon></v-btn>
+							<v-btn @click="onToggleClick('weapons', props.rowData.id, -1)"><f7-icon size=16 color="blue" material="remove"></f7-icon></v-btn>
+							<v-btn @click="onToggleClick('weapons', props.rowData.id, 1)"><f7-icon size=16 color="blue" material="add"></f7-icon></v-btn>
+						</v-btns>
 					</template>
 				</vuetable>
-			</div>
+			</div> -->
 
 			<!-- Other Values -->
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Other Values</f7-block-title>
-			<div>
-				<div class="bottom-border">
-					<div><strong>AI Actions</strong> <help-ship-ai-actions></help-ship-ai-actions></div>
-					<div class="pull-right">{{ship.getActionsAI()}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>AI Evade</strong> <help-ship-evade></help-ship-evade></div>
-					<div class="pull-right">{{ship.getEvade()}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Cost</strong> <help-ship-cost></help-ship-cost></div>
-					<div class="pull-right">{{ship.getCost() | currency}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Crew</strong> <help-ship-crew></help-ship-crew></div>
-					<div class="pull-right">{{ship.getCrew()}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Designation</strong></div>
-					<div class="pull-right">{{ship.uuid}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Fuel per FTL</strong> <help-ship-fuel></help-ship-fuel></div>
-					<div class="pull-right">{{ship.getFTL()}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Hardpoints</strong> <help-ship-hardpoints-used></help-ship-hardpoints-used></div>
-					<div class="pull-right">{{ship.getHardpoints() + ship.getHardpointsUsed()}} Free / {{ship.getHardpoints()}} Total</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Hull</strong></div>
-					<div class="pull-right">{{ship.getHull()}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Hull Size</strong> <help-ship-size></help-ship-size></div>
-					<div class="pull-right">{{ship.getSize()}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Integrity</strong> <help-ship-integrity></help-ship-integrity></div>
-					<div class="pull-right">{{ship.getIntegrity()}}</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Power</strong> <help-ship-power-used></help-ship-power-used></div>
-					<div class="pull-right">{{ship.getPower() + ship.getPowerUsed()}} Free / {{ship.getPower()}} Total</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Rank</strong> <help-ship-rank></help-ship-rank></div>
-					<div class="pull-right">{{ship.getRank()}} ({{ship.getPoints()}} points)</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Speed</strong> <help-ship-speed></help-ship-speed></div>
-					<div class="pull-right">{{ship.getAcceleration()}} (<em>{{ ship.getAccelerationConverted() }} m/s</em>)</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Storage</strong> <help-ship-storage-used></help-ship-storage-used></div>
-					<div class="pull-right">{{ship.getBulk() + ship.getBulkUsed()}} Free / {{ship.getBulk()}} Total</div>
-				</div>
-				<div class="bottom-border">
-					<div><strong>Toughness</strong> <help-ship-breech></help-ship-breech></div>
-					<div class="pull-right">{{ship.getToughness()}}</div>
-				</div>
-			</div>
-			<div>
-				<f7-buttons>
-					<f7-button big href="/ship/list/"><f7-icon material="chevron_left"></f7-icon> Back</f7-button>
-					<f7-button big fill color="blue" v-on:click="copyTextArea">Copy</f7-button>
-					<f7-button big fill color="green" v-on:click="onClick">Update</f7-button>
-				</f7-buttons>
-			</div>
-		</f7-block>
-	</f7-page>
+			<v-flex sm12 md6 lg4>
+				<v-card>
+					<v-card-title class="small-caps">Other Values</v-card-title>
+					<v-card-text>
+						<div>
+							<div>
+								<div><strong>AI Actions</strong> <help-ship help="ai-actions"></help-ship></div>
+								<div class="pull-right">{{ship.getActionsAI()}}</div>
+							</div>
+							<div>
+								<div><strong>AI Evade</strong> <help-ship help="evade"></help-ship></div>
+								<div class="pull-right">{{ship.getEvade()}}</div>
+							</div>
+							<div>
+								<div><strong>Cost</strong> <help-ship help="cost"></help-ship></div>
+								<div class="pull-right">{{ship.getCost() | currency}}</div>
+							</div>
+							<div>
+								<div><strong>Crew</strong> <help-ship help="crew"></help-ship></div>
+								<div class="pull-right">{{ship.getCrew()}}</div>
+							</div>
+							<div>
+								<div><strong>Designation</strong></div>
+								<div class="pull-right">{{ship.uuid}}</div>
+							</div>
+							<div>
+								<div><strong>Fuel per FTL</strong> <help-ship help="fuel"></help-ship></div>
+								<div class="pull-right">{{ship.getFTL()}}</div>
+							</div>
+							<div>
+								<div><strong>Hardpoints</strong> <help-ship help="hardpoints-used"></help-ship></div>
+								<div class="pull-right">{{ship.getHardpoints() + ship.getHardpointsUsed()}} Free / {{ship.getHardpoints()}} Total</div>
+							</div>
+							<div>
+								<div><strong>Hull</strong></div>
+								<div class="pull-right">{{ship.getHull()}}</div>
+							</div>
+							<div>
+								<div><strong>Hull Size</strong> <help-ship help="size"></help-ship></div>
+								<div class="pull-right">{{ship.getSize()}}</div>
+							</div>
+							<div>
+								<div><strong>Integrity</strong> <help-ship help="integrity"></help-ship></div>
+								<div class="pull-right">{{ship.getIntegrity()}}</div>
+							</div>
+							<div>
+								<div><strong>Power</strong> <help-ship help="power-used"></help-ship></div>
+								<div class="pull-right">{{ship.getPower() + ship.getPowerUsed()}} Free / {{ship.getPower()}} Total</div>
+							</div>
+							<div>
+								<div><strong>Rank</strong> <help-ship help="rank"></help-ship></div>
+								<div class="pull-right">{{ship.getRank()}} ({{ship.getPoints()}} points)</div>
+							</div>
+							<div>
+								<div><strong>Speed</strong> <help-ship help="speed"></help-ship></div>
+								<div class="pull-right">{{ship.getAcceleration()}} (<em>{{ ship.getAccelerationConverted() }} m/s</em>)</div>
+							</div>
+							<div>
+								<div><strong>Storage</strong> <help-ship help="storage-used"></help-ship></div>
+								<div class="pull-right">{{ship.getBulk() + ship.getBulkUsed()}} Free / {{ship.getBulk()}} Total</div>
+							</div>
+							<div>
+								<div><strong>Toughness</strong> <help-ship help="breech"></help-ship></div>
+								<div class="pull-right">{{ship.getToughness()}}</div>
+							</div>
+						</div>
+					</v-card-text>
+				</v-card>
+			</v-flex>
+		</v-layout>			
+	</v-container>
 </template>
 
 <script>
@@ -272,26 +283,24 @@
 		data() {
 			return {
 				ship: this.$bsFactory.cloneShip(),
-				fittings: this.$bsFactory.getTemplate('fittings'),
-				weapons: this.$bsFactory.getTemplate("weapons"),
 			}
 		},
 		methods: {
 			/**
 			 * Reset the table and inject the new information
 			 */
-			updateTable(type) {
-				this.$refs["ship"+type+"table"].setData(this.ship[type])
-			},
+			// updateTable(type) {
+			// 	this.$refs["ship"+type+"table"].setData(this.ship[type])
+			// },
 			/**
 			 * Toggle Pop-up status
 			 */
-			openPopup(type, id) {
-				this.$refs[type + '-popup-' + id].open()
-			},
-			closePopup(type, id) {
-				this.$refs[type + '-popup-' + id].close()
-			},
+			// openPopup(type, id) {
+			// 	this.$refs[type + '-popup-' + id].open()
+			// },
+			// closePopup(type, id) {
+			// 	this.$refs[type + '-popup-' + id].close()
+			// },
 			/**
 			 * Update ship information on the database
 			 */
@@ -311,66 +320,66 @@
 			/**
 			 * Add Fitting or Weapon to the Ship
 			 */
-			onPopupAddClick(type, id) {
-				if ( type == "fittings") {
-					let fitting = this.fittings.search(id)
-					if (fitting) {
-						this.ship.addFitting(fitting, 1)
-					}
-				} else if ( type === "weapons" ) {
-					let weapon = this.weapons.search(id)
-					if (weapon) {
-						this.ship.addWeapon(weapon, 1)
-					}
-				}
-				this.updateTable(type)
-			},
+			// onPopupAddClick(type, id) {
+			// 	if ( type == "fittings") {
+			// 		let fitting = this.fittings.search(id)
+			// 		if (fitting) {
+			// 			this.ship.addFitting(fitting, 1)
+			// 		}
+			// 	} else if ( type === "weapons" ) {
+			// 		let weapon = this.weapons.search(id)
+			// 		if (weapon) {
+			// 			this.ship.addWeapon(weapon, 1)
+			// 		}
+			// 	}
+			// 	this.updateTable(type)
+			// },
 			/**
 			 * Toggles on / off status for fittings / weapons
 			 */
-			onToggleClick(type, id, num) {
-				if ( type == "fittings") {
-					let fitting = this.fittings.search(id)
-					if (fitting) {
-						this.ship.activateFitting(fitting, num)
-					}
-				} else if ( type === "weapons" ) {
-					let weapon = this.weapons.search(id)
-					if (weapon.length == 1) {
-						this.ship.activateWeapon(weapon, num)
-					}
-				}
-				this.updateTable(type)
-			},
+			// onToggleClick(type, id, num) {
+			// 	if ( type == "fittings") {
+			// 		let fitting = this.fittings.search(id)
+			// 		if (fitting) {
+			// 			this.ship.activateFitting(fitting, num)
+			// 		}
+			// 	} else if ( type === "weapons" ) {
+			// 		let weapon = this.weapons.search(id)
+			// 		if (weapon.length == 1) {
+			// 			this.ship.activateWeapon(weapon, num)
+			// 		}
+			// 	}
+			// 	this.updateTable(type)
+			// },
 			/**
 			 * Remove a fitting / weapon
 			 */
-			onRemoveClick(type, id) {
-				if ( type == "fittings") {
-					let fitting = this.fittings.search(id)
-					if (fitting) {
-						this.ship.removeFitting(fitting, 1)
-					}
-				} else if ( type === "weapons" ) {
-					let weapon = this.weapons.search(id)
-					if (weapon) {
-						this.ship.removeWeapon(weapon, 1)
-					}
-				}
-				this.updateTable(type)
-			},
+			// onRemoveClick(type, id) {
+			// 	if ( type == "fittings") {
+			// 		let fitting = this.fittings.search(id)
+			// 		if (fitting) {
+			// 			this.ship.removeFitting(fitting, 1)
+			// 		}
+			// 	} else if ( type === "weapons" ) {
+			// 		let weapon = this.weapons.search(id)
+			// 		if (weapon) {
+			// 			this.ship.removeWeapon(weapon, 1)
+			// 		}
+			// 	}
+			// 	this.updateTable(type)
+			// },
 			/**
 			 * Expand Detail Rows
 			 */
-			onShipViewExpandRow(type, id) {
-				let index = this.$refs[type+"table"].visibleDetailRows.indexOf(id)
-				this.$refs[type+"table"].visibleDetailRows = []
-				if (index == -1) {
-					this.$refs[type+"table"].showDetailRow(id)
-				}
-			},
-			wrapExpandFittings (data, field, event) {  if (field.name === "name" ) { this.onShipViewExpandRow('fittings', data.id) } },
-			wrapExpandWeapons (data, field, event) { if (field.name === "name" ) { this.onShipViewExpandRow('weapons', data.id) } },
+			// onShipViewExpandRow(type, id) {
+			// 	let index = this.$refs[type+"table"].visibleDetailRows.indexOf(id)
+			// 	this.$refs[type+"table"].visibleDetailRows = []
+			// 	if (index == -1) {
+			// 		this.$refs[type+"table"].showDetailRow(id)
+			// 	}
+			// },
+			// wrapExpandFittings (data, field, event) {  if (field.name === "name" ) { this.onShipViewExpandRow('fittings', data.id) } },
+			// wrapExpandWeapons (data, field, event) { if (field.name === "name" ) { this.onShipViewExpandRow('weapons', data.id) } },
 			/**
 			 * Copy the Ship object to the user's clipboard
 			 */
@@ -403,8 +412,8 @@
 						if ( self.uuid === resultSet.result[x].uuid ) {
 							console.log( 'Found ship!')
 							self.ship.hydrate(resultSet.result[x])
-							self.updateTable('fittings')
-							self.updateTable('weapons')
+							// self.updateTable('fittings')
+							// self.updateTable('weapons')
 							break;
 						}
 					}

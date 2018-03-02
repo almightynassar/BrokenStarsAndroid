@@ -71,7 +71,10 @@ export default {
         }
         return this.powers.na;
     },
-    toArray() {
+    /** 
+     * Converts it into an array for select dropdowns
+     */
+    makeArray() {
         return _.values(_.mapValues(this.powers, function(value, key) {
             value['id'] = key;
             return value; 

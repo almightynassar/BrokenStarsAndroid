@@ -1,11 +1,10 @@
 <template>
-	<f7-page>
-		<f7-block inset>
-			<f7-block-title class="content-center-text bottom-border small-caps">Quest Generator</f7-block-title>
+	<v-card flat>
+    	<v-card-text>
 			<p>Use this generator to help seed ideas for quests and missions. The generator will give you key words from which you can piece together an exciting adventure!</p>
 			
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Starter <help-quest-starter></help-quest-starter></f7-block-title>
-			<ol>
+			<p><strong class="small-caps">Starter</strong> <help-quest help="starter"></help-quest></p>
+			<ol class="proper-list">
 				<li v-for="(n, i) in values.starter" :key="i">
 					{{n.name | capitalize}}
 					<div v-if="n.traits.length > 0">
@@ -16,8 +15,8 @@
 				</li>
 			</ol>
 
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Type <help-quest-type></help-quest-type></f7-block-title>
-			<ul>
+			<p><strong class="small-caps">Type</strong> <help-quest help="type"></help-quest></p>
+			<ul class="proper-list">
 				<li>
 					{{values.quest.name | capitalize}} 
 					<div v-if="!!values.quest.traits">
@@ -28,8 +27,8 @@
 				</li>
 			</ul>
 
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Neutral <help-quest-neutral></help-quest-neutral></f7-block-title>
-			<ol>
+			<p><strong class="small-caps">Neutral</strong> <help-quest help="neutral"></help-quest></p>
+			<ol class="proper-list">
 				<li v-for="(n, i) in values.neutral" :key="i">
 					{{n.name | capitalize}}
 					<div v-if="n.traits.length > 0">
@@ -40,8 +39,8 @@
 				</li>
 			</ol>
 
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Antagonists <help-quest-antagonist></help-quest-antagonist></f7-block-title>
-			<ol>
+			<p><strong class="small-caps">Antagonists</strong> <help-quest help="antagonist"></help-quest></p>
+			<ol class="proper-list">
 				<li v-for="(n, i) in values.antagonists" :key="i">
 					{{n.name | capitalize}} 
 					<div v-if="n.traits.length > 0">
@@ -52,14 +51,14 @@
 				</li>
 			</ol>
 
-			<f7-block-title class="content-center-text color-lightblue bottom-border">Locations <help-quest-location></help-quest-location></f7-block-title>
-			<ol>
+			<p><strong class="small-caps">Locations</strong> <help-quest help="location"></help-quest></p>
+			<ol class="proper-list">
 				<li v-for="(n, i) in values.locations" :key="i">{{n | capitalize}}</li>
 			</ol>
 
-			<f7-button big fill color="blue" v-on:click="regenerate()"><f7-icon color="white" material="refresh"></f7-icon></f7-button>
-		</f7-block>
-	</f7-page>
+			<v-btn color="blue" @click="regenerate()"><v-icon color="white">refresh</v-icon></v-btn>
+    	</v-card-text>
+	</v-card>
 </template>
 
 <script>

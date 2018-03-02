@@ -1,11 +1,33 @@
 <template>
-	<f7-block inset>
-		<f7-block-title class="content-center-text bottom-border small-caps">Import Ship</f7-block-title>
-		<textarea style="height: 50vh;" v-model="textual"></textarea>
-		<f7-buttons>
-			<f7-button big fill color="blue" v-on:click="importShip">Import</f7-button>
-		</f7-buttons>
-	</f7-block>
+	<v-card flat>
+    	<v-card-text>
+			<v-text-field
+				v-model="textual"
+				multi-line
+				textarea
+			></v-text-field>
+			<!-- <textarea style="height: 50vh;" v-model="textual"></textarea> -->
+			<v-btn dark color="blue" @click="importShip">Import</v-btn>
+    	</v-card-text>
+		<v-snackbar
+      		:timeout="3000"
+			color="error"
+			:vertical="true"
+			v-model="snackbar.error"
+		>
+			ERROR: Ship could not be imported
+			<v-btn flat @click.native="snackbar.error = false">Close</v-btn>
+		</v-snackbar>
+		<v-snackbar
+			:timeout="3000"
+			color="success"
+			:vertical="true"
+			v-model="snackbar.success"
+		>
+			Ship was imported
+			<v-btn flat @click.native="snackbar.success = false">Close</v-btn>
+		</v-snackbar>
+	</v-card>
 </template>
 
 <script>
@@ -14,6 +36,10 @@
 			return {
 				textual: "",
 				ship: this.$bsFactory.cloneShip(),
+				snackbar: {
+					error: false,
+					success: false
+				},
 			}
 		},
 		computed: {
@@ -30,10 +56,10 @@
 				let resultSet = store.put(data);
 				let self = this;
 				resultSet.onsuccess = function() {
-					self.$f7.alert(self.ship.name+" has been imported")
+					self.snackbar.success = true
 				};
 				resultSet.onerror = function() {
-					self.$f7.alert("ERROR: "+self.ship.name+" could not be imported")
+					self.snackbar.error = true
 				};
 			}
 		}

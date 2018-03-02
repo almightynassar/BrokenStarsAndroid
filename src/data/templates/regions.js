@@ -1,20 +1,24 @@
+import Governance from "./region/governance"
+import Nations from "./region/nations"
+import Planets from "./region/planets"
 import Stars from "./region/stars"
 import Tags from "./region/tags"
 export default {
-  tags: Tags,
+  // Array of sectors (imported from files in src/data/regions)
   sectors: [],
+  // Governance information
+  governance: Governance,
+  // Sector information
+  nations: Nations,
+  // Planet information
+  planets: Planets,
   // Star information
   stars: Stars,
+  // Tag information
+  tags: Tags,
   // Categories
   categories: {
     sector: {
-      control: {
-        "na": "No central control of the sector",
-        "us": "United Systems",
-        "ind": "Independant sector governance",
-        "ssr": "Sakeena Stellar Republic",
-        "gq": "Ghan Queendom"
-      },
       zone: {
         "red": "Highly dangerous. Do not travel under any circumstances.",
         "amber": "Significant risk. Reconsider your need to travel.",

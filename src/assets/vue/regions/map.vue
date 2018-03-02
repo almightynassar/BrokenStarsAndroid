@@ -1,60 +1,125 @@
 <template>
-  <f7-page>
-    <f7-block>
-      <f7-block-title class="content-center-text bottom-border small-caps">Sector Map</f7-block-title>
-      <div class="grid" v-bind:style="{'height': viewHeight + 'px', 'width': viewWidth + 'px','display': 'block', 'margin': 'auto' }"></div>
+  <v-card flat>
+    <v-card-text>
+      <div class="grid" :style="{'height': viewHeight + 'px', 'width': viewWidth + 'px','display': 'block', 'margin': 'auto' }"></div>
       <!-- Directional buttons -->
-      <f7-block inset>
-        <f7-buttons>
-          <f7-button v-on:click="updatePage(-1,-1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_upward"></f7-icon></f7-button>
-          <f7-button v-on:click="updatePage(0,-1)"><f7-icon material="arrow_upward"></f7-icon></f7-button>
-          <f7-button v-on:click="updatePage(1,-1)"><f7-icon style="transform: rotate(45deg);" material="arrow_upward"></f7-icon></f7-button>
-        </f7-buttons>
-        <f7-buttons>
-          <f7-button v-on:click="updatePage(-1,0)"><f7-icon material="arrow_back"></f7-icon></f7-button>
-          <f7-button v-on:click="resetPage()"><f7-icon material="center_focus_strong"></f7-icon></f7-button>
-          <f7-button v-on:click="updatePage(1,0)"><f7-icon material="arrow_forward"></f7-icon></f7-button>
-        </f7-buttons>
-        <f7-buttons>
-          <f7-button v-on:click="updatePage(-1,1)"><f7-icon style="transform: rotate(45deg);" material="arrow_downward"></f7-icon></f7-button>
-          <f7-button v-on:click="updatePage(0,1)"><f7-icon material="arrow_downward"></f7-icon></f7-button>
-          <f7-button v-on:click="updatePage(1,1)"><f7-icon style="transform: rotate(-45deg);" material="arrow_downward"></f7-icon></f7-button>
-        </f7-buttons>
-        <!-- Information for the map overlay -->
-        <f7-grid v-show="overlay == 'control'">
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">United Systems</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Sakeena Stellar Republic</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Independent Control</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(94, 38, 5, 0.5);">Ghan Queendom</f7-col>
-        </f7-grid>
-        <f7-grid v-show="overlay === 'zone'">
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(63, 255, 36, 0.5);">Safe</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">Low Risk</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Medium Risk</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Dangerous</f7-col>
-        </f7-grid>
-        <f7-grid v-show="overlay === 'trade'">
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(63, 255, 36, 0.5);">Very High Trade</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(35, 35, 142, 0.5);">High Trade</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(170, 221, 0, 0.5);">Moderate Trade</f7-col>
-          <f7-col class="grid-text" width="50" tablet-width="25" style="background-color: rgba(204, 17, 0, 0.5);">Low Trade</f7-col>
-        </f7-grid>
-        <!-- Controls for the map overlay -->
-        <div class="custom-radio">
-          <input id="overlay-control" type="radio" @change="changeOverlay('control')" @click="changeOverlay('control')" :checked="overlay == 'control'">
-          <label for="overlay-control">Control</label>
-        </div>
-        <div class="custom-radio">
-          <input id="overlay-zone" type="radio" @change="changeOverlay('zone')" @click="changeOverlay('zone')" :checked="overlay == 'zone'">
-          <label for="overlay-zone">Zone</label>
-        </div>
-        <div class="custom-radio">
-          <input id="overlay-trade" type="radio" @change="changeOverlay('trade')" @click="changeOverlay('trade')" :checked="overlay == 'trade'">
-          <label for="overlay-trade">Trade</label>
-        </div>
-      </f7-block>
-    </f7-block>
-  </f7-page>
+      <p>Page X {{page.x}} - Page Y {{page.y}}</p>
+      <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs4>
+            <v-btn @click="updatePage(-1,-1)"><v-icon style="transform: rotate(-45deg);">arrow_upward</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="updatePage(0,-1)"><v-icon>arrow_upward</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="updatePage(1,-1)"><v-icon style="transform: rotate(45deg);">arrow_upward</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="updatePage(-1,0)"><v-icon>arrow_back</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="resetPage()"><v-icon>center_focus_strong</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="updatePage(1,0)"><v-icon>arrow_forward</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="updatePage(-1,1)"><v-icon style="transform: rotate(45deg);">arrow_downward</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="updatePage(0,1)"><v-icon>arrow_downward</v-icon></v-btn>
+          </v-flex>
+          <v-flex xs4>
+            <v-btn @click="updatePage(1,1)"><v-icon style="transform: rotate(-45deg);">arrow_downward</v-icon></v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <!-- Information for the map overlay -->
+      <v-container grid-list-md text-xs-center>
+        <v-layout row wrap>
+          <v-flex xs3
+            v-show="overlay == 'control'" 
+            :style="'background-color: '+this.colourControl('us')+';'"
+          >
+            <span>United Systems</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'control'"
+            :style="'background-color: '+this.colourControl('ssr')+';'"
+          >
+            <span>Sakeena Stellar Republic</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'control'"
+            :style="'background-color: '+this.colourControl('na')+';'"
+          >
+            <span>Independent Control</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'control'"
+            :style="'background-color: '+this.colourControl('gq')+';'"
+          >
+            <span>Ghan Queendom</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'zone'"
+            style="background-color: rgba(63, 255, 36, 0.5);"
+          >
+            <span>Safe</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'zone'"
+            style="background-color: rgba(35, 35, 142, 0.5);"
+          >
+            <span>Low Risk</span>
+          </v-flex>
+          <v-flex xs3 
+            v-show="overlay == 'zone'"
+            style="background-color: rgba(170, 221, 0, 0.5);"
+          >
+            <span>Medium Risk</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'zone'"
+            style="background-color: rgba(204, 17, 0, 0.5);"
+          >
+            <span>Dangerous</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'trade'"
+            style="background-color: rgba(63, 255, 36, 0.5);"
+          >
+            <span>Very High Trade</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'trade'"
+            style="background-color: rgba(35, 35, 142, 0.5);"
+          >
+            <span>High Trade</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'trade'"
+            style="background-color: rgba(170, 221, 0, 0.5);"
+          >
+            <span>Moderate Trade</span>
+          </v-flex>
+          <v-flex xs3
+            v-show="overlay == 'trade'"
+            style="background-color: rgba(204, 17, 0, 0.5);"
+          >
+            <span>Low Trade</span>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <!-- Controls for the map overlay -->
+      <v-radio-group v-model="overlay" :mandatory="false">
+        <v-radio label="Control" value="control"></v-radio>
+        <v-radio label="Zone" value="zone"></v-radio>
+        <v-radio label="Trade" value="trade"></v-radio>
+      </v-radio-group>
+    </v-card-text>
+  </v-card>
 </template>
 <script>
   import { Grid, Point, HEX_ORIENTATIONS } from 'honeycomb-grid'
@@ -122,6 +187,10 @@
       },
 			viewHeight() {
         return this.partialViewHeight + this.hexInnerRadius
+      },
+      // Nation Information
+      nations() {
+        return this.regions.nations.powers
       }
 		},
 		methods: {
@@ -273,7 +342,7 @@
             // Add event handlers to the group
             group.on('click', function() {
               let localRegion = region
-              self.$router.loadPage('/regions/sector/view/'+region.x+'/'+region.y)
+              self.$router.push('/regions/sector/view/'+region.x+'/'+region.y)
             })
             // Some trade stuff
             if (this.overlay == "trade") {
@@ -327,22 +396,20 @@
         deep: true
       }
     },
-		created() {
+    mounted() {
       // Initialise the grid interface
       this.grid = Grid({
 				size: this.hex.size,
 				orientation: HEX_ORIENTATIONS.FLAT
       })
-    },
-    mounted() {
       // Start up our SVG library
       this.draw = SVG(document.getElementsByClassName("grid")[0])
       // Set the page defaults for the map
       if (this.$route.query.x) {
-        this.page.x = Math.ceil((this.$route.query.x - this.hex.x) / 2) - 1
+        this.page.x = Math.round(this.$route.query.x / 2)
       }
       if (this.$route.query.y) {
-        this.page.y = Math.floor((this.$route.query.y - this.hex.y - (this.page.x * -1)) /2)
+        this.page.y = Math.ceil(0.5 * ((this.$route.query.y - 1) + this.page.x + 1))
       }
       // Draw the initial grid
       this.makeHexGrid()
