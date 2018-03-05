@@ -1,57 +1,99 @@
 <template>
-  <f7-block>
-    <div class="data-table">
-      <vuetable
-        ref="shipsummarytable"
-        :api-mode="false"
-        :data="ships"
-        :fields="fields"
-        track-by="uuid"
-        detail-row-component="detail-row-ship-summary"
+  <v-card flat>
+    <v-card-text>
+      <v-text-field
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+        v-model="search"
+      ></v-text-field>
+      <v-data-table
+        :headers="fields"
+        :items="ships"
+        :search="search"
+        hide-actions
+        item-key="name"
       >
-        <template slot="details" scope="props" @click="onExpandRow(props.rowData.uuid)">
-          <p><strong>{{ props.rowData.name }}</strong></p>
-          <p><em>{{ props.rowData.getRank() }} {{ props.rowData.getHull() }}</em></p>
+        <template slot="items" slot-scope="props">
+          <tr @click="props.expanded = !props.expanded">
+            <td>{{ props.item.name | capitalize }}</td>
+            <td>{{ props.item.getRank() }} </td>
+            <td>{{ props.item.getHull() }}</td>
+          </tr>
         </template>
-        <template slot="expand" scope="props">
-          <f7-buttons>
-            <f7-button fill color="red" v-on:click="onDeleteConfirm(props.rowData.uuid)"><f7-icon color="white" material="delete"></f7-icon></f7-button>
-            <f7-button :href="'/ship/view/'+props.rowData.uuid"><f7-icon material="chevron_right"></f7-icon></f7-button>
-          </f7-buttons>
+        <template slot="expand" slot-scope="props">
+          <div>
+            <detail-row-ship-summary :ship="props.item"></detail-row-ship-summary>
+            <v-dialog v-model="dialog" persistent>
+              <v-btn dark color="red" slot="activator"><v-icon color="white">delete</v-icon> Delete</v-btn>
+              <v-card>
+                <v-card-title class="headline">Are you sure you want to delete?</v-card-title>
+                <v-card-text>This will permanently delete the ship from the system.</v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="red darken-1" flat @click.native="dialog = false">No</v-btn>
+                  <v-btn color="green darken-1" flat @click.native="onDeleteRow(props.item.uuid)">Yes</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-btn dark color="blue" :to="'/ship/view/'+props.item.uuid"><v-icon color="white">keyboard_arrow_right</v-icon> View</v-btn>
+          </div>
         </template>
-      </vuetable>
-    </div>
-  </f7-block>
+      </v-data-table>
+    </v-card-text>
+    <v-snackbar
+      :timeout="3000"
+      color="error"
+      :vertical="true"
+      v-model="snackbar.error"
+    >
+      ERROR: Ship was not deleted
+      <v-btn flat @click.native="snackbar.error = false">Close</v-btn>
+    </v-snackbar>
+    <v-snackbar
+      :timeout="3000"
+      color="success"
+      :vertical="true"
+      v-model="snackbar.success"
+    >
+      Ship was deleted
+      <v-btn flat @click.native="snackbar.success = false">Close</v-btn>
+    </v-snackbar>
+  </v-card>
 </template>
 <script>
-  import VueShipView from './view.vue'
   export default {
-    components: {
-      'vue-ship-view': VueShipView
-    },
     data() {
       return {
         search: "",
+        dialog: false,
         ships: [],
         fullShipList: [],
         fields: [
           {
-            name: '__slot:details',
-            title: 'Details'
+            text: 'Name',
+            align: 'left',
+            sortable: true,
+            value: 'name'
           },
           {
-            name: '__slot:expand',
-            title: 'Actions'
+            text: 'Rank',
+            align: 'left',
+            sortable: true,
+            value: 'rank'
+          },
+          {
+            text: 'Hull',
+            align: 'left',
+            sortable: true,
+            value: 'hull'
           }
-        ]
-      }
-    },
-    watch: {
-      ships: {
-        handler(value) {
-          this.updateTable()
+        ],
+        snackbar: {
+          error: false,
+          success: false
         },
-        deep: true
       }
     },
     methods: {
@@ -81,43 +123,20 @@
         }
       },
       /**
-       * Reset the table and inject the new ship information
-       */
-      updateTable() {
-        this.$refs.shipsummarytable.resetData()
-        this.$refs.shipsummarytable.setData(this.ships)
-      },
-      /**
-       * Expands our Detail Row
-       */
-      onExpandRow (uuid) {
-        let index = this.$refs.shipsummarytable.visibleDetailRows.indexOf(uuid)
-        this.$refs.shipsummarytable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.shipsummarytable.showDetailRow(uuid)
-        }
-      },
-      /**
        * Triggers the deletion process
        */
-      onDeleteConfirm(uuid) {
-        let self = this
-        this.$f7.confirm(
-            'Are you sure you want to delete?',
-            function() { self.onDeleteRow(uuid) }
-        )
-      },
       onDeleteRow(uuid) {
         let self = this
         let store = this.$bsFactory.getShipStore()
         let resultSet = store.delete(uuid)
         resultSet.onsuccess = function() {
-          self.$f7.alert("Ship: "+uuid+" has been deleted" )
+            self.snackbar.success = true
         };
         resultSet.onerror = function() {
-          self.$f7.alert("ERROR: "+uuid+" could not be deleted" )
+            self.snackbar.error = true
         };
         this.loadShips()
+        this.dialog = false
       }
     },
     created() {

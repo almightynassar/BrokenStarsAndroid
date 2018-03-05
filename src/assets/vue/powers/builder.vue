@@ -178,7 +178,7 @@
 			 */
 			randomPower() {
 				// Random Ship Name
-				let nameKeys = Object.keys(this.names)
+				let nameKeys = _.keys(this.names)
 				let nameRandom = (nameKeys.length * Math.random() << 0)
 				this.power.name = this.names[ nameKeys[nameRandom] ].name()
 				// Random Art and Specialisation

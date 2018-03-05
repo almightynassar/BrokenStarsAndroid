@@ -16,6 +16,11 @@ export default {
       type: String,
       default: "sector"
     }
+  },
+  data() {
+    return {
+      show: false
+    }
   }
 }
 </script>

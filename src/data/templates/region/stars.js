@@ -303,8 +303,14 @@ export default {
     mass: function(s, t, y) {
         return this.massRelative(s, t, y) * (1.989 * Math.pow(10,30))
     },
-    starDetails: function(s, t, y) {
+    /**
+     * Outputs an object with all the relevant star information
+     */
+    details: function(s, t, y) {
         return {
+            s: s,
+            t: t,
+            y: y,
             class: s+t+y,
             type: this.class[s].colour + " " + this.size[y].name,
             description: this.class[s].description,
@@ -316,5 +322,18 @@ export default {
             mass: this.mass(s, t, y).toPrecision(4),
             massRelative: this.massRelative(s, t, y)
         }
-    }
+    },
+    /**
+     * Outputs target information for select controls
+     */
+    makeArray(target) {
+        if (['class',
+            'size'].includes(target)) {
+            return _.values(_.mapValues(this[target], function(value, key) {
+                value['id'] = key;
+                return value; 
+            }))
+        }
+        return []
+    },
 }

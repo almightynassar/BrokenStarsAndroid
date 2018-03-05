@@ -1,6 +1,6 @@
 <template>
   <f7-block inset>
-    <f7-block-title  class="content-center-text bottom-border small-caps">Hull analysis</f7-block-title>
+    <f7-block-title  class="small-caps">Hull analysis</f7-block-title>
     <p>This page allows you to compare different hull types and play with different attributes and sub-systems. This is useful to compare the different hulls against one another.</p>
     
     <!-- TABLE -->
@@ -35,7 +35,7 @@
     </div>
 
     <!-- DATAPOINT -->
-    <f7-block-title class="content-center-text color-lightblue bottom-border">Datapoint</f7-block-title>
+    <f7-block-title>Datapoint</f7-block-title>
     <select v-model="showData">
       <option value='aiActions' key='aiActions'>AI Actions</option>
       <option value='aiEvade' key='aiEvade'>AI Evade</option>
@@ -54,56 +54,56 @@
     </select>
 
     <!-- ATTRIBUTES -->
-    <f7-block-title class="content-center-text color-lightblue bottom-border">Attributes</f7-block-title>
+    <f7-block-title>Attributes</f7-block-title>
     <div class="data-table custom-table">
       <table>
         <tr>
           <td>
-              <strong>AI</strong> <help-ship-ai></help-ship-ai>
+              <strong>AI</strong> <help-ship help="ai"></help-ship>
           </td>
           <td>
             <select v-model="attributes.ai">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'ai-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Armour</strong> <help-ship-armour></help-ship-armour>
+            <strong>Armour</strong> <help-ship help="armour"></help-ship>
           </td>
           <td>
             <select v-model="attributes.armour">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'armour-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'armour-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Bulk</strong> <help-ship-bulk></help-ship-bulk>
+            <strong>Bulk</strong> <help-ship help="bulk"></help-ship>
           </td>
           <td>
             <select v-model="attributes.bulk">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'bulk-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'bulk-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Engine</strong> <help-ship-engine></help-ship-engine>
+            <strong>Engine</strong> <help-ship help="engine"></help-ship>
           </td>
           <td>
             <select v-model="attributes.engine">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'engine-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'engine-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Power</strong> <help-ship-power></help-ship-power>
+            <strong>Power</strong> <help-ship help="power"></help-ship>
           </td>
           <td>
             <select v-model="attributes.power">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ai-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'ai-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
@@ -111,76 +111,76 @@
     </div>
 
     <!-- SUB-SYSTEMS -->
-    <f7-block-title class="content-center-text color-lightblue bottom-border">Sub-Systems</f7-block-title>
+    <f7-block-title>Sub-Systems</f7-block-title>
     <div class="data-table custom-table">
       <table>
         <tr>
           <td>
-            <strong>Autopilot</strong> <help-ship-autopilot></help-ship-autopilot>
+            <strong>Autopilot</strong> <help-ship help="autopilot"></help-ship>
           </td>
           <td>
             <select v-model="systems.autopilot">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'autopilot-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'autopilot-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>ECM</strong> <help-ship-ecm></help-ship-ecm>
+            <strong>ECM</strong> <help-ship help="ecm"></help-ship>
           </td>
           <td>
             <select v-model="systems.ecm">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'ecm-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'ecm-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Navigation</strong> <help-ship-navigation></help-ship-navigation>
+            <strong>Navigation</strong> <help-ship help="navigation"></help-ship>
           </td>
           <td>
             <select v-model="systems.navigation">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'navigation-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'navigation-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Operations</strong> <help-ship-operations></help-ship-operations>
+            <strong>Operations</strong> <help-ship help="operations"></help-ship>
           </td>
           <td>
             <select v-model="systems.operations">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'operations-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'operations-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Repair</strong> <help-ship-repair></help-ship-repair>
+            <strong>Repair</strong> <help-ship help="repair"></help-ship>
           </td>
           <td>
             <select v-model="systems.repair">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'repair-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'repair-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Sensors</strong> <help-ship-sensors></help-ship-sensors>
+            <strong>Sensors</strong> <help-ship help="sensors"></help-ship>
           </td>
           <td>
             <select v-model="systems.sensors">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'sensors-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'sensors-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
         <tr>
           <td>
-            <strong>Weapons</strong> <help-ship-weapons></help-ship-weapons>
+            <strong>Weapons</strong> <help-ship help="weapons"></help-ship>
           </td>
           <td>
             <select v-model="systems.weapons">
-              <option v-for="(n,i) in temp.categories.dice" :value="i" :key="'weapons-' + i">{{n}}</option>
+              <option v-for="(n,i) in temp.dice.categories" :value="i" :key="'weapons-' + i">{{n}}</option>
             </select>
           </td>
         </tr>
@@ -304,7 +304,7 @@
       }
     },
     mounted() {
-      for (var index = 0; index < this.temp.categories.hulls.length; index++) {
+      for (var index = 0; index < this.temp.hull.categories.length; index++) {
         var s = this.$bsFactory.cloneShip();
         s.setHull(index);
         this.ships.push(s);

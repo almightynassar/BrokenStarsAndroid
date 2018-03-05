@@ -15,7 +15,7 @@
       </div>
       <div>
         <div><strong>Star</strong></div>
-        <div class="pull-right">{{starDetails.type}} ({{ starDetails.class }}) <help-generic :popover="'star-details'">{{starDetails.description}}</help-generic></div>
+        <div class="pull-right">{{details.type}} ({{ details.class }}) <help-generic :popover="'star-details'">{{details.description}}</help-generic></div>
       </div>
     </v-card-text>
   </v-card>
@@ -34,8 +34,8 @@
 	    }
     },
     computed: {
-        starDetails() {
-            return this.regions.stars.starDetails(this.sector.star.spectrum, this.sector.star.temperature, this.sector.star.size)
+        details() {
+            return this.regions.stars.details(this.sector.star.spectrum, this.sector.star.temperature, this.sector.star.size)
         }
     },
   }

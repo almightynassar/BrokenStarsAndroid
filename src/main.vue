@@ -1,95 +1,144 @@
 <template>
-	<!-- App -->
-	<div id="app">
-		
-		<!-- Statusbar -->
-		<f7-statusbar></f7-statusbar>
-		
-		<!-- Left Panel -->
-		<f7-panel left reveal layout="dark">
-			<f7-view id="main-menu-view" navbar-through :dynamic-navbar="true">
-				<f7-navbar title="Main Menu"></f7-navbar>
-				<f7-pages>
-					<f7-page>
-						<f7-block-title>Spacecraft</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/ship/list/" title="Ships" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/ship/details/" title="Extra" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-						<f7-block-title>Sectors</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/regions/list/" title="Sector List" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/regions/map/" title="Sector Map" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-						<f7-block-title>Other</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/cards/" title="Card List" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/powers/list/" title="Powers" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-					</f7-page>
-				</f7-pages>
-			</f7-view>
-		</f7-panel>
-		
-		<!-- Right Panel -->
-		<f7-panel right cover layout="dark">
-			<f7-view id="options-menu-view" navbar-through :dynamic-navbar="true">
-				<f7-navbar title="Library" sliding></f7-navbar>
-				<f7-pages>
-					<f7-page>
-						<f7-block-title>Information</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/setting/" title="The Setting" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-						<f7-block-title>Rules</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/rules/ship" title="Ship" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-						<f7-block-title>Generators</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/generator/name/" title="Name Generator" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/generator/quest/" title="Quest Generator" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/generator/region/" title="Region Generator" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-						<f7-block-title>Credits</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/about/" title="About" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-					</f7-page>
-				</f7-pages>
-			</f7-view>
-		</f7-panel>
-		
-		<!-- Main Views -->
-		<f7-views>
-			<f7-view id="main-view" navbar-through :dynamic-navbar="true" :reloadPages="true" main>
-				<!-- Navbar -->
-				<f7-navbar>
-					<f7-nav-left>
-						<f7-link icon="icon-bars" open-panel="left"></f7-link>
-					</f7-nav-left>
-					<f7-nav-center sliding>Broken Stars</f7-nav-center>
-					<f7-nav-right>
-						<f7-link icon="icon-bars" open-panel="right"></f7-link>
-					</f7-nav-right>
-				</f7-navbar>
-				<!-- Pages -->
-				<f7-pages>
-					<f7-page>
-						<f7-block>
-							<f7-block-title class="content-center-text color-lightblue bottom-border small-caps">Welcome to <em>Broken Stars</em>!</f7-block-title>
-							<f7-block inset>
-								<p><em>Broken Stars</em> is a homebrew sci-fi campaign setting that is inspired by various tabletop rulebooks (<em>see our <f7-link href="/about/">About</f7-link> for more information</em>).</p>
-								<p>Use the left hand menu to access various features such as Ship creation, Sector map, and Name generation. Use the right hand menu to access various information and details about the setting.</p>
-							</f7-block>
-						</f7-block>
-					</f7-page>
-				</f7-pages>
-			</f7-view>
-		</f7-views>
-	</div>
+  <v-app>
+	<!-- The Left side menu -->
+    <v-navigation-drawer
+      persistent
+      v-model="drawer"
+      enable-resize-watcher
+      fixed
+      app
+	  class="blue" dark
+    >
+      <v-list>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/" tag="p">Home</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-divider></v-divider>
+      <v-list>
+        <v-subheader>Tools</v-subheader>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>book</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/cards/" tag="p">Cards</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>local_play</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/powers/" tag="p">Powers</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>airplanemode_active</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/ship/" tag="p">Ships</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-divider></v-divider>
+      <v-list>
+        <v-subheader>Codex</v-subheader>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>map</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/regions/" tag="p">Sector Data</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>library_books</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/rules/" tag="p">The Rules</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>landscape</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/setting/" tag="p">The Setting</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>flight</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/ship/details/" tag="p">Ship Details</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-divider></v-divider>
+      <v-list>
+        <v-subheader>GM's Corner</v-subheader>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>cached</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <router-link to="/generators/" tag="p">Generators</router-link>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+	<!-- The top toolbar content -->
+    <v-toolbar fixed app class="blue" dark>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+	<!-- The actual content -->
+    <v-content>
+      <router-view/>
+    </v-content>
+	<!-- The Footer -->
+    <v-footer :fixed="false" app>
+      <span>&copy; 2018</span>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-	export default {}
+export default {
+  data() {
+    return {
+      drawer: false,
+      title: 'Broken Stars'
+    }
+  },
+  name: 'App'
+}
 </script>

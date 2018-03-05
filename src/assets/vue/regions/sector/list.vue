@@ -10,24 +10,20 @@
       ></v-text-field>
       <v-data-table
         :headers="fields"
-        :items="ship.fittings.list"
+        :items="sectors"
         :search="search"
         hide-actions
         item-key="name"
       >
         <template slot="items" slot-scope="props">
           <tr @click="props.expanded = !props.expanded">
-            <td>{{ props.item.name | capitalize }}</td>
-            <td>{{ props.item.crew }} </td>
-            <td>{{ props.item.power }}</td>
-            <td>{{ props.item.storage }}</td>
-            <td>{{ props.item.cost | currency}}</td>
+            <td>{{ props.item.name }}</td>
+            <td>{{ regions.nations.get(props.item.control).name }} ({{ props.item.control | uppercase }})</td>
           </tr>
         </template>
         <template slot="expand" slot-scope="props">
-          <div>
-            <detail-row-fitting :fitting="props.item"></detail-row-fitting>
-          </div>
+          <detail-row-sector-summary :sector="props.item"></detail-row-sector-summary>
+          <v-btn dark color="blue" :to="'/regions/sector/view/'+props.item.x+'/'+props.item.y"><v-icon color="white">keyboard_arrow_right</v-icon> View</v-btn>
         </template>
       </v-data-table>
     </v-card-text>
@@ -37,7 +33,9 @@
   export default {
     data() {
       return {
-        search: "",
+        search: '',
+        sectors: [],
+        regions: this.$bsFactory.getTemplate('regions'),
         fields: [
           {
             text: 'Name',
@@ -46,32 +44,16 @@
             value: 'name'
           },
           {
-            text: 'Crew',
+            text: 'Control',
             align: 'left',
             sortable: true,
-            value: 'crew'
+            value: 'control'
           },
-          {
-            text: 'Power',
-            align: 'left',
-            sortable: true,
-            value: 'power'
-          },
-          {
-            text: 'Storage',
-            align: 'left',
-            sortable: true,
-            value: 'storage'
-          },
-          {
-            text: 'Cost',
-            align: 'left',
-            sortable: true,
-            value: 'cost'
-          }
         ],
-        ship: this.$bsFactory.cloneShip(),
-			}
+      }
     },
+    created() {
+      this.sectors = this.regions.sectors
+    }
   }
 </script>

@@ -1,74 +1,199 @@
 <template>
-	<f7-page>
-		<f7-block>
-			<f7-block-title class="content-center-text bottom-border small-caps">Region Generator</f7-block-title>
-			<div class="data-table custom-table">
-				<table>
-					<tr>
-						<td><strong>Name</strong></td>
-						<td><input type="text" v-model="sector.name" /></td>
-					</tr>
-					<tr>
-						<td><strong>Description</strong></td>
-						<td><input type="text" v-model="sector.description" /></td>
-					</tr>
-					<tr>
-						<td><strong>X coordinate</strong></td>
-						<td><input type="number" v-model="sector.x" /></td>
-					</tr>
-					<tr>
-						<td><strong>Y coordinate</strong></td>
-						<td><input type="number" v-model="sector.y" /></td>
-					</tr>
-					<tr>
-						<td><strong>Control</strong> <help-region-control></help-region-control></td>
-						<td>
-							<select v-model="sector.control">
-								<option v-for="(n,i) in regions.categories.sector.control" :value="i" :key="'control-' + i">{{n}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><strong>Travel Zone</strong> <help-region-zone></help-region-zone></td>
-						<td>
-							<select v-model="sector.zone">
-								<option v-for="(n,i) in regions.categories.sector.zone" :value="i" :key="'zone-' + i">{{n}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><strong>Star class</strong> <help-region-star></help-region-star></td>
-						<td>
-							<select v-model="sector.star.spectrum">
-								<option v-for="(n,i) in regions.stars.class" :value="i" :key="'star-class-' + i">{{n.colour}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><strong>Star Temperature</strong> <help-region-star-temperature></help-region-star-temperature></td>
-						<td>
-							<select v-model="sector.star.temperature">
-								<option v-for="n in 10" :value="n - 1" :key="'star-temp-' + n">{{n - 1}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><strong>Star Size</strong></td>
-						<td>
-							<select v-model="sector.star.size">
-								<option v-for="(n,i) in regions.stars.size" :value="i" :key="'star-size-' + i">{{n.name}}</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><strong>Trade Number</strong></td>
-						<td>{{sectorTrade}}</td>
-					</tr>
-				</table>
-			</div>
+	<v-container grid-list-md>
+        <v-layout row wrap>
+			<v-flex sm12 md6 lg4>
+				<v-card flat>
+					<v-card-title class="small-caps">Sector</v-card-title>
+					<v-card-text>
+						<v-text-field
+							label="Name"
+							v-model="sector.name"
+							:rules="rules.name"
+							hint="The name of the sector"
+							required
+						></v-text-field>
+						<v-text-field
+							label="Description"
+							v-model="sector.description"
+							multi-line
+							textarea
+							hint="The backstory of the sector"
+							required
+						></v-text-field>
+						<v-text-field
+							label="X-coordinate"
+							v-model="sector.x"
+							type="number"
+							required
+						></v-text-field>
+						<v-text-field
+							label="Y-coordinate"
+							v-model="sector.y"
+							type="number"
+							required
+						></v-text-field>
+						<v-select
+							label="Sector Control"
+							v-model="sector.control"
+							:items="nations"
+							item-value="id"
+							item-text="name"
+							:rules="[v => !!v || 'Sector Control is required']"
+							required
+						></v-select>
+					</v-card-text>
+				</v-card>
+			</v-flex>
 
-			<!-- Planets -->
-			<f7-block-title class="content-center-text color-lightblue">Planets</f7-block-title>
+			<v-flex sm12 md6 lg4>
+				<v-card flat>
+					<v-card-title class="small-caps">Star</v-card-title>
+					<v-card-text>
+						<v-select
+							label="Star Class"
+							v-model="sector.star.spectrum"
+							:items="classes"
+							item-value="id"
+							item-text="colour"
+							:rules="[v => !!v || 'Star Class is required']"
+							required
+							@input="generateDetails"
+						></v-select>
+						<v-select
+							label="Star Size"
+							v-model="sector.star.size"
+							:items="sizes"
+							item-value="id"
+							item-text="name"
+							:rules="[v => !!v || 'Star Size is required']"
+							required
+							@input="generateDetails"
+						></v-select>
+						<v-select
+							label="Star Temperature"
+							v-model="sector.star.temperature"
+							:items="['0',1,2,3,4,5,6,7,8,9]"
+							:rules="[v => !!v || 'Star Temperature is required']"
+							@input="generateDetails"
+						></v-select>
+						<dl class="list">
+							<dt>Class: <help-star help="star-class"></help-star></dt>
+							<dd>{{details.star.type}} ({{ details.star.class }}) <help-generic :popover="'star-details'">{{details.star.description}}</help-generic></dd>
+							<dt>Luminosity: <help-star help="luminosity"></help-star></dt>
+							<dd>{{details.star.luminosity}} W <help-generic :popover="'star-luminosity'">This is {{details.star.luminosityRelative}} times relative to our Sun (Sol)</help-generic></dd>
+							<dt>Mass:</dt>
+							<dd>{{details.star.mass}} kg <help-generic :popover="'star-radius'">This is {{details.star.massRelative}} times relative to our Sun (Sol)</help-generic></dd>
+							<dt>Radius:</dt>
+							<dd>{{details.star.radius}} m <help-generic :popover="'star-radius'">This is {{details.star.radiusRelative}} times relative to our Sun (Sol)</help-generic></dd>
+							<dt>Temperature:</dt>
+							<dd>{{details.star.temperature}} K</dd>
+						</dl>
+					</v-card-text>
+				</v-card>
+			</v-flex>
+
+			<!-- PLANETS -->
+			<v-flex sm12 md6 lg4>
+				<v-card flat>
+					<v-card-title class="small-caps">Planets</v-card-title>
+					<v-card-text>
+						<v-data-table
+							:headers="fields.planets"
+							:items="sector.planets"
+							hide-actions
+							item-key="name"
+						>
+							<template slot="items" slot-scope="props">
+								<tr>
+									<td @click="props.expanded = !props.expanded">{{ props.item.name | capitalize }}</td>
+									<td>{{ props.item.distance }}</td>
+								</tr>
+							</template>
+							<template slot="expand" slot-scope="props">
+								<detail-row-planet-summary :fitting="props.item"></detail-row-planet-summary>
+							</template>
+						</v-data-table>
+					</v-card-text>
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn dark flat color="red" @click="clear()">Clear</v-btn>
+						<v-dialog v-model="dialog.planets">
+							<v-btn dark flat color="green" slot="activator">Add</v-btn>
+							<v-card>
+								<v-card-title class="headline">Add a new planet</v-card-title>
+								<v-card-text>
+									<v-text-field
+										label="Name"
+										v-model="planet.name"
+										:rules="rules.name"
+										hint="The name of the planet"
+										required
+									></v-text-field>
+									<v-text-field
+										label="Distance (AU)"
+										v-model="planet.distance"
+										type="number"
+										hint="Distance of the planet from the star (in AU)"
+										required
+										@input="generateDetails"
+									></v-text-field>
+									<v-select
+										label="Atmosphere"
+										v-model="planet.atmosphere"
+										:items="regions.planets.makeArray('atmosphere')"
+										item-value="id"
+										item-text="name"
+										:rules="[v => !!v || 'Atmosphere is required']"
+										required
+										@input="generateDetails"
+									></v-select>
+									<v-slider
+										label="Diameter"
+										v-model="planet.size"
+										:step="1000"
+										:min="1"
+										:max="50000"
+										ticks
+										:hint="details.planet.size.name + ' (' + planet.size + ' km). ' + details.planet.size.description"
+										persistent-hint
+										@input="generateDetails"
+									>
+									</v-slider>
+									<v-slider
+										label="Metallics vs Silicates"
+										v-model="planet.metallic"
+										thumb-label
+										step="5"
+										ticks
+										persistent-hint
+										:hint="details.planet.metallic.name + ' (' + planet.metallic + '% Metallics / ' + (100 - planet.metallic) + '% Silicates). ' + details.planet.metallic.description"
+										@input="generateDetails"
+									>
+									</v-slider>
+									<v-slider
+										label="Surface Water"
+										v-model="planet.hydrosphere"
+										thumb-label
+										step="5"
+										ticks
+										persistent-hint
+										:hint="details.planet.hydrosphere.name + ' (' + planet.hydrosphere + '% surface water). ' + details.planet.hydrosphere.description"
+										@input="generateDetails"
+									>
+									</v-slider>
+									<dl class="list">
+										<dt>Albedo:</dt>
+										<dd>{{details.planet.albedo}}</dd>
+										<dt>Temperature:</dt>
+										<dd>{{details.planet.celsius}} °C ({{details.planet.temperature}} °K)</dd>
+									</dl>
+								</v-card-text>
+							</v-card>
+						</v-dialog>
+					</v-card-actions>
+				</v-card>
+			</v-flex>
+			<!-- <f7-block-title class="content-center-text color-lightblue">Planets</f7-block-title>
 			<f7-button big fill round color="blue" v-on:click="openPlanetsPopup()"><f7-icon color="white" material="add"></f7-icon></f7-button>
 			<f7-popup id="planets-popup" ref="planets-popup">
 				<f7-block-title>Add Planet</f7-block-title>
@@ -239,23 +364,48 @@
 						<p><f7-button v-on:click="onPlanetExpandRow(props.rowData.name)"><f7-icon size=16 color="blue" material="expand_more"></f7-icon></f7-button></p>
 					</template>
 				</vuetable>
-			</div>
+			</div> -->
 
 			<!-- COPY TO CLIPBOARD -->
-			<f7-block>
-				<p>The generated Sector is shown in object format below. This sector is not automatically added to the map; to do that, you need to:</p>
-				<ol>
-					<li>Create a new project using source code from the GitHub repository (installing all the requisites such as cordova and npm)</li>
-					<li>Create a new file in "./src/data/regions/"</li>
-					<li>Copy-paste the below into the new file (don't forget the export default at the beginning)</li>
-					<li>Rebuild the application (if possible)</li>
-					<li>If your new region doesn't overwrite an existing sector, consider merging it with the parent repository!</li>
-				</ol>
-				<f7-button big fill color="blue" v-on:click="copyTextArea">Copy to clipboard</f7-button>
-				<pre id="sector-textarea-to-copy">{{textual}}</pre>
-			</f7-block>
-		</f7-block>
-	</f7-page>
+			<v-flex sm12>
+				<v-card flat>
+					<v-card-title class="small-caps">Result</v-card-title>
+					<v-card-text>
+						<p>The generated Sector is shown in object format below. Currently you cannot save your sector; to do that, you need to create a new enhancement issue on the project page.</p>
+						<v-text-field
+							id="sector-textarea-to-copy"
+							label="Data"
+							v-model="textual"
+							disabled
+							multi-line
+							textarea
+						></v-text-field>
+					</v-card-text>
+					<v-card-actions>
+						<v-btn flat color="blue" @click="copyTextArea">Copy to clipboard</v-btn>
+					</v-card-actions>
+				</v-card>
+				<v-snackbar
+					:timeout="3000"
+					color="error"
+					:vertical="true"
+					v-model="snackbar.copy.error"
+				>
+					ERROR: Could not copy the text to your clipboard
+					<v-btn flat @click.native="snackbar.copy.error = false">Close</v-btn>
+				</v-snackbar>
+				<v-snackbar
+					:timeout="3000"
+					color="success"
+					:vertical="true"
+					v-model="snackbar.copy.success"
+				>
+					Text was copied to your clipboard
+					<v-btn flat @click.native="snackbar.copy.success = false">Close</v-btn>
+				</v-snackbar>
+			</v-flex>
+        </v-layout>
+	</v-container>
 </template>
 
 <script>
@@ -263,31 +413,72 @@
 	export default {
 		data() {
 			return {
+				// Region model
+				regions: this.$bsFactory.getTemplate('regions'),
+				// Form rules
+				rules: {
+					name: [
+						(v) => !!v || 'Name is required',
+						(v) => /[A-Za-z0-9. -,&%!()]+/.test(v) || 'Name must have at least one character (special characters allowed: .-,&%!() and space)'
+					],
+				},
+				// Snackbar information
+				snackbar: {
+					copy: {
+						error: false,
+						success: false
+					}
+				},
+				// Table fields
+				fields: {
+					planets: [
+						{
+							text: 'Name',
+							align: 'left',
+							sortable: true,
+							value: 'name'
+						},
+						{
+							text: 'Distance',
+							align: 'left',
+							sortable: true,
+							value: 'distance'
+						},
+					],
+				},
+				// Dialog fields
+				dialog: {
+					planets: false,
+				},
+				// Tag information
 				tags: [],
 				tagInput: "",
-				regions: this.$bsFactory.getTemplate('regions'),
+				// Trade data
 				sectorTrade: 0,
 				planetTrade: 0,
-        sector: {
+				// Basic sector
+        		sector: {
 					name: "New Sector",
 					x: 0,
 					y: 0,
 					control: "na",
-					zone: "green",
 					star: {
 						spectrum: "G",
-						temperature: "0",
+						temperature: 2,
 						size: "V"
 					},
 					planets: [],
 					description: "Generic description of a star system."
 				},
+				// Basic Planet
 				planet: {
 					name: "New Planet",
+					distance: 1,
 					shape: "terrestrial",
-					size: "small",
+					size: 13000,
 					atmosphere: "standard",
-					hydrosphere: "none",
+					hydrosphere: 70,
+					metallic: 35,
 					biosphere: "none",
 					population: 1,
 					government: "none",
@@ -300,7 +491,16 @@
 					satellites: 0,
 					description: "Generic Planetary description",
 					tags: []
-				}
+				},
+				// Generated star information
+				details: {
+					star: {},
+					planet: {},
+				},
+				// Lists for select controls
+				nations: [],
+				sizes: [],
+				classes: [],
 			}
 		},
 		computed: {
@@ -318,46 +518,47 @@
 			}
 		},
 		methods: {
+			/**
+			 * Generate star details from sector information
+			 */
+			generateDetails() {
+				this.details.star = this.regions.stars.details(this.sector.star.spectrum, this.sector.star.temperature, this.sector.star.size)
+				this.details.planet = this.regions.planets.details(this.details.star, this.planet)
+			},
+			/**
+			 * Copies the sector information into the user's clipboard
+			 */
 			copyTextArea() {
-				let text = document.getElementById("sector-textarea-to-copy")
-				let textArea = document.createElement('textarea')
-				textArea.id ="ThisWillBeDeletedLater"
-				textArea.style.height = 0
-				document.body.appendChild(textArea)
-				textArea.value = text.innerText
-				let selector = document.querySelector('#ThisWillBeDeletedLater')
+				// Select the text area with the formatted Sector information
+				let selector = document.querySelector('#sector-textarea-to-copy')
+				selector.disabled = false
 				selector.select()
 				try {
-					var successful = document.execCommand('copy');
-					var msg = successful ? 'successful' : 'unsuccessful';
-					console.log('Copying text command was ' + msg);
+					if (document.execCommand('copy')) {
+						this.snackbar.copy.success = true
+					} else {
+						this.snackbar.copy.error = true
+					}
 				} catch (err) {
-					console.log('Oops, unable to copy');
+					this.snackbar.copy.error = true
 				}
-				document.body.removeChild(textArea)
+				selector.disabled = true
 			},
-			openPlanetsPopup() {
-				this.$refs['planets-popup'].open()
-			},
-			closePlanetsPopup() {
-				this.$refs['planets-popup'].close()
+			/**
+			 * Clear our the sector planets
+			 */
+			clear() {
+				this.sector.planets = []
 			},
 			onPlanetAddClick() {
-        let planet = _.cloneDeep(this.planet)
+        		let planet = _.cloneDeep(this.planet)
 				this.sector.planets.push(planet)
 				this.makeTrade()
 				this.closePlanetsPopup()
 			},
 			onPlanetRemoveClick(id) {
-        this.sector.planets.splice(id, 1)
+        		this.sector.planets.splice(id, 1)
 			},
-			onPlanetExpandRow(id) {
-        let index = this.$refs.planetstable.visibleDetailRows.indexOf(id)
-        this.$refs.planetstable.visibleDetailRows = []
-        if (index == -1) {
-          this.$refs.planetstable.showDetailRow(id)
-        }
-      },
 			makeTags() {
 				this.tags = this.regions.tags.generateTags(this.planet)
 			},
@@ -369,6 +570,14 @@
 				let tagArray = this.tagInput.split(/;[ ]?/).filter(n => n)
 				this.planet.tags = tagArray
 			}
+		},
+		created() {
+			// Initialise our arrays
+			this.nations = this.regions.nations.makeArray()
+			this.sizes = this.regions.stars.makeArray('size')
+			this.classes = this.regions.stars.makeArray('class')
+			// Generate basic star information
+			this.generateDetails()
 		}
 	}
 </script>
