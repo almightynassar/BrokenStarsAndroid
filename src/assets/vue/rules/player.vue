@@ -127,10 +127,32 @@
             or Skill dice, and the result (with relevant bonuses and penalties) is compared to a Target Number.",
           },
           {
+            name: "Climbing",
+            type: "Action",
+            rule: "When scaling vertical surfaces, you need to make an Athletics Check (modified by your climbing \
+            equipment and the type of surface). A Failure means you make no progress (a 1 or less means that you begin \
+            to fall). A Success means that you move a number of squares equal to half your Strength. A Raise means that \
+            move an additional 2 squares."
+          },
+          {
             name: "Cover",
             type: "Misc.",
             rule: "Apply the following penalties when Shooting or Noticing someone in Stealth: -1 for \
             Light cover, -2 for Medium cover, and -4 for Heavy."
+          },
+          {
+            name: "Crawling",
+            type: "Action",
+            rule: "You can crawl up to 2 squares per turn. This counts as being Prone (-2 penalty for opposed \
+            Notice (Stealth) and Shooting Checks when the opponent is more than 3 squares distant). In Melee, \
+            you suffer a -2 penalty to your Parry and Fighting Checks. Getting up from prone costs 2 units of movement."
+          },
+          {
+            name: "Crouching",
+            type: "Action",
+            rule: "You can crouch and move half your Pace. You may Run while crouching (half your Running result). \
+            Crouching (without Running) counts as being Light Cover (-1 penalty) for opposed Notice (Stealth) and \
+            Shooting Checks when the opponent is more than 3 squares distant)."
           },
           {
 						name: "Damage",
@@ -151,7 +173,12 @@
 						type: "Action",
             rule: "Defend will grant you a +2 bonus to your Parry, but you cannot take any other action this turn \
             (except movement).",
-					},
+          },
+          {
+            name: "Difficult Terrain",
+            type: "Misc.",
+            rule: "Each square of difficult terrain (mud, snow, hills, etc) counts as 2 for purposes of movement."
+          },
           {
 						name: "Disarm",
 						type: "Action",
@@ -176,7 +203,7 @@
             type: "Misc.",
             rule: "Your character’s load limit is 3 x their Strength die (in kilograms). Each multiple above that \
             limit gives a -1 penalty to Agility and Strength (do not recalculate your load limit!) and all related \
-            skills"
+            skills. You cannot carry weight that inflicts a penalty of more than -3."
           },
           {
             name: "Extra Checks",
@@ -236,7 +263,7 @@
           {
             name: "Hacking",
             type: "Misc.",
-            rule: "Treat as a Dramatic Task. You will require access a physical I/O port (or a connected port). You will \
+            rule: "Treat as a Dramatic Task. You will require access a physical I/O port (or a network connection). You will \
             then need to 'Open' the port (Security vs Security or Toughness), crack any authentication or encryption, \
             break the Software Firewalls, and then bypass any anti-virus and anti-malware.",
           },
@@ -246,7 +273,7 @@
             rule: "This type of healing can only apply within 1 hour of gaining a Wound; any treatment outside of that \
             time limit must follow Natural Healing rules instead. A character will take about 10 minutes to treat someone's \
             Wounds, making a Healing Check. They must apply the patient's Wound penalties to their check (in addition to their \
-            own; double the penalty if you are treating yourself). If you do not have suitable medical supplies then you gain \
+            own; double the penalty if you are treating yourself). If you do not have suitable medical supplies then you suffer \
             a -2 penalty. Each Success and Raise on your Healing Check removes 1 Wound (maximum of 2). You cannot treat old Wounds."
           },
           {
@@ -276,8 +303,14 @@
 						name: "Intimidate",
 						type: "Action",
             rule: "Intimidate lets you roll your Intimidation Check against the Target's Spirit. If you win, you gain a \
-            +2 bonus to your next action.",
-					},
+            +2 bonus to your next action. A Raise means that the target is also Shaken.",
+          },
+          {
+            name: "Holding your Breath",
+            type: "Misc.",
+            rule: "You can hold your breath for a number of rounds equal to 2 plus your Vigor die. Half this if you were \
+            not prepared beforehand."
+          },
           {
 						name: "Jokers",
 						type: "Combat",
@@ -285,6 +318,26 @@
             turn order, including interrupting someone else's turn. In addition, they get +2 to all Checks \
             during the round (including to damage rolls).",
           },
+          {
+            name: "Jumping",
+            type: "Action",
+            rule: "You can jump 1 square horizontally from a dead stop, or 2 squares with a Run up. A successful \
+            Athletics roll grants one extra square of distance."
+          },
+          {
+            name: "Movement",
+            type: "Action",
+            rule: "Each turn you may move up to your full Pace. This is considered a Free Action and does not \
+            inflict the Multi-Action Penalty. Other movements include Crawling, Prone, Crouching, Jumping and \
+            running. Your movement may be affected by Difficult Terrain modifiers."
+          },
+          {
+						name: "Multi-Action Penalty",
+						type: "Combat",
+            rule: "Each character has 1 Action without penalty and can also move up to their Pace. You can take \
+            additional Actions on your turn that is not Move, but each Action will incur a -2 Multi-Action penalty \
+            on ALL Checks that turn.",
+					},
           {
             name: "Natural Healing",
             type: "Misc.",
@@ -295,10 +348,31 @@
             You get a +2 bonus if you spend the whole time in a state of the art medical facility."
           },
           {
+						name: "Persuasion",
+						type: "Action",
+            rule: "Persuasion should never be used on other Player Characters; attitudes should be decided entirely \
+            by the player themselves. NPC's, on the other hand, start as one of the following: Hostile, Uncooperative, \
+            Neutral, Friendly, or Helpful. A Successful Persuasion roll improves attitude by one step, two with a Raise, \
+            and decreases with a Failure, or two on a 1. You cannot chain Persuasion attempts in a single encounter.",
+          },
+          {
+            name: "Prone",
+            type: "Action",
+            rule: "Going Prone counts as Medium Cover (-2 penalty) for opposed Notice (Stealth) and Shooting Checks \
+            when the opponent is more than 3 squares distant. In Melee, you suffer a -2 penalty to your Parry and \
+            Fighting Checks. Getting up from prone costs 2 units of movement."
+          },
+          {
 						name: "Raises",
 						type: "Core",
             rule: "Raises are when the Check beats the Target Number by 4. Every 4 points beyond that is \
             another raise. This is important for the Game Master to know.",
+          },
+          {
+            name: "Running",
+            type: "Action",
+            rule: "You may run an additional 1d6 squares during your turn. You suffer a -2 penalty to all other \
+            actions made while running (in addition to normal Multi-Action Penalties)."
           },
           {
 						name: "Shaken",
@@ -355,10 +429,11 @@
             name: "Stealth",
             type: "Misc.",
             rule: "Opponents are either Inactive or Active. To beat Inactive, you will make a Stealth Check \
-            against a Target Number of 4 (with bonuses and penalties depending on Cover, Darkness, etc); on \
-            a Failure they become Active. Active opponents need to make a Notice Check (apply bonuses and \
-            penalties) and beat your Stealth Check; on a Success they notice you. The last square around an \
-            opponent will always make them Active."
+            against a Target Number of 4 (with bonuses and penalties depending on Cover, Darkness, and Movement \
+            speed); on a Failure they become Active. Active opponents need to make a Notice Check (apply bonuses and \
+            penalties) and beat your Stealth Check; on a Success they notice you. The last 6 squares around an \
+            opponent will always make them Active. Outside of Combat, each Stealth check lasts for 5 minutes; \
+            Stealth in Combat only lasts for a single round of movement."
           },
           {
 						name: "Suppressing Fire",
@@ -367,7 +442,13 @@
             include Cover). If you fail your roll then the target area deviates by 1d10. Targets caught in \
             a Medium Burst (2 square radius) must make a Spirit roll, and a failure means they become \
             Shaken. Critical Failures mean that they are also hit.",
-					},
+          },
+          {
+            name: "Swimming",
+            type: "Action",
+            rule: "Your Pace while in the water is half your Atheletic skill in squares. Choppy water halves \
+            your Pace. You cannot use the 'Running' mechanic while swimming."
+          },
           {
 						name: "Target Number",
 						type: "Core",
@@ -378,7 +459,7 @@
 						name: "Taunt",
 						type: "Action",
             rule: "Taunt lets you roll your Taunt Check against your Target's Smarts. If you win, you gain \
-            a +2 bonus to your next action.",
+            a +2 bonus to your next action against them. A Raise means that the target is also Shaken.",
 					},
           {
 						name: "Traits,",
