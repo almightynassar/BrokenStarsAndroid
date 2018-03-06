@@ -1,5 +1,5 @@
 export default {
-    name: "ancient_near_eastern_male",
+    name: "near_eastern_male",
     contrib: [
       "http://canaanite.org/?p=51",
       "http://www.peiraeuspubliclibrary.com/names/asia/persian.html",

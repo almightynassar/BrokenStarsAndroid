@@ -1,5 +1,5 @@
 export default {
-  name: "ancient_far_eastern_male",
+  name: "far_eastern_male",
   contrib: [
     "http://www.peiraeuspubliclibrary.com/names/asia/china.html",
     "http://heraldry.sca.org/names/mongolian_names_marta.html",

@@ -1,5 +1,5 @@
 export default {
-    name: "ancient_britannia_female",
+    name: "britannia_female",
     contrib: [
       "http://heraldry.sca.org/names/EarlyMedievalBreton.html",
       "http://heraldry.sca.org/names/eng13/eng13f.html",

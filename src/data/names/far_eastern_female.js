@@ -1,5 +1,5 @@
 export default {
-    name: "ancient_far_eastern_female",
+    name: "far_eastern_female",
     contrib: [
       "http://www.peiraeuspubliclibrary.com/names/asia/china.html",
       "http://www.womenofchina.cn/womenofchina/html1/people/history/12/4863-2.htm",

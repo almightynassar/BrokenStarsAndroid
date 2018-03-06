@@ -1,5 +1,5 @@
 export default {
-    name: "ancient_near_eastern_female",
+    name: "near_eastern_female",
     contrib: [
         "http://canaanite.org/?p=54",
         "http://www.babynamespedia.com/names/girl/phoenician-usage",
