@@ -1,20 +1,84 @@
 export default {
   /**
-   * Local Data variables
-   * 
-   * Stores variables to be used within this plugin
+   * Local data variables that are used within this plugin
    */
   data: {
+    // Dynamic loaded objects
     templates: null,
+    // Dynamic loaded name objects
     names: {},
+    // IndexedDB reference
     database: null,
-    version: 4
+    // IndexedDB database version
+    version: 5,
+    // IndexedDB database details
+    db: {
+      name: "BrokenStars",
+      tables: [
+        // Stores our Map Marker information
+        {
+          name: "MarkerStore",
+          keyPath: "name",
+          autoIncrement: false,
+          indices: [
+            "icon",
+            "x",
+            "y"
+          ],
+          populate(store) {}
+        },
+        // Stores our Stored Power information
+        {
+          name: "PowerStore",
+          keyPath: "name",
+          autoIncrement: false,
+          indices: [],
+          /**
+           * Handles the dynamic loading of power list files.
+           * We read all root files in src/data/names and create an object array
+           * of the file contents. We then input this object into our database
+           */
+          populate(store) {
+            var powerFiles = require.context("../data/powers", false, /\.js$/);
+            var powerData = [];
+            powerFiles.keys().forEach(function (file) {
+              powerData.push( (powerFiles(file)).default );
+            });
+            powerData.forEach(function (v) {
+              v.list.forEach(function (p) {
+                store.put(p);
+              })
+            });
+          }
+        },
+        // Stores our Setting information
+        {
+          name: "SettingStore",
+          keyPath: "name",
+          autoIncrement: false,
+          indices: [],
+          populate(store) {}
+        },
+        // Stores our Ship Information
+        {
+          name: "ShipStore",
+          keyPath: "uuid",
+          autoIncrement: false,
+          indices: [
+            "name"
+          ],
+          populate(store) {}
+        }
+      ]
+    }
   },
+
   /**
-   * TEMPLATES and NAMES
+   * Sanitizes the template object array
    * 
-   * Handles loading of templates and names (sourced from data files)
-   */ 
+   * @param {object} values
+   * @returns Local template object
+   */
   loadTemplates(values) {
     if (typeof values === "object" && values !== null) {
       this.data.templates = values;
@@ -23,6 +87,13 @@ export default {
     }
     return this.data.templates;
   },
+
+  /**
+   * Builds each Markov name list from the array of input values
+   * 
+   * @param {object} values
+   * @returns Local names object
+   */
   loadNames(values) {
     if (typeof this.data.templates.names !== "object" || this.data.templates.names === null) {
       console.error("loadNames(): Names object template is undefined");
@@ -30,6 +101,7 @@ export default {
     }
     if (Array.isArray(values) && values !== null) {
       var self = this;
+      // Builds our markov chain for the given list
       values.forEach(function (v) {
         self.data.names[v.name] = _.cloneDeep(self.data.templates.names);
         self.data.names[v.name].construct(v.list);
@@ -40,6 +112,13 @@ export default {
     }
     return this.data.names;
   },
+
+  /**
+   * Sanitizes the region object array
+   * 
+   * @param {object} values
+   * @returns Local region object
+   */
   loadRegions(values) {
     if (typeof this.data.templates.regions !== "object" || this.data.templates.regions === null) {
       console.error("loadRegions(): Regions object template is undefined");
@@ -50,69 +129,53 @@ export default {
     }
     return this.data.templates.regions.sectors;
   },
+
   /**
    * VUE PLUGIN INSTALLATION
+   * 
+   * Inside Vue.prototype.$bsFactory:
+   *  - use 'self' to reference anything outside of the prototype scope
+   *  - use 'this' to reference anything inside of the prototype scope
    */
   install(Vue, options) {
-    /**
-     * Reference for callback functions (especially the prototype)
-     * 
-     * Inside Vue.prototype.$bsFactory:
-     *  - use 'self' to reference anything outside of the prototype scope
-     *  - use 'this' to reference anything inside of the prototype scope
-     */
+    //Reference for callback functions (especially the prototype)
     let self = this
+
     // Initiliase the database when the device is ready
     Vue.cordova.on('deviceready', () => {
       // Ensure an implementation of indexedDB exists
       let indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+
       try {
-        // Open (or create) a database connection
-        let dbOpenRequest = indexedDB.open("BrokenStars", self.data.version)
-        // Handles database opening success event
+        // Open (or create) a database connection and store the result to this.data.database
+        let dbOpenRequest = indexedDB.open(self.data.db.name, self.data.version)
         dbOpenRequest.onsuccess = function(e){
-          // Store the result of opening the database
           self.data.database = e.target.result
-          // Handles general errors on the database
           self.data.database.onerror = function(e) {
             console.error("DB ERROR: " + e.target.errorCode);
           }
           console.log("Database Opened")
         }
-        // This event handles the event whereby a new version of the database needs to be created
+
+        // This event handles the event when a new version of the database needs to be created
         dbOpenRequest.onupgradeneeded = function(e){
           console.warn("Database upgrade needed")
           let localDatabase = e.target.result
-          // Creating the Ship object store
-          if(!localDatabase.objectStoreNames.contains("ShipStore")) {
-            console.log("Making Ship Object Store");
-            var objectStore = localDatabase.createObjectStore("ShipStore", { keyPath: "uuid", autoIncrement:false });
-            objectStore.createIndex("name", "name", { unique: false })
-          }
-          // Creating the Marker object store
-          if(!localDatabase.objectStoreNames.contains("MarkerStore")) {
-            console.log("Making Marker Object Store");
-            var objectStore = localDatabase.createObjectStore("MarkerStore", { keyPath: "name", autoIncrement:false });
-            objectStore.createIndex("icon", "icon", { unique: false })
-            objectStore.createIndex("x", "x", { unique: false })
-            objectStore.createIndex("y", "y", { unique: false })
-          }
-          // Creating the Quest object store
-          if(!localDatabase.objectStoreNames.contains("QuestStore")) {
-            console.log("Making Quest Object Store");
-            var objectStore = localDatabase.createObjectStore("QuestStore", { keyPath: "name", autoIncrement:false });
-          }
-          // Creating the Power object store
-          if(!localDatabase.objectStoreNames.contains("PowerStore")) {
-            console.log("Making Power Object Store");
-            var objectStore = localDatabase.createObjectStore("PowerStore", { keyPath: "name", autoIncrement:false });
-          }
-          // Creating the Setting object store
-          if(!localDatabase.objectStoreNames.contains("SettingStore")) {
-            console.log("Making Setting Object Store");
-            var objectStore = localDatabase.createObjectStore("SettingStore", { keyPath: "key", autoIncrement:false });
-          }
+
+          // Creates each of the tables defined in this.data.db.tables
+          self.data.db.tables.forEach( function(table) {
+            if(!localDatabase.objectStoreNames.contains(table.name)) {
+              console.log("Making " + table.name)
+              let objectStore = localDatabase.createObjectStore(table.name, { keyPath: table.keyPath, autoIncrement: table.autoIncrement })
+              table.indices.forEach( function(index) {
+                objectStore.createIndex(index, index, { unique: false })
+              })
+              table.populate(objectStore)
+            }
+          })
         }
+
+        // These two events handles errors and blockages when opening IndexedDB
         dbOpenRequest.onerror = function(e){
           console.error("DB Open Request Error: " + e.target.errorCode)
         }
@@ -122,7 +185,8 @@ export default {
       } catch (e) {
         console.error("DB Open Request Error: " + e.target.errorCode)
       }
-    });
+    })
+
     /**
      * VUE PLUGIN OBJECT
      * 
@@ -132,7 +196,7 @@ export default {
       /**
        * Return a template object (named the same as the imported source data file)
        * 
-       * @param String list 
+       * @param {string} list 
        */
       getTemplate(list) {
         if (typeof self.data.templates[list] !== "object" || self.data.templates[list] === null) {
@@ -141,6 +205,7 @@ export default {
         }
         return self.data.templates[list];
       },
+
       /**
        * Return a clone of the templated ship object
        */
@@ -149,24 +214,17 @@ export default {
         clonedShip.uuid = clonedShip.generateShipDesignation()
         return clonedShip
       },
+
       /**
-       * Get various Database Object Store
+       * Get various Database Object Stores
+       * 
+       * @param {string} storename The IndexedDB storename to grab
        */
-      getMarkerStore() {
-        return self.data.database.transaction('MarkerStore', 'readwrite').objectStore('MarkerStore')
+      getStore(storename) {
+        let store = _.startCase(_.toLower(storename)) + "Store"
+        return self.data.database.transaction(store, 'readwrite').objectStore(store)
       },
-      getPowerStore() {
-        return self.data.database.transaction('PowerStore', 'readwrite').objectStore('PowerStore')
-      },
-      getQuestStore() {
-        return self.data.database.transaction('QuestStore', 'readwrite').objectStore('QuestStore')
-      },
-      getShipStore() {
-        return self.data.database.transaction('ShipStore', 'readwrite').objectStore('ShipStore')
-      },
-      getSettingStore() {
-        return self.data.database.transaction('SettingStore', 'readwrite').objectStore('SettingStore')
-      },
+
       /**
        * Grab the object/array of Names
        */
@@ -177,10 +235,11 @@ export default {
         }
         return self.data.names;
       },
+
       /**
        * Generate using a specific name list
        * 
-       * @param String list
+       * @param {string} list
        */
       getNameGenerator(list) {
         if (typeof self.data.templates.names !== "object" || self.data.templates.names === null) {
@@ -189,6 +248,6 @@ export default {
         }
         return self.data.names[list];
       }
-    };
+    }
   }
-};
+}

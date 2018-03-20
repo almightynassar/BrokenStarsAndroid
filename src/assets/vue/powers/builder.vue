@@ -82,6 +82,12 @@
 				></v-select>
 				<p>{{ powers.attributes.difficulty[power.difficulty].description }}</p>
 				<v-text-field
+					label="Description"
+					v-model="power.description"
+					multi-line
+					textarea
+				></v-text-field>
+				<v-text-field
 					label="Target Defence"
 					v-model="defence"
 					hint="Defence die result of the Target"
@@ -131,7 +137,8 @@
                     range: 'Personal',
                     duration: 'Instant',
                     target: 'Single',
-					difficulty: 'Trivial'
+					difficulty: 'Trivial',
+					description: "Generic Description"
 				},
 				rules: {
 					name: [
@@ -208,7 +215,7 @@
 			 */
 			onClick() {
 				console.log( 'Saving power: ' + this.power.name )
-				let store = this.$bsFactory.getPowerStore()
+				let store = this.$bsFactory.getStore('power')
           		let data = Object.assign({}, this.power)
 				let resultSet = store.put(data);
 				let self = this;

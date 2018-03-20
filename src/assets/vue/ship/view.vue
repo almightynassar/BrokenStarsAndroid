@@ -306,7 +306,7 @@
 			 */
 			onClick() {
 				console.log( 'Saving ship: ' + this.ship.uuid )
-				let store = this.$bsFactory.getShipStore()
+				let store = this.$bsFactory.getStore('store')
           		let data = this.ship.deflate()
 				let resultSet = store.put(data);
 				let self = this;
@@ -403,7 +403,7 @@
 		},
 		mounted() {
 			console.log( 'Searching for ship: ' + this.uuid )
-			let store = this.$bsFactory.getShipStore()
+			let store = this.$bsFactory.getStore('store')
 			let resultSet = store.getAll()
 			let self = this
 			resultSet.onsuccess = function() {

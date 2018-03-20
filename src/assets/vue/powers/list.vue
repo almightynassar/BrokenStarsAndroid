@@ -101,7 +101,7 @@
        */
       loadPowers() {
         this.fullPowerList = []
-        let store = this.$bsFactory.getPowerStore()
+        let store = this.$bsFactory.getStore('power')
         let resultSet = store.getAll()
         let self = this
         resultSet.onsuccess = function() {
@@ -125,7 +125,7 @@
        */
       onDeleteRow(name) {
         let self = this
-        let store = this.$bsFactory.getPowerStore()
+        let store = this.$bsFactory.getStore('power')
         let resultSet = store.delete(name)
         resultSet.onsuccess = function() {
             self.snackbar.success = true

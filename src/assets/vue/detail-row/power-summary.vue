@@ -6,6 +6,10 @@
         <div class="pull-right">{{ power.name }}</div>
       </div>
       <div>
+        <div><strong>Description</strong></div>
+        <div class="pull-right">{{ power.description | capitalize }}</div>
+      </div>
+      <div>
         <div><strong>Art</strong></div>
         <div class="pull-right">{{ power.art | capitalize}} ({{ power.art_specialisation | capitalize }})</div>
       </div>

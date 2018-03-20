@@ -120,7 +120,7 @@ export default {
         Material : {
             Basic: {
                 base: 0.5,
-                description: "Raw non-organic materials such as Metal, Dirt, and Water."
+                description: "Raw inert materials such as Metal, Dirt, and Water."
             },
             Simple: {
                 base: 1,
@@ -185,24 +185,20 @@ export default {
                 description: "Effects happen instantly."
             },
             Round: {
-                base: 0.5,
-                description: "Effects last until end of the round (and required Concentration \
-                to maintain)."
+                base: 1,
+                description: "Effects are maintained until end of the round."
             },
             Minute: {
-                base: 1,
-                description: "Effects last up to one minute (and required Concentration \
-                to maintain)."
+                base: 2,
+                description: "Effects are maintained up to one minute."
             },
             Hour: {
-                base: 1.5,
-                description: "Effects last up to one hour (and required Concentration \
-                to maintain)."
+                base: 4,
+                description: "Effects are maintained up to one hour."
             },
             Day: {
-                base: 2,
-                description: "Effects last up to one day (and required Concentration \
-                to maintain)."
+                base: 6,
+                description: "Effects are maintained up to one day."
             },
         },   
         target: {
@@ -263,4 +259,4 @@ export default {
         let spontaneous = (spntns) ? 2 : 0
         return ((parseInt(tn) / 2) + 2 )  + art.base + form.base + range.base + duration.base + target.base + difficulty.base + spontaneous;
     }
-  }
+}

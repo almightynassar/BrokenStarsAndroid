@@ -102,7 +102,7 @@
        */
       loadShips() {
         this.fullShipList = []
-        let store = this.$bsFactory.getShipStore()
+        let store = this.$bsFactory.getStore('ship')
         let resultSet = store.getAll()
         let self = this
         resultSet.onsuccess = function() {
@@ -127,7 +127,7 @@
        */
       onDeleteRow(uuid) {
         let self = this
-        let store = this.$bsFactory.getShipStore()
+        let store = this.$bsFactory.getStore('store')
         let resultSet = store.delete(uuid)
         resultSet.onsuccess = function() {
             self.snackbar.success = true

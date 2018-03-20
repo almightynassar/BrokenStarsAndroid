@@ -435,7 +435,7 @@
 			 */
 			onClick() {
 				console.log( 'Saving ship: ' + this.ship.uuid )
-				let store = this.$bsFactory.getShipStore()
+				let store = this.$bsFactory.getStore('ship')
           		let data = this.ship.deflate()
 				let resultSet = store.put(data)
 				let self = this;

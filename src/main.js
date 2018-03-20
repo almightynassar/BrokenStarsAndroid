@@ -16,21 +16,34 @@ import '../node_modules/material-design-icons-iconfont/dist/material-design-icon
 import '../node_modules/vuetify/dist/vuetify.min.css'
 import './assets/sass/main.scss'
 
-// Load template data files into our factory
+// Load our custom factory plugin
 import BsFactory from './plugins/bsFactory.js'
+
+/**
+ * Handles the dynamic loading of templates .js object files.
+ * We read all root files in src/data/templates and create an object array
+ * of filenames and the file contents. We then input this template object 
+ * into our factory plugin
+ */ 
 var templateFiles = require.context("./data/templates", false, /\.js$/);
 var templateData = {};
 templateFiles.keys().forEach(function (file) {
   templateData[file.split('\\').pop().split('/').pop().split('.').shift()] = (templateFiles(file)).default;
 });
 BsFactory.loadTemplates(templateData);
-// Load name data files into our factory
+
+/**
+ * Handles the dynamic loading of name list files.
+ * We read all root files in src/data/names and create an object array
+ * of the file contents. We then input this name object into our factory plugin
+ */ 
 var nameFiles = require.context("./data/names", false, /\.js$/);
 var nameData = [];
 nameFiles.keys().forEach(function (file) {
   nameData.push( (nameFiles(file)).default );
 });
 BsFactory.loadNames(nameData);
+
 // Load region data files into our factory
 var regionFiles = require.context("./data/regions", false, /\.js$/);
 var regionData = [];
