@@ -7,7 +7,7 @@
       </div>
       <div>
         <div><strong>Description</strong></div>
-        <div class="pull-right">{{ power.description | capitalize }}</div>
+        <div>{{ power.description | capitalize }}</div>
       </div>
       <div>
         <div><strong>Art</strong></div>
@@ -33,16 +33,10 @@
         <div><strong>Difficulty</strong></div>
         <div class="pull-right">{{ power.difficulty | capitalize }}</div>
       </div>
-      <v-text-field
-        label="Target Defence"
-        v-model="defence"
-        hint="Defence die result of the Target"
-        type="number"
-      ></v-text-field>
       <v-switch label="Spontaneous" v-model="spontaneous"></v-switch>
       <div>
         <span><strong>Target Number:</strong></span>
-        <span class="pull-right">{{ powers.calculate(power, defence, spontaneous) }}</span>
+        <span class="pull-right">{{ powers.calculate(power, spontaneous) }}</span>
       </div>
     </v-card-text>
   </v-card>
@@ -57,7 +51,6 @@
     },
     data() {
         return {
-            defence: 4,
             spontaneous: false,
             powers: this.$bsFactory.getTemplate('powers'),
 	    }

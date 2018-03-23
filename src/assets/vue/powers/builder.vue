@@ -14,8 +14,7 @@
 					v-model="power.art"
 					:items="artList"
 					:rules="[v => !!v || 'Art is required']"
-					hint="A power's art defines how it interacts with the world"
-					@input="reset('art')"
+					:hint="powers.art[power.art].description"
 					required
 				></v-select>
 				<v-select
@@ -23,17 +22,15 @@
 					v-model="power.art_specialisation"
 					:items="artSpecList"
 					:rules="[v => !!v || 'Art Specialisation is required']"
-					hint="Art specialisation indicates the magnitude of the power"
+					:hint="powers.art_specialisation[power.art_specialisation].description"
 					required
 				></v-select>
-				<p>{{ powers.art[power.art][power.art_specialisation].description }}</p>
 				<v-select
 					label="Form"
 					v-model="power.form"
 					:items="formList"
 					:rules="[v => !!v || 'Form is required']"
-					hint="A power's form defines the target type"
-					@input="reset('form')"
+					:hint="powers.form[power.form].description"
 					required
 				></v-select>
 				<v-select
@@ -41,10 +38,10 @@
 					v-model="power.form_specialisation"
 					:items="formSpecList"
 					:rules="[v => !!v || 'Form Specialisation is required']"
-					hint="Form specialisation indicates the magnitude of the target type"
+					:hint="powers.form_specialisation[power.form_specialisation].description"
 					required
 				></v-select>
-				<p>{{ powers.form[power.form][power.form_specialisation].description }}</p>
+				<!-- <p>{{ powers.form[power.form][power.form_specialisation].description }}</p> -->
 				<v-select
 					label="Range"
 					v-model="power.range"
@@ -87,14 +84,8 @@
 					multi-line
 					textarea
 				></v-text-field>
-				<v-text-field
-					label="Target Defence"
-					v-model="defence"
-					hint="Defence die result of the Target"
-					type="number"
-				></v-text-field>
 				<v-switch label="Spontaneous" v-model="spontaneous"></v-switch>
-				<p><strong>Target Number: </strong>{{ powers.calculate(power, defence, spontaneous) }}</p>
+				<p><strong>Target Number: </strong>{{ powers.calculate(power, spontaneous) }}</p>
 				<v-btn dark color="blue" @click="randomPower" :disabled="!valid">Random</v-btn>
 				<v-btn dark color="green" @click="onClick" :disabled="!valid">Submit</v-btn>
 			</v-form>
@@ -126,13 +117,12 @@
 			return {
 				valid: false,
 				names: this.$bsFactory.getNames(),
-				defence: 4,
 				spontaneous: false,
 				power: {
                     name: "Test Power",
-                    art: "Control",
+                    art: 'Control',
                     art_specialisation: 'Neglible',
-                    form: "Biological",
+                    form: 'Biological',
                     form_specialisation: 'Basic',
                     range: 'Personal',
                     duration: 'Instant',
@@ -158,13 +148,13 @@
 				return _.keys(this.powers.art)
 			},
 			artSpecList() {
-				return _.keys(this.powers.art[this.power.art])
+				return _.keys(this.powers.art_specialisation)
 			},
 			formList() {
 				return _.keys(this.powers.form)
 			},
 			formSpecList() {
-				return _.keys(this.powers.form[this.power.form])
+				return _.keys(this.powers.form_specialisation)
 			},
 			rangeList() {
 				return _.keys(this.powers.attributes.range)
@@ -199,16 +189,6 @@
 				this.power.duration = this.durationList[ this.durationList.length * Math.random() << 0 ]
 				this.power.target = this.targetList[ this.targetList.length * Math.random() << 0 ]
 				this.power.difficulty = this.difficultyList[ this.difficultyList.length * Math.random() << 0 ]
-			},
-			/**
-			 * Resets the specialisation
-			 */
-			reset(type) {
-				if (type === 'art') { 
-					this.power.art_specialisation = this.artSpecList[0]
-				} else if (type === 'form') {
-					this.power.form_specialisation = this.formSpecList[0]
-				}
 			},
 			/**
 			 * Save the power

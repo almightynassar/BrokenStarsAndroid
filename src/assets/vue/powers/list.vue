@@ -19,7 +19,10 @@
           <tr @click="props.expanded = !props.expanded">
             <td>{{ props.item.name | capitalize }}</td>
             <td>{{ props.item.art | capitalize }}</td>
+            <td>{{ props.item.art_specialisation }}</td>
             <td>{{ props.item.form | capitalize }}</td>
+            <td>{{ props.item.form_specialisation }}</td>
+            <td><strong :class="colourCode(powersTemplate.calculate(props.item))">{{ powersTemplate.calculate(props.item) }}</strong></td>
           </tr>
         </template>
         <template slot="expand" slot-scope="props">
@@ -67,6 +70,7 @@
       return {
         search: "",
         powers: [],
+        powersTemplate: this.$bsFactory.getTemplate('powers'),
         fullPowerList: [],
         fields: [
           {
@@ -82,10 +86,26 @@
             value: 'art'
           },
           {
+            text: 'Art Special',
+            align: 'left',
+            sortable: true,
+            value: 'art_specialisation'
+          },
+          {
             text: 'Form',
             align: 'left',
             sortable: true,
             value: 'form'
+          },
+          {
+            text: 'Form Special',
+            align: 'left',
+            sortable: true,
+            value: 'form_specialisation'
+          },
+          {
+            text: 'Target',
+            align: 'left',
           }
         ],
         snackbar: {
@@ -135,6 +155,22 @@
         };
         this.loadPowers()
         this.dialog = false
+      },
+      /**
+       * Colour codes Target number difficulties
+       */
+      colourCode(target){
+        let colour = "blue--text"
+        if (target > 4 && target <= 8) {
+          colour = "green--text"
+        } else if (target > 8 && target <= 12) {
+          colour = "orange--text"
+        } else if (target > 12 && target <= 16) {
+          colour = "red--text"
+        } else if (target > 16) {
+          colour = "black--text"
+        }
+        return colour
       }
     },
     created() {

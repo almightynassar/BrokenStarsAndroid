@@ -3,7 +3,7 @@ export default {
         {
             name: "Paralysis",
             art: "Control",
-            art_specialisation: "Minor",
+            art_specialisation: "Major",
             form: "Biological",
             form_specialisation: "Complex",
             difficulty: "Standard",
