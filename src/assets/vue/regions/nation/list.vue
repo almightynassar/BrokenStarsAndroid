@@ -45,7 +45,7 @@
       }
     },
     created() {
-      this.nations = this.regions.nations.toArray()
+      this.nations = this.regions.nations.makeArray()
     }
   }
 </script>
