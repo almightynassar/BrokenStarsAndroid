@@ -14,34 +14,33 @@
 					v-model="power.art"
 					:items="artList"
 					:rules="[v => !!v || 'Art is required']"
-					:hint="powers.art[power.art].description"
 					required
 				></v-select>
+				<p><em>{{powers.art[power.art].description}}</em></p>
 				<v-select
 					label="Art Specialisation"
 					v-model="power.art_specialisation"
 					:items="artSpecList"
 					:rules="[v => !!v || 'Art Specialisation is required']"
-					:hint="powers.art_specialisation[power.art_specialisation].description"
 					required
 				></v-select>
+				<p><em>{{powers.art_specialisation[power.art_specialisation].description}}</em></p>
 				<v-select
 					label="Form"
 					v-model="power.form"
 					:items="formList"
 					:rules="[v => !!v || 'Form is required']"
-					:hint="powers.form[power.form].description"
 					required
 				></v-select>
+				<p><em>{{powers.form[power.form].description}}</em></p>
 				<v-select
 					label="Form Specialisation"
 					v-model="power.form_specialisation"
 					:items="formSpecList"
 					:rules="[v => !!v || 'Form Specialisation is required']"
-					:hint="powers.form_specialisation[power.form_specialisation].description"
 					required
 				></v-select>
-				<!-- <p>{{ powers.form[power.form][power.form_specialisation].description }}</p> -->
+				<p><em>{{ powers.form_specialisation[power.form_specialisation].description }}</em></p>
 				<v-select
 					label="Range"
 					v-model="power.range"
@@ -77,6 +76,14 @@
 					hint="A power's difficulty defines how hard or complex the power is compared to others"
 					required
 				></v-select>
+				<v-select
+					label="Defence"
+					v-model="power.defence"
+					:items="defenceList"
+					:rules="[v => !!v || 'Defence is required']"
+					hint="What the target must roll to oppose your psionic ability"
+					required
+				></v-select>
 				<p>{{ powers.attributes.difficulty[power.difficulty].description }}</p>
 				<v-text-field
 					label="Description"
@@ -85,7 +92,7 @@
 					textarea
 				></v-text-field>
 				<v-switch label="Spontaneous" v-model="spontaneous"></v-switch>
-				<p><strong>Target Number: </strong>{{ powers.calculate(power, spontaneous) }}</p>
+				<p><strong>Modifier: </strong>{{ powers.calculate(power, spontaneous) }}</p>
 				<v-btn dark color="blue" @click="randomPower" :disabled="!valid">Random</v-btn>
 				<v-btn dark color="green" @click="onClick" :disabled="!valid">Submit</v-btn>
 			</v-form>
@@ -124,11 +131,12 @@
                     art_specialisation: 'Neglible',
                     form: 'Biological',
                     form_specialisation: 'Basic',
-                    range: 'Personal',
+                    range: 'Touch',
                     duration: 'Instant',
                     target: 'Single',
 					difficulty: 'Trivial',
-					description: "Generic Description"
+					description: "Generic Description",
+					defence: "Vigor"
 				},
 				rules: {
 					name: [
@@ -141,6 +149,13 @@
 					error: false,
 					success: false
 				},
+				defenceList: [
+					"Strength",
+					"Agility",
+					"Spirit",
+					"Smarts",
+					"Vigor",
+				]
 			}
 		},
 		computed: {

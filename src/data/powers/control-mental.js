@@ -7,9 +7,10 @@ export default {
             form: "Mental",
             form_specialisation: "Moderate",
             difficulty: "Standard",
-            duration: "Hour",
+            duration: "Encounter",
             range: "Smarts",
             target: "Single",
+            defence: "Spirit",
             description: "The target becomes friendlier to you and your allies. Raise their disposition by \
             one level (Hostile - Unfriendly - Indifferent - Friendly - Helpful).",
         },
@@ -23,6 +24,7 @@ export default {
             duration: "Instant",
             range: "Smarts",
             target: "Single",
+            defence: "Spirit",
             description: "You send a simple message into the mind of your target.",
         },
     ]

@@ -17,12 +17,11 @@
       >
         <template slot="items" slot-scope="props">
           <tr @click="props.expanded = !props.expanded">
-            <td>{{ props.item.name | capitalize }}</td>
+            <td>{{ props.item.name | capitalize }} (<strong :class="colourCode(powersTemplate.calculate(props.item))">{{ powersTemplate.calculate(props.item) }}</strong>)</td>
             <td>{{ props.item.art | capitalize }}</td>
             <td>{{ props.item.art_specialisation }}</td>
             <td>{{ props.item.form | capitalize }}</td>
             <td>{{ props.item.form_specialisation }}</td>
-            <td><strong :class="colourCode(powersTemplate.calculate(props.item))">{{ powersTemplate.calculate(props.item) }}</strong></td>
           </tr>
         </template>
         <template slot="expand" slot-scope="props">
@@ -102,10 +101,6 @@
             align: 'left',
             sortable: true,
             value: 'form_specialisation'
-          },
-          {
-            text: 'Target',
-            align: 'left',
           }
         ],
         snackbar: {
@@ -161,13 +156,13 @@
        */
       colourCode(target){
         let colour = "blue--text"
-        if (target > 4 && target <= 8) {
+        if (target < 0 && target >= -1) {
           colour = "green--text"
-        } else if (target > 8 && target <= 12) {
+        } else if (target < -1 && target >= -2) {
           colour = "orange--text"
-        } else if (target > 12 && target <= 16) {
+        } else if (target < -2 && target >= -3) {
           colour = "red--text"
-        } else if (target > 16) {
+        } else if (target < -3) {
           colour = "black--text"
         }
         return colour
