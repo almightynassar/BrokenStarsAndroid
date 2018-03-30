@@ -46,11 +46,81 @@
 						</v-card-text>
 					</v-card>
 				</v-expansion-panel-content>
+				<v-expansion-panel-content>
+					<div slot="header"><strong>Database</strong></div>
+					<v-card>
+						<v-card-text>
+							<p>Use the following to control your local data.</p>
+							<v-subheader>Powers</v-subheader>
+							<v-alert color="success" icon="check_circle" v-model="alerts.powers.clear" dismissible>
+								All powers are cleared.
+							</v-alert>
+							<v-alert color="success" icon="check_circle" v-model="alerts.powers.reset" dismissible>
+								All powers are reset to the factory default.
+							</v-alert>
+							<v-alert color="success" icon="check_circle" v-model="alerts.powers.export" dismissible>
+								All powers are exported.
+							</v-alert>
+							<v-btn flat outline color="primary" @click="clear('power')">Clear Powers</v-btn>
+							<v-btn flat outline color="primary" @click="reset('power')">Factory Reset</v-btn>
+							<v-btn flat outline color="primary" @click="outFile('power')">Export</v-btn>
+						</v-card-text>
+					</v-card>
+				</v-expansion-panel-content>
 			</v-expansion-panel>
 		</v-layout>
 	</v-container>
 </template>
 
 <script>
-	export default {}
+	export default {
+		data() {
+      		return {
+				alerts: {
+					powers: {
+						clear: false,
+						reset: false,
+						export: false
+					}
+				}
+			}
+		},
+		methods: {
+			/**
+			 * Resets to factory defaults
+			 */
+			reset(store) {
+				let s = this.$bsFactory.getStore(store)
+				let table = this.$bsFactory.getTable(store)
+				let t = s.clear()
+				let self = this
+				t.onsuccess = function() {
+					table.populate(s)
+					self.alerts.powers.reset = true
+				}
+			},
+			clear(store) {
+				let s = this.$bsFactory.getStore(store)
+				let t = s.clear()
+				let self = this
+				t.onsuccess = function() {
+					self.alerts.powers.clear = true
+				}
+			},
+			outFile(store) {
+				let result = this.$bsFactory.getStore(store).getAll()
+				let element = document.createElement('a')
+				let self = this
+				result.onsuccess = function(e) {
+					element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(result.result, null, 2)))
+					element.setAttribute('download', store + '.json')
+					element.style.display = 'none'
+					document.body.appendChild(element)
+					element.click()
+					document.body.removeChild(element)
+					self.alerts.powers.export = true
+				}
+			}
+		}
+	}
 </script>

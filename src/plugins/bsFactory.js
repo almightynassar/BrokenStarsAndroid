@@ -74,6 +74,23 @@ export default {
   },
 
   /**
+   * Loads the default database
+   */
+  loadDefaultDB(database) {
+    // Creates each of the tables defined in this.data.db.tables
+    this.data.db.tables.forEach( function(table) {
+      if(!database.objectStoreNames.contains(table.name)) {
+        console.log("Making " + table.name)
+        let objectStore = database.createObjectStore(table.name, { keyPath: table.keyPath, autoIncrement: table.autoIncrement })
+        table.indices.forEach( function(index) {
+          objectStore.createIndex(index, index, { unique: false })
+        })
+        table.populate(objectStore)
+      }
+    })
+  },
+
+  /**
    * Sanitizes the template object array
    * 
    * @param {object} values
@@ -163,16 +180,7 @@ export default {
           let localDatabase = e.target.result
 
           // Creates each of the tables defined in this.data.db.tables
-          self.data.db.tables.forEach( function(table) {
-            if(!localDatabase.objectStoreNames.contains(table.name)) {
-              console.log("Making " + table.name)
-              let objectStore = localDatabase.createObjectStore(table.name, { keyPath: table.keyPath, autoIncrement: table.autoIncrement })
-              table.indices.forEach( function(index) {
-                objectStore.createIndex(index, index, { unique: false })
-              })
-              table.populate(objectStore)
-            }
-          })
+          self.loadDefaultDB(localDatabase)
         }
 
         // These two events handles errors and blockages when opening IndexedDB
@@ -247,6 +255,16 @@ export default {
           throw new Error();
         }
         return self.data.names[list];
+      },
+
+      /**
+       * Grabs the table information
+       * 
+       * @param {string} storename The IndexedDB storename to grab
+       */
+      getTable(storename) {
+        let name = _.startCase(_.toLower(storename)) + "Store"
+        return _.find(self.data.db.tables, function(t) { return t.name === name; })
       }
     }
   }
