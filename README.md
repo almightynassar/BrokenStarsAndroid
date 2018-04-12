@@ -44,57 +44,73 @@ The fittings are defined in `/src/data/templates/fittings.js`. Storage, Power, a
 
 Weapons are stored in `/src/data/templates/weapons.js` and is defined like fittings, just without the crew property. It instead lists damage, weapon range, rate of fire and how many hardpoints it consumes.
 
-# How to make (Linux)
+# How to build
 
-These instructions were done with an Ubuntu based distro. You may need to make changes for your distro (i.e. swap apt-get for yum, e.t.c)
+These instructions avoid installing [Android Studio](https://developer.android.com/studio/index.html) and just installs the command line tools (see bottom of linked page). I do this since I prefer to use my own IDE. If you do have Android Studio, then you can use the GUI sdkmanager tool that comes packaged with it.
 
-1. Install system requirements:
+The Linux instructions were done with Elementary OS, an Ubuntu-based distro. You may need changes certain commands for your distro (i.e. swap apt-get for yum, e.t.c).
+
+1. Install system requirements such as npm, git, 32-bit libraries and [gradle](https://gradle.org/install/)
+    
+    **Linux**
     ```
-    sudo apt-get install npm gradle git
+    sudo apt-get install npm gradle git libc6:i386 libncurse5:i386 libstdc++6:i386
     ```
-1. Install 32-bit libraries that Android might need
-    ```
-    sudo apt-get install libc6:i386 libncurse5:i386 libstdc++6:i386
-    ```
+    **Windows**
+
+    Look up the relevant installation instructions from the official documentation. Remember that you may need to modify the PATH system environment variable.
 1. Install the official Java environment (make sure it is version 8)
+
+    **Linux**
     ```
     sudo add-apt-repository ppa:webupd8team/java
     sudo apt-get update
     sudo apt-get install oracle-java8-installer
     sudo apt-get install oracle-java8-set-default
     ```
-1. Download the [official Android SDK](https://developer.android.com/studio/index.html) (I only installed the tools since I use another editor)
-1. Install cordova (the weak link; expect LOT'S of issues getting this to work consistently), the latest npm and n
+    **Windows**
+
+    Again, use the installation instrctions from the official documentation.
+1. Download [Android Studio or the Android SDK command line tools](https://developer.android.com/studio/index.html)
+1. Install cordova, the latest npm and n
+
+    **Linux**
     ```
     sudo npm install -g cordova npm n
-    ```
-1. Install the latest node version
-    ```
+    
+    # Some packaged node versions are outdated.
+    # Install the latest node version with n
     sudo n stable
-    ```
-1. Uninstall the outdate npm and node version that come with the distro
-    ```
+
+    # Uninstall the outdated versions and linked the new ones
     sudo apt-get purge npm nodejs
-    ```
-1. Link latest node version to our path
-    ```
     sudo update-alternatives --install /usr/bin/node node /usr/local/n/versions/[version_number]/bin/node 10
     ```
-1. Extract the downloaded SDK to ~/Android/sdk
-1. Edit ~/.bashrc and add the following lines
+    **Windows**
+    ```
+    npm install -g cordova
+    ```
+1. Extract the downloaded SDK to ~/Android/sdk (or install Android Tools and let it do it for you)
+1. Edit your environment variables. If you are unsure what this is, google where your $PATH environment variable is set for your Operating System. For most Linux systems, this will involve editing your **~/.bashrc** file.
+
+    **Linux**
+    
+    Inside **~/.bashrc**:
     ```
     ANDROID_HOME = ~/Android/sdk
-    PATH = $PATH:~/Android/sdk/tools/bin
+    PATH = $PATH:~/Android/sdk/tools/bin:~/Android/sdk/tools/platform-tools:~/Android/sdk/tools/tools
     export ANDROID_HOME
     export PATH
     ```
-1. Import these new terminal settings
+    And then run in the terminal:
     ```
     source ~/.bashrc
     ```
-1. Install platforms and tool
+1. Install platforms and tools (not the build_tools line may not work)
     ```
+    sdkmanager --update
     sdkmanager "platforms;android-25" "system-images;android-25;google_apis;x86_64" "build_tools;25.0.0"
+    sdkmanager --licenses
     ```
 1. New devices may require a restart of adb
     ```
