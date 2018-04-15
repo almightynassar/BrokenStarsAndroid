@@ -1,26 +1,23 @@
 <template>
     <v-container fluid>
-        <v-tabs dark grow>
-            <v-toolbar color="blue" dark>
-                <v-tabs-bar class="blue">
-                    <v-tabs-slider color="yellow"></v-tabs-slider>
-                    <!-- <v-tabs-item href="#analyse"><strong>Hull Analyse</strong></v-tabs-item> -->
-                    <v-tabs-item href="#fittings"><strong>Fittings</strong></v-tabs-item>
-                    <v-tabs-item href="#weapons"><strong>Weapons</strong></v-tabs-item>
-                </v-tabs-bar>
-            </v-toolbar>
-            <v-tabs-items>
-                <!-- <v-tabs-content id="analyse" >
-                    <analyse></analyse>
-                </v-tabs-content> -->
-                <v-tabs-content id="fittings" >
-                    <fittings></fittings>
-                </v-tabs-content>
-                <v-tabs-content id="weapons" >
-                    <weapons></weapons>
-                </v-tabs-content>
-            </v-tabs-items>
-        </v-tabs>
+        <v-toolbar color="blue" dark tabs>
+            <v-tabs dark grow color="blue" slider-color="yellow" v-model="tab">
+                <!-- <v-tab href="#analyse"><strong>Hull Analyse</strong></v-tab> -->
+                <v-tab href="#fittings"><strong>Fittings</strong></v-tab>
+                <v-tab href="#weapons"><strong>Weapons</strong></v-tab>
+            </v-tabs>
+        </v-toolbar>
+        <v-tabs-items v-model="tab" touchless>
+            <!-- <v-tab-item id="analyse" >
+                <analyse></analyse>
+            </v-tab-item> -->
+            <v-tab-item id="fittings" >
+                <fittings></fittings>
+            </v-tab-item>
+            <v-tab-item id="weapons" >
+                <weapons></weapons>
+            </v-tab-item>
+        </v-tabs-items>
 	</v-container>
 </template>
 <script>
@@ -28,6 +25,11 @@
     import Fittings from "./fittings.vue"
     import Weapons from "./weapons.vue"
     export default {
+        data () {
+            return {
+                tab: 'fittings',
+            }
+        },
         components: {
             // Analyse,
             Fittings,

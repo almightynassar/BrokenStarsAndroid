@@ -1,28 +1,30 @@
 <template>
     <v-container fluid>
-        <v-tabs dark grow>
-            <v-toolbar color="blue" dark>
-                <v-tabs-bar class="blue">
-                <v-tabs-slider color="yellow"></v-tabs-slider>
-                <v-tabs-item href="#list"><strong>List</strong></v-tabs-item>
-                <v-tabs-item href="#loot"><strong>Loot</strong></v-tabs-item>
-                </v-tabs-bar>
-            </v-toolbar>
-            <v-tabs-items>
-                <v-tabs-content id="list" >
-                    <card-list></card-list>
-                </v-tabs-content>
-                <v-tabs-content id="loot" >
-                    <card-loot></card-loot>
-                </v-tabs-content>
-            </v-tabs-items>
-        </v-tabs>
+        <v-toolbar color="blue" dark tabs>
+            <v-tabs dark grow color="blue" slider-color="yellow" v-model="tab">
+                <v-tab href="#list"><strong>List</strong></v-tab>
+                <v-tab href="#loot"><strong>Loot</strong></v-tab>
+            </v-tabs>
+        </v-toolbar>
+        <v-tabs-items v-model="tab" touchless>
+            <v-tab-item id="list" >
+                <card-list></card-list>
+            </v-tab-item>
+            <v-tab-item id="loot" >
+                <card-loot></card-loot>
+            </v-tab-item>
+        </v-tabs-items>
 	</v-container>
 </template>
 <script>
     import CardList from "./list.vue"
     import CardLoot from "./loot.vue"
     export default {
+        data () {
+            return {
+                tab: 'list',
+            }
+        },
         components: {
             CardList,
             CardLoot,

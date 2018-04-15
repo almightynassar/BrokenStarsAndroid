@@ -1,15 +1,13 @@
 <template>
 	<v-container fluid>
-    <v-tabs dark grow>
-      <v-toolbar color="blue" dark>
-        <v-tabs-bar class="blue">
-          <v-tabs-slider color="yellow"></v-tabs-slider>
-          <v-tabs-item href="#tab-background"><strong>Welcome!</strong></v-tabs-item>
-          <v-tabs-item href="#tab-timeline"><strong>Timeline</strong></v-tabs-item>
-        </v-tabs-bar>
-      </v-toolbar>
-      <v-tabs-items>
-      <v-tabs-content id="tab-background" >
+    <v-toolbar color="blue" dark tabs>
+      <v-tabs dark grow color="blue" slider-color="yellow" v-model="tab">
+        <v-tab href="#background"><strong>Welcome!</strong></v-tab>
+        <v-tab href="#timeline"><strong>Timeline</strong></v-tab>
+      </v-tabs>
+    </v-toolbar>
+    <v-tabs-items v-model="tab" touchless>
+      <v-tab-item id="background" >
         <v-card flat>
           <v-card-text>
             <p>It's the 3200s, and it’s as you would expect it to be. Space flight, artificial intelligence,
@@ -34,22 +32,22 @@
             <p><em>P.S: Remember: It’s dangerous to go alone! Take friends.</em></p>
           </v-card-text>
         </v-card>
-      </v-tabs-content>
-      <v-tabs-content id="tab-timeline" >
+      </v-tab-item>
+      <v-tab-item id="timeline" >
         <v-card flat>
           <v-card-text>
             <timeline :timeline="timeline"></timeline>
           </v-card-text>
         </v-card>
-      </v-tabs-content>
+      </v-tab-item>
     </v-tabs-items>
-    </v-tabs>
 	</v-container>
 </template>
 <script>
 	export default {
     data() {
       return {
+        tab: 'background',
         timeline: [
           {
             date: "1970-ish",

@@ -1,26 +1,23 @@
 <template>
     <v-container fluid>
-        <v-tabs dark grow>
-            <v-toolbar color="blue" dark>
-                <v-tabs-bar class="blue">
-                    <v-tabs-slider color="yellow"></v-tabs-slider>
-                    <v-tabs-item href="#name"><strong>Name</strong></v-tabs-item>
-                    <v-tabs-item href="#quest"><strong>Quest</strong></v-tabs-item>
-                    <v-tabs-item href="#region"><strong>Region</strong></v-tabs-item>
-                </v-tabs-bar>
-            </v-toolbar>
-            <v-tabs-items>
-                <v-tabs-content id="name" >
-                    <name-generator></name-generator>
-                </v-tabs-content>
-                <v-tabs-content id="quest" >
-                    <quest-generator></quest-generator>
-                </v-tabs-content>
-                <v-tabs-content id="region" >
-                    <region-generator></region-generator>
-                </v-tabs-content>
-            </v-tabs-items>
-        </v-tabs>
+        <v-toolbar color="blue" dark tabs>
+            <v-tabs dark grow color="blue" slider-color="yellow" v-model="tab">
+                <v-tab href="#name"><strong>Name</strong></v-tab>
+                <v-tab href="#quest"><strong>Quest</strong></v-tab>
+                <v-tab href="#region"><strong>Region</strong></v-tab>
+            </v-tabs>
+        </v-toolbar>
+        <v-tabs-items v-model="tab" touchless>
+            <v-tab-item id="name" >
+                <name-generator></name-generator>
+            </v-tab-item>
+            <v-tab-item id="quest" >
+                <quest-generator></quest-generator>
+            </v-tab-item>
+            <v-tab-item id="region" >
+                <region-generator></region-generator>
+            </v-tab-item>
+        </v-tabs-items>
 	</v-container>
 </template>
 <script>
@@ -28,6 +25,11 @@
     import QuestGenerator from "./quest.vue"
     import RegionGenerator from "./region.vue"
     export default {
+        data () {
+            return {
+                tab: 'name',
+            }
+        },
         components: {
             NameGenerator,
             QuestGenerator,

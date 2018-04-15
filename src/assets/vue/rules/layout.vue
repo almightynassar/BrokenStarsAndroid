@@ -1,34 +1,29 @@
 <template>
     <v-container fluid>
-        <v-tabs dark grow>
-            <v-toolbar color="blue" dark>
-                <v-tabs-bar class="blue">
-                    <v-tabs-slider color="yellow"></v-tabs-slider>
-                    <v-tabs-item href="#player"><strong>Player</strong></v-tabs-item>
-                    <v-tabs-item href="#skills"><strong>Skills</strong></v-tabs-item>
-                    <v-tabs-item href="#talents"><strong>Talents</strong></v-tabs-item>
-                    <v-tabs-item href="#ship"><strong>Ship</strong></v-tabs-item>
-                    <v-tabs-item href="#hazard"><strong>Hazards</strong></v-tabs-item>
-                </v-tabs-bar>
-            </v-toolbar>
-            <v-tabs-items>
-                <v-tabs-content id="player" >
-                    <player-rules></player-rules>
-                </v-tabs-content>
-                <v-tabs-content id="skills" >
-                    <skill-rules></skill-rules>
-                </v-tabs-content>
-                <v-tabs-content id="talents" >
-                    <talent-rules></talent-rules>
-                </v-tabs-content>
-                <v-tabs-content id="ship" >
-                    <ship-rules></ship-rules>
-                </v-tabs-content>
-                <v-tabs-content id="hazard" >
-                    <hazard-rules></hazard-rules>
-                </v-tabs-content>
-            </v-tabs-items>
-        </v-tabs>
+        <v-toolbar color="blue" dark tabs>
+            <v-tabs dark grow color="blue" slider-color="yellow" v-model="tab">
+                <v-tab href="#player"><strong>Player</strong></v-tab>
+                <v-tab href="#skills"><strong>Skills</strong></v-tab>
+                <v-tab href="#talents"><strong>Talents</strong></v-tab>
+                <v-tab href="#ship"><strong>Ship</strong></v-tab>
+                <v-tab href="#hazard"><strong>Hazards</strong></v-tab>
+            </v-tabs>
+        </v-toolbar>
+        <v-tab-item id="player" v-model="tab" touchless>
+            <player-rules></player-rules>
+        </v-tab-item>
+        <v-tab-item id="skills" >
+            <skill-rules></skill-rules>
+        </v-tab-item>
+        <v-tab-item id="talents" >
+            <talent-rules></talent-rules>
+        </v-tab-item>
+        <v-tab-item id="ship" >
+            <ship-rules></ship-rules>
+        </v-tab-item>
+        <v-tab-item id="hazard" >
+            <hazard-rules></hazard-rules>
+        </v-tab-item>
 	</v-container>
 </template>
 <script>
@@ -38,6 +33,11 @@
     import TalentRules from "./talents.vue"
     import HazardRules from "./hazard.vue"
     export default {
+        data () {
+            return {
+                tab: 'player',
+            }
+        },
         components: {
             PlayerRules,
             SkillRules,

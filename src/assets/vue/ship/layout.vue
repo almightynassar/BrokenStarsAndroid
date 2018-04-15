@@ -1,26 +1,23 @@
 <template>
 	<v-container fluid>
-        <v-tabs dark grow>
-            <v-toolbar color="blue" dark>
-                <v-tabs-bar class="blue">
-                    <v-tabs-slider color="yellow"></v-tabs-slider>
-                    <v-tabs-item href="#list"><strong>List</strong></v-tabs-item>
-                    <v-tabs-item href="#new"><strong>New</strong></v-tabs-item>
-                    <v-tabs-item href="#import"><strong>Import</strong></v-tabs-item>
-                </v-tabs-bar>
-            </v-toolbar>
-            <v-tabs-items>
-                <v-tabs-content id="list" >
-                    <ship-list></ship-list>
-                </v-tabs-content>
-                <v-tabs-content id="new" >
-                    <new-ship></new-ship>
-                </v-tabs-content>
-                <v-tabs-content id="import" >
-                    <import-ship></import-ship>
-                </v-tabs-content>
-            </v-tabs-items>
-        </v-tabs>
+        <v-toolbar color="blue" dark tabs>
+            <v-tabs dark grow color="blue" slider-color="yellow" v-model="tab">
+                <v-tab key="list" href="#list"><strong>List</strong></v-tab>
+                <v-tab key="new" href="#new"><strong>New</strong></v-tab>
+                <v-tab key="import" href="#import"><strong>Import</strong></v-tab>
+            </v-tabs>
+        </v-toolbar>
+        <v-tabs-items v-model="tab" touchless>
+            <v-tab-item id="list">
+                <ship-list></ship-list>
+            </v-tab-item>
+            <v-tab-item id="new">
+                <new-ship></new-ship>
+            </v-tab-item>
+            <v-tab-item id="import">
+                <import-ship></import-ship>
+            </v-tab-item>
+        </v-tabs-items>
 	</v-container>
 </template>
 <script>
@@ -28,6 +25,11 @@
     import NewShip from "./new.vue"
     import ImportShip from "./import.vue"
     export default {
+        data () {
+            return {
+                tab: 'list',
+            }
+        },
         components: {
             ShipList,
             NewShip,

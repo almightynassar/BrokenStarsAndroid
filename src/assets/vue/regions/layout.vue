@@ -1,15 +1,12 @@
 <template>
     <v-container fluid>
-        <v-tabs dark grow>
-            <v-toolbar color="blue" dark>
-                <v-tabs-bar class="blue">
-                    <v-tabs-slider color="yellow"></v-tabs-slider>
-                    <v-tabs-item to="/regions/"><strong>Sectors</strong></v-tabs-item>
-                    <v-tabs-item to="/regions/nations"><strong>Nations</strong></v-tabs-item>
-                    <v-tabs-item to="/regions/map"><strong>Map</strong></v-tabs-item>
-                </v-tabs-bar>
-            </v-toolbar>
-        </v-tabs>
+        <v-toolbar color="blue" dark tabs>
+            <v-tabs dark grow color="blue" slider-color="yellow">
+                <v-tab to="/regions/"><strong>Sectors</strong></v-tab>
+                <v-tab to="/regions/nations"><strong>Nations</strong></v-tab>
+                <v-tab to="/regions/map"><strong>Map</strong></v-tab>
+            </v-tabs>
+        </v-toolbar>
         <router-view></router-view>
 	</v-container>
 </template>
