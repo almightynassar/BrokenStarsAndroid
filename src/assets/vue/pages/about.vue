@@ -50,7 +50,7 @@
 					<div slot="header"><strong>Database</strong></div>
 					<v-card>
 						<v-card-text>
-							<p>Use the following to control your local data.</p>
+							<p>Use the following to control your local data. You are currently running on the "<strong>{{ platform }}</strong>" platform.</p>
 							<v-subheader>Powers</v-subheader>
 							<v-alert color="success" icon="check_circle" v-model="alerts.powers.clear" dismissible>
 								All powers are cleared.
@@ -61,9 +61,9 @@
 							<v-alert color="success" icon="check_circle" v-model="alerts.powers.export" dismissible>
 								All powers are exported.
 							</v-alert>
-							<v-btn flat outline color="primary" @click="clear('power')">Clear Powers</v-btn>
-							<v-btn flat outline color="primary" @click="reset('power')">Factory Reset</v-btn>
-							<v-btn flat outline color="primary" @click="outFile('power')">Export</v-btn>
+							<v-btn small outline color="primary" @click="clear('power')"><v-icon>clear</v-icon> Clear</v-btn>
+							<v-btn small outline color="primary" @click="reset('power')"><v-icon>replay</v-icon> Reset</v-btn>
+							<v-btn small outline color="primary" @click="outFile('power')"><v-icon>file_download</v-icon> Export</v-btn>
 						</v-card-text>
 					</v-card>
 				</v-expansion-panel-content>
@@ -83,6 +83,11 @@
 						export: false
 					}
 				}
+			}
+		},
+		computed: {
+			platform() {
+				return device.platform;
 			}
 		},
 		methods: {

@@ -32,9 +32,10 @@
         <icon density="xxhdpi" src="src/res/mipmap-xxhdpi/icon.png" />
         <icon density="xxxhdpi" src="src/res/mipmap-xxxhdpi/icon.png" />
     </platform>
-    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova-plugin-device" spec="^1.1.7" />
+    <plugin name="cordova-plugin-device" spec="^2.0.0" />
     <plugin name="cordova-plugin-indexeddb-async" spec="^2.2.1" />
-    <engine name="android" spec="^7.0.0" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <engine name="android" spec="^7.1.0" />
     <engine name="browser" spec="^5.0.3" />
 </widget>
