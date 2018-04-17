@@ -24,20 +24,18 @@
             >
                 <template slot="items" slot-scope="props">
                     <tr>
-                        <td class="pull-center grey"><h3>{{ props.item.name | capitalize }}</h3></td>
+                        <td class="grey"><h3>{{ props.item.name | capitalize }}</h3></td>
                     </tr>
                     <tr>
                         <td>
-                            <dl class="list">
-                                <dt>Requirement</dt>
-                                <dd>{{ props.item.requirement }}</dd>
-                                <dt>Effect</dt>
-                                <dd>{{ props.item.effect }}</dd>
-                                <dt>Recovery</dt>
-                                <dd>{{ props.item.recovery }}</dd>
-                                <dt>Incapacitation</dt>
-                                <dd>{{ props.item.incapacitation }}</dd>
-                            </dl>
+                            <div><strong>Requirement</strong></div>
+                            <div class="ml-4 mt-1 mb-1 bottom-border">{{ props.item.requirement }}</div>
+                            <div><strong>Effect</strong></div>
+                            <div class="ml-4 mt-1 mb-1 bottom-border">{{ props.item.effect }}</div>
+                            <div><strong>Recovery</strong></div>
+                            <div class="ml-4 mt-1 mb-1 bottom-border">{{ props.item.recovery }}</div>
+                            <div><strong>Incapacitation</strong></div>
+                            <div class="ml-4 mt-1 mb-1 bottom-border">{{ props.item.incapacitation }}</div>
                         </td>
                     </tr>
                 </template>

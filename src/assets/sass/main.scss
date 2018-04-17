@@ -15,31 +15,3 @@ ol.proper-list li {
 .small-caps {
 	font-variant-caps: small-caps;
 }
-
-.pull-left {
-	text-align: left;
-}
-.pull-center {
-	text-align: center;
-}
-
-.pull-right {
-	text-align: right;
-}
-
-.top-align {
-	vertical-align: top;
-}
-
-dl.list {
-	dt {
-		font-weight: bold;
-		padding-bottom: 1vh;
-	}
-	dd {
-		border-bottom-style: solid;
-		border-bottom-width: 1px;
-		border-bottom-color: lightgray;
-		margin-bottom: 2vh;
-	}
-}

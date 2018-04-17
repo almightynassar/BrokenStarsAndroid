@@ -76,18 +76,16 @@
 							:rules="[v => !!v || 'Star Temperature is required']"
 							@input="generateDetails"
 						></v-select>
-						<dl class="list">
-							<dt>Class: <help-star help="star-class"></help-star></dt>
-							<dd>{{details.star.type}} ({{ details.star.class }}) <help-generic :popover="'star-details'">{{details.star.description}}</help-generic></dd>
-							<dt>Luminosity: <help-star help="luminosity"></help-star></dt>
-							<dd>{{details.star.luminosity}} W <help-generic :popover="'star-luminosity'">This is {{details.star.luminosityRelative}} times relative to our Sun (Sol)</help-generic></dd>
-							<dt>Mass:</dt>
-							<dd>{{details.star.mass}} kg <help-generic :popover="'star-radius'">This is {{details.star.massRelative}} times relative to our Sun (Sol)</help-generic></dd>
-							<dt>Radius:</dt>
-							<dd>{{details.star.radius}} m <help-generic :popover="'star-radius'">This is {{details.star.radiusRelative}} times relative to our Sun (Sol)</help-generic></dd>
-							<dt>Temperature:</dt>
-							<dd>{{details.star.temperature}} K</dd>
-						</dl>
+						<div><strong>Class</strong> <help-star help="star-class"></help-star></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{details.star.type}} ({{ details.star.class }}) <help-generic :popover="'star-details'">{{details.star.description}}</help-generic></div>
+						<div><strong>Luminosity</strong> <help-star help="luminosity"></help-star></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{details.star.luminosity}} W <help-generic :popover="'star-luminosity'">This is {{details.star.luminosityRelative}} times relative to our Sun (Sol)</help-generic></div>
+						<div><strong>Mass</strong></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{details.star.mass}} kg <help-generic :popover="'star-radius'">This is {{details.star.massRelative}} times relative to our Sun (Sol)</help-generic></div>
+						<div><strong>Radius</strong></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{details.star.radius}} m <help-generic :popover="'star-radius'">This is {{details.star.radiusRelative}} times relative to our Sun (Sol)</help-generic></div>
+						<div><strong>Temperature</strong></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{details.star.temperature}} K</div>
 					</v-card-text>
 				</v-card>
 			</v-flex>
@@ -181,12 +179,10 @@
 										@input="generateDetails"
 									>
 									</v-slider>
-									<dl class="list">
-										<dt>Albedo:</dt>
-										<dd>{{details.planet.albedo}}</dd>
-										<dt>Temperature:</dt>
-										<dd>{{details.planet.celsius}} °C ({{details.planet.temperature}} °K)</dd>
-									</dl>
+									<div><strong>Albedo</strong></div>
+									<div class="ml-4 mt-1 mb-1 bottom-border">{{details.planet.albedo}}</div>
+									<div><strong>Temperature</strong></div>
+									<div class="ml-4 mt-1 mb-1 bottom-border">{{details.planet.celsius}} °C ({{details.planet.temperature}} °K)</div>
 								</v-card-text>
 							</v-card>
 						</v-dialog>

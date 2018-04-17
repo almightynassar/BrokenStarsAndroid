@@ -1,22 +1,14 @@
 <template>
   <v-card tile color="grey lighten-1">
     <v-card-text>
-      <div>
-        <div><strong>Name</strong></div>
-        <div class="pull-right">{{ sector.name }}</div>
-      </div>
-      <div>
-        <div><strong>Control</strong></div>
-        <div class="pull-right">{{ regions.nations.get(sector.control).name }} ({{ sector.control | uppercase }})</div>
-      </div>
-      <div>
-        <div><strong>Trade</strong></div>
-        <div class="pull-right">{{ regions.getSectorTrade(sector) }}</div>
-      </div>
-      <div>
-        <div><strong>Star</strong></div>
-        <div class="pull-right">{{details.type}} ({{ details.class }}) <help-generic :popover="'star-details'">{{details.description}}</help-generic></div>
-      </div>
+      <div><strong>Name</strong></div>
+      <div class="ml-4 mt-1 mb-1 bottom-border">{{ sector.name }}</div>
+      <div><strong>Control</strong></div>
+      <div class="ml-4 mt-1 mb-1 bottom-border">{{ regions.nations.get(sector.control).name }} ({{ sector.control | uppercase }})</div>
+      <div><strong>Trade</strong></div>
+      <div class="ml-4 mt-1 mb-1 bottom-border">{{ regions.getSectorTrade(sector) }}</div>
+      <div><strong>Star</strong></div>
+      <div class="ml-4 mt-1 mb-1 bottom-border">{{details.type}} ({{ details.class }}) <help-generic :popover="'star-details'">{{details.description}}</help-generic></div>
     </v-card-text>
   </v-card>
 </template>

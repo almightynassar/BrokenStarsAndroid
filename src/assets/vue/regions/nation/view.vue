@@ -5,12 +5,10 @@
 				<v-card flat>
 					<v-card-title class="small-caps">{{nation.name}}</v-card-title>
 					<v-card-text>
-						<dl class="list">
-							<dt>Status</dt>
-							<dd>{{ nation.governance.status | capitalize }} <help-generic :popover="'status-details'">{{statusDescription}}</help-generic></dd>
-							<dt>Government</dt>
-							<dd>{{ nation.governance.source | capitalize}}<help-generic :popover="'source-details'">{{sourceDescription}}</help-generic>  {{ nation.governance.structure | capitalize}}<help-generic :popover="'structure-details'">{{structureDescription}}</help-generic></dd>
-						</dl>
+						<div><strong>Status</strong></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ nation.governance.status | capitalize }} <help-generic :popover="'status-details'">{{statusDescription}}</help-generic></div>
+						<div><strong>Government</strong></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ nation.governance.source | capitalize}}<help-generic :popover="'source-details'">{{sourceDescription}}</help-generic>  {{ nation.governance.structure | capitalize}}<help-generic :popover="'structure-details'">{{structureDescription}}</help-generic></div>
 					</v-card-text>
 				</v-card>
                 <v-card flat>

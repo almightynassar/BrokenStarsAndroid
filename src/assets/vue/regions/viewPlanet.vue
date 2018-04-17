@@ -5,45 +5,62 @@
 				<v-card flat>
 					<v-card-title class="small-caps">{{planet.name}}</v-card-title>
 					<v-card-text>
-						<dl class="list">
-							<!-- STATISTICS -->
-							<dt>Type</dt>
-							<dd>{{planet.shape | capitalize}}: {{ regions.categories.planet.shape[planet.shape]}}</dd>
-							<dt>Size</dt>
-							<dd>{{planet.size | capitalize}}: {{ regions.categories.planet.size[planet.size]}} km diameter</dd>
-							<dt>Atmosphere</dt>
-							<dd>{{planet.atmosphere | capitalize}}: {{ regions.categories.planet.atmosphere[planet.atmosphere]}}</dd>
-							<dt>Hydrosphere</dt>
-							<dd>{{planet.hydrosphere | capitalize}}: {{ regions.categories.planet.hydrosphere[planet.hydrosphere]}}</dd>
-							<dt>Biosphere</dt>
-							<dd>{{planet.biosphere | capitalize}}: {{ regions.categories.planet.biosphere[planet.biosphere]}}</dd>
-							<dt>Population</dt>
-							<dd>{{regions.categories.planet.population[planet.population] | capitalize}}</dd>
-							<dt>Government</dt>
-							<dd>{{planet.government | capitalize}}: {{ regions.categories.planet.government[planet.government]}}</dd>
-							<dt>Laws</dt>
-							<dd>{{planet.laws | capitalize}}: {{ regions.categories.planet.laws[planet.laws]}}</dd>
-							<dt>Tech</dt>
-							<dd>{{planet.tech | capitalize}}: {{ regions.categories.planet.tech[planet.tech]}}</dd>
-							<dt>Temperature</dt>
-							<dd>{{planet.temperature | capitalize}}: {{ regions.categories.planet.temperature[planet.temperature]}}</dd>
-							<dt>Resource</dt>
-							<dd>{{planet.resources | capitalize}}: {{ regions.categories.planet.resources[planet.resources]}}</dd>
-							<dt>Infrastructure</dt>
-							<dd>{{planet.infrastructure | capitalize}}: {{ regions.categories.planet.infrastructure[planet.infrastructure]}}</dd>
-							<dt>Spaceport</dt>
-							<dd>{{regions.categories.planet.spaceport[planet.spaceport]}}</dd>
-							<dt>Satellites</dt>
-							<dd>{{planet.satellites}}</dd>
-							<dt>Trade Number</dt>
-							<dd>{{regions.getPlanetTrade(planet)}}</dd>
-							<dt>Description</dt>
-							<dd>{{planet.description}}</dd>
-							<dt>Tags</dt>
-							<dd>
-								<v-chip v-for="(t,i) in tags" :key="'tag-' + i">{{t}}</v-chip>
-							</dd>
-						</dl>
+						<div>Name</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.name}}</div>
+						<div>Description</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.description}}</div>
+					</v-card-text>
+				</v-card>
+			</v-flex>
+			<v-flex sm12 md6 lg4>
+				<v-card flat>
+					<v-card-title class="small-caps">Environment</v-card-title>
+					<v-card-text>
+						<div>Type</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.shape | capitalize}}: {{ regions.categories.planet.shape[planet.shape]}}</div>
+						<div>Size</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.size | capitalize}}: {{ regions.categories.planet.size[planet.size]}} km diameter</div>
+						<div>Atmosphere</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.atmosphere | capitalize}}: {{ regions.categories.planet.atmosphere[planet.atmosphere]}}</div>
+						<div>Hydrosphere</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.hydrosphere | capitalize}}: {{ regions.categories.planet.hydrosphere[planet.hydrosphere]}}</div>
+						<div>Biosphere</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.biosphere | capitalize}}: {{ regions.categories.planet.biosphere[planet.biosphere]}}</div>
+						<div>Satellites</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.satellites}}</div>
+					</v-card-text>
+				</v-card>
+			</v-flex>
+			<v-flex sm12 md6 lg4>
+				<v-card flat>
+					<v-card-title class="small-caps">Statistics</v-card-title>
+					<v-card-text>
+						<div>Population</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{regions.categories.planet.population[planet.population] | capitalize}}</div>
+						<div>Government</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.government | capitalize}}: {{ regions.categories.planet.government[planet.government]}}</div>
+						<div>Laws</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.laws | capitalize}}: {{ regions.categories.planet.laws[planet.laws]}}</div>
+						<div>Tech</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.tech | capitalize}}: {{ regions.categories.planet.tech[planet.tech]}}</div>
+						<div>Temperature</div>
+						<div >{{planet.temperature | capitalize}}: {{ regions.categories.planet.temperature[planet.temperature]}}</div>
+						<div>Resource</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.resources | capitalize}}: {{ regions.categories.planet.resources[planet.resources]}}</div>
+						<div>Infrastructure</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{planet.infrastructure | capitalize}}: {{ regions.categories.planet.infrastructure[planet.infrastructure]}}</div>
+						<div>Spaceport</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{regions.categories.planet.spaceport[planet.spaceport]}}</div>
+						<div>Trade Number</div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{regions.getPlanetTrade(planet)}}</div>
+					</v-card-text>
+				</v-card>
+			</v-flex>
+			<v-flex sm12 md6 lg4>
+				<v-card flat>
+					<v-card-title class="small-caps">Tags</v-card-title>
+					<v-card-text>
+						<v-chip v-for="(t,i) in tags" :key="'tag-' + i">{{t}}</v-chip>
 					</v-card-text>
 				</v-card>
 			</v-flex>

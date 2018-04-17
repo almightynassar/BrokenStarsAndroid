@@ -24,7 +24,7 @@
             >
                 <template slot="items" slot-scope="props">
                     <tr>
-                        <td class="pull-center grey"><h3>{{ props.item.name | capitalize }}</h3></td>
+                        <td class="grey"><h3>{{ props.item.name | capitalize }}</h3></td>
                     </tr>
                     <tr>
                         <td>
@@ -35,25 +35,25 @@
                             <table>
                                 <tr>
                                     <td class="bottom-border" :colspan="props.item.talents.length">
-                                        <p class="pull-center"><strong>{{props.item.base.name | capitalize}}:</strong></p>
+                                        <p><strong>{{props.item.base.name | capitalize}}:</strong></p>
                                         <p>{{props.item.base.effect}}</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bottom-border" v-for="i in props.item.talents.length " :key="props.item.base.name + '0' + i">
-                                        <p class="pull-center"><strong>{{props.item.talents[i-1][0].name | capitalize}}:</strong></p>
+                                        <p><strong>{{props.item.talents[i-1][0].name | capitalize}}:</strong></p>
                                         <p>{{props.item.talents[i-1][0].effect}}</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bottom-border" v-for="i in props.item.talents.length " :key="props.item.base.name + '1' + i">
-                                        <p class="pull-center"><strong>{{props.item.talents[i-1][1].name | capitalize}}:</strong></p>
+                                        <p><strong>{{props.item.talents[i-1][1].name | capitalize}}:</strong></p>
                                         <p>{{props.item.talents[i-1][1].effect}}</p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="bottom-border" :colspan="props.item.talents.length">
-                                        <p class="pull-center"><strong>{{props.item.capstone.name | capitalize}}:</strong></p>
+                                        <p><strong>{{props.item.capstone.name | capitalize}}:</strong></p>
                                         <p>{{props.item.capstone.effect}}</p>
                                     </td>
                                 </tr>  

@@ -41,8 +41,8 @@
 					<div slot="header"><strong>License</strong></div>
 					<v-card>
 						<v-card-text>
-							<p>This app is licensed under the Apache License Version 2.0.</p>
-							<p>The short version is that you can download and modify the source, and redistribute your modifications (even with another license). All original code of your modification will retain the Apache License. To learn more, please visit <a href="https://www.apache.org/licenses/LICENSE-2.0">the Apache License page</a></p>
+							<p>This app is licensed under the Apache License Version 2.0. To learn more, please visit <a href="https://www.apache.org/licenses/LICENSE-2.0">the Apache License page</a>.</p>
+							<p>The short version is that you can download and modify the source, and redistribute your modifications. You must retain the original copyright and state any changes within the NOTICE file. A better summary can be found <a hef="https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)">here</a>.</p>
 						</v-card-text>
 					</v-card>
 				</v-expansion-panel-content>
@@ -61,6 +61,9 @@
 							<v-alert color="success" icon="check_circle" v-model="alerts.powers.export" dismissible>
 								All powers are exported.
 							</v-alert>
+							<v-alert color="error" icon="indeterminate_check_box" v-model="alerts.powers.unsupported" dismissible>
+								Unfortunately this feature is not supported for your platform.
+							</v-alert>
 							<v-btn small outline color="primary" @click="clear('power')"><v-icon>clear</v-icon> Clear</v-btn>
 							<v-btn small outline color="primary" @click="reset('power')"><v-icon>replay</v-icon> Reset</v-btn>
 							<v-btn small outline color="primary" @click="outFile('power')"><v-icon>file_download</v-icon> Export</v-btn>
@@ -76,18 +79,15 @@
 	export default {
 		data() {
       		return {
+				platform: "",
 				alerts: {
 					powers: {
 						clear: false,
 						reset: false,
-						export: false
+						export: false,
+						unsupported: false
 					}
 				}
-			}
-		},
-		computed: {
-			platform() {
-				return device.platform;
 			}
 		},
 		methods: {
@@ -114,18 +114,31 @@
 			},
 			outFile(store) {
 				let result = this.$bsFactory.getStore(store).getAll()
-				let element = document.createElement('a')
 				let self = this
-				result.onsuccess = function(e) {
-					element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(result.result, null, 2)))
-					element.setAttribute('download', store + '.json')
-					element.style.display = 'none'
-					document.body.appendChild(element)
-					element.click()
-					document.body.removeChild(element)
-					self.alerts.powers.export = true
+				switch(this.platform) {
+					case 'browser':
+						let element = document.createElement('a')
+						result.onsuccess = function(e) {
+							element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(result.result, null, 2)))
+							element.setAttribute('download', store + '.json')
+							element.style.display = 'none'
+							document.body.appendChild(element)
+							element.click()
+							document.body.removeChild(element)
+							self.alerts.powers.export = true
+						}
+						break
+					default:
+						this.alerts.powers.unsupported = true
 				}
+				
 			}
+		},
+		mounted() {
+			let self = this
+			document.addEventListener("deviceready", function() {
+				self.platform = device.platform
+			}, false);
 		}
 	}
 </script>

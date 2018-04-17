@@ -9,21 +9,23 @@
                 <v-tab href="#hazard"><strong>Hazards</strong></v-tab>
             </v-tabs>
         </v-toolbar>
-        <v-tab-item id="player" v-model="tab" touchless>
-            <player-rules></player-rules>
-        </v-tab-item>
-        <v-tab-item id="skills" >
-            <skill-rules></skill-rules>
-        </v-tab-item>
-        <v-tab-item id="talents" >
-            <talent-rules></talent-rules>
-        </v-tab-item>
-        <v-tab-item id="ship" >
-            <ship-rules></ship-rules>
-        </v-tab-item>
-        <v-tab-item id="hazard" >
-            <hazard-rules></hazard-rules>
-        </v-tab-item>
+        <v-tabs-items v-model="tab" touchless>
+            <v-tab-item id="player">
+                <player-rules></player-rules>
+            </v-tab-item>
+            <v-tab-item id="skills" >
+                <skill-rules></skill-rules>
+            </v-tab-item>
+            <v-tab-item id="talents" >
+                <talent-rules></talent-rules>
+            </v-tab-item>
+            <v-tab-item id="ship" >
+                <ship-rules></ship-rules>
+            </v-tab-item>
+            <v-tab-item id="hazard" >
+                <hazard-rules></hazard-rules>
+            </v-tab-item>
+        </v-tabs-items>
 	</v-container>
 </template>
 <script>

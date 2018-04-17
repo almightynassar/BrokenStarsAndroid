@@ -6,28 +6,16 @@
 				<v-card>
 					<v-card-title class="small-caps">{{ship.name}}</v-card-title>
 					<v-card-text>
-						<div>
-							<div>
-								<div><strong>AI</strong> <help-ship help="ai"></help-ship></div>
-								<div class="pull-right">{{ship.attributes.ai}}</div>
-							</div>
-							<div>
-								<div><strong>Armour</strong> <help-ship help="armour"></help-ship></div>
-								<div class="pull-right">{{ship.attributes.armour}}</div>
-							</div>
-							<div>
-								<div><strong>Bulk</strong> <help-ship help="bulk"></help-ship></div>
-								<div class="pull-right">{{ship.attributes.bulk}}</div>
-							</div>
-							<div>
-								<div><strong>Engine</strong> <help-ship help="engine"></help-ship></div>
-								<div class="pull-right">{{ship.attributes.engine}}</div>
-							</div>
-							<div>
-								<div><strong>Power</strong> <help-ship help="power"></help-ship></div>
-								<div class="pull-right">{{ship.attributes.power}}</div>
-							</div>
-						</div>
+						<div><strong>AI</strong> <help-ship help="ai"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.attributes.ai}}</div>
+						<div><strong>Armour</strong> <help-ship help="armour"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.attributes.armour}}</div>
+						<div><strong>Bulk</strong> <help-ship help="bulk"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.attributes.bulk}}</div>
+						<div><strong>Engine</strong> <help-ship help="engine"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.attributes.engine}}</div>
+						<div><strong>Power</strong> <help-ship help="power"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.attributes.power}}</div>
 					</v-card-text>
 					<v-card-actions>
 						<v-btn to="/ship/"><v-icon class="white">chevron_left</v-icon> Back</v-btn>
@@ -44,36 +32,20 @@
 				<v-card>
 					<v-card-title class="small-caps">Sub-Systems</v-card-title>
 					<v-card-text>
-						<div>
-							<div>
-								<div><strong>Autopilot</strong> <help-ship help="autopilot"></help-ship></div>
-								<div class="pull-right">{{ship.systems.autopilot}}</div>
-							</div>
-							<div>
-								<div><strong>ECM</strong> <help-ship help="ecm"></help-ship></div>
-								<div class="pull-right">{{ship.systems.ecm}}</div>
-							</div>
-							<div>
-								<div><strong>Navigation</strong> <help-ship help="navigation"></help-ship></div>
-								<div class="pull-right">{{ship.systems.navigation}}</div>
-							</div>
-							<div>
-								<div><strong>Operations</strong> <help-ship help="operations"></help-ship></div>
-								<div class="pull-right">{{ship.systems.operations}}</div>
-							</div>
-							<div>
-								<div><strong>Repair</strong> <help-ship help="repair"></help-ship></div>
-								<div class="pull-right">{{ship.systems.repair}}</div>
-							</div>
-							<div>
-								<div><strong>Sensors</strong> <help-ship help="sensors"></help-ship></div>
-								<div class="pull-right">{{ship.systems.sensors}}</div>
-							</div>
-							<div>
-								<div><strong>Weapons</strong> <help-ship help="weapons"></help-ship></div>
-								<div class="pull-right">{{ship.systems.weapons}}</div>
-							</div>
-						</div>
+						<div><strong>Autopilot</strong> <help-ship help="autopilot"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.systems.autopilot}}</div>
+						<div><strong>ECM</strong> <help-ship help="ecm"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.systems.ecm}}</div>
+						<div><strong>Navigation</strong> <help-ship help="navigation"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.systems.navigation}}</div>
+						<div><strong>Operations</strong> <help-ship help="operations"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.systems.operations}}</div>
+						<div><strong>Repair</strong> <help-ship help="repair"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.systems.repair}}</div>
+						<div><strong>Sensors</strong> <help-ship help="sensors"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.systems.sensors}}</div>
+						<div><strong>Weapons</strong> <help-ship help="weapons"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.systems.weapons}}</div>
 					</v-card-text>
 				</v-card>
 			</v-flex>
@@ -203,68 +175,36 @@
 				<v-card>
 					<v-card-title class="small-caps">Other Values</v-card-title>
 					<v-card-text>
-						<div>
-							<div>
-								<div><strong>AI Actions</strong> <help-ship help="ai-actions"></help-ship></div>
-								<div class="pull-right">{{ship.getActionsAI()}}</div>
-							</div>
-							<div>
-								<div><strong>AI Evade</strong> <help-ship help="evade"></help-ship></div>
-								<div class="pull-right">{{ship.getEvade()}}</div>
-							</div>
-							<div>
-								<div><strong>Cost</strong> <help-ship help="cost"></help-ship></div>
-								<div class="pull-right">{{ship.getCost() | currency}}</div>
-							</div>
-							<div>
-								<div><strong>Crew</strong> <help-ship help="crew"></help-ship></div>
-								<div class="pull-right">{{ship.getCrew()}}</div>
-							</div>
-							<div>
-								<div><strong>Designation</strong></div>
-								<div class="pull-right">{{ship.uuid}}</div>
-							</div>
-							<div>
-								<div><strong>Fuel per FTL</strong> <help-ship help="fuel"></help-ship></div>
-								<div class="pull-right">{{ship.getFTL()}}</div>
-							</div>
-							<div>
-								<div><strong>Hardpoints</strong> <help-ship help="hardpoints-used"></help-ship></div>
-								<div class="pull-right">{{ship.getHardpoints() + ship.getHardpointsUsed()}} Free / {{ship.getHardpoints()}} Total</div>
-							</div>
-							<div>
-								<div><strong>Hull</strong></div>
-								<div class="pull-right">{{ship.getHull()}}</div>
-							</div>
-							<div>
-								<div><strong>Hull Size</strong> <help-ship help="size"></help-ship></div>
-								<div class="pull-right">{{ship.getSize()}}</div>
-							</div>
-							<div>
-								<div><strong>Integrity</strong> <help-ship help="integrity"></help-ship></div>
-								<div class="pull-right">{{ship.getIntegrity()}}</div>
-							</div>
-							<div>
-								<div><strong>Power</strong> <help-ship help="power-used"></help-ship></div>
-								<div class="pull-right">{{ship.getPower() + ship.getPowerUsed()}} Free / {{ship.getPower()}} Total</div>
-							</div>
-							<div>
-								<div><strong>Rank</strong> <help-ship help="rank"></help-ship></div>
-								<div class="pull-right">{{ship.getRank()}} ({{ship.getPoints()}} points)</div>
-							</div>
-							<div>
-								<div><strong>Speed</strong> <help-ship help="speed"></help-ship></div>
-								<div class="pull-right">{{ship.getAcceleration()}} (<em>{{ ship.getAccelerationConverted() }} m/s</em>)</div>
-							</div>
-							<div>
-								<div><strong>Storage</strong> <help-ship help="storage-used"></help-ship></div>
-								<div class="pull-right">{{ship.getBulk() + ship.getBulkUsed()}} Free / {{ship.getBulk()}} Total</div>
-							</div>
-							<div>
-								<div><strong>Toughness</strong> <help-ship help="breech"></help-ship></div>
-								<div class="pull-right">{{ship.getToughness()}}</div>
-							</div>
-						</div>
+						<div><strong>AI Actions</strong> <help-ship help="ai-actions"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getActionsAI()}}</div>
+						<div><strong>AI Evade</strong> <help-ship help="evade"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getEvade()}}</div>
+						<div><strong>Cost</strong> <help-ship help="cost"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getCost() | currency}}</div>
+						<div><strong>Crew</strong> <help-ship help="crew"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getCrew()}}</div>
+						<div><strong>Designation</strong></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.uuid}}</div>
+						<div><strong>Fuel per FTL</strong> <help-ship help="fuel"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getFTL()}}</div>
+						<div><strong>Hardpoints</strong> <help-ship help="hardpoints-used"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getHardpoints() + ship.getHardpointsUsed()}} Free / {{ship.getHardpoints()}} Total</div>
+						<div><strong>Hull</strong></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getHull()}}</div>
+						<div><strong>Hull Size</strong> <help-ship help="size"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getSize()}}</div>
+						<div><strong>Integrity</strong> <help-ship help="integrity"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getIntegrity()}}</div>
+						<div><strong>Power</strong> <help-ship help="power-used"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getPower() + ship.getPowerUsed()}} Free / {{ship.getPower()}} Total</div>
+						<div><strong>Rank</strong> <help-ship help="rank"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getRank()}} ({{ship.getPoints()}} points)</div>
+						<div><strong>Speed</strong> <help-ship help="speed"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getAcceleration()}} (<em>{{ ship.getAccelerationConverted() }} m/s</em>)</div>
+						<div><strong>Storage</strong> <help-ship help="storage-used"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getBulk() + ship.getBulkUsed()}} Free / {{ship.getBulk()}} Total</div>
+						<div><strong>Toughness</strong> <help-ship help="breech"></help-ship></div>
+						<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getToughness()}}</div>
 					</v-card-text>
 				</v-card>
 			</v-flex>
@@ -306,7 +246,7 @@
 			 */
 			onClick() {
 				console.log( 'Saving ship: ' + this.ship.uuid )
-				let store = this.$bsFactory.getStore('store')
+				let store = this.$bsFactory.getStore('ship')
           		let data = this.ship.deflate()
 				let resultSet = store.put(data);
 				let self = this;
@@ -403,7 +343,7 @@
 		},
 		mounted() {
 			console.log( 'Searching for ship: ' + this.uuid )
-			let store = this.$bsFactory.getStore('store')
+			let store = this.$bsFactory.getStore('ship')
 			let resultSet = store.getAll()
 			let self = this
 			resultSet.onsuccess = function() {

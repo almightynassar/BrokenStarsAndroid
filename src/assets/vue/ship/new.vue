@@ -261,24 +261,22 @@
 				<v-flex sm12 md6 lg4>
 					<v-card>
 						<v-card-title class="small-caps">Ship Info</v-card-title>
-						<v-card-title>
-							<dl class="list">
-								<dt>Designation: <help-ship help="designation"></help-ship></dt>
-								<dd class="pull-right">{{ship.uuid}}</dd>
-								<dt>Crew <help-ship help="crew"></help-ship></dt>
-								<dd class="pull-right">{{ship.getCrew()}}</dd>
-								<dt>Fuel per FTL <help-ship help="fuel"></help-ship></dt>
-								<dd class="pull-right">{{ship.getFTL()}}</dd>
-								<dt>Hull Size <help-ship help="size"></help-ship></dt>
-								<dd class="pull-right">{{ship.getSize()}}</dd>
-								<dt>Speed <help-ship help="speed"></help-ship></dt>
-								<dd class="pull-right">{{ship.getAcceleration()}}</dd>
-								<dt>Rank <help-ship help="rank"></help-ship></dt>
-								<dd class="pull-right">{{ship.getRank()}}</dd>
-								<dt>Cost <help-ship help="cost"></help-ship></dt>
-								<dd class="pull-right">{{ship.getCost() | currency }}</dd>
-							</dl>
-						</v-card-title>
+						<v-card-text>
+							<div>Designation: <help-ship help="designation"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.uuid}}</div>
+							<div>Crew <help-ship help="crew"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getCrew()}}</div>
+							<div>Fuel per FTL <help-ship help="fuel"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getFTL()}}</div>
+							<div>Hull Size <help-ship help="size"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getSize()}}</div>
+							<div>Speed <help-ship help="speed"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getAcceleration()}}</div>
+							<div>Rank <help-ship help="rank"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getRank()}}</div>
+							<div>Cost <help-ship help="cost"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getCost() | currency }}</div>
+						</v-card-text>
 					</v-card>
 				</v-flex>
 
@@ -286,18 +284,16 @@
 				<v-flex sm12 md6 lg4>
 					<v-card>
 						<v-card-title class="small-caps">Combat</v-card-title>
-						<v-card-title>
-							<dl class="list">
-								<dt>AI Actions <help-ship help="ai-actions"></help-ship></dt>
-								<dd class="pull-right">{{ship.getActionsAI()}}</dd>
-								<dt>AI Evade <help-ship help="evade"></help-ship></dt>
-								<dd class="pull-right">{{ship.getEvade()}}</dd>
-								<dt>Integrity <help-ship help="integrity"></help-ship></dt>
-								<dd class="pull-right">{{ship.getIntegrity()}}</dd>
-								<dt>Toughness <help-ship help="breech"></help-ship></dt>
-								<dd class="pull-right">{{ship.getToughness()}}</dd>
-							</dl>
-						</v-card-title>
+						<v-card-text>
+							<div>AI Actions <help-ship help="ai-actions"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getActionsAI()}}</div>
+							<div>AI Evade <help-ship help="evade"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getEvade()}}</div>
+							<div>Integrity <help-ship help="integrity"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getIntegrity()}}</div>
+							<div>Toughness <help-ship help="breech"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getToughness()}}</div>
+						</v-card-text>
 					</v-card>
 				</v-flex>
 					
@@ -305,22 +301,20 @@
 				<v-flex sm12 md6 lg4>
 					<v-card flat>
 						<v-card-title class="small-caps">Storage &amp; Power</v-card-title>
-						<v-card-title>
-							<dl class="list">
-								<dt>Hardpoints <help-ship help="hardpoints"></help-ship></dt>
-								<dd class="pull-right">{{ship.getHardpoints()}}</dd>
-								<dt>Hardpoints (Free) <help-ship help="hardpoints-used"></help-ship></dt>
-								<dd class="pull-right">{{ship.getHardpoints() + ship.getHardpointsUsed()}}</dd>
-								<dt>Power (Total) <help-ship help="power-total"></help-ship></dt>
-								<dd class="pull-right">{{ship.getPower()}}</dd>
-								<dt>Power (Free) <help-ship help="power-used"></help-ship></dt>
-								<dd class="pull-right">{{ship.getPower() + ship.getPowerUsed()}}</dd>
-								<dt>Storage (Total) <help-ship help="storage-total"></help-ship></dt>
-								<dd class="pull-right">{{ship.getBulk()}}</dd>
-								<dt>Storage (Used) <help-ship help="storage-used"></help-ship></dt>
-								<dd class="pull-right">{{ship.getBulk() + ship.getBulkUsed()}}</dd>
-							</dl>
-						</v-card-title>
+						<v-card-text>
+							<div>Hardpoints <help-ship help="hardpoints"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getHardpoints()}}</div>
+							<div>Hardpoints (Free) <help-ship help="hardpoints-used"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getHardpoints() + ship.getHardpointsUsed()}}</div>
+							<div>Power (Total) <help-ship help="power-total"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getPower()}}</div>
+							<div>Power (Free) <help-ship help="power-used"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getPower() + ship.getPowerUsed()}}</div>
+							<div>Storage (Total) <help-ship help="storage-total"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getBulk()}}</div>
+							<div>Storage (Used) <help-ship help="storage-used"></help-ship></div>
+							<div class="ml-4 mt-1 mb-1 bottom-border">{{ship.getBulk() + ship.getBulkUsed()}}</div>
+						</v-card-text>
 					</v-card>
 				</v-flex>
 						
