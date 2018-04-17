@@ -16,7 +16,7 @@ export default {
     },
     // Art Specialisation: How "complex" the magic is
     art_specialisation: {
-        Neglible: {
+        Negligible: {
             base: 0.25,
             description: "The effect is barely noticiable, superficial, cosmetic, or barely enhances or reduces \
             existing properties. It does not inflict any damage."
@@ -41,7 +41,7 @@ export default {
         },
         Complete: {
             base: -1,
-            description: "You have complete mastery of the art. You can add or remove ideas, properties, or senses. \
+            description: "You have complete mastery. You can add or remove ideas, properties, or senses. \
             It inflicts a minimum of 2d10 damage (or boon)."
         },
     },

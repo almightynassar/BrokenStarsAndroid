@@ -56,8 +56,9 @@
           {
             name: "Education",
             attribute: "Smarts",
-            description: "You are well-studied and read. Since Common topics are covered by a basic Smarts Check, \
-            Education covers all other topics that may not be known to the average person."
+            description: "You are well-studied and read. Since Common Knowledge are covered by a basic Smarts Check, \
+            Education covers all other topics that may not be known to the average person. This is includes advanced \
+            knowledge in maths, geography, sciences, and other stuff you would learn in school, college and university."
           },
           {
             name: "Fighting",
@@ -96,6 +97,11 @@
             attribute: "Spirit",
             description: "The ability to convince others to do what you want, or to make them believe what you say is true. This skill is \
             modified by your Charisma. See the Player Rules for examples of how to use during play."
+          },
+          {
+            name: "Programming",
+            attribute: "Smarts",
+            description: "You understand the inner workings of computers. You can create or modify programs and other digital systems."
           },
           {
             name: "Piloting",

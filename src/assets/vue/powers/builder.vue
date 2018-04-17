@@ -128,7 +128,7 @@
 				power: {
                     name: "Test Power",
                     art: 'Control',
-                    art_specialisation: 'Neglible',
+                    art_specialisation: 'Negligible',
                     form: 'Biological',
                     form_specialisation: 'Basic',
                     range: 'Touch',

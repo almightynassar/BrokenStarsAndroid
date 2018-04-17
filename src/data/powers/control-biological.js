@@ -3,10 +3,10 @@ export default {
         {
             name: "Paralysis",
             art: "Control",
-            art_specialisation: "Major",
+            art_specialisation: "Complete",
             form: "Biological",
             form_specialisation: "Complex",
-            difficulty: "Standard",
+            difficulty: "Hard",
             duration: "Instant",
             range: "Smarts",
             target: "Single",
@@ -21,7 +21,7 @@ export default {
             art_specialisation: "Limited",
             form: "Biological",
             form_specialisation: "Simple",
-            difficulty: "Trivial",
+            difficulty: "Standard",
             duration: "Day",
             range: "Smarts",
             target: "Single",
@@ -32,16 +32,16 @@ export default {
         {
             name: "Touch of muscle control loss",
             art: "Control",
-            art_specialisation: "Minor",
+            art_specialisation: "Limited",
             form: "Biological",
             form_specialisation: "Simple",
-            difficulty: "Trivial",
+            difficulty: "Standard",
             duration: "Instant",
             range: "Touch",
             target: "Single",
             defence: "Vigor",
             description: "You interrupt the nervous system from the brain to the body part you touch. \
-                The target momentarily loses control of the body part (or parts) that you you touch. \
+                The target momentarily loses control of the body part (arm, hand, leg, ear, etc) that you touched. \
                 This could result in the target dropping something they are holding, among other effects.",
         }
     ]
