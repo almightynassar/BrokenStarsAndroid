@@ -4,7 +4,6 @@
       <div class="card-content">
         <div class="header">
           <h1 class="title">{{ card.name }}</h1>
-          <h2 class="rarity">{{ card.rarity | capitalize }}</h2>
         </div>
 
         <div class="art">
@@ -12,13 +11,13 @@
         </div>
 
         <div class="textBox">
+          <h2 class="rarity">{{ card.rarity | capitalize }}</h2>
           <p>{{ card.effect }}</p>
         </div>
       </div>
     </div>
     <footer>
-      <p>Art is owned, ™ &amp; © by {{ card.credit | capitalize }}</p>
-      <small>{{card.source}}</small>
+      <small><a :href="card.source">Owned, ™ &amp; © by {{ card.credit | capitalize }}</a></small>
     </footer>
   </div>
 </template>

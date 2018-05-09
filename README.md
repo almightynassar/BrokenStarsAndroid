@@ -72,7 +72,7 @@ The Linux instructions were done with Elementary OS, an Ubuntu-based distro. You
 
     Again, use the installation instrctions from the official documentation.
 1. Download [Android Studio or the Android SDK command line tools](https://developer.android.com/studio/index.html)
-1. Install cordova, the latest npm and n
+1. Install cordova, the latest npm and n ([Use this link for the latest instructions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions))
 
     **Linux**
     ```
@@ -97,8 +97,8 @@ The Linux instructions were done with Elementary OS, an Ubuntu-based distro. You
     
     Inside **~/.bashrc**:
     ```
-    ANDROID_HOME = ~/Android/sdk
-    PATH = $PATH:~/Android/sdk/tools/bin:~/Android/sdk/tools/platform-tools:~/Android/sdk/tools/tools
+    ANDROID_HOME=~/Android/sdk
+    PATH=$PATH:~/Android/sdk/tools/bin:~/Android/sdk/tools/platform-tools:~/Android/sdk/tools/tools
     export ANDROID_HOME
     export PATH
     ```
@@ -109,7 +109,7 @@ The Linux instructions were done with Elementary OS, an Ubuntu-based distro. You
 1. Install platforms and tools (not the build_tools line may not work)
     ```
     sdkmanager --update
-    sdkmanager "platforms;android-25" "system-images;android-25;google_apis;x86_64" "build_tools;25.0.0"
+    sdkmanager "platforms;android-25" "system-images;android-25;google_apis;x86_64" "build_tools;25.0.3"
     sdkmanager --licenses
     ```
 1. New devices may require a restart of adb

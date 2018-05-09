@@ -10,11 +10,22 @@ export default {
     // IndexedDB reference
     database: null,
     // IndexedDB database version
-    version: 5,
+    version: 6,
     // IndexedDB database details
     db: {
       name: "BrokenStars",
       tables: [
+        // Stores our Card Information
+        {
+          name: "CardStore",
+          keyPath: "uuid",
+          autoIncrement: true,
+          indices: [
+            "uuid",
+            "id"
+          ],
+          populate(store) {}
+        },
         // Stores our Map Marker information
         {
           name: "MarkerStore",

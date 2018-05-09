@@ -143,12 +143,12 @@
         let store = this.$bsFactory.getStore('power')
         let resultSet = store.delete(name)
         resultSet.onsuccess = function() {
+            self.loadPowers()
             self.snackbar.success = true
-        };
+        }
         resultSet.onerror = function() {
             self.snackbar.error = true
-        };
-        this.loadPowers()
+        }
         this.dialog = false
       },
       /**

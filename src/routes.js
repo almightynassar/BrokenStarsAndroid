@@ -14,7 +14,21 @@ const router = new VueRouter({
     // Cards
     {
       path: '/cards/',
-      component: require('./assets/vue/cards/layout.vue')
+      component: require('./assets/vue/cards/layout.vue'),
+      children: [
+        {
+          path: '',
+          component: require('./assets/vue/cards/list.vue')
+        },
+        {
+          path: 'loot',
+          component: require('./assets/vue/cards/loot.vue')
+        },
+        {
+          path: 'hand',
+          component: require('./assets/vue/cards/hand.vue')
+        }
+      ]
     },
     // Powers
     {
