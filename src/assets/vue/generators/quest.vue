@@ -25,6 +25,14 @@
 						</ul>
 					</div>
 				</li>
+				<li v-if="!!values.quest.side">
+					Optional: {{values.quest.side.name | capitalize}} 
+					<div v-if="!!values.quest.side.traits">
+						<ul v-for="(o, j) in values.quest.side.traits" :key="j">
+							<li>{{o | capitalize}}</li>
+						</ul>
+					</div>
+				</li>
 			</ul>
 
 			<p><strong class="small-caps">Neutral</strong> <help-quest help="neutral"></help-quest></p>

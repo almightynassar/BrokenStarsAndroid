@@ -117,31 +117,12 @@ export default {
    * Quest format
    * {
    *    name: "String",
+   *    side: "String",
    *    traits: [
    *      "List of trait strings"
    *    ]
    * }
    */
-  quest: [
-    'collection',
-    'courier',
-    'discovery',
-    'elimination',
-    'elude',
-    'escort',
-    'exploration',
-    'insertion',
-    'interaction',
-    'investigation',
-    'liberate',
-    'prevention',
-    'protection',
-    'reconnaissance',
-    'rescue',
-    'retrieval',
-    'survival',
-    'track',
-  ],
   getQuest() {
     // The template
     let quest = {
@@ -149,20 +130,27 @@ export default {
       traits: []
     }
     // Select an option at random
-    quest.name = this.quest[Math.round(Math.random() * (this.quest.length -1))]
-    // Is there a side mission component?
-    if (Math.round(Math.random())) {
-      let side = this.quest[Math.round(Math.random() * (this.quest.length -1))]
-      if (side !== quest.name) {
-        quest.name += " / " + side
-      }
-    }
+    quest.name = Npc.quest[Math.round(Math.random() * (Npc.quest.length -1))]
     // Determine the traits
     let number_of_traits = Math.round(Math.random()) + 1
     for (var i = 0; i < number_of_traits; i++) {
       let newValue = Trait.quest[Math.round(Math.random() * (Trait.quest.length -1))]
       if ( ! quest.traits.includes(newValue)) {
         quest.traits.push( newValue )
+      }
+    }
+    // Is there a side mission component?
+    if (Math.round(Math.random())) {
+      let side = Npc.quest[Math.round(Math.random() * (Npc.quest.length -1))]
+      if (side !== quest.name) {
+        quest.side = side
+      }
+      let number_of_traits = Math.round(Math.random()) + 1
+      for (var i = 0; i < number_of_traits; i++) {
+        let newValue = Trait.quest[Math.round(Math.random() * (Trait.quest.length -1))]
+        if ( ! quest.side.traits.includes(newValue)) {
+          quest.side.traits.push( newValue )
+        }
       }
     }
     // Return the object
