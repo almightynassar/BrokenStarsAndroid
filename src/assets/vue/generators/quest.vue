@@ -2,69 +2,102 @@
 	<v-card flat>
     	<v-card-text>
 			<p>Use this generator to help seed ideas for quests and missions. The generator will give you key words from which you can piece together an exciting adventure!</p>
-			
-			<p><strong class="small-caps">Starter</strong> <help-quest help="starter"></help-quest></p>
-			<ol class="proper-list">
-				<li v-for="(n, i) in values.starter" :key="i">
-					{{n.name | capitalize}}
-					<div v-if="n.traits.length > 0">
-						<ul v-for="(o, j) in n.traits" :key="j" >
-							<li>{{o | capitalize}}</li>
-						</ul>
-					</div>
-				</li>
-			</ol>
 
-			<p><strong class="small-caps">Type</strong> <help-quest help="type"></help-quest></p>
-			<ul class="proper-list">
-				<li>
-					{{values.quest.name | capitalize}} 
-					<div v-if="!!values.quest.traits">
-						<ul v-for="(o, j) in values.quest.traits" :key="j">
-							<li>{{o | capitalize}}</li>
-						</ul>
-					</div>
-				</li>
-				<li v-if="!!values.quest.side">
-					Optional: {{values.quest.side.name | capitalize}} 
-					<div v-if="!!values.quest.side.traits">
-						<ul v-for="(o, j) in values.quest.side.traits" :key="j">
-							<li>{{o | capitalize}}</li>
-						</ul>
-					</div>
-				</li>
-			</ul>
+			<div><span class="headline small-caps">Quest</span></div>
+			<v-divider></v-divider>
+			<v-container grid-list-md>
+				<v-layout row wrap>
+					<v-flex xs12 sm6 lg4>
+						<v-card>
+							<v-card-text>
+								<div><span class="title">Type(s)</span> <help-quest help="type"></help-quest></div>
+								<p>{{values.quest.name | capitalize}} </p>
+								<div v-if="!!values.quest.traits">
+									<ul class="proper-list" v-for="(o, j) in values.quest.traits" :key="j">
+										<li>{{o | capitalize}}</li>
+									</ul>
+								</div>
+								<div v-if="!!values.quest.side">
+									<v-divider></v-divider>
+									<p><em>Optional:</em> {{values.quest.side.name | capitalize}}</p>
+									<div v-if="!!values.quest.side.traits">
+										<ul class="proper-list" v-for="(o, j) in values.quest.side.traits" :key="j">
+											<li>{{o | capitalize}}</li>
+										</ul>
+									</div>
+								</div>
+							</v-card-text>
+						</v-card>
+					</v-flex>
+					<v-flex xs12 sm6 lg4>
+						<v-card>
+							<v-card-text>
+								<div><span class="title">Sources</span> <help-quest help="source"></help-quest></div>
+								<ol class="proper-list">
+									<li v-for="(n, i) in values.sources" :key="i">{{n | capitalize}}</li>
+								</ol>
+							</v-card-text>
+						</v-card>
+					</v-flex>
+					<v-flex xs12 sm6 lg4>
+						<v-card>
+							<v-card-text>
+								<div><span class="title">Locations</span> <help-quest help="location"></help-quest></div>
+								<ol class="proper-list">
+									<li v-for="(n, i) in values.locations" :key="i">{{n | capitalize}}</li>
+								</ol>
+							</v-card-text>
+						</v-card>
+					</v-flex>
+				</v-layout>
+			</v-container>
 
-			<p><strong class="small-caps">Neutral</strong> <help-quest help="neutral"></help-quest></p>
-			<ol class="proper-list">
-				<li v-for="(n, i) in values.neutral" :key="i">
-					{{n.name | capitalize}}
-					<div v-if="n.traits.length > 0">
-						<ul v-for="(o, j) in n.traits" :key="j">
-							<li>{{o | capitalize}}</li>
-						</ul>
-					</div>
-				</li>
-			</ol>
+			<div><span class="headline small-caps">Factions</span> <help-quest help="faction"></help-quest></div>
+			<v-divider></v-divider>
+			<v-container grid-list-md>
+				<v-layout row wrap>
+					<v-flex xs12 sm6 lg4 xl3 v-for="(n, i) in values.factions" :key="i">
+						<v-card>
+							<v-card-text class="px-0">
+								<h3 class="title mb-0">{{n.name | capitalize}}</h3>
+								<h4>Traits</h4>
+								<ul class="proper-list" v-for="(o, j) in n.traits" :key="j" >
+									<li>{{o | capitalize}}</li>
+								</ul>
+								<v-divider></v-divider>
+								<h4>Members</h4>
+								<div v-for="(o, j) in n.members" :key="j" >
+									<u>{{o.name | capitalize}}</u>
+									<ul class="proper-list" v-for="(p, k) in o.traits" :key="k">
+										<li>{{p | capitalize}}</li>
+									</ul>
+								</div>
+							</v-card-text>
+						</v-card>
+					</v-flex>
+				</v-layout>
+			</v-container>
 
-			<p><strong class="small-caps">Antagonists</strong> <help-quest help="antagonist"></help-quest></p>
-			<ol class="proper-list">
-				<li v-for="(n, i) in values.antagonists" :key="i">
-					{{n.name | capitalize}} 
-					<div v-if="n.traits.length > 0">
-						<ul v-for="(o, j) in n.traits" :key="j">
-							<li>{{o | capitalize}}</li>
-						</ul>
-					</div>
-				</li>
-			</ol>
+			<div><span class="headline small-caps">Others</span> <help-quest help="other"></help-quest></div>
+			<v-divider></v-divider>
+			<v-container grid-list-md>
+				<v-layout row wrap>
+					<v-flex xs12 sm6 lg4 v-for="(n, i) in values.others" :key="i">
+						<v-card>
+							<v-card-text>
+								<p><strong>{{n.name | capitalize}}</strong><p>
+								<div v-if="n.traits.length > 0">
+									<ul class="proper-list" v-for="(o, j) in n.traits" :key="j">
+										<li>{{o | capitalize}}</li>
+									</ul>
+								</div>
+							</v-card-text>
+						</v-card>
+					</v-flex>
+				</v-layout>
+			</v-container>
 
-			<p><strong class="small-caps">Locations</strong> <help-quest help="location"></help-quest></p>
-			<ol class="proper-list">
-				<li v-for="(n, i) in values.locations" :key="i">{{n | capitalize}}</li>
-			</ol>
-
-			<v-btn color="blue" @click="regenerate()"><v-icon color="white">refresh</v-icon></v-btn>
+			<v-btn color="blue" @click="makeQuest()"><v-icon color="white">refresh</v-icon></v-btn>
     	</v-card-text>
 	</v-card>
 </template>
@@ -75,59 +108,21 @@
 			return {
 				quests: this.$bsFactory.getTemplate('quests'),
 				values: {
-					starter: [],
-					quest: [],
-					neutral: [],
-					antagonists: [],
-					locations: []
+					quest: {},
+					locations: [],
+					factions: [],
+					others: [],
+					sources: []
 				}
 			}
 		},
-    methods: {
-			makeStarter() {
-				let nums = Math.round(Math.random() * 3) + 1
-				this.values['starter'] = []
-				for (var index = 0; index < nums; index++) {
-					this.values['starter'].push( this.quests.getStarter() )
-				}
-			},
+		methods: {
 			makeQuest() {
-				this.values['quest'] = this.quests.getQuest()
+				this.values = this.quests.get()
 			},
-			makeNeutral() {
-				let nums = Math.round(Math.random() * 2) + 1
-				this.values['neutral'] = []
-				for (var index = 0; index < nums; index++) {
-					this.values['neutral'].push( this.quests.getNeutral() )
-				}
-			},
-			makeAntagonist() {
-				let nums = Math.round(Math.random() * 4) + 1
-				this.values['antagonists'] = []
-				for (var index = 0; index < nums; index++) {
-					this.values['antagonists'].push( this.quests.getAntagonist() )
-				}
-			},
-			makeLocation() {
-				let nums = Math.round(Math.random() * 2) + 1
-				this.values['locations'] = []
-				for (var index = 0; index < nums; index++) {
-					let newValue = this.quests.getLocation()
-					if ( ! this.values.locations.includes(newValue)) {
-						this.values.locations.push( newValue )
-					}
-				}
-			},
-			regenerate() {
-				this.makeStarter()
-				this.makeQuest()
-				this.makeNeutral()
-				this.makeAntagonist()
-				this.makeLocation()
-      }
 		},
 		mounted() {
-			this.regenerate()
+			this.makeQuest()
 		}
 	}
 </script>

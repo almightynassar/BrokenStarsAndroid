@@ -152,6 +152,7 @@ export default {
         'youth crime gang',
     ],
     group: [
+        'acquantices of convienience',
         'bureaucratic department',
         'conglomerate',
         'corporation',
@@ -159,6 +160,7 @@ export default {
         'labour union',
         'local community group',
         'local council',
+        'long-term friends',
         'mercenary outfit',
         'political party',
         'religious group',
