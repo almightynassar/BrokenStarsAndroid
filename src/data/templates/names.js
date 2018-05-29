@@ -231,6 +231,8 @@ export default {
   start_c: new Chain(),
   word_c: new Chain(),
   end_c: new Chain(),
+  // List of names are stored here
+  list: [],
   // Our list statistics
   num_of_chars: 0,
   word_count: 0,
@@ -263,6 +265,7 @@ export default {
   // Create our chain from a list of names
   construct(names) {
     // Re-init our chains
+    this.list = names;
     this.reset();
     // Set our chain types
     this.start_c.setType(false);
@@ -318,6 +321,14 @@ export default {
       }
     }
     name += endToken;
-    return name[0].toUpperCase() + name.slice(1);
+    return name.replace(/\w\S*/g, function(txt){
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    })
+  },
+  fromList() {
+    let selected = Math.floor(Math.random() * this.list.length )
+    return this.list[selected].replace(/\w\S*/g, function(txt){
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    })
   }
 }
