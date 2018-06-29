@@ -7,7 +7,7 @@ export default {
      */
     government: {
         status: {
-            captive: "Directly controlled by another government as a colony, or a conquered territory.",
+            captive: "Directly controlled by another government as a colony, an integrated state, or a conquered territory.",
             contested: "Many entities hold claim to be the sole authorative central government. This may occur due to civil war, balkanization, criminals, or regional instability.",
             none: "No government.",
             stable: "A stable form of government controls the territory.",
@@ -36,19 +36,36 @@ export default {
         },
     },
     /**
-     * Level of government control
+     * Planetary - AI and Robot restrictions
+     * 
+     *  - Banned: Not allowed
+     *  - Restricted: Allowed only in certain approved cases
+     *  - Regulated: Must be Registered and adheres to additional laws
+     *  - Registered: Must be made known to authorities
+     */
+    artificial: {
+        none: "No restrictions on AI and Robots are enforced.",
+        minimal: "AI are registered.",
+        light: "AI are regulated.",
+        moderate: "AI and Robots are regulated.",
+        heavy: "AI is restricted. Robots are regulated.",
+        ultra: "AI are banned. Robots are restricted.",
+        extreme: "AI and Robots are banned.",
+    },
+    /**
+     * Planetary - Level of government control
      */
     control: {
         none: "No authority exerted on the populace.",
-        minimal: "Only major disruptive and dangerous crimes are punished, and unrestricted imports/exports & immigration.",
-        light: "Major & minor crimes are punished, and unrestricted imports/exports & immigration.",
-        moderate: "Major & minor crimes are punished, and monitored imports/exports & immigration.",
-        heavy: "Monitored speech & press, and restricted imports/exports & immigration.",
+        minimal: "Limited enforcement and crime prevention resources.",
+        light: "Significant enforcement and crime prevention resources.",
+        moderate: "Ubiquitous enforcement and crime prevention resources.",
+        heavy: "Regulated invasion of privacy, and monitored speech & press.",
         ultra: "Limited unwarranted invasion of privacy, restricted speech & press, and monitored movement of civilians & goods.",
-        extreme: "Unrestricted invasion of privacy, restricted speech & press, and rigid control of the movement of civilians & goods.",
+        extreme: "Unrestricted invasion of privacy, restricted speech & press, and restricted movement of civilians.",
     },
     /**
-     * Level of crime
+     * Planetary - Level of crime
      */
     crime: {
         none: "Crime is virtually non-existant.",
@@ -60,27 +77,60 @@ export default {
         extreme: "Unrestricted crime.",
     },
     /**
-     * Narcotics restrictions
+     * Planetary - Narcotics restrictions
+     * 
+     *  - Banned: Not allowed
+     *  - Restricted: Allowed only in certain approved cases
+     *  - Regulated: Must be Registered and adheres to additional laws
      */
     narcotics: {
-        none: "No restrictions on drugs or narcotics are enforced.",
-        minimal: "Sale of drugs and narcotics are regulated, but not restricted.",
-        light: "Sale of drugs and narcotics are regulated, and only harmful drugs are restricted.",
-        moderate: "Sale of drugs and narcotics are regulated, and only harmful and/or addictive drugs are restricted.",
-        heavy: "Only government-approved drugs are sold, with punishments enforced based on the unapproved drug's harmfulness and addictiveness.",
-        ultra: "Only limited government-approved drugs are sold, with punishments enforced for using or selling unapproved drugs.",
-        extreme: "No drugs or narcotics are allowed, with heavy punishments for selling or using them.",
+        none: "No restrictions on Narcotics are enforced.",
+        minimal: "Only harmful Narcotics are regulated.",
+        light: "Only harmful and/or addictive Narcotics are restricted.",
+        moderate: "Only harmful and/or addictive Narcotics are restricted. All other Narcotics are regulated.",
+        heavy: "Only harmful and/or addictive Narcotics are banned. All other Narcotics are regulated.",
+        ultra: "Only harmful and/or addictive Narcotics are banned. All other Narcotics are restricted.",
+        extreme: "Narcotics are banned.",
     },
     /**
-     * Weapon restrictions
+     * Planetary - Psionic restrictions
+     */
+    psionic: {
+        none: "No restrictions on Psionics are enforced.",
+        minimal: "Psionics are registered.",
+        light: "Psionics are registered. Use of psionic powers are regulated.",
+        moderate: "Psionics are registered. Use of psionic powers are restricted.",
+        heavy: "Psionics are regulated. Use of psionic powers are banned.",
+        ultra: "Psionics are restricted.",
+        extreme: "All Psionics are banned.",
+    },
+    /**
+     * Planetary - Level of trade control
+     */
+    trade: {
+        none: "Unrestricted imports/exports & immigration.",
+        minimal: "Unrestricted imports/exports. Registered immigration.",
+        light: "Registered imports/exports & immigration.",
+        moderate: "Registered imports/exports. Regulated immigration.",
+        heavy: "Regulated imports/exports & immigration.",
+        ultra: "Regulated imports/exports. Restricted immigration.",
+        extreme: "Restricted imports/exports & immigration.",
+    },
+    /**
+     * Planetary - Weapon restrictions
+     * 
+     *  - Banned: Not allowed
+     *  - Restricted: Allowed only in certain approved cases
+     *  - Regulated: Must be Registered and adheres to additional laws
+     *  - Registered: Must be made known to authorities
      */
     weapons: {
         none: "No restrictions on weapons or technologies are enforced.",
-        minimal: "WMD and other dangerous technologies are restricted.",
-        light: "WMD and other dangerous technologies are restricted. Explosives, machine guns, flamethrowers are regulated.",
-        moderate: "WMD, explosives, machine guns, flamethrowers and other dangerous technologies are restricted. Large firearms are regulated.",
-        heavy: "WMD, explosives, large firearms, flamethrowers and other dangerous technologies are restricted. Small firearms are regulated.",
-        ultra: "WMD, explosives, all firearms, flamethrowers and other dangerous technologies are restricted. Blades are regulated.",
-        extreme: "All weapons are restricted.",
+        minimal: "WMD and other dangerous technologies are regulated.",
+        light: "WMD and other dangerous technologies are restricted. Firearms are regulated.",
+        moderate: "WMD and other dangerous technologies are banned. Firearms are regulated.",
+        heavy: "WMD and other dangerous technologies are banned. Firearms are restricted. Blades are regulated.",
+        ultra: "WMD, Firearms and other dangerous technologies are banned. Blades are restricted.",
+        extreme: "All weapons are banned.",
     },
 }

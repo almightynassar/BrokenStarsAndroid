@@ -1,6 +1,7 @@
 import Governance from "./region/governance"
 import Nations from "./region/nations"
-import Planets from "./region/planets"
+import Planetoids from "./region/planetoids"
+import Population from "./region/population"
 import Stars from "./region/stars"
 import Tags from "./region/tags"
 export default {
@@ -11,11 +12,35 @@ export default {
   // Sector information
   nations: Nations,
   // Planet information
-  planets: Planets,
+  planetoids: Planetoids,
+  // Population information
+  population: Population,
   // Star information
   stars: Stars,
   // Tag information
   tags: Tags,
+  // Grab ALL population centres from the entry
+  getPopulationCentres(objects) {
+    let centres = []
+    _.forEach(objects, function(object) {
+      // Add to array if it has a population entry
+      if (object.population) {
+        centres.push(object)
+      }
+      // Add Satellites if they have a population entry
+      if (object.satellites) {
+        _.forEach(object.satellites, function(satellite) {
+          if (satellite.population) {
+            satellite.distance = object.distance
+            satellite.satellites = 'Orbiting ' + object.name
+            satellite.isSatellite = true
+            centres.push(satellite)
+          }
+        })
+      }
+    })
+    return centres
+  },
   // Categories
   categories: {
     sector: {
@@ -25,6 +50,15 @@ export default {
         "blue": "General risk. Exercise a high degree of caution.",
         "green": "Low risk. Exercise normal safety precautions."
       }
+    },
+    /**
+     * Object types
+     */
+    type: {
+      asteroid: "An area of debris",
+      jovian: "A gas giant",
+      station: "An artificial construction",
+      planetoid: "A rocky, metallic or icy ball",
     },
     planet: {
       shape: {
@@ -253,9 +287,9 @@ export default {
     // Some variables to track
     let economyNum = 0
     // Grab all of our economy values
-    if (sector.planets.length > 0) {
-      for (var index = 0; index < sector.planets.length; index++) {
-        economyNum += parseInt( this.getPlanetTrade(sector.planets[index]) )
+    if (sector.objects.length > 0) {
+      for (var index = 0; index < sector.objects.length; index++) {
+        economyNum += parseInt( this.getPlanetTrade(sector.objects[index]) )
       }
     }
     return Math.round(economyNum * this.getZoneNumber(sector.zone))

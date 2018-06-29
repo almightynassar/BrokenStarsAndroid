@@ -74,17 +74,8 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/regions/nation/',
-      component: require('./assets/vue/regions/nation/view.vue')
-    },
-    {
       path: '/regions/sector/view/:sector_x/:sector_y',
       component: require('./assets/vue/regions/sector/view.vue'),
-      props: true
-    },
-    {
-      path: '/regions/planet/view/:sector_x/:sector_y/:planet_index',
-      component: require('./assets/vue/regions/viewPlanet.vue'),
       props: true
     },
     // Rules

@@ -90,14 +90,14 @@
 				</v-card>
 			</v-flex>
 
-			<!-- PLANETS -->
+			<!-- SOLAR OBJECTS -->
 			<v-flex sm12 md6 lg4>
 				<v-card flat>
 					<v-card-title class="small-caps">Planets</v-card-title>
 					<v-card-text>
 						<v-data-table
 							:headers="fields.planets"
-							:items="sector.planets"
+							:items="sector.objects"
 							hide-actions
 							item-key="name"
 						>
